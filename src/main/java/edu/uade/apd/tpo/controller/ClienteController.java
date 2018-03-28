@@ -23,18 +23,13 @@ public class ClienteController {
 
 
     public Cliente login(final Long cuil, String password) {
-        /*
         Cliente cliente = this.buscarClientePorCuil(cuil);
         if (cliente.getPassword().equals(password)) {
             return cliente;
         }
         //TODO throw specific exception
         return null;
-        */
-        Cliente cliente = new Cliente();
-        cliente.setNombre("Agustin");
-        cliente.setCuil(123321L);
-        return cliente;
+
     }
 
     private Cliente buscarClientePorCuil(Long cuil) {
