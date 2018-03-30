@@ -1,8 +1,9 @@
 package edu.uade.apd.tpo.remote;
 
 import edu.uade.apd.tpo.controller.ClienteController;
+import edu.uade.apd.tpo.model.Cliente;
 import edu.uade.apd.tpo.repository.ClienteControllerRepository;
-import edu.uade.apd.tpo.repository.model.Cliente;
+import edu.uade.apd.tpo.repository.stub.ClienteStub;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -24,7 +25,13 @@ public class ClienteControllerRemote extends UnicastRemoteObject implements Clie
     }
 
     @Override
-    public Cliente login(Long cuil, String password) throws RemoteException {
-        return controller.login(cuil, password);
+    public ClienteStub login(Long cuil, String password) throws RemoteException {
+        return SerializationUtils.toStub(controller.login(cuil, password), ClienteStub.class);
+    }
+
+    @Override
+    public void test(ClienteStub stub) throws RemoteException {
+        Cliente cliente = SerializationUtils.fromStub(stub, Cliente.class);
+        System.out.println(cliente.getNombre());
     }
 }
