@@ -1,47 +1,24 @@
 package edu.uade.apd.tpo.controller;
 
 import edu.uade.apd.tpo.model.Cliente;
+import edu.uade.apd.tpo.service.ClienteService;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.List;
 import java.util.Optional;
 
+@Singleton
 public class ClienteController {
 
-    private static ClienteController instance;
-    private List<Cliente> clientes;
+    private ClienteService clienteService;
 
-    private ClienteController() {
-        //TODO inicializar listado clientes
+    @Inject
+    public ClienteController(ClienteService clienteService) {
+        this.clienteService = clienteService;
     }
-
-    public static ClienteController getInstance() {
-        if (instance == null) {
-            instance = new ClienteController();
-        }
-        return instance;
-    }
-
 
     public Cliente login(final Long cuil, String password) {
-        Cliente cliente = new Cliente();
-        cliente.setNombre("Agustin");
-        return cliente;
-        /*
-        Cliente cliente = this.buscarClientePorCuil(cuil);
-        if (cliente.getPassword().equals(password)) {
-            return cliente;
-        }
-        //TODO throw specific exception
-        return null;
-        */
+        return clienteService.login(cuil, password);
     }
-
-    private Cliente buscarClientePorCuil(Long cuil) {
-        Optional<Cliente> cliente = clientes.stream().filter(c -> c.getCuil() == cuil).findFirst();
-        if (cliente.isPresent()) {
-            return cliente.get();
-        }
-        return null;
-    }
-
 }
