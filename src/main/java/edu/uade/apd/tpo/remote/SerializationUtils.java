@@ -17,7 +17,7 @@ public class SerializationUtils {
     }
 
     private static <T, R> T clone(R r, Class<T> clazz) {
-        T t;
+        T t = null;
         try {
             t = clazz.newInstance();
             for (Field f : t.getClass().getDeclaredFields()) {
@@ -26,6 +26,8 @@ public class SerializationUtils {
                 f2.setAccessible(true);
                 f.set(t, f2.get(r));
             }
+        } catch (NoSuchFieldException e) {
+            //continue
         } catch (Exception e) {
             throw new SerializationException("Error mapping object", e);
         }

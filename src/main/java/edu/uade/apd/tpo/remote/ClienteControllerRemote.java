@@ -13,13 +13,13 @@ public class ClienteControllerRemote extends UnicastRemoteObject implements Clie
     private static ClienteControllerRemote instance;
     private ClienteController controller;
 
-    private ClienteControllerRemote() throws RemoteException {
-        controller = ClienteController.getInstance();
+    private ClienteControllerRemote(ClienteController controller) throws RemoteException {
+        this.controller = controller;
     }
 
-    public static ClienteControllerRemote getInstance() throws RemoteException {
+    public static ClienteControllerRemote getInstance(ClienteController controller) throws RemoteException {
         if (instance == null) {
-            instance = new ClienteControllerRemote();
+            instance = new ClienteControllerRemote(controller);
         }
         return instance;
     }
