@@ -1,9 +1,9 @@
 package edu.uade.apd.tpo;
 
 import com.google.inject.Injector;
-import edu.uade.apd.tpo.controller.ClienteController;
-import edu.uade.apd.tpo.remote.ClienteControllerRemote;
-import edu.uade.apd.tpo.repository.ClienteControllerRepository;
+import edu.uade.apd.tpo.controller.SistemaAdministracion;
+import edu.uade.apd.tpo.remote.SistemaAdministracionRemote;
+import edu.uade.apd.tpo.repository.SistemaAdministracionRepository;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -20,10 +20,10 @@ public class Server {
     }
 
     private void init() throws RemoteException {
-        ClienteControllerRepository or = ClienteControllerRemote.getInstance(injector.getInstance(ClienteController.class));
+        SistemaAdministracionRepository administracion = SistemaAdministracionRemote.getInstance(injector.getInstance(SistemaAdministracion.class));
         try {
             LocateRegistry.createRegistry(1099);
-            Naming.rebind("//127.0.0.1/cliente", or);
+            Naming.rebind("//127.0.0.1/administracion", administracion);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

@@ -3,7 +3,6 @@ package edu.uade.apd.tpo;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import edu.uade.apd.tpo.config.ServiceModule;
-import edu.uade.apd.tpo.controller.ClienteController;
 
 public class App {
 
