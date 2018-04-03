@@ -1,18 +1,16 @@
 package edu.uade.apd.tpo.model;
 
-import edu.uade.apd.tpo.repository.stub.ClienteStub;
+import java.util.List;
 
-public class Cliente {
+public class Cliente extends Usuario {
 
     private String nombre;
     private Long cuil;
-    private String email;
-    private String password;
     private String telefono;
     private Domicilio domicilio;
     private CondIva condIva;
     private CuentaCorriente cuentaCorriente;
-    private Pedido pedido;
+    private List<Pedido> pedidos;
 
     public String getNombre() {
         return nombre;
@@ -28,22 +26,6 @@ public class Cliente {
 
     public void setCuil(Long cuil) {
         this.cuil = cuil;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getTelefono() {
@@ -78,11 +60,11 @@ public class Cliente {
         this.cuentaCorriente = cuentaCorriente;
     }
 
-    public Pedido getPedido() {
-        return pedido;
+    public List<Pedido> getPedidos() {
+        return pedidos;
     }
 
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 }

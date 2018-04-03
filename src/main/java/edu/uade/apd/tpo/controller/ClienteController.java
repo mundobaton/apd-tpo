@@ -5,8 +5,6 @@ import edu.uade.apd.tpo.service.ClienteService;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.List;
-import java.util.Optional;
 
 @Singleton
 public class ClienteController {
