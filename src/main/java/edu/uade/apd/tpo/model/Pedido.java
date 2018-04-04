@@ -1,5 +1,6 @@
 package edu.uade.apd.tpo.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -85,5 +86,19 @@ public class Pedido {
 
     public void setEstados(List<Estado> estados) {
         this.estados = estados;
+    }
+
+    public void addEstado(Estado estado) {
+        if (this.estados == null) {
+            estados = new ArrayList<>();
+        }
+        this.estados.add(estado);
+    }
+
+    public void addItem(ItemPedido itemPedido) {
+        if (this.items == null) {
+            items = new ArrayList<>();
+        }
+        this.items.add(itemPedido);
     }
 }

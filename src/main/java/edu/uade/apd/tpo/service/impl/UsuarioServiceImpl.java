@@ -1,7 +1,9 @@
 package edu.uade.apd.tpo.service.impl;
 
 import edu.uade.apd.tpo.model.Cliente;
+import edu.uade.apd.tpo.model.CondIva;
 import edu.uade.apd.tpo.model.Domicilio;
+import edu.uade.apd.tpo.model.Rol;
 import edu.uade.apd.tpo.model.Usuario;
 import edu.uade.apd.tpo.service.UsuarioService;
 
@@ -16,5 +18,15 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setEmail("asd@email.com");
         usuario.setPassword("un password seguro");
         return usuario;
+    }
+
+    @Override
+    public void crearUsuario(String email, String password, Rol rol) {
+        //TODO
+    }
+
+    @Override
+    public void crearCliente(String email, String password, Long cuil, String nombre, String apellido, Domicilio domicilio, CondIva condIva) {
+        //TODO
     }
 }
