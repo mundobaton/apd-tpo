@@ -1,6 +1,5 @@
 package edu.uade.apd.tpo.service;
 
-import edu.uade.apd.tpo.model.Cliente;
 import edu.uade.apd.tpo.model.Usuario;
 
 public interface UsuarioService {
