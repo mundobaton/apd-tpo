@@ -36,8 +36,8 @@ public class SistemaAdministracion {
         usuarioService.crearUsuario(email, password, rol);
     }
 
-    public void crearCliente(String email, String password, Long cuil, String nombre, String apellido, Domicilio domicilio, CondIva condIva) {
-        usuarioService.crearCliente(email, password, cuil, nombre, apellido, domicilio, condIva);
+    public Cliente crearCliente(String email, String password, Long cuil, String nombre, Domicilio domicilio, CondIva condIva) {
+        return usuarioService.crearCliente(email, password, cuil, nombre, domicilio, condIva);
     }
 
     public Pedido crearPedido(Cliente cliente, Domicilio domicilio) {

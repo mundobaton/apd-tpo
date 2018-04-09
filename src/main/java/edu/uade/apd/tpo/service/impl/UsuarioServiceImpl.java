@@ -26,7 +26,15 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public void crearCliente(String email, String password, Long cuil, String nombre, String apellido, Domicilio domicilio, CondIva condIva) {
-        //TODO
+    public Cliente crearCliente(String email, String password, Long cuil, String nombre, Domicilio domicilio, CondIva condIva) {
+        Cliente cli = new Cliente();
+        cli.setEmail(email);
+        cli.setPassword(password);
+        cli.setCuil(cuil);
+        cli.setNombre(nombre);
+        cli.setDomicilio(domicilio);
+        cli.setCondIva(condIva);
+        //TODO persistir cliente
+        return cli;
     }
 }

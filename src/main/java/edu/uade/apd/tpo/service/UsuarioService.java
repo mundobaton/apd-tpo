@@ -1,5 +1,6 @@
 package edu.uade.apd.tpo.service;
 
+import edu.uade.apd.tpo.model.Cliente;
 import edu.uade.apd.tpo.model.CondIva;
 import edu.uade.apd.tpo.model.Domicilio;
 import edu.uade.apd.tpo.model.Rol;
@@ -11,5 +12,5 @@ public interface UsuarioService {
 
     void crearUsuario(String email, String password, Rol rol);
 
-    void crearCliente(String email, String password, Long cuil, String nombre, String apellido, Domicilio domicilio, CondIva condIva);
+    Cliente crearCliente(String email, String password, Long cuil, String nombre, Domicilio domicilio, CondIva condIva);
 }
