@@ -1,11 +1,14 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.dao.impl.UsuarioDao;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 
 @Entity
@@ -21,6 +24,9 @@ public class Usuario implements Serializable {
     @Column(name = "password")
     private String password;
     private Rol rol;
+
+    public Usuario() {
+    }
 
     public Long getId() {
         return id;
@@ -52,5 +58,9 @@ public class Usuario implements Serializable {
 
     public void setRol(Rol rol) {
         this.rol = rol;
+    }
+
+    public void guardar() {
+        UsuarioDao.getInstance().save(this);
     }
 }

@@ -1,50 +1,41 @@
 package edu.uade.apd.tpo.controller;
 
-import edu.uade.apd.tpo.model.Articulo;
-import edu.uade.apd.tpo.model.Cliente;
-import edu.uade.apd.tpo.model.CondIva;
-import edu.uade.apd.tpo.model.Domicilio;
-import edu.uade.apd.tpo.model.Pedido;
-import edu.uade.apd.tpo.model.Rol;
+import edu.uade.apd.tpo.dao.impl.UsuarioDao;
 import edu.uade.apd.tpo.model.Usuario;
-import edu.uade.apd.tpo.service.PedidoService;
-import edu.uade.apd.tpo.service.UsuarioService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.util.List;
 
-@Singleton
 public class SistemaAdministracion {
 
-    private UsuarioService usuarioService;
-    private PedidoService pedidoService;
-    private List<Usuario> usuarios;
-    private List<Pedido> pedidos;
+    private static SistemaAdministracion instance;
+    private UsuarioDao usuarioDao;
+    private static final Logger logger = LoggerFactory.getLogger(SistemaAdministracion.class);
 
-    @Inject
-    public SistemaAdministracion(UsuarioService usuarioService, PedidoService pedidoService) {
-        this.usuarioService = usuarioService;
-        this.pedidoService = pedidoService;
+    private SistemaAdministracion() {
+        this.usuarioDao = UsuarioDao.getInstance();
     }
 
-    public Usuario login(String email, String password) {
-        return usuarioService.login(email, password);
+    public static SistemaAdministracion getInstance() {
+        if (instance == null) {
+            instance = new SistemaAdministracion();
+        }
+        return instance;
     }
 
-    public void crearUsuario(String email, String password, Rol rol) {
-        usuarioService.crearUsuario(email, password, rol);
+    public List<Usuario> getUsuarios() {
+        return usuarioDao.findAll();
     }
 
-    public Cliente crearCliente(String email, String password, Long cuil, String nombre, Domicilio domicilio, CondIva condIva) {
-        return usuarioService.crearCliente(email, password, cuil, nombre, domicilio, condIva);
+    public void crearUsuario(String email, String password) {
+        logger.debug("Creando usuario...");
+        Usuario u = new Usuario();
+        u.setEmail(email);
+        u.setPassword(password);
+        u.guardar();
+        logger.debug("Usuario creado exitosamente...");
     }
 
-    public Pedido crearPedido(Cliente cliente, Domicilio domicilio) {
-        return pedidoService.crearPedido(cliente, domicilio);
-    }
 
-    public void agregarItemPedido(Pedido pedido, Articulo articulo, int cantidad) {
-        pedidoService.agregarItem(pedido, articulo, cantidad);
-    }
 }
