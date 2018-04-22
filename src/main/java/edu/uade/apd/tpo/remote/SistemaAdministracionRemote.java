@@ -40,18 +40,4 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
     public List<UsuarioStub> getUsuarios() {
         return controller.getUsuarios().parallelStream().map(u -> SerializationUtils.toStub(u, UsuarioStub.class)).collect(Collectors.toList());
     }
-
-    /*
-    @Override
-    public UsuarioStub login(String email, String password) throws RemoteException {
-        return SerializationUtils.toStub(controller.login(email, password), UsuarioStub.class);
-    }
-
-    @Override
-    public ClienteStub crearCliente(String email, String password, DomicilioStub dom) throws RemoteException {
-        Domicilio domicilio = SerializationUtils.fromStub(dom, Domicilio.class);
-        ClienteStub stub = SerializationUtils.toStub(controller.crearCliente(email, password, 123L, "un nombre", domicilio, CondIva.CONS_FINAL), ClienteStub.class);
-        return stub;
-    }
-*/
 }
