@@ -3,8 +3,6 @@ package edu.uade.apd.tpo.remote;
 import edu.uade.apd.tpo.exception.SerializationException;
 import edu.uade.apd.tpo.repository.stub.BaseStub;
 
-import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 
 public class SerializationUtils {
