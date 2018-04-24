@@ -50,6 +50,10 @@ public class Usuario implements Stubeable<UsuarioStub> {
         UsuarioDao.getInstance().save(this);
     }
 
+    public void modificar() {
+        UsuarioDao.getInstance().update(this);
+    }
+
     @Override
     public UsuarioStub toStub() {
         return TransformUtils.to(this, UsuarioStub.class);

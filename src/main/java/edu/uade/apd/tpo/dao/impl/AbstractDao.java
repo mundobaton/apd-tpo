@@ -21,7 +21,17 @@ public abstract class AbstractDao<R extends BaseEntity> {
     protected void save(R t) {
         try (Session session = sessionManager.getSessionFactory().openSession()) {
             session.beginTransaction();
-            session.saveOrUpdate(t);
+            session.save(t);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            throw new PersistenceException("Error saving object", e);
+        }
+    }
+
+    protected void update(R t) {
+        try (Session session = sessionManager.getSessionFactory().openSession()) {
+            session.beginTransaction();
+            session.update(t);
             session.getTransaction().commit();
         } catch (Exception e) {
             throw new PersistenceException("Error saving object", e);

@@ -36,4 +36,9 @@ public class UsuarioDao extends AbstractDao<UsuarioEntity> {
         UsuarioEntity entity = TransformUtils.to(usuario, UsuarioEntity.class);
         super.save(entity);
     }
+
+    public void update(Usuario usuario) {
+        UsuarioEntity entity = TransformUtils.to(usuario, UsuarioEntity.class);
+        super.update(entity);
+    }
 }

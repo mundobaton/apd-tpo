@@ -38,5 +38,11 @@ public class SistemaAdministracion {
         logger.debug("Usuario creado exitosamente...");
     }
 
+    public void actualizarUsuario(Usuario u) {
+        logger.debug("Modificando usuario...");
+        u.modificar();
+        logger.debug("Usuario modificado exitosamente...");
+    }
+
 
 }
