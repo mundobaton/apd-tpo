@@ -23,8 +23,6 @@ public abstract class AbstractDao<R extends BaseEntity> {
             session.beginTransaction();
             session.save(r);
             session.getTransaction().commit();
-        } catch (Exception e) {
-            throw new PersistenceException("Error saving object", e);
         }
     }
 
@@ -33,8 +31,6 @@ public abstract class AbstractDao<R extends BaseEntity> {
             session.beginTransaction();
             session.update(r);
             session.getTransaction().commit();
-        } catch (Exception e) {
-            throw new PersistenceException("Error updating object", e);
         }
     }
 
@@ -43,8 +39,6 @@ public abstract class AbstractDao<R extends BaseEntity> {
             session.beginTransaction();
             session.delete(r);
             session.getTransaction().commit();
-        } catch (Exception e) {
-            throw new PersistenceException("Error deleting object", e);
         }
     }
 
