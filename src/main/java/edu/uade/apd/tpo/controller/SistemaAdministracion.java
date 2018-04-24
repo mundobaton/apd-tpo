@@ -1,6 +1,7 @@
 package edu.uade.apd.tpo.controller;
 
 import edu.uade.apd.tpo.dao.impl.UsuarioDao;
+import edu.uade.apd.tpo.entity.UsuarioEntity;
 import edu.uade.apd.tpo.model.Usuario;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -5,13 +5,9 @@ import edu.uade.apd.tpo.repository.stub.BaseStub;
 
 import java.lang.reflect.Field;
 
-public class SerializationUtils {
+public class TransformUtils {
 
-    static <T extends BaseStub, R> T toStub(R r, Class<T> clazz) {
-        return clone(r, clazz);
-    }
-
-    static <T, R extends BaseStub> T fromStub(R r, Class<T> clazz) {
+    public static <T, R> T to(R r, Class<T> clazz) {
         return clone(r, clazz);
     }
 
@@ -34,6 +30,8 @@ public class SerializationUtils {
                 }
 
             }
+        } catch (InstantiationException ie) {
+            //Continue with other objects
         } catch (Exception e) {
             throw new SerializationException("Error mapping object", e);
         }

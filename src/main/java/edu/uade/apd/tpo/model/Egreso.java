@@ -1,9 +1,11 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.entity.UsuarioEntity;
+
 public class Egreso extends Movimiento {
 
     private MotivoEgreso motivoEgreso;
-    private Usuario encargado;
+    private UsuarioEntity encargado;
     private String autorizante;
     private String destino;
 
@@ -15,11 +17,11 @@ public class Egreso extends Movimiento {
         this.motivoEgreso = motivoEgreso;
     }
 
-    public Usuario getEncargado() {
+    public UsuarioEntity getEncargado() {
         return encargado;
     }
 
-    public void setEncargado(Usuario encargado) {
+    public void setEncargado(UsuarioEntity encargado) {
         this.encargado = encargado;
     }
 

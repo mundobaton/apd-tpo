@@ -1,8 +1,10 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.entity.UsuarioEntity;
+
 import java.util.List;
 
-public class Cliente extends Usuario {
+public class Cliente extends UsuarioEntity {
 
     private String nombre;
     private Long cuil;

@@ -1,17 +1,32 @@
-package edu.uade.apd.tpo.model;
+package edu.uade.apd.tpo.entity;
 
 import edu.uade.apd.tpo.dao.impl.UsuarioDao;
-import edu.uade.apd.tpo.remote.TransformUtils;
-import edu.uade.apd.tpo.repository.stub.UsuarioStub;
+import edu.uade.apd.tpo.model.Rol;
 
-public class Usuario implements Stubeable<UsuarioStub> {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.io.Serializable;
 
+@Entity
+@Table(name = "usuarios")
+public class UsuarioEntity extends BaseEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "usuario_id")
     private long id;
+    @Column(name = "email")
     private String email;
+    @Column(name = "password")
     private String password;
     private Rol rol;
 
-    public Usuario() {
+    public UsuarioEntity() {
     }
 
     public Long getId() {
@@ -44,18 +59,5 @@ public class Usuario implements Stubeable<UsuarioStub> {
 
     public void setRol(Rol rol) {
         this.rol = rol;
-    }
-
-    public void guardar() {
-        UsuarioDao.getInstance().save(this);
-    }
-
-    @Override
-    public UsuarioStub toStub() {
-        return TransformUtils.to(this, UsuarioStub.class);
-    }
-
-    public static Usuario fromStub(UsuarioStub stub) {
-        return TransformUtils.to(stub, Usuario.class);
     }
 }

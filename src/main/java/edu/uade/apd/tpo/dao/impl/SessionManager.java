@@ -1,6 +1,6 @@
 package edu.uade.apd.tpo.dao.impl;
 
-import edu.uade.apd.tpo.model.Usuario;
+import edu.uade.apd.tpo.entity.UsuarioEntity;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -13,7 +13,7 @@ public class SessionManager {
     private SessionManager() {
         if (sessionFactory == null) {
             Configuration configuration = new Configuration().configure();
-            configuration.addAnnotatedClass(Usuario.class);
+            configuration.addAnnotatedClass(UsuarioEntity.class);
             StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
             sessionFactory = configuration.buildSessionFactory(builder.build());
         }

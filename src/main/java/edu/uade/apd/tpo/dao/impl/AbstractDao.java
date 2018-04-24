@@ -1,5 +1,6 @@
 package edu.uade.apd.tpo.dao.impl;
 
+import edu.uade.apd.tpo.entity.BaseEntity;
 import edu.uade.apd.tpo.exception.PersistenceException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -9,7 +10,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import java.io.Serializable;
 import java.util.List;
 
-public abstract class AbstractDao<T extends Serializable> {
+public abstract class AbstractDao<T, R extends BaseEntity> {
 
     private SessionManager sessionManager;
 
@@ -17,7 +18,7 @@ public abstract class AbstractDao<T extends Serializable> {
         this.sessionManager = SessionManager.getInstance();
     }
 
-    public void save(T t) {
+    protected void save(R t) {
         try (Session session = sessionManager.getSessionFactory().openSession()) {
             session.beginTransaction();
             session.saveOrUpdate(t);
@@ -27,18 +28,18 @@ public abstract class AbstractDao<T extends Serializable> {
         }
     }
 
-    protected List<T> resultList(CriteriaQuery<T> cq) {
+    protected List<R> resultList(CriteriaQuery<R> cq) {
         try (Session session = sessionManager.getSessionFactory().openSession()) {
-            Query<T> query = session.createQuery(cq);
+            Query<R> query = session.createQuery(cq);
             return query.getResultList();
         } catch (Exception e) {
             throw new PersistenceException("Error executing query", e);
         }
     }
 
-    protected T singleResult(CriteriaQuery<T> cq) {
+    protected R singleResult(CriteriaQuery<R> cq) {
         try (Session session = sessionManager.getSessionFactory().openSession()) {
-            Query<T> query = session.createQuery(cq);
+            Query<R> query = session.createQuery(cq);
             return query.getSingleResult();
         } catch (Exception e) {
             throw new PersistenceException("Error executing query", e);

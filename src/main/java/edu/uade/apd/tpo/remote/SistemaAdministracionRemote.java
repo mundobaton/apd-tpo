@@ -1,13 +1,7 @@
 package edu.uade.apd.tpo.remote;
 
 import edu.uade.apd.tpo.controller.SistemaAdministracion;
-import edu.uade.apd.tpo.model.Cliente;
-import edu.uade.apd.tpo.model.CondIva;
-import edu.uade.apd.tpo.model.Domicilio;
-import edu.uade.apd.tpo.model.Usuario;
 import edu.uade.apd.tpo.repository.SistemaAdministracionRepository;
-import edu.uade.apd.tpo.repository.stub.ClienteStub;
-import edu.uade.apd.tpo.repository.stub.DomicilioStub;
 import edu.uade.apd.tpo.repository.stub.UsuarioStub;
 
 import java.rmi.RemoteException;
@@ -38,6 +32,6 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
 
     @Override
     public List<UsuarioStub> getUsuarios() {
-        return controller.getUsuarios().parallelStream().map(u -> SerializationUtils.toStub(u, UsuarioStub.class)).collect(Collectors.toList());
+        return controller.getUsuarios().parallelStream().map(u -> u.toStub()).collect(Collectors.toList());
     }
 }
