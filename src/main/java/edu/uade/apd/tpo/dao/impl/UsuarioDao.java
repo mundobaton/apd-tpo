@@ -10,7 +10,7 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UsuarioDao extends AbstractDao<Usuario, UsuarioEntity> {
+public class UsuarioDao extends AbstractDao<UsuarioEntity> {
 
     private static UsuarioDao instance;
 
