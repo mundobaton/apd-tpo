@@ -18,50 +18,38 @@ public abstract class AbstractDao<R extends BaseEntity> {
         this.sessionManager = SessionManager.getInstance();
     }
 
-    protected void save(R t) {
+    protected void save(R r) {
         try (Session session = sessionManager.getSessionFactory().openSession()) {
             session.beginTransaction();
-            session.save(t);
+            session.save(r);
             session.getTransaction().commit();
         } catch (Exception e) {
             throw new PersistenceException("Error saving object", e);
         }
     }
 
-    protected void update(R t) {
+    protected void update(R r) {
         try (Session session = sessionManager.getSessionFactory().openSession()) {
             session.beginTransaction();
-            session.update(t);
+            session.update(r);
             session.getTransaction().commit();
         } catch (Exception e) {
-            throw new PersistenceException("Error saving object", e);
+            throw new PersistenceException("Error updating object", e);
         }
     }
 
-    protected List<R> resultList(CriteriaQuery<R> cq) {
+    protected void delete(R r) {
         try (Session session = sessionManager.getSessionFactory().openSession()) {
-            Query<R> query = session.createQuery(cq);
-            return query.getResultList();
+            session.beginTransaction();
+            session.delete(r);
+            session.getTransaction().commit();
         } catch (Exception e) {
-            throw new PersistenceException("Error executing query", e);
+            throw new PersistenceException("Error deleting object", e);
         }
     }
 
-    protected R singleResult(CriteriaQuery<R> cq) {
-        try (Session session = sessionManager.getSessionFactory().openSession()) {
-            Query<R> query = session.createQuery(cq);
-            return query.getSingleResult();
-        } catch (Exception e) {
-            throw new PersistenceException("Error executing query", e);
-        }
-    }
-
-    protected CriteriaBuilder getCriteria() {
-        try (Session session = sessionManager.getSessionFactory().openSession()) {
-            return session.getCriteriaBuilder();
-        } catch (Exception e) {
-            throw new PersistenceException("Error creating criteria object", e);
-        }
+    protected Session getSession() {
+        return sessionManager.getSessionFactory().openSession();
     }
 
 }

@@ -4,6 +4,8 @@ import edu.uade.apd.tpo.entity.UsuarioEntity;
 import edu.uade.apd.tpo.model.Usuario;
 import edu.uade.apd.tpo.remote.TransformUtils;
 import edu.uade.apd.tpo.repository.stub.UsuarioStub;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -26,10 +28,12 @@ public class UsuarioDao extends AbstractDao<UsuarioEntity> {
     }
 
     public List<Usuario> findAll() {
-        CriteriaQuery<UsuarioEntity> query = this.getCriteria().createQuery(UsuarioEntity.class);
-        Root<UsuarioEntity> from = query.from(UsuarioEntity.class);
-        CriteriaQuery<UsuarioEntity> all = query.select(from);
-        return resultList(all).parallelStream().map(u -> TransformUtils.to(u, Usuario.class)).collect(Collectors.toList());
+
+        String queryStr = "select u from UsuarioEntity u";
+        try (Session session = getSession()) {
+            List<UsuarioEntity> resultList = session.createQuery(queryStr).getResultList();
+            return resultList.parallelStream().map(u -> TransformUtils.to(u, Usuario.class)).collect(Collectors.toList());
+        }
     }
 
     public void save(Usuario usuario) {
