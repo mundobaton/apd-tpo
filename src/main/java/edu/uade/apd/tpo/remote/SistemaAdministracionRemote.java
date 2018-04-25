@@ -3,6 +3,7 @@ package edu.uade.apd.tpo.remote;
 import edu.uade.apd.tpo.controller.SistemaAdministracion;
 import edu.uade.apd.tpo.model.Usuario;
 import edu.uade.apd.tpo.repository.SistemaAdministracionRepository;
+import edu.uade.apd.tpo.repository.stub.ClienteStub;
 import edu.uade.apd.tpo.repository.stub.UsuarioStub;
 
 import java.rmi.RemoteException;
@@ -37,8 +38,18 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
     }
 
     @Override
+    public List<ClienteStub> getClientes() throws RemoteException {
+        return controller.getClientes().parallelStream().map(c -> c.toStub()).collect(Collectors.toList());
+    }
+
+    @Override
     public void actualizarUsuario(UsuarioStub usuarioStub) throws RemoteException {
         Usuario u = Usuario.fromStub(usuarioStub);
         controller.actualizarUsuario(u);
+    }
+
+    @Override
+    public void crearCliente(String email, String password, String nombre, long cuil, String telefono) throws RemoteException {
+        this.controller.crearCliente(email, password, nombre, cuil, telefono);
     }
 }

@@ -1,21 +1,36 @@
-package edu.uade.apd.tpo.model;
+package edu.uade.apd.tpo.entity;
 
-import edu.uade.apd.tpo.dao.impl.ClienteDao;
-import edu.uade.apd.tpo.entity.UsuarioEntity;
-import edu.uade.apd.tpo.remote.TransformUtils;
-import edu.uade.apd.tpo.repository.stub.ClienteStub;
-import edu.uade.apd.tpo.repository.stub.UsuarioStub;
+import edu.uade.apd.tpo.model.CondIva;
+import edu.uade.apd.tpo.model.CuentaCorriente;
+import edu.uade.apd.tpo.model.Domicilio;
+import edu.uade.apd.tpo.model.Pedido;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.List;
 
-public class Cliente extends Usuario {
+@Entity
+@Table(name = "clientes")
+@PrimaryKeyJoinColumn(name = "cliente_id")
+public class ClienteEntity extends UsuarioEntity {
 
+    @Column(name = "nombre")
     private String nombre;
+    @Column(name = "cuil")
     private long cuil;
+    @Column(name = "telefono")
     private String telefono;
+    @Transient
     private Domicilio domicilio;
+    @Transient
     private CondIva condIva;
+    @Transient
     private CuentaCorriente cuentaCorriente;
+    @Transient
     private List<Pedido> pedidos;
 
     public String getNombre() {
@@ -26,11 +41,11 @@ public class Cliente extends Usuario {
         this.nombre = nombre;
     }
 
-    public long getCuil() {
+    public Long getCuil() {
         return cuil;
     }
 
-    public void setCuil(long cuil) {
+    public void setCuil(Long cuil) {
         this.cuil = cuil;
     }
 
@@ -72,18 +87,5 @@ public class Cliente extends Usuario {
 
     public void setPedidos(List<Pedido> pedidos) {
         this.pedidos = pedidos;
-    }
-
-    public void guardar() {
-        ClienteDao.getInstance().save(this);
-    }
-
-    @Override
-    public ClienteStub toStub() {
-        return TransformUtils.to(this, ClienteStub.class);
-    }
-
-    public static Cliente fromStub(ClienteStub stub) {
-        return TransformUtils.to(stub, Cliente.class);
     }
 }

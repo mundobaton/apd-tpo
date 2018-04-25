@@ -2,18 +2,18 @@ package edu.uade.apd.tpo.model;
 
 public class Domicilio {
 
-    private Long id;
+    private long id;
     private String calle;
     private int numero;
     private String codPostal;
     private String localidad;
     private String provincia;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
