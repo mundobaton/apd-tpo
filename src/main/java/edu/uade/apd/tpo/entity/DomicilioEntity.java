@@ -1,19 +1,37 @@
-package edu.uade.apd.tpo.model;
+package edu.uade.apd.tpo.entity;
 
-public class Domicilio {
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "domicilios")
+public class DomicilioEntity extends BaseEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "domicilio_id")
     private Long id;
+    @Column(name = "calle")
     private String calle;
+    @Column(name = "numero")
     private int numero;
+    @Column(name = "codigo_postal")
     private String codPostal;
+    @Column(name = "localidad")
     private String localidad;
+    @Column(name = "provincia")
     private String provincia;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

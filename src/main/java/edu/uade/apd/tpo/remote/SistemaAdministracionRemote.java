@@ -1,9 +1,13 @@
 package edu.uade.apd.tpo.remote;
 
 import edu.uade.apd.tpo.controller.SistemaAdministracion;
+import edu.uade.apd.tpo.model.CondIva;
+import edu.uade.apd.tpo.model.Rol;
 import edu.uade.apd.tpo.model.Usuario;
 import edu.uade.apd.tpo.repository.SistemaAdministracionRepository;
 import edu.uade.apd.tpo.repository.stub.ClienteStub;
+import edu.uade.apd.tpo.repository.stub.CondIvaStub;
+import edu.uade.apd.tpo.repository.stub.RolStub;
 import edu.uade.apd.tpo.repository.stub.UsuarioStub;
 
 import java.rmi.RemoteException;
@@ -28,8 +32,9 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
     }
 
     @Override
-    public void crearUsuario(String email, String password) throws RemoteException {
-        this.controller.crearUsuario(email, password);
+    public void crearUsuario(String email, String password, RolStub rolStub) throws RemoteException {
+        Rol rol = Rol.fromStub(rolStub);
+        this.controller.crearUsuario(email, password, rol);
     }
 
     @Override
@@ -49,7 +54,7 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
     }
 
     @Override
-    public void crearCliente(String email, String password, String nombre, long cuil, String telefono) throws RemoteException {
-        this.controller.crearCliente(email, password, nombre, cuil, telefono);
+    public void crearCliente(String email, String password, String nombre, long cuil, String telefono, CondIvaStub condIva, String calle, int numero, String codPostal, String localidad, String provincia, float saldo, float limiteCredito) throws RemoteException {
+        this.controller.crearCliente(email, password, nombre, cuil, telefono, CondIva.fromStub(condIva), calle, numero, codPostal, localidad, provincia, saldo, limiteCredito);
     }
 }

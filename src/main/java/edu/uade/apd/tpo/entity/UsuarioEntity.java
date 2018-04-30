@@ -4,6 +4,8 @@ import edu.uade.apd.tpo.model.Rol;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,12 +21,14 @@ public class UsuarioEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "usuario_id")
-    private long id;
+    protected long id;
     @Column(name = "email")
-    private String email;
+    protected String email;
     @Column(name = "password")
-    private String password;
-    private Rol rol;
+    protected String password;
+    @Column(name = "rol_id")
+    @Enumerated(EnumType.ORDINAL)
+    protected Rol rol;
 
     public UsuarioEntity() {
     }

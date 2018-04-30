@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 
 public class TransformUtils {
 
+    private final static String BASE_PKG = "java.lang";
+
     public static <T, R> T to(R r, Class<T> clazz) {
         return clone(r, clazz);
     }
@@ -20,21 +22,31 @@ public class TransformUtils {
     private static <T, R> T clone(R r, Class<T> clazz) {
         T t = null;
         try {
-            t = clazz.newInstance();
-            for (Field f : getFields(t.getClass()).values()) {
-                f.setAccessible(true);
+            if(!clazz.getPackage().getName().equals(BASE_PKG)) {
+                t = clazz.newInstance();
+                for (Field f : getFields(t.getClass()).values()) {
+                    f.setAccessible(true);
 
-                Field f2 = getFields(r.getClass()).get(f.getName());
-                f2.setAccessible(true);
-                Object fieldValue = f2.get(r);
-                if (fieldValue != null) {
-                    if (!f2.getType().isPrimitive() && !f2.getType().getSimpleName().equals("String")) {
-                        f.set(t, clone(fieldValue, f.getType()));
-                    } else {
-                        f.set(t, fieldValue);
+                    Field f2 = getFields(r.getClass()).get(f.getName());
+                    f2.setAccessible(true);
+                    Object fieldValue = f2.get(r);
+                    if (fieldValue != null) {
+                        if (!f2.getType().isPrimitive() && !f2.getType().isEnum()) {
+                            f.set(t, clone(fieldValue, f.getType()));
+                        } else {
+                            if(f2.getType().isEnum()) {
+                                f.set(t, Enum.valueOf((Class<? extends Enum>) f.getType(), fieldValue.toString()));
+                            } else {
+                                f.set(t, fieldValue);
+                            }
+
+                        }
                     }
                 }
+            } else {
+                t = (T)r;
             }
+
         } catch (InstantiationException ie) {
             //Continue with other objects
         } catch (Exception e) {

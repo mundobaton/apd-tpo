@@ -18,6 +18,10 @@ public class Cliente extends Usuario {
     private CuentaCorriente cuentaCorriente;
     private List<Pedido> pedidos;
 
+    public Cliente() {
+        this.rol = Rol.CLIENTE;
+    }
+
     public String getNombre() {
         return nombre;
     }

@@ -1,13 +1,17 @@
 package edu.uade.apd.tpo.entity;
 
 import edu.uade.apd.tpo.model.CondIva;
-import edu.uade.apd.tpo.model.CuentaCorriente;
-import edu.uade.apd.tpo.model.Domicilio;
 import edu.uade.apd.tpo.model.Pedido;
+import edu.uade.apd.tpo.model.Rol;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -24,14 +28,22 @@ public class ClienteEntity extends UsuarioEntity {
     private long cuil;
     @Column(name = "telefono")
     private String telefono;
-    @Transient
-    private Domicilio domicilio;
-    @Transient
-    private CondIva condIva;
-    @Transient
-    private CuentaCorriente cuentaCorriente;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "domicilio_id")
+    private DomicilioEntity domicilio;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cuenta_corriente_id")
+    private CuentaCorrienteEntity cuentaCorriente;
     @Transient
     private List<Pedido> pedidos;
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "condicion_iva")
+    private CondIva condIva;
+
+    public ClienteEntity() {
+        super();
+        this.rol = Rol.CLIENTE;
+    }
 
     public String getNombre() {
         return nombre;
@@ -57,14 +69,6 @@ public class ClienteEntity extends UsuarioEntity {
         this.telefono = telefono;
     }
 
-    public Domicilio getDomicilio() {
-        return domicilio;
-    }
-
-    public void setDomicilio(Domicilio domicilio) {
-        this.domicilio = domicilio;
-    }
-
     public CondIva getCondIva() {
         return condIva;
     }
@@ -73,11 +77,11 @@ public class ClienteEntity extends UsuarioEntity {
         this.condIva = condIva;
     }
 
-    public CuentaCorriente getCuentaCorriente() {
+    public CuentaCorrienteEntity getCuentaCorriente() {
         return cuentaCorriente;
     }
 
-    public void setCuentaCorriente(CuentaCorriente cuentaCorriente) {
+    public void setCuentaCorriente(CuentaCorrienteEntity cuentaCorriente) {
         this.cuentaCorriente = cuentaCorriente;
     }
 
@@ -87,5 +91,13 @@ public class ClienteEntity extends UsuarioEntity {
 
     public void setPedidos(List<Pedido> pedidos) {
         this.pedidos = pedidos;
+    }
+
+    public DomicilioEntity getDomicilio() {
+        return domicilio;
+    }
+
+    public void setDomicilio(DomicilioEntity domicilio) {
+        this.domicilio = domicilio;
     }
 }
