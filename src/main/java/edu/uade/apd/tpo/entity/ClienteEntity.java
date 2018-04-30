@@ -28,10 +28,10 @@ public class ClienteEntity extends UsuarioEntity {
     private long cuil;
     @Column(name = "telefono")
     private String telefono;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "domicilio_id")
     private DomicilioEntity domicilio;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cuenta_corriente_id")
     private CuentaCorrienteEntity cuentaCorriente;
     @Transient

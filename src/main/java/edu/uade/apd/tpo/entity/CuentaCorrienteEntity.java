@@ -20,9 +20,9 @@ public class CuentaCorrienteEntity extends BaseEntity {
     @Column(name = "cuenta_corriente_id")
     private Long id;
     @Column(name = "saldo")
-    private float saldo;
+    private Float saldo;
     @Column(name = "limite_credito")
-    private float limiteCredito;
+    private Float limiteCredito;
     @OneToMany
     @JoinColumn(name = "cuenta_corriente_id")
     private List<TransaccionEntity> transacciones;
@@ -35,19 +35,19 @@ public class CuentaCorrienteEntity extends BaseEntity {
         this.id = id;
     }
 
-    public float getSaldo() {
+    public Float getSaldo() {
         return saldo;
     }
 
-    public void setSaldo(float saldo) {
+    public void setSaldo(Float saldo) {
         this.saldo = saldo;
     }
 
-    public float getLimiteCredito() {
+    public Float getLimiteCredito() {
         return limiteCredito;
     }
 
-    public void setLimiteCredito(float limiteCredito) {
+    public void setLimiteCredito(Float limiteCredito) {
         this.limiteCredito = limiteCredito;
     }
 

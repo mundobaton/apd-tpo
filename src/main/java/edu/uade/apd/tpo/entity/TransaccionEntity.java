@@ -18,28 +18,28 @@ public class TransaccionEntity extends BaseEntity {
 
     @Id
     @Column(name = "transaccion_id")
-    private long id;
+    private Long id;
     @Column(name = "importe")
-    private float importe;
+    private Float importe;
     @Column(name = "fecha")
     private Date fecha;
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "medio_pago")
     private MedioPago medioPago;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public float getImporte() {
+    public Float getImporte() {
         return importe;
     }
 
-    public void setImporte(float importe) {
+    public void setImporte(Float importe) {
         this.importe = importe;
     }
 

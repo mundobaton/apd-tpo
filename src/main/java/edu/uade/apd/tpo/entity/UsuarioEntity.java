@@ -21,7 +21,7 @@ public class UsuarioEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "usuario_id")
-    protected long id;
+    protected Long id;
     @Column(name = "email")
     protected String email;
     @Column(name = "password")

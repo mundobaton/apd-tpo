@@ -3,6 +3,8 @@ package edu.uade.apd.tpo.dao.impl;
 import edu.uade.apd.tpo.entity.ClienteEntity;
 import edu.uade.apd.tpo.entity.CuentaCorrienteEntity;
 import edu.uade.apd.tpo.entity.DomicilioEntity;
+import edu.uade.apd.tpo.entity.EstadoEntity;
+import edu.uade.apd.tpo.entity.PedidoEntity;
 import edu.uade.apd.tpo.entity.TransaccionEntity;
 import edu.uade.apd.tpo.entity.UsuarioEntity;
 import org.hibernate.SessionFactory;
@@ -22,6 +24,8 @@ public class SessionManager {
             configuration.addAnnotatedClass(CuentaCorrienteEntity.class);
             configuration.addAnnotatedClass(TransaccionEntity.class);
             configuration.addAnnotatedClass(DomicilioEntity.class);
+            configuration.addAnnotatedClass(EstadoEntity.class);
+            configuration.addAnnotatedClass(PedidoEntity.class);
             StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
             sessionFactory = configuration.buildSessionFactory(builder.build());
         }

@@ -1,9 +1,21 @@
 package edu.uade.apd.tpo.model;
 
+import java.util.Date;
+
 public class Estado {
 
+    private Long id;
+    private Date fecha;
     private EstadoPedido estado;
     private String motivo;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public EstadoPedido getEstado() {
         return estado;
@@ -19,5 +31,13 @@ public class Estado {
 
     public void setMotivo(String motivo) {
         this.motivo = motivo;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 }

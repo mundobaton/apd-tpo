@@ -10,7 +10,6 @@ public class Pedido {
     private Date fechaPedido;
     private Date fechaEntrega;
     private Date fechaDespacho;
-    private float precioTotal;
     private List<ItemPedido> items;
     private Cliente cliente;
     private Domicilio domicilio;
@@ -46,14 +45,6 @@ public class Pedido {
 
     public void setFechaDespacho(Date fechaDespacho) {
         this.fechaDespacho = fechaDespacho;
-    }
-
-    public float getPrecioTotal() {
-        return precioTotal;
-    }
-
-    public void setPrecioTotal(float precioTotal) {
-        this.precioTotal = precioTotal;
     }
 
     public List<ItemPedido> getItems() {

@@ -6,7 +6,7 @@ import edu.uade.apd.tpo.repository.stub.UsuarioStub;
 
 public class Usuario implements Stubeable<UsuarioStub> {
 
-    protected long id;
+    protected Long id;
     protected String email;
     protected String password;
     protected Rol rol;

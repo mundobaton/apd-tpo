@@ -19,7 +19,7 @@ public class DomicilioEntity extends BaseEntity {
     @Column(name = "calle")
     private String calle;
     @Column(name = "numero")
-    private int numero;
+    private Integer numero;
     @Column(name = "codigo_postal")
     private String codPostal;
     @Column(name = "localidad")
@@ -43,11 +43,11 @@ public class DomicilioEntity extends BaseEntity {
         this.calle = calle;
     }
 
-    public int getNumero() {
+    public Integer getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(Integer numero) {
         this.numero = numero;
     }
 
