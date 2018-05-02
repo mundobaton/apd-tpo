@@ -1,10 +1,19 @@
 package edu.uade.apd.tpo.dao.impl;
 
+import edu.uade.apd.tpo.entity.ArticuloEntity;
 import edu.uade.apd.tpo.entity.ClienteEntity;
+import edu.uade.apd.tpo.entity.CostoEnvioEntity;
 import edu.uade.apd.tpo.entity.CuentaCorrienteEntity;
 import edu.uade.apd.tpo.entity.DomicilioEntity;
 import edu.uade.apd.tpo.entity.EstadoEntity;
+import edu.uade.apd.tpo.entity.FacturaEntity;
+import edu.uade.apd.tpo.entity.ItemLoteEntity;
+import edu.uade.apd.tpo.entity.ItemPedidoEntity;
+import edu.uade.apd.tpo.entity.LoteEntity;
 import edu.uade.apd.tpo.entity.PedidoEntity;
+import edu.uade.apd.tpo.entity.PosicionEntity;
+import edu.uade.apd.tpo.entity.RemitoEntity;
+import edu.uade.apd.tpo.entity.StockEntity;
 import edu.uade.apd.tpo.entity.TransaccionEntity;
 import edu.uade.apd.tpo.entity.UsuarioEntity;
 import org.hibernate.SessionFactory;
@@ -19,13 +28,22 @@ public class SessionManager {
     private SessionManager() {
         if (sessionFactory == null) {
             Configuration configuration = new Configuration().configure();
-            configuration.addAnnotatedClass(UsuarioEntity.class);
+            configuration.addAnnotatedClass(ArticuloEntity.class);
             configuration.addAnnotatedClass(ClienteEntity.class);
+            configuration.addAnnotatedClass(CostoEnvioEntity.class);
             configuration.addAnnotatedClass(CuentaCorrienteEntity.class);
-            configuration.addAnnotatedClass(TransaccionEntity.class);
             configuration.addAnnotatedClass(DomicilioEntity.class);
             configuration.addAnnotatedClass(EstadoEntity.class);
+            configuration.addAnnotatedClass(FacturaEntity.class);
+            configuration.addAnnotatedClass(ItemLoteEntity.class);
+            configuration.addAnnotatedClass(ItemPedidoEntity.class);
+            configuration.addAnnotatedClass(LoteEntity.class);
             configuration.addAnnotatedClass(PedidoEntity.class);
+            configuration.addAnnotatedClass(PosicionEntity.class);
+            configuration.addAnnotatedClass(RemitoEntity.class);
+            configuration.addAnnotatedClass(StockEntity.class);
+            configuration.addAnnotatedClass(TransaccionEntity.class);
+            configuration.addAnnotatedClass(UsuarioEntity.class);
             StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
             sessionFactory = configuration.buildSessionFactory(builder.build());
         }

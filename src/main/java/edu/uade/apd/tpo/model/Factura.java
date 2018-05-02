@@ -8,9 +8,10 @@ public class Factura {
     private Date fecha;
     private TipoFactura tipo;
     private Pedido pedido;
-    private float total;
+    private Float total;
     private CostoEnvio costoEnvio;
-    private float impuestos;
+    private Float impuestos;
+    private Transaccion transaccion;
 
     public Long getId() {
         return id;
@@ -44,11 +45,11 @@ public class Factura {
         this.pedido = pedido;
     }
 
-    public float getTotal() {
+    public Float getTotal() {
         return total;
     }
 
-    public void setTotal(float total) {
+    public void setTotal(Float total) {
         this.total = total;
     }
 
@@ -60,11 +61,19 @@ public class Factura {
         this.costoEnvio = costoEnvio;
     }
 
-    public float getImpuestos() {
+    public Float getImpuestos() {
         return impuestos;
     }
 
-    public void setImpuestos(float impuestos) {
+    public void setImpuestos(Float impuestos) {
         this.impuestos = impuestos;
+    }
+
+    public Transaccion getTransaccion() {
+        return transaccion;
+    }
+
+    public void setTransaccion(Transaccion transaccion) {
+        this.transaccion = transaccion;
     }
 }

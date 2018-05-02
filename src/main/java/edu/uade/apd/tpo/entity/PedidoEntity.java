@@ -1,7 +1,5 @@
 package edu.uade.apd.tpo.entity;
 
-import edu.uade.apd.tpo.model.ItemPedido;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import java.util.Date;
 import java.util.List;
 
@@ -30,8 +27,9 @@ public class PedidoEntity extends BaseEntity {
     private Date fechaEntrega;
     @Column(name = "fecha_despacho")
     private Date fechaDespacho;
-    @Transient
-    private List<ItemPedido> items;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pedido_id")
+    private List<ItemPedidoEntity> items;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cliente_id")
     private ClienteEntity cliente;
@@ -75,14 +73,6 @@ public class PedidoEntity extends BaseEntity {
         this.fechaDespacho = fechaDespacho;
     }
 
-    public List<ItemPedido> getItems() {
-        return items;
-    }
-
-    public void setItems(List<ItemPedido> items) {
-        this.items = items;
-    }
-
     public ClienteEntity getCliente() {
         return cliente;
     }
@@ -105,5 +95,13 @@ public class PedidoEntity extends BaseEntity {
 
     public void setEstados(List<EstadoEntity> estados) {
         this.estados = estados;
+    }
+
+    public List<ItemPedidoEntity> getItems() {
+        return items;
+    }
+
+    public void setItems(List<ItemPedidoEntity> items) {
+        this.items = items;
     }
 }
