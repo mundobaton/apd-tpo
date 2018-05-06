@@ -26,7 +26,7 @@ public class UsuarioEntity extends BaseEntity {
     protected String email;
     @Column(name = "password")
     protected String password;
-    @Column(name = "rol_id")
+    @Column(name = "rol")
     @Enumerated(EnumType.ORDINAL)
     protected Rol rol;
 

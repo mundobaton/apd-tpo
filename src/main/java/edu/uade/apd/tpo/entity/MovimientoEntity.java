@@ -1,28 +1,28 @@
 package edu.uade.apd.tpo.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Entity
-@Table(name = "item_lotes")
-public class ItemLoteEntity {
+@Table(name = "movimientos")
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class MovimientoEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "item_lote_id")
-    private Long id;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "lote_id")
-    private LoteEntity lote;
+    @Column(name = "movimiento_id")
+    protected Long id;
+    @Column(name = "fecha")
+    protected Date fecha;
     @Column(name = "cantidad")
-    private int cantidad;
+    protected int cantidad;
 
     public Long getId() {
         return id;
@@ -32,12 +32,12 @@ public class ItemLoteEntity {
         this.id = id;
     }
 
-    public LoteEntity getLote() {
-        return lote;
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setLote(LoteEntity lote) {
-        this.lote = lote;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     public int getCantidad() {

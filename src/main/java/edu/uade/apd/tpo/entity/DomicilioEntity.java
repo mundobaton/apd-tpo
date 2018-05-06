@@ -1,8 +1,13 @@
 package edu.uade.apd.tpo.entity;
 
+import edu.uade.apd.tpo.model.CondIva;
+import edu.uade.apd.tpo.model.ZonaEnvio;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,6 +31,9 @@ public class DomicilioEntity extends BaseEntity {
     private String localidad;
     @Column(name = "provincia")
     private String provincia;
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "zona")
+    private ZonaEnvio zona;
 
     public long getId() {
         return id;
@@ -73,5 +81,13 @@ public class DomicilioEntity extends BaseEntity {
 
     public void setProvincia(String provincia) {
         this.provincia = provincia;
+    }
+
+    public ZonaEnvio getZona() {
+        return zona;
+    }
+
+    public void setZona(ZonaEnvio zona) {
+        this.zona = zona;
     }
 }
