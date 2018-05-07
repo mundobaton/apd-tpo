@@ -15,7 +15,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "remitos")
-public class RemitoEntity {
+public class RemitoEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
