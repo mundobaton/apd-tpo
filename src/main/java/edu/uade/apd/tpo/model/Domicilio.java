@@ -8,6 +8,7 @@ public class Domicilio {
     private String codPostal;
     private String localidad;
     private String provincia;
+    private ZonaEnvio zona;
 
     public Long getId() {
         return id;
@@ -55,5 +56,26 @@ public class Domicilio {
 
     public void setProvincia(String provincia) {
         this.provincia = provincia;
+    }
+
+    public ZonaEnvio getZona() {
+        return zona;
+    }
+
+    public void setZona(ZonaEnvio zona) {
+        this.zona = zona;
+    }
+
+    public Domicilio() {
+
+    }
+
+    public Domicilio(String calle, int numero, String codPostal, String localidad, String provincia, ZonaEnvio zona) {
+        this.calle = calle;
+        this.numero = numero;
+        this.codPostal = codPostal;
+        this.localidad = localidad;
+        this.provincia = provincia;
+        this.zona = zona;
     }
 }

@@ -1,17 +1,26 @@
 package edu.uade.apd.tpo.controller;
 
+import edu.uade.apd.tpo.dao.impl.ArticuloDao;
 import edu.uade.apd.tpo.dao.impl.ClienteDao;
+import edu.uade.apd.tpo.dao.impl.PedidoDao;
 import edu.uade.apd.tpo.dao.impl.UsuarioDao;
 import edu.uade.apd.tpo.entity.UsuarioEntity;
+import edu.uade.apd.tpo.model.Articulo;
 import edu.uade.apd.tpo.model.Cliente;
 import edu.uade.apd.tpo.model.CondIva;
 import edu.uade.apd.tpo.model.CuentaCorriente;
 import edu.uade.apd.tpo.model.Domicilio;
+import edu.uade.apd.tpo.model.Estado;
+import edu.uade.apd.tpo.model.EstadoPedido;
+import edu.uade.apd.tpo.model.ItemPedido;
+import edu.uade.apd.tpo.model.Pedido;
 import edu.uade.apd.tpo.model.Rol;
 import edu.uade.apd.tpo.model.Usuario;
+import edu.uade.apd.tpo.model.ZonaEnvio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Date;
 import java.util.List;
 
 public class SistemaAdministracion {
@@ -19,11 +28,15 @@ public class SistemaAdministracion {
     private static SistemaAdministracion instance;
     private UsuarioDao usuarioDao;
     private ClienteDao clienteDao;
+    private PedidoDao pedidoDao;
+    private ArticuloDao articuloDao;
     private static final Logger logger = LoggerFactory.getLogger(SistemaAdministracion.class);
 
     private SistemaAdministracion() {
         this.usuarioDao = UsuarioDao.getInstance();
         this.clienteDao = ClienteDao.getInstance();
+        this.pedidoDao = PedidoDao.getInstance();
+        this.articuloDao = ArticuloDao.getInstance();
     }
 
     public static SistemaAdministracion getInstance() {
@@ -81,5 +94,58 @@ public class SistemaAdministracion {
         logger.debug("Cliente creado exitosamente...");
     }
 
+    /**
+     * Debe devolver la cabecera del pedido, no se le agregan items aun
+     *
+     * @param email
+     * @param calle
+     * @param num
+     * @param codPostal
+     * @param localidad
+     * @param prov
+     * @param zona
+     */
+    public Long generarPedido(String email, String calle, int num, String codPostal, String localidad, String prov, ZonaEnvio zona) {
+        //TODO Validar parametros!
+        Cliente cli = clienteDao.findByEmail(email);
+        Domicilio dom = new Domicilio(calle, num, codPostal, localidad, prov, zona);
+        Pedido pedido = new Pedido();
+        pedido.setCliente(cli);
+        pedido.setDomicilio(dom);
+        pedido.setFechaPedido(new Date());
+        Estado estado = new Estado();
+        estado.setMotivo("Creacion del pedido");
+        estado.setEstado(EstadoPedido.INICIADO);
+        estado.setFecha(new Date());
+        pedido.addEstado(estado);
+        pedidoDao.save(pedido);
+        return pedido.getId();
+    }
 
+    /**
+     * Agrega items al pedido
+     *
+     * @param pedidoId
+     * @param articuloId
+     * @param cant
+     */
+    public void agregarItemPedido(Long pedidoId, Long articuloId, int cant) {
+        Pedido p = pedidoDao.findById(pedidoId);
+        Articulo articulo = articuloDao.findById(articuloId);
+        ItemPedido item = new ItemPedido();
+        item.setArticulo(articulo);
+        item.setCantidad(cant);
+        p.addItem(item);
+        pedidoDao.update(p);
+    }
+
+    public void finalizarCargaItemsAPedido(Long pedidoId) {
+        Pedido p = pedidoDao.findById(pedidoId);
+        Estado e = new Estado();
+        e.setFecha(new Date());
+        e.setEstado(EstadoPedido.PENDIENTE);
+        e.setMotivo("Fin carga de items al pedido");
+        p.addEstado(e);
+        pedidoDao.update(p);
+    }
 }

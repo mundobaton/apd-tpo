@@ -6,6 +6,7 @@ import edu.uade.apd.tpo.model.Cliente;
 import edu.uade.apd.tpo.model.Usuario;
 import edu.uade.apd.tpo.remote.TransformUtils;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,5 +40,12 @@ public class ClienteDao extends AbstractDao<ClienteEntity> {
         }
     }
 
-
+    public Cliente findByEmail(String email) {
+        String query = "select u from ClienteEntity u where email = :email";
+        try (Session session = getSession()) {
+            Query<UsuarioEntity> q = session.createQuery(query);
+            q.setParameter("email", email);
+            return TransformUtils.to(q.getSingleResult(), Cliente.class);
+        }
+    }
 }

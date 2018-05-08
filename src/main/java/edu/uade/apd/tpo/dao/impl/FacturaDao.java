@@ -6,8 +6,6 @@ import edu.uade.apd.tpo.remote.TransformUtils;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import java.util.List;
-
 public class FacturaDao extends AbstractDao<FacturaEntity> {
 
     private static FacturaDao instance;
