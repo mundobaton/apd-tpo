@@ -139,7 +139,7 @@ public class SistemaAdministracion {
         pedidoDao.update(p);
     }
 
-    public void finalizarCargaItemsAPedido(Long pedidoId) {
+    public void finalizarCargaItemsPedido(Long pedidoId) {
         Pedido p = pedidoDao.findById(pedidoId);
         Estado e = new Estado();
         e.setFecha(new Date());
