@@ -130,6 +130,7 @@ public class SistemaAdministracion {
      * @param cant
      */
     public void agregarItemPedido(Long pedidoId, Long articuloId, int cant) {
+        //TODO Validar parametros!
         Pedido p = pedidoDao.findById(pedidoId);
         Articulo articulo = articuloDao.findById(articuloId);
         ItemPedido item = new ItemPedido();
@@ -140,6 +141,7 @@ public class SistemaAdministracion {
     }
 
     public void finalizarCargaItemsPedido(Long pedidoId) {
+        //TODO Validar parametros!
         Pedido p = pedidoDao.findById(pedidoId);
         Estado e = new Estado();
         e.setFecha(new Date());
