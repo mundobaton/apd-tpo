@@ -21,15 +21,7 @@ public abstract class AbstractDao<R extends BaseEntity> {
     protected void save(R r) {
         try (Session session = sessionManager.getSessionFactory().openSession()) {
             session.beginTransaction();
-            session.save(r);
-            session.getTransaction().commit();
-        }
-    }
-
-    protected void update(R r) {
-        try (Session session = sessionManager.getSessionFactory().openSession()) {
-            session.beginTransaction();
-            session.update(r);
+            session.saveOrUpdate(r);
             session.getTransaction().commit();
         }
     }

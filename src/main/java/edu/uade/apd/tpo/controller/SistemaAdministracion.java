@@ -13,10 +13,12 @@ import edu.uade.apd.tpo.model.Domicilio;
 import edu.uade.apd.tpo.model.Estado;
 import edu.uade.apd.tpo.model.EstadoPedido;
 import edu.uade.apd.tpo.model.ItemPedido;
+import edu.uade.apd.tpo.model.MedioPago;
 import edu.uade.apd.tpo.model.Pedido;
 import edu.uade.apd.tpo.model.Rol;
 import edu.uade.apd.tpo.model.Usuario;
 import edu.uade.apd.tpo.model.ZonaEnvio;
+import edu.uade.apd.tpo.repository.exception.UserNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,7 +68,7 @@ public class SistemaAdministracion {
 
     public void actualizarUsuario(Usuario u) {
         logger.debug("Modificando usuario...");
-        u.modificar();
+        u.guardar();
         logger.debug("Usuario modificado exitosamente...");
     }
 
@@ -118,7 +120,7 @@ public class SistemaAdministracion {
         estado.setEstado(EstadoPedido.INICIADO);
         estado.setFecha(new Date());
         pedido.addEstado(estado);
-        pedidoDao.save(pedido);
+        pedido.guardar();
         return pedido.getId();
     }
 
@@ -137,7 +139,7 @@ public class SistemaAdministracion {
         item.setArticulo(articulo);
         item.setCantidad(cant);
         p.addItem(item);
-        pedidoDao.update(p);
+        p.guardar();
     }
 
     public void finalizarCargaItemsPedido(Long pedidoId) {
@@ -148,6 +150,55 @@ public class SistemaAdministracion {
         e.setEstado(EstadoPedido.PENDIENTE);
         e.setMotivo("Fin carga de items al pedido");
         p.addEstado(e);
-        pedidoDao.update(p);
+        p.guardar();
+    }
+
+    public Usuario buscarUsuario(String email) {
+        //TODO Validar parametros!
+        return UsuarioDao.getInstance().findByEmail(email);
+    }
+
+    public void aprobarPedido(Long pedidoId) {
+        //Todo validar parametros e integridad del pedido, checkear estado
+        Pedido p = this.buscarPedido(pedidoId);
+        p.aprobar();
+
+        //TODO Aca se debería verificar si existe stock para completar el pedido,
+        //TODO si se puede cumplir hacerlo y sino realizar la OC correspondiente
+    }
+
+    public void rechazarPedido(Long pedidoId, String motivo) {
+        Pedido p = this.buscarPedido(pedidoId);
+        p.rechazar(motivo);
+    }
+
+    public List<Articulo> obtenerArticulos() {
+        return articuloDao.findAll();
+    }
+
+    public Usuario login(String email, String password) throws UserNotFoundException {
+        Usuario u = UsuarioDao.getInstance().findByEmail(email);
+        if (!validarPassword(u.getPassword(), password)) {
+            throw new UserNotFoundException("El usuario no existe o el password es incorrecto");
+        }
+        return u;
+    }
+
+    private boolean validarPassword(String userPassword, String inputPassword) {
+        return userPassword.equals(inputPassword);
+    }
+
+    private Pedido buscarPedido(Long pedidoId) {
+        return PedidoDao.getInstance().findById(pedidoId);
+    }
+
+    public void cerrarPedido(Long pedidoId) {
+        Pedido p = this.buscarPedido(pedidoId);
+        p.cerrar();
+    }
+
+    public void procesarPago(String email, float importe, MedioPago mp) {
+        Cliente cli = clienteDao.findByEmail(email);
+        SistemaFacturacion.getInstance().procesarPago(email, importe, mp, cli.getCuentaCorriente().getLimiteCredito());
     }
 }

@@ -41,8 +41,12 @@ public class UsuarioDao extends AbstractDao<UsuarioEntity> {
         super.save(entity);
     }
 
-    public void update(Usuario usuario) {
-        UsuarioEntity entity = TransformUtils.to(usuario, UsuarioEntity.class);
-        super.update(entity);
+    public Usuario findByEmail(String email) {
+        String query = "select u from UsuarioEntity u where email = :email";
+        try(Session session = getSession()) {
+            Query<UsuarioEntity> q = session.createQuery(query);
+            q.setParameter("email", email);
+            return TransformUtils.to(q.getSingleResult(), Usuario.class);
+        }
     }
 }

@@ -1,5 +1,7 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.dao.impl.PedidoDao;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -91,5 +93,36 @@ public class Pedido {
             items = new ArrayList<>();
         }
         this.items.add(itemPedido);
+    }
+
+    public void guardar() {
+        PedidoDao.getInstance().save(this);
+    }
+
+    public void aprobar() {
+        Estado e = new Estado();
+        e.setMotivo("Aprobación del pedido");
+        e.setEstado(EstadoPedido.APROBADO);
+        e.setFecha(new Date());
+        this.addEstado(e);
+        this.guardar();
+    }
+
+    public void rechazar(String motivo) {
+        Estado e = new Estado();
+        e.setMotivo(motivo);
+        e.setEstado(EstadoPedido.RECHAZADO);
+        e.setFecha(new Date());
+        this.addEstado(e);
+        this.guardar();
+    }
+
+    public void cerrar() {
+        Estado e = new Estado();
+        e.setMotivo("Cierre del pedido");
+        e.setEstado(EstadoPedido.COMPLETO);
+        e.setFecha(new Date());
+        this.addEstado(e);
+        this.guardar();
     }
 }

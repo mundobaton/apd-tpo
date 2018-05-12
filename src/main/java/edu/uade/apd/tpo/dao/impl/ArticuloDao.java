@@ -6,6 +6,9 @@ import edu.uade.apd.tpo.remote.TransformUtils;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class ArticuloDao extends AbstractDao<ArticuloEntity> {
 
     private static ArticuloDao instance;
@@ -27,8 +30,15 @@ public class ArticuloDao extends AbstractDao<ArticuloEntity> {
             q.setParameter("articuloId", articuloId);
             return TransformUtils.to(q.getSingleResult(), Articulo.class);
         }
+    }
 
-
+    public List<Articulo> findAll() {
+        String query = "select a from ArticuloEntity a";
+        try (Session session = getSession()) {
+            Query<ArticuloEntity> q = session.createQuery(query);
+            List<ArticuloEntity> entities = q.getResultList();
+            return entities.parallelStream().map(u -> TransformUtils.to(u, Articulo.class)).collect(Collectors.toList());
+        }
     }
 
 }

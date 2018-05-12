@@ -1,10 +1,14 @@
 package edu.uade.apd.tpo.dao.impl;
 
 import edu.uade.apd.tpo.entity.FacturaEntity;
+import edu.uade.apd.tpo.model.Articulo;
 import edu.uade.apd.tpo.model.Factura;
 import edu.uade.apd.tpo.remote.TransformUtils;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class FacturaDao extends AbstractDao<FacturaEntity> {
 
@@ -35,9 +39,15 @@ public class FacturaDao extends AbstractDao<FacturaEntity> {
         super.save(entity);
     }
 
-    public void update(Factura factura) {
-        FacturaEntity entity = TransformUtils.to(factura, FacturaEntity.class);
-        super.update(entity);
+    public List<Factura> obtenerFacturasCliente(String email) {
+        String query = "select f from FacturaEntity f inner join f.pedido as p inner join p.cliente as c " +
+                "where c.email = :email";
+        try (Session session = getSession()) {
+            Query<FacturaEntity> q = session.createQuery(query);
+            q.setParameter("email", email);
+            List<FacturaEntity> entities = q.getResultList();
+            return entities.parallelStream().map(u -> TransformUtils.to(u, Factura.class)).collect(Collectors.toList());
+        }
     }
 
 }

@@ -34,10 +34,4 @@ public class PedidoDao extends AbstractDao<PedidoEntity> {
         PedidoEntity entity = TransformUtils.to(pedido, PedidoEntity.class);
         super.save(entity);
     }
-
-    public void update(Pedido pedido) {
-        PedidoEntity entity = TransformUtils.to(pedido, PedidoEntity.class);
-        super.update(entity);
-    }
-
 }

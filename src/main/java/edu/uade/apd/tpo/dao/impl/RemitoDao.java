@@ -33,9 +33,4 @@ public class RemitoDao extends AbstractDao<RemitoEntity> {
         RemitoEntity entity = TransformUtils.to(remito, RemitoEntity.class);
         super.save(entity);
     }
-
-    public void update(Remito remito) {
-        RemitoEntity entity = TransformUtils.to(remito, RemitoEntity.class);
-        super.update(entity);
-    }
 }
