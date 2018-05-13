@@ -72,7 +72,7 @@ public class SistemaAdministracion {
         logger.debug("Usuario modificado exitosamente...");
     }
 
-    public void crearCliente(String email, String password, String nombre, long cuil, String telefono, CondIva condIva, String calle, int numero, String codPostal, String localidad, String provincia, float saldo, float limiteCredito) {
+    public void crearCliente(String email, String password, String nombre, long cuil, String telefono, CondIva condIva, String calle, int numero, String codPostal, String localidad, String provincia, ZonaEnvio zona, float saldo, float limiteCredito) {
         logger.debug("Creando cliente...");
         Cliente cliente = new Cliente();
         cliente.setEmail(email);
@@ -87,6 +87,7 @@ public class SistemaAdministracion {
         domicilio.setCodPostal(codPostal);
         domicilio.setLocalidad(localidad);
         domicilio.setProvincia(provincia);
+        domicilio.setZona(zona);
         cliente.setDomicilio(domicilio);
         CuentaCorriente cuentaCorriente = new CuentaCorriente();
         cuentaCorriente.setSaldo(saldo);
