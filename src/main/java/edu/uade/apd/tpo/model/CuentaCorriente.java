@@ -5,8 +5,8 @@ import java.util.List;
 public class CuentaCorriente {
 
     private Long id;
-    private float saldo;
-    private float limiteCredito;
+    private Float saldo;
+    private Float limiteCredito;
     private List<Transaccion> transacciones;
 
     public Long getId() {
@@ -25,11 +25,11 @@ public class CuentaCorriente {
         this.saldo = saldo;
     }
 
-    public float getLimiteCredito() {
+    public Float getLimiteCredito() {
         return limiteCredito;
     }
 
-    public void setLimiteCredito(float limiteCredito) {
+    public void setLimiteCredito(Float limiteCredito) {
         this.limiteCredito = limiteCredito;
     }
 
