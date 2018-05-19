@@ -2,15 +2,20 @@ package edu.uade.apd.tpo.controller;
 
 import edu.uade.apd.tpo.dao.impl.FacturaDao;
 import edu.uade.apd.tpo.dao.impl.PedidoDao;
+import edu.uade.apd.tpo.model.CondIva;
+import edu.uade.apd.tpo.model.CostoEnvio;
 import edu.uade.apd.tpo.model.Factura;
 import edu.uade.apd.tpo.model.MedioPago;
 import edu.uade.apd.tpo.model.Pedido;
 import edu.uade.apd.tpo.model.Remito;
+import edu.uade.apd.tpo.model.TipoFactura;
 import edu.uade.apd.tpo.model.Transaccion;
+import edu.uade.apd.tpo.model.Transportista;
 
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 public class SistemaFacturacion {
 
@@ -34,6 +39,40 @@ public class SistemaFacturacion {
 		return pedidoDao.findById(pedidoId);
 	}
 
+	public void facturar(Long pedidoId) {
+		//Sucede cuando despacho nos avisa que ya tiene listo el pedido para enviar
+		//Emitimos factura y remito
+		Random rand = new Random();
+		int number = rand.nextInt(3-1) + 1;
+		
+		Pedido p = this.buscarPedido(pedidoId);
+		Factura f = new Factura();
+		CostoEnvio ce = new CostoEnvio();
+		ce.setZona(p.getCliente().getDomicilio().getZona());
+		ce.setTransportista(Transportista.values()[number]);
+		
+		f.setFecha(new Date());
+		f.setPedido(p);
+		f.setCostoEnvio(ce);
+		f.setImpuestos(new Float(0.21));
+		
+		if (p.getCliente().getCondIva() == CondIva.CONS_FINAL) {
+			f.setTipo(TipoFactura.B);
+		}else {
+			f.setTipo(TipoFactura.A);
+		}
+		
+		f.guardar();
+		
+		//Genero el remito
+		Remito r = new Remito();
+		r.setFactura(f);
+		r.setFecha(new Date());
+		r.guardar();
+		
+	}
+	
+	
 	public float procesarPago(String email, float importe, MedioPago mp, float saldo, float limite) {
 		List<Factura> facturas = this.obtenerFacturasImpagasCliente(email);
 		float importeRestante = (saldo + limite) + importe;
@@ -51,7 +90,6 @@ public class SistemaFacturacion {
 				importeRestante -= t.getImporte();
 			}
 		}
-		
 		//devolvemos el importe que le sobro del pago de las facturas menos el limite que le extendimos
 		return (importeRestante - limite);
 	}
@@ -70,7 +108,6 @@ public class SistemaFacturacion {
 			f.guardar();
 			importeRestante -= t.getImporte();
 		}
-		
 		return importeRestante - limite;
 	}
 

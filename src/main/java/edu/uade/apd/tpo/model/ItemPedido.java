@@ -40,4 +40,8 @@ public class ItemPedido {
     public void setLotes(List<ItemLote> lotes) {
         this.lotes = lotes;
     }
+    
+    public Float getSubtotal() {
+    		return this.articulo.getPrecio() * this.cantidad;
+    }
 }

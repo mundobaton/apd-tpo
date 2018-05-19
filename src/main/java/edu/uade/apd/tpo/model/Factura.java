@@ -48,7 +48,14 @@ public class Factura {
 	}
 
 	public Float getTotal() {
-		return total;
+		
+		this.total = new Float(0);
+		
+		for(ItemPedido item : this.pedido.getItems()) {
+			this.total += item.getSubtotal();
+		}
+		
+		return total + (total * this.impuestos) + this.costoEnvio.calcular();
 	}
 
 	public void setTotal(Float total) {
