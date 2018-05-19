@@ -5,6 +5,7 @@ import edu.uade.apd.tpo.dao.impl.ClienteDao;
 import edu.uade.apd.tpo.dao.impl.PedidoDao;
 import edu.uade.apd.tpo.dao.impl.UsuarioDao;
 import edu.uade.apd.tpo.entity.UsuarioEntity;
+import edu.uade.apd.tpo.exception.ArticulosFaltantesException;
 import edu.uade.apd.tpo.model.Articulo;
 import edu.uade.apd.tpo.model.Cliente;
 import edu.uade.apd.tpo.model.CondIva;
@@ -116,11 +117,7 @@ public class SistemaAdministracion {
         pedido.setCliente(cli);
         pedido.setDomicilio(dom);
         pedido.setFechaPedido(new Date());
-        Estado estado = new Estado();
-        estado.setMotivo("Creacion del pedido");
-        estado.setEstado(EstadoPedido.INICIADO);
-        estado.setFecha(new Date());
-        pedido.addEstado(estado);
+        pedido.iniciar();
         pedido.guardar();
         return pedido.getId();
     }
@@ -135,22 +132,21 @@ public class SistemaAdministracion {
     public void agregarItemPedido(Long pedidoId, Long articuloId, int cant) {
         //TODO Validar parametros!
         Pedido p = pedidoDao.findById(pedidoId);
-        Articulo articulo = articuloDao.findById(articuloId);
-        ItemPedido item = new ItemPedido();
-        item.setArticulo(articulo);
-        item.setCantidad(cant);
-        p.addItem(item);
-        p.guardar();
+        if (p.getEstado() == EstadoPedido.INICIADO) {
+            Articulo articulo = articuloDao.findById(articuloId);
+            p.agregarItem(articulo, cant);
+            p.guardar();
+        } else {
+            //TODO Arrojar business exception
+        }
     }
 
     public void finalizarCargaItemsPedido(Long pedidoId) {
         //TODO Validar parametros!
         Pedido p = pedidoDao.findById(pedidoId);
-        Estado e = new Estado();
-        e.setFecha(new Date());
-        e.setEstado(EstadoPedido.PENDIENTE);
-        e.setMotivo("Fin carga de items al pedido");
-        p.addEstado(e);
+        if(p.getEstado() == EstadoPedido.INICIADO) {
+            p.cerrar();
+        }
         p.guardar();
     }
 
@@ -162,10 +158,13 @@ public class SistemaAdministracion {
     public void aprobarPedido(Long pedidoId) {
         //Todo validar parametros e integridad del pedido, checkear estado
         Pedido p = this.buscarPedido(pedidoId);
-        p.aprobar();
+        try {
+            p.aprobar();
+        } catch (ArticulosFaltantesException afe) {
+            SistemaCompras.getInstance().generarOrdenCompra(afe.getArticulo().getId());
+            p.marcarPendiente();
+        }
 
-        //TODO Aca se debería verificar si existe stock para completar el pedido,
-        //TODO si se puede cumplir hacerlo y sino realizar la OC correspondiente
     }
 
     public void rechazarPedido(Long pedidoId, String motivo) {

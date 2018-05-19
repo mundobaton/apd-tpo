@@ -1,9 +1,12 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.controller.SistemaDeposito;
 import edu.uade.apd.tpo.dao.impl.PedidoDao;
+import edu.uade.apd.tpo.exception.ArticulosFaltantesException;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class Pedido {
@@ -99,13 +102,27 @@ public class Pedido {
         PedidoDao.getInstance().save(this);
     }
 
-    public void aprobar() {
+    public void aprobar() throws ArticulosFaltantesException {
         Estado e = new Estado();
         e.setMotivo("Aprobación del pedido");
         e.setEstado(EstadoPedido.APROBADO);
         e.setFecha(new Date());
         this.addEstado(e);
-        this.guardar();
+        SistemaDeposito depo = SistemaDeposito.getInstance();
+        Iterator<ItemPedido> it = this.getItems().iterator();
+        while(it.hasNext()) {
+            ItemPedido ip = it.next();
+            ip.setLotes(depo.obtenerLotesPorArticulo(ip.getArticulo().getId(), ip.getCantidad()));
+            if(!ip.esCompleto()) {
+                throw new ArticulosFaltantesException(ip.getArticulo(), ip.getCantidad());
+            }
+        }
+        e = new Estado();
+        e.setMotivo("Pedido completo");
+        e.setEstado(EstadoPedido.COMPLETO);
+        e.setFecha(new Date());
+        this.addEstado(e);
+        guardar();
     }
 
     public void rechazar(String motivo) {
@@ -114,15 +131,36 @@ public class Pedido {
         e.setEstado(EstadoPedido.RECHAZADO);
         e.setFecha(new Date());
         this.addEstado(e);
-        this.guardar();
     }
 
     public void cerrar() {
         Estado e = new Estado();
         e.setMotivo("Cierre del pedido");
-        e.setEstado(EstadoPedido.COMPLETO);
+        e.setEstado(EstadoPedido.PENDIENTE);
         e.setFecha(new Date());
         this.addEstado(e);
-        this.guardar();
+    }
+
+    public void iniciar() {
+        Estado estado = new Estado();
+        estado.setMotivo("Creacion del pedido");
+        estado.setEstado(EstadoPedido.INICIADO);
+        estado.setFecha(new Date());
+        this.addEstado(estado);
+    }
+
+    public void agregarItem(Articulo articulo, int cantidad) {
+        ItemPedido item = new ItemPedido();
+        item.setArticulo(articulo);
+        item.setCantidad(cantidad);
+        addItem(item);
+    }
+
+    public EstadoPedido getEstado() {
+        return this.estados == null ? EstadoPedido.NO_INICIADO : this.estados.get(this.estados.size() - 1).getEstado();
+    }
+
+    public void marcarPendiente() {
+        cerrar();
     }
 }

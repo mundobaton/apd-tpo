@@ -1,5 +1,7 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.dao.impl.OrdenCompraDao;
+
 public class OrdenCompra {
 
     private Long id;
@@ -37,5 +39,17 @@ public class OrdenCompra {
 
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
+    }
+
+    public OrdenCompra(Articulo art) {
+        this.articulo = art;
+        this.estado = EstadoCompra.PENDIENTE;
+    }
+
+    public OrdenCompra() {
+    }
+
+    public void guardar() {
+        OrdenCompraDao.getInstance().save(this);
     }
 }
