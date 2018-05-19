@@ -21,8 +21,9 @@ public abstract class AbstractDao<R extends BaseEntity> {
     protected void save(R r) {
         try (Session session = sessionManager.getSessionFactory().openSession()) {
             session.beginTransaction();
-            session.saveOrUpdate(r);
+            session.merge(r);
             session.getTransaction().commit();
+            session.flush();
         }
     }
 
@@ -31,6 +32,7 @@ public abstract class AbstractDao<R extends BaseEntity> {
             session.beginTransaction();
             session.delete(r);
             session.getTransaction().commit();
+            session.flush();
         }
     }
 

@@ -9,12 +9,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "clientes")
@@ -33,7 +35,7 @@ public class ClienteEntity extends UsuarioEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cuenta_corriente_id")
     private CuentaCorrienteEntity cuentaCorriente;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "cliente_id")
     private List<PedidoEntity> pedidos;
     @Enumerated(EnumType.ORDINAL)
