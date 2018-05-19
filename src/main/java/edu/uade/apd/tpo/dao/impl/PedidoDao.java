@@ -40,7 +40,7 @@ public class PedidoDao extends AbstractDao<PedidoEntity> {
     }
 
     public Pedido findById(Long pedidoId) {
-        String query = "select p from PedidoEntity where id = :pedidoId";
+        String query = "select p from PedidoEntity p where p.id = :pedidoId";
 
         try (Session session = getSession()) {
             Query<PedidoEntity> q = session.createQuery(query).setParameter("pedidoId", pedidoId);
