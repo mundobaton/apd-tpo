@@ -9,6 +9,7 @@ public enum EstadoPedido {
     RECHAZADO,
     PENDIENTE,
     COMPLETO,
+    NO_INICIADO,
     ENVIADO;
 
     public static EstadoPedido fromStub(EstadoPedidoStub stub) {

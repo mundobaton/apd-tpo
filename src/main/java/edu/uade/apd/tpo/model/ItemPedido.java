@@ -4,44 +4,55 @@ import java.util.List;
 
 public class ItemPedido {
 
-    private Long id;
-    private Articulo articulo;
-    private int cantidad;
-    private List<ItemLote> lotes;
+	private Long id;
+	private Articulo articulo;
+	private int cantidad;
+	private List<ItemLote> lotes;
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Articulo getArticulo() {
-        return articulo;
-    }
+	public Articulo getArticulo() {
+		return articulo;
+	}
 
-    public void setArticulo(Articulo articulo) {
-        this.articulo = articulo;
-    }
+	public void setArticulo(Articulo articulo) {
+		this.articulo = articulo;
+	}
 
-    public int getCantidad() {
-        return cantidad;
-    }
+	public int getCantidad() {
+		return cantidad;
+	}
 
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
 
-    public List<ItemLote> getLotes() {
-        return lotes;
-    }
+	public List<ItemLote> getLotes() {
+		return lotes;
+	}
 
-    public void setLotes(List<ItemLote> lotes) {
-        this.lotes = lotes;
-    }
-    
-    public Float getSubtotal() {
-    		return this.articulo.getPrecio() * this.cantidad;
-    }
+	public void setLotes(List<ItemLote> lotes) {
+		this.lotes = lotes;
+	}
+
+	public Float getSubtotal() {
+		return this.articulo.getPrecio() * this.cantidad;
+	}
+
+	/**
+	 * Es completo el item si la suma de las cantidades de todos los lotes es igual
+	 * a la cantidad pedida
+	 * 
+	 * @return
+	 */
+	public boolean esCompleto() {
+		return cantidad == lotes.stream().mapToInt(l -> l.getCantidad()).sum();
+
+	}
 }
