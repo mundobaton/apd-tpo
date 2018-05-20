@@ -40,5 +40,4 @@ public class ArticuloDao extends AbstractDao<ArticuloEntity> {
             return entities.parallelStream().map(u -> TransformUtils.to(u, Articulo.class)).collect(Collectors.toList());
         }
     }
-
 }

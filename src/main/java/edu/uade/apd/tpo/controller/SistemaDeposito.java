@@ -1,5 +1,6 @@
 package edu.uade.apd.tpo.controller;
 
+<<<<<<< HEAD
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -28,6 +29,27 @@ public class SistemaDeposito {
     private SistemaDeposito() {
         this.articuloDao = ArticuloDao.getInstance();
         this.posicionDao = PosicionDao.getInstance();
+=======
+import edu.uade.apd.tpo.dao.impl.ArticuloDao;
+import edu.uade.apd.tpo.dao.impl.ItemLoteDao;
+import edu.uade.apd.tpo.model.Articulo;
+import edu.uade.apd.tpo.model.ItemLote;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class SistemaDeposito {
+
+    private ArticuloDao articuloDao;
+    private ItemLoteDao itemLoteDao;
+
+    private static SistemaDeposito instance;
+
+    private SistemaDeposito() {
+        this.articuloDao = ArticuloDao.getInstance();
+        this.itemLoteDao = ItemLoteDao.getInstance();
+>>>>>>> develop
     }
 
     public static SistemaDeposito getInstance() {
@@ -36,6 +58,7 @@ public class SistemaDeposito {
         }
         return instance;
     }
+<<<<<<< HEAD
     
     public void liberarPosicion(String codigoUbicacion, int cantidad) {
     	Posicion posicion = posicionDao.findById(codigoUbicacion);
@@ -70,4 +93,30 @@ public class SistemaDeposito {
     public Articulo buscarArticulo(Long articuloId) {
     	return articuloDao.getInstance().findById(articuloId);
     }
+=======
+
+    /**
+     * Obtiene la menor cantidad de lotes necesarios
+     * @param articuloId
+     * @param cant
+     * @return
+     */
+    public List<ItemLote> obtenerLotesPorArticulo(Long articuloId, int cant) {
+        List<ItemLote> result = new ArrayList<>();
+        int cantidadParcial = 0;
+        List<ItemLote> itemLotes = itemLoteDao.findByArticuloId(articuloId);
+        Iterator<ItemLote> it = itemLotes.iterator();
+        while (cantidadParcial < cant && it.hasNext()) {
+            ItemLote il = it.next();
+            cantidadParcial += il.getCantidad();
+            result.add(il);
+        }
+        return result;
+    }
+
+    public Articulo buscarArticulo(Long articuloId) {
+        return articuloDao.findById(articuloId);
+    }
+
+>>>>>>> develop
 }

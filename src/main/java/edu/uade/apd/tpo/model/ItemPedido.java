@@ -40,4 +40,12 @@ public class ItemPedido {
     public void setLotes(List<ItemLote> lotes) {
         this.lotes = lotes;
     }
+
+    /**
+     * Es completo el item si la suma de las cantidades de todos los lotes es igual a la cantidad pedida
+     * @return
+     */
+    public boolean esCompleto() {
+        return cantidad == lotes.stream().mapToInt(l -> l.getCantidad()).sum();
+    }
 }
