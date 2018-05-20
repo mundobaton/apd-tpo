@@ -12,6 +12,7 @@ import edu.uade.apd.tpo.repository.stub.RolStub;
 import edu.uade.apd.tpo.repository.stub.UsuarioStub;
 import edu.uade.apd.tpo.repository.stub.ZonaEnvioStub;
 
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
@@ -59,4 +60,13 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
     public void crearCliente(String email, String password, String nombre, long cuil, String telefono, CondIvaStub condIva, String calle, int numero, String codPostal, String localidad, String provincia, ZonaEnvioStub zona, float saldo, float limiteCredito) throws RemoteException {
         this.controller.crearCliente(email, password, nombre, cuil, telefono, CondIva.fromStub(condIva), calle, numero, codPostal, localidad, provincia, ZonaEnvio.fromStub(zona), saldo, limiteCredito);
     }
-}
+
+	@Override
+	public void generarPedido(String email, String calle, int num, String codPostal, String localidad, String prov, ZonaEnvioStub zona) throws RemoteException {
+		this.controller.generarPedido(email, calle, num, codPostal, localidad, prov, ZonaEnvio.fromStub(zona));
+	}
+
+	}
+
+
+	
