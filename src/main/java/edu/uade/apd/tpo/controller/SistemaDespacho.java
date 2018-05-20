@@ -3,6 +3,7 @@ package edu.uade.apd.tpo.controller;
 import java.util.List;
 
 import edu.uade.apd.tpo.dao.impl.PedidoDao;
+import edu.uade.apd.tpo.model.ItemPedido;
 import edu.uade.apd.tpo.model.Pedido;
 
 public class SistemaDespacho {
@@ -25,7 +26,14 @@ public class SistemaDespacho {
 
 		Pedido p = buscarPedido(pedidoId);
 
+		for(ItemPedido item : p.getItems()){
 
+
+
+		}
+
+
+		SistemaFacturacion.getInstance().facturar(pedidoId);
 	}
 	
 	public List<Pedido> obtenerPedidosCompletos(){
