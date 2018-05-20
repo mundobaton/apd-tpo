@@ -1,8 +1,14 @@
 package edu.uade.apd.tpo.dao.impl;
 
 import edu.uade.apd.tpo.entity.PedidoEntity;
+import edu.uade.apd.tpo.entity.UsuarioEntity;
 import edu.uade.apd.tpo.model.Pedido;
+import edu.uade.apd.tpo.model.Usuario;
 import edu.uade.apd.tpo.remote.TransformUtils;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -33,5 +39,13 @@ public class PedidoDao extends AbstractDao<PedidoEntity> {
     public void save(Pedido pedido) {
         PedidoEntity entity = TransformUtils.to(pedido, PedidoEntity.class);
         super.save(entity);
+    }
+    
+    public List<Pedido> findAll() {
+        String queryStr = "select u from UsuarioEntity u";
+        try (Session session = getSession()) {
+            List<PedidoEntity> resultList = session.createQuery(queryStr).getResultList();
+            return resultList.parallelStream().map(p -> TransformUtils.to(p, Pedido.class)).collect(Collectors.toList());
+        }
     }
 }
