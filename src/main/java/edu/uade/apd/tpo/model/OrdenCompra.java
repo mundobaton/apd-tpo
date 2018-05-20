@@ -1,5 +1,7 @@
 package edu.uade.apd.tpo.model;
 
+import java.sql.Date;
+
 import edu.uade.apd.tpo.dao.impl.OrdenCompraDao;
 
 public class OrdenCompra {
@@ -8,6 +10,7 @@ public class OrdenCompra {
     private Articulo articulo;
     private EstadoCompra estado;
     private Proveedor proveedor;
+    private Date fecha;
 
     public Long getId() {
         return id;
@@ -41,6 +44,14 @@ public class OrdenCompra {
         this.proveedor = proveedor;
     }
 
+    public Date getFecha() {
+    	return fecha;
+    }
+    
+    public void setFecha(Date fecha) {
+    	this.fecha = fecha;
+    }
+    
     public OrdenCompra(Articulo art) {
         this.articulo = art;
         this.estado = EstadoCompra.PENDIENTE;
