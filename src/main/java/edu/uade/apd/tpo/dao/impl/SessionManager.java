@@ -52,6 +52,7 @@ public class SessionManager {
             configuration.addAnnotatedClass(StockEntity.class);
             configuration.addAnnotatedClass(TransaccionEntity.class);
             configuration.addAnnotatedClass(UsuarioEntity.class);
+            configuration.setProperty("hibernate.event.merge.entity_copy_observer", "allow");
             StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
             sessionFactory = configuration.buildSessionFactory(builder.build());
         }

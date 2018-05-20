@@ -31,4 +31,25 @@ public class Stock {
     public void setMovimientos(List<Movimiento> movimientos) {
         this.movimientos = movimientos;
     }
+
+    public void agregarMovimientoEgreso(MotivoEgreso motivo, int cantidad){
+        Egreso egreso = new Egreso();
+        egreso.setMotivoEgreso(motivo);
+        this.movimientos.add(egreso);
+        this.cantidad += cantidad;
+    }
+
+    public void agregarMovimientoEgreso(MotivoEgreso motivo, Usuario encargado, String autorizante, String destino, int cantidad){
+
+        Egreso egreso = new Egreso();
+        egreso.setMotivoEgreso(motivo);
+        egreso.setEncargado(encargado);
+        egreso.setAutorizante(autorizante);
+        egreso.setDestino(destino);
+
+        this.movimientos.add(egreso);
+        this.cantidad += cantidad;
+
+    }
+
 }

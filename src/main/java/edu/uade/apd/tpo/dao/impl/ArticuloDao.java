@@ -41,4 +41,9 @@ public class ArticuloDao extends AbstractDao<ArticuloEntity> {
         }
     }
 
+    public void save(Articulo articulo) {
+        ArticuloEntity entity = TransformUtils.to(articulo, ArticuloEntity.class);
+        super.save(entity);
+    }
+
 }
