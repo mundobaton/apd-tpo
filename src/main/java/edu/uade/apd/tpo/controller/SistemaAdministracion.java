@@ -218,6 +218,6 @@ public class SistemaAdministracion {
     }
 
 	public List<Pedido> getPedidosPendientes() {
-	    return pedidoDao.findAll();
+	    return pedidoDao.findAllPending();
 	}
 }

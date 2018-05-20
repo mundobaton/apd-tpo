@@ -56,10 +56,20 @@ public class PedidoDao extends AbstractDao<PedidoEntity> {
     }
     
     public List<Pedido> findAll() {
-        String queryStr = "select u from UsuarioEntity u";
+        String queryStr = "select p from PedidoEntity p";
         try (Session session = getSession()) {
             List<PedidoEntity> resultList = session.createQuery(queryStr).getResultList();
             return resultList.parallelStream().map(p -> TransformUtils.to(p, Pedido.class)).collect(Collectors.toList());
         }
+    }
+    
+    public List<Pedido> findAllPending() {
+        String query = "select p from PedidoEntity p inner join p.estados as e " +
+                "where e.estadoPedido = 'PENDIENTE'";
+        try (Session session = getSession()) {
+            Query<PedidoEntity> q = session.createQuery(query);
+            List<PedidoEntity> entities = q.getResultList();
+            return entities.parallelStream().map(u -> TransformUtils.to(u, Pedido.class)).collect(Collectors.toList());
+        } 
     }
 }
