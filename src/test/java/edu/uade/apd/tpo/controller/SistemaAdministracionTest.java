@@ -19,7 +19,7 @@ public class SistemaAdministracionTest {
 
     @Test
     public void testCrearCliente() {
-        sistemaAdministracion.crearCliente("baton2@gmail.com", "otro password", "fulano", 123, "4123-3333", CondIva.CONS_FINAL, "una calle", 123, "un cp", "una localidad", "una prov", ZonaEnvio.CABA, 0, 1500);
+        sistemaAdministracion.crearCliente("erica@gmail.com", "otro password", "erica", 123, "4123-3333", CondIva.CONS_FINAL, "una calle", 123, "un cp", "una localidad", "una prov", ZonaEnvio.CABA, 0, 1500);
     }
 
     @Test

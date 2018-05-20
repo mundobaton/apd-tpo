@@ -2,6 +2,7 @@ package edu.uade.apd.tpo.controller;
 
 import edu.uade.apd.tpo.dao.impl.FacturaDao;
 import edu.uade.apd.tpo.dao.impl.PedidoDao;
+import edu.uade.apd.tpo.exception.BusinessException;
 import edu.uade.apd.tpo.model.CondIva;
 import edu.uade.apd.tpo.model.CostoEnvio;
 import edu.uade.apd.tpo.model.Factura;
@@ -91,10 +92,14 @@ public class SistemaFacturacion {
         return (importeRestante - limite);
     }
 
-    public float procesarPago(Long facturaId, float importe, MedioPago mp, float saldo, float limite) {
+    public float procesarPago(Long facturaId, float importe, MedioPago mp, float saldo, float limite) throws BusinessException {
 
         Factura f = buscarFactura(facturaId);
+
+        if(f == null) throw new BusinessException("No se ha encontrado la factura indicada.");
+
         float importeRestante = saldo + limite + importe;
+
         if (f.getTotal() <= importeRestante) {
             Transaccion t = new Transaccion();
             t.setFecha(new Date());
@@ -106,6 +111,7 @@ public class SistemaFacturacion {
             importeRestante -= t.getImporte();
         }
         return importeRestante - limite;
+
     }
 
     private List<Factura> obtenerFacturasCliente(String email) {

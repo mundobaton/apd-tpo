@@ -6,6 +6,7 @@ import edu.uade.apd.tpo.dao.impl.PedidoDao;
 import edu.uade.apd.tpo.dao.impl.UsuarioDao;
 import edu.uade.apd.tpo.entity.UsuarioEntity;
 import edu.uade.apd.tpo.exception.ArticulosFaltantesException;
+import edu.uade.apd.tpo.exception.BusinessException;
 import edu.uade.apd.tpo.model.Articulo;
 import edu.uade.apd.tpo.model.Cliente;
 import edu.uade.apd.tpo.model.CondIva;
@@ -205,7 +206,7 @@ public class SistemaAdministracion {
         cli.guardar();
     }
     
-    public void procesarPago(String email, float importe, MedioPago mp, Long facturaId) {
+    public void procesarPago(String email, float importe, MedioPago mp, Long facturaId) throws BusinessException {
         Cliente cli = clienteDao.findByEmail(email);
         float saldo = SistemaFacturacion.getInstance().procesarPago(facturaId, importe, mp, cli.getCuentaCorriente().getSaldo() ,cli.getCuentaCorriente().getLimiteCredito());
         //actualizamos el saldo de la cuenta
