@@ -29,4 +29,8 @@ public class CostoEnvio {
     public void setTransportista(Transportista transportista) {
         this.transportista = transportista;
     }
+    
+    public float calcular() {
+    		return zona.getPrecio() * transportista.getPrecio();
+    }
 }

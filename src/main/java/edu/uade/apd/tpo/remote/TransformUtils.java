@@ -13,7 +13,11 @@ import java.util.stream.Collectors;
 
 public class TransformUtils {
 
-    private final static String BASE_PKG = "java.lang";
+    private static final List<String> basePackages = new ArrayList<>();
+    static {
+        basePackages.add("java.lang");
+        basePackages.add("java.util");
+    }
 
     public static <T, R> T to(R r, Class<T> clazz) {
         return clone(r, clazz);
@@ -22,7 +26,7 @@ public class TransformUtils {
     private static <T, R> T clone(R r, Class<T> clazz) {
         T t = null;
         try {
-            if(!clazz.getPackage().getName().equals(BASE_PKG)) {
+            if(!basePackages.contains(clazz.getPackage().getName())) {
                 t = clazz.newInstance();
                 for (Field f : getFields(t.getClass()).values()) {
                     f.setAccessible(true);
