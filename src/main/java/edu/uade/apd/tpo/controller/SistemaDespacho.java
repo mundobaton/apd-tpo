@@ -22,16 +22,14 @@ public class SistemaDespacho {
 	}
 	
 	public void despacharPedido(Long pedidoId) {
-		
+
+		Pedido p = buscarPedido(pedidoId);
+
+
 	}
 	
 	public List<Pedido> obtenerPedidosCompletos(){
-
-		List<Pedido> pedidos = pedidoDao.obtenerPedidosCompletos();
-
-
-		return null;
-		
+		return pedidoDao.obtenerPedidosCompletos();
 	}
 	
 	public Pedido buscarPedido(Long pedidoId) {
