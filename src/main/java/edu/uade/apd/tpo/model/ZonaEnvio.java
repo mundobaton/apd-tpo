@@ -4,13 +4,23 @@ import edu.uade.apd.tpo.repository.stub.ZonaEnvioStub;
 
 public enum ZonaEnvio {
 
-    CABA,
-    NORTE,
-    SUR,
-    OESTE;
+	CABA (3), 
+	NORTE (6), 
+	SUR (4), 
+	OESTE  (5);
 
-    public static ZonaEnvio fromStub(ZonaEnvioStub stub) {
-        return ZonaEnvio.valueOf(stub.name());
-    }
+	private float precio;
+	
+	ZonaEnvio (float precio){
+		this.precio = precio;
+	}
+	
+	public float getPrecio() {
+		return this.precio;
+	}
+	
+	public static ZonaEnvio fromStub(ZonaEnvioStub stub) {
+		return ZonaEnvio.valueOf(stub.name());
+	}
 
-    }
+}
