@@ -41,7 +41,7 @@ public class FacturaDao extends AbstractDao<FacturaEntity> {
 
     public List<Factura> obtenerFacturasCliente(String email) {
         String query = "select f from FacturaEntity f inner join f.pedido as p inner join p.cliente as c " +
-                "where c.email = :email order by fecha ASC";
+                "where c.email = :email order by f.fecha ASC";
         try (Session session = getSession()) {
             Query<FacturaEntity> q = session.createQuery(query);
             q.setParameter("email", email);

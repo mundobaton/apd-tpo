@@ -31,7 +31,7 @@ public class SistemaDespacho {
 
 			for(ItemLote lote : item.getLotes()){
 				for(Posicion posicion : lote.getLote().getPosiciones()){
-					SistemaDeposito.getInstance().liberarPosicion(posicion.getCodigoUbicacion(), item.getCantidad());
+					//SistemaDeposito.getInstance().liberarPosicion(posicion.getCodigoUbicacion(), item.getCantidad());
 				}
 			}
 			item.getArticulo().guardar();
