@@ -9,3 +9,4 @@
 .settings/org.eclipse.buildship.core.prefs
 bin/hibernate.cfg.xml
 bin/log4j.properties
+
