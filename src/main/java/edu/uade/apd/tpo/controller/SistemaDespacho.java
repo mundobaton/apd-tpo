@@ -26,7 +26,11 @@ public class SistemaDespacho {
 	}
 	
 	public List<Pedido> obtenerPedidosCompletos(){
-		
+
+		List<Pedido> pedidos = pedidoDao.obtenerPedidosCompletos();
+
+
+		return null;
 		
 	}
 	
