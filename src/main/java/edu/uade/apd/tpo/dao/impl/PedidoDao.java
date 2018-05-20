@@ -28,7 +28,7 @@ public class PedidoDao extends AbstractDao<PedidoEntity> {
     
     public List<Pedido> obtenerPedidosCompletos(){
        
-    	String query = "select p from PedidoEntity p inner join estados as e " +
+    	String query = "select p from PedidoEntity p inner join p.estados as e " +
                 "where e.estadoPedido = 'COMPLETO'";
         try (Session session = getSession()) {
             Query<PedidoEntity> q = session.createQuery(query);
