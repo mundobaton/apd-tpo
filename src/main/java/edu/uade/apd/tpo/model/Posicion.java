@@ -106,7 +106,6 @@ public class Posicion {
     		this.setEstado(EstadoPosicion.DISPONIBLE);
     	}
     	this.setCantidad(this.cantidad - cantidad); 
-    	this.guardar();
     }
     
     public void almacenar(Lote lote, int cantidad, String codigoUbicacion) {
@@ -114,6 +113,5 @@ public class Posicion {
     	this.setLote(lote);
     	this.setCodigoUbicacion(codigoUbicacion);
     	this.setCantidad(cantidad);
-    	this.guardar();
     }
 }
