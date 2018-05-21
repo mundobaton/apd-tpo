@@ -21,9 +21,11 @@ import edu.uade.apd.tpo.model.Rol;
 import edu.uade.apd.tpo.model.Usuario;
 import edu.uade.apd.tpo.model.ZonaEnvio;
 import edu.uade.apd.tpo.repository.exception.UserNotFoundException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -213,4 +215,8 @@ public class SistemaAdministracion {
         cli.getCuentaCorriente().setSaldo(saldo);
         cli.guardar();
     }
+
+	public List<Pedido> getPedidosPendientes() {
+	    return pedidoDao.findAllPending();
+	}
 }

@@ -8,9 +8,11 @@ import edu.uade.apd.tpo.model.ZonaEnvio;
 import edu.uade.apd.tpo.repository.SistemaAdministracionRepository;
 import edu.uade.apd.tpo.repository.stub.ClienteStub;
 import edu.uade.apd.tpo.repository.stub.CondIvaStub;
+import edu.uade.apd.tpo.repository.stub.PedidoStub;
 import edu.uade.apd.tpo.repository.stub.RolStub;
 import edu.uade.apd.tpo.repository.stub.UsuarioStub;
 import edu.uade.apd.tpo.repository.stub.ZonaEnvioStub;
+
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -59,4 +61,23 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
     public void crearCliente(String email, String password, String nombre, long cuil, String telefono, CondIvaStub condIva, String calle, int numero, String codPostal, String localidad, String provincia, ZonaEnvioStub zona, float saldo, float limiteCredito) throws RemoteException {
         this.controller.crearCliente(email, password, nombre, cuil, telefono, CondIva.fromStub(condIva), calle, numero, codPostal, localidad, provincia, ZonaEnvio.fromStub(zona), saldo, limiteCredito);
     }
+
+    @Override
+    public void generarPedido(String email, String calle, int num, String codPostal, String localidad, String prov, ZonaEnvioStub zona) throws RemoteException {
+        this.controller.generarPedido(email, calle, num, codPostal, localidad, prov, ZonaEnvio.fromStub(zona));
+    }
+
+    @Override
+    public void agregarItemPedido(Long pedidoId, Long articuloId, int cant) throws RemoteException {
+        this.controller.agregarItemPedido(pedidoId, articuloId, cant);
+    }
+
+    @Override
+    public List<PedidoStub> getPedidosPendientes() throws RemoteException {
+        return controller.getPedidosPendientes().parallelStream().map(p -> p.toStub()).collect(Collectors.toList());
+    }
+
 }
+
+
+	
