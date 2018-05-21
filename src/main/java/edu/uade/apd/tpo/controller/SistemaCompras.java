@@ -66,10 +66,10 @@ public class SistemaCompras {
         oc.ejecutar();
         Articulo art = oc.getArticulo();
 
-        SistemaDeposito.getInstance().almacenar(art.getId(), oc.getArticulo().getCantCompra());
-        art.comprar(art.getCantCompra());
-        art.guardar();
-        logger.info("Orden de compra procesada exitosamente!");
+      //  SistemaDeposito.getInstance().almacenar(art.getId(), oc.getArticulo().getCantCompra());
+      //  art.comprar(art.getCantCompra());
+      //  art.guardar();
+      //  logger.info("Orden de compra procesada exitosamente!");
     }
 
 

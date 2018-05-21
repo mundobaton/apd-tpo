@@ -41,6 +41,32 @@ public class Stock {
         movimientos.add(ingreso);
     }
 
+    public void agregarMovimientoEgreso(MotivoEgreso motivo, int cant){
+        if(movimientos == null){
+            movimientos = new ArrayList<>();
+        }
+        Egreso egreso = new Egreso();
+        egreso.setMotivoEgreso(motivo);
+        egreso.setCantidad(cant);
+        egreso.setFecha(new Date());
+        movimientos.add(egreso);
+    }
+
+    public void agregarMovimientoEgreso(MotivoEgreso motivo, int cant, String destino, String autorizante, Usuario encargado){
+        if(movimientos == null){
+            movimientos = new ArrayList<>();
+        }
+        Egreso egreso = new Egreso();
+        egreso.setMotivoEgreso(motivo);
+        egreso.setCantidad(cant);
+        egreso.setFecha(new Date());
+        egreso.setAutorizante(autorizante);
+        egreso.setEncargado(encargado);
+        egreso.setDestino(destino);
+
+        movimientos.add(egreso);
+    }
+
     public static Stock fromEntity(StockEntity entity) {
         Stock stock = null;
         if (entity != null) {
