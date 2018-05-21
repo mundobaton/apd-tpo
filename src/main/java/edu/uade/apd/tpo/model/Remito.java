@@ -2,6 +2,8 @@ package edu.uade.apd.tpo.model;
 
 import java.util.Date;
 
+import edu.uade.apd.tpo.dao.impl.RemitoDao;
+
 public class Remito {
 
     private Long id;
@@ -31,5 +33,9 @@ public class Remito {
 
     public void setFactura(Factura factura) {
         this.factura = factura;
+    }
+    
+    public void guardar() {
+    		RemitoDao.getInstance().save(this);
     }
 }

@@ -199,6 +199,17 @@ public class SistemaAdministracion {
 
     public void procesarPago(String email, float importe, MedioPago mp) {
         Cliente cli = clienteDao.findByEmail(email);
-        SistemaFacturacion.getInstance().procesarPago(email, importe, mp, cli.getCuentaCorriente().getLimiteCredito());
+        float saldo = SistemaFacturacion.getInstance().procesarPago(email, importe, mp, cli.getCuentaCorriente().getSaldo() ,cli.getCuentaCorriente().getLimiteCredito());
+        //actualizamos el saldo de la cuenta
+        cli.getCuentaCorriente().setSaldo(saldo);
+        cli.guardar();
+    }
+    
+    public void procesarPago(String email, float importe, MedioPago mp, Long facturaId) {
+        Cliente cli = clienteDao.findByEmail(email);
+        float saldo = SistemaFacturacion.getInstance().procesarPago(facturaId, importe, mp, cli.getCuentaCorriente().getSaldo() ,cli.getCuentaCorriente().getLimiteCredito());
+        //actualizamos el saldo de la cuenta
+        cli.getCuentaCorriente().setSaldo(saldo);
+        cli.guardar();
     }
 }

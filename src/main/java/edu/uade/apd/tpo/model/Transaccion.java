@@ -11,7 +11,7 @@ public class Transaccion {
     private MedioPago medioPago;
     private List<Factura> facturas;
 
-    public Long getId() {
+	public Long getId() {
         return id;
     }
 
@@ -49,5 +49,9 @@ public class Transaccion {
 
     public void setFacturas(List<Factura> facturas) {
         this.facturas = facturas;
+    }
+    
+    public void addFactura(Factura factura){
+    		this.facturas.add(factura);
     }
 }

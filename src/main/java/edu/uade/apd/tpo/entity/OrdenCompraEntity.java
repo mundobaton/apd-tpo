@@ -2,6 +2,8 @@ package edu.uade.apd.tpo.entity;
 
 import edu.uade.apd.tpo.model.EstadoCompra;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -30,6 +32,8 @@ public class OrdenCompraEntity extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "proveedor_id")
     private ProveedorEntity proveedor;
+    @Column(name = "fecha")
+    private Date fecha;
 
     public Long getId() {
         return id;
