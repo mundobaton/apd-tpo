@@ -51,7 +51,7 @@ public class SistemaDeposito {
     	Articulo articulo = orden.getArticulo();
     	int cantCompra = orden.getArticulo().getCantCompra();
     	almacenar(articulo, itemLotes, cantCompra);
-    	SistemaCompras.getInstance().aceptarOrdenCompra();
+    	SistemaCompras.getInstance().aceptarOrdenCompra(orden.getId());
     }
     
     public void almacenar(Articulo articulo, List<ItemLote> itemLotes, int cantidad) {
