@@ -19,7 +19,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "facturas")
-public class FacturaEntity implements Serializable {
+public class FacturaEntity implements Persistible {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

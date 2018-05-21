@@ -15,7 +15,6 @@ public class Cliente extends Usuario {
     private Domicilio domicilio;
     private CondIva condIva;
     private CuentaCorriente cuentaCorriente;
-    private List<Pedido> pedidos;
 
     public Cliente() {
         this.rol = Rol.CLIENTE;
@@ -69,16 +68,8 @@ public class Cliente extends Usuario {
         this.cuentaCorriente = cuentaCorriente;
     }
 
-    public List<Pedido> getPedidos() {
-        return pedidos;
-    }
-
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
-    }
-
-    public void guardar() {
-        ClienteDao.getInstance().save(this.toEntity());
+    public Cliente guardar() {
+        return Cliente.fromEntity(ClienteDao.getInstance().save(this.toEntity()));
     }
 
     public ClienteEntity toEntity() {
@@ -93,13 +84,6 @@ public class Cliente extends Usuario {
         entity.setDomicilio(this.domicilio.toEntity());
         entity.setCondIva(this.condIva);
         entity.setCuentaCorriente(cuentaCorriente.toEntity());
-        if (this.pedidos != null) {
-            List<PedidoEntity> pedidoEntities = new ArrayList<>();
-            for (Pedido pedido : this.pedidos) {
-                pedidoEntities.add(pedido.toEntity());
-            }
-            entity.setPedidos(pedidoEntities);
-        }
         return entity;
     }
 
@@ -117,14 +101,6 @@ public class Cliente extends Usuario {
             cliente.setDomicilio(entity.getDomicilio() == null ? null : Domicilio.fromEntity(entity.getDomicilio()));
             cliente.setCondIva(entity.getCondIva());
             cliente.setCuentaCorriente(entity.getCuentaCorriente() == null ? null : CuentaCorriente.fromEntity(entity.getCuentaCorriente()));
-            if (entity.getPedidos() != null) {
-                List<Pedido> pedidos = new ArrayList<>();
-                for (PedidoEntity pe : entity.getPedidos()) {
-                    pedidos.add(Pedido.fromEntity(pe));
-                }
-                cliente.setPedidos(pedidos);
-
-            }
         }
 
         return cliente;

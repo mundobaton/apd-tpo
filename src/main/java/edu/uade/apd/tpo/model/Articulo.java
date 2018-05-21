@@ -3,7 +3,7 @@ package edu.uade.apd.tpo.model;
 import edu.uade.apd.tpo.dao.ArticuloDao;
 import edu.uade.apd.tpo.entity.ArticuloEntity;
 import edu.uade.apd.tpo.entity.LoteEntity;
-import edu.uade.apd.tpo.entity.OrdenCompraEntity;
+import org.hibernate.Session;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +18,7 @@ public class Articulo {
     private float precio;
     private int cantCompra;
     private Stock stock;
-    private List<Lote> lotes;
     private int volumen;
-    private List<OrdenCompra> ordenesCompra;
 
     public Integer getId() {
         return id;
@@ -86,28 +84,12 @@ public class Articulo {
         this.stock = stock;
     }
 
-    public List<Lote> getLotes() {
-        return lotes;
-    }
-
-    public void setLotes(List<Lote> lotes) {
-        this.lotes = lotes;
-    }
-
     public int getVolumen() {
         return volumen;
     }
 
     public void setVolumen(int volumen) {
         this.volumen = volumen;
-    }
-
-    public List<OrdenCompra> getOrdenesCompra() {
-        return ordenesCompra;
-    }
-
-    public void setOrdenesCompra(List<OrdenCompra> ordenesCompra) {
-        this.ordenesCompra = ordenesCompra;
     }
 
     public void guardar() {
@@ -124,21 +106,7 @@ public class Articulo {
         entity.setPrecio(precio);
         entity.setCantCompra(cantCompra);
         entity.setStock(stock == null ? null : stock.toEntity());
-        if (this.getLotes() != null) {
-            List<LoteEntity> lotes = new ArrayList<>();
-            for (Lote l : this.getLotes()) {
-                lotes.add(l.toEntity());
-            }
-            entity.setLotes(lotes);
-        }
         entity.setVolumen(volumen);
-        if (this.getOrdenesCompra() != null) {
-            List<OrdenCompraEntity> ordenesCompra = new ArrayList<>();
-            for (OrdenCompra oc : this.getOrdenesCompra()) {
-                ordenesCompra.add(oc.toEntity());
-            }
-            entity.setOrdenesCompra(ordenesCompra);
-        }
 
         return entity;
     }
@@ -155,22 +123,16 @@ public class Articulo {
             art.setPrecio(entity.getPrecio());
             art.setCantCompra(entity.getCantCompra());
             art.setStock(Stock.fromEntity(entity.getStock()));
-            if (entity.getLotes() != null) {
-                List<Lote> lotes = new ArrayList<>();
-                for (LoteEntity le : entity.getLotes()) {
-                    lotes.add(Lote.fromEntity(le));
-                }
-                art.setLotes(lotes);
-            }
             art.setVolumen(entity.getVolumen());
-            if (entity.getOrdenesCompra() != null) {
-                List<OrdenCompra> ordenesCompra = new ArrayList<>();
-                for (OrdenCompraEntity oce : entity.getOrdenesCompra()) {
-                    ordenesCompra.add(OrdenCompra.fromEntity(oce));
-                }
-                art.setOrdenesCompra(ordenesCompra);
-            }
         }
         return art;
+    }
+
+    public void comprar(int cantidad) {
+        Stock stock = this.getStock();
+        if (stock == null) {
+            stock = new Stock();
+        }
+        stock.agregarMovimientoIngreso(MotivoIngreso.COMPRA, cantidad);
     }
 }

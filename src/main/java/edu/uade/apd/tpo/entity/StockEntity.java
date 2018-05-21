@@ -14,7 +14,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "stocks")
-public class StockEntity implements Serializable {
+public class StockEntity implements Persistible {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

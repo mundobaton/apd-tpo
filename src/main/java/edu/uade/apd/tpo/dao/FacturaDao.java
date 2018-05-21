@@ -30,10 +30,6 @@ public class FacturaDao extends AbstractDao<FacturaEntity> {
         }
     }
 
-    public void save(FacturaEntity factura) {
-        super.save(factura);
-    }
-
     public List<FacturaEntity> obtenerFacturasCliente(String email) {
         String query = "select f from FacturaEntity f inner join f.pedido as p inner join p.cliente as c " +
                 "where c.email = :email order by f.fecha ASC";

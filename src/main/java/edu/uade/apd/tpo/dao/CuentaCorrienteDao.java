@@ -16,8 +16,4 @@ public class CuentaCorrienteDao extends AbstractDao<CuentaCorrienteEntity> {
         return instance;
     }
 
-    public void save(CuentaCorrienteEntity entity) {
-        super.save(entity);
-    }
-
 }

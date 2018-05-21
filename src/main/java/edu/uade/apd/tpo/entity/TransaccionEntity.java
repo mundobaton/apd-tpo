@@ -20,7 +20,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "transacciones")
-public class TransaccionEntity implements Serializable {
+public class TransaccionEntity implements Persistible {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

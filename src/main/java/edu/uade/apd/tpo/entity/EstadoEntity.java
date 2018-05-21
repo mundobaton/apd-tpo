@@ -17,7 +17,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "estados")
-public class EstadoEntity implements Serializable {
+public class EstadoEntity implements Persistible {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

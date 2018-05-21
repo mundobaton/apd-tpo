@@ -16,7 +16,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "lotes")
-public class LoteEntity implements Serializable {
+public class LoteEntity implements Persistible {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +28,6 @@ public class LoteEntity implements Serializable {
     private Date fechaVto;
     @Column(name = "fecha_elab")
     private Date fechaElaboracion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lote")
-    private List<PosicionEntity> posiciones;
     @ManyToOne
     @JoinColumn(name = "articulo_id")
     private ArticuloEntity articulo;
@@ -72,13 +70,5 @@ public class LoteEntity implements Serializable {
 
     public void setArticulo(ArticuloEntity articulo) {
         this.articulo = articulo;
-    }
-
-    public List<PosicionEntity> getPosiciones() {
-        return posiciones;
-    }
-
-    public void setPosiciones(List<PosicionEntity> posiciones) {
-        this.posiciones = posiciones;
     }
 }

@@ -50,9 +50,6 @@ public class ClienteDaoTest {
         pedido.setFechaPedido(new Date());
         pedido.setDomicilio(dom);
         pedido.setCliente(entity);
-        List<PedidoEntity> pedidos = new ArrayList<>();
-        pedidos.add(pedido);
-        entity.setPedidos(pedidos);
 
         dao.save(entity);
 

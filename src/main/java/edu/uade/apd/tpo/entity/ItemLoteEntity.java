@@ -14,7 +14,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "item_lotes")
-public class ItemLoteEntity implements Serializable {
+public class ItemLoteEntity implements Persistible {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

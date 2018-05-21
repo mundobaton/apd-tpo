@@ -18,7 +18,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "posiciones")
-public class PosicionEntity implements Serializable {
+public class PosicionEntity implements Persistible {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

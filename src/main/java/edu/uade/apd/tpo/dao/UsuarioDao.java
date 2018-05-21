@@ -21,10 +21,6 @@ public class UsuarioDao extends AbstractDao<UsuarioEntity> {
         return instance;
     }
 
-    public void save(UsuarioEntity entity) {
-        super.save(entity);
-    }
-
     public UsuarioEntity findByEmail(String email) {
         String query = "select u from UsuarioEntity u where email = :email";
         try (Session session = getSession()) {

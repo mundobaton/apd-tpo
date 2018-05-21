@@ -14,7 +14,6 @@ public class Lote {
     private Date fechaVto;
     private Date fechaElaboracion;
     private Articulo articulo;
-    private List<Posicion> posiciones;
 
     public Integer getId() {
         return id;
@@ -48,14 +47,6 @@ public class Lote {
         this.articulo = articulo;
     }
 
-    public List<Posicion> getPosiciones() {
-        return posiciones;
-    }
-
-    public void setPosiciones(List<Posicion> posiciones) {
-        this.posiciones = posiciones;
-    }
-
     public String getCodigo() {
         return codigo;
     }
@@ -73,13 +64,6 @@ public class Lote {
             lote.setFechaVto(entity.getFechaVto());
             lote.setFechaElaboracion(entity.getFechaElaboracion());
             lote.setArticulo(Articulo.fromEntity(entity.getArticulo()));
-            if (entity.getPosiciones() != null) {
-                List<Posicion> posiciones = new ArrayList<>();
-                for (PosicionEntity p : entity.getPosiciones()) {
-                    posiciones.add(Posicion.fromEntity(p));
-                }
-                lote.setPosiciones(posiciones);
-            }
         }
 
         return lote;
@@ -92,13 +76,6 @@ public class Lote {
         entity.setFechaVto(fechaVto);
         entity.setFechaElaboracion(fechaElaboracion);
         entity.setArticulo(articulo != null ? articulo.toEntity() : null);
-        if (this.getPosiciones() != null) {
-            List<PosicionEntity> posiciones = new ArrayList<>();
-            for (Posicion p : this.getPosiciones()) {
-                posiciones.add(p.toEntity());
-            }
-            entity.setPosiciones(posiciones);
-        }
 
         return entity;
     }

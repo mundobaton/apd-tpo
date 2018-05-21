@@ -101,8 +101,8 @@ public class Pedido {
         this.items.add(itemPedido);
     }
 
-    public void guardar() {
-        PedidoDao.getInstance().save(this.toEntity());
+    public Pedido guardar() {
+        return Pedido.fromEntity(PedidoDao.getInstance().save(this.toEntity()));
     }
 
     public void aprobar() throws ArticulosFaltantesException {
@@ -125,7 +125,6 @@ public class Pedido {
         e.setEstado(EstadoPedido.COMPLETO);
         e.setFecha(new Date());
         this.addEstado(e);
-        guardar();
     }
 
     public void rechazar(String motivo) {
@@ -173,19 +172,23 @@ public class Pedido {
         p.setFechaPedido(fechaPedido);
         p.setFechaEntrega(fechaEntrega);
         p.setFechaDespacho(fechaDespacho);
-        if(getItems() != null) {
+        if (getItems() != null) {
             List<ItemPedidoEntity> items = new ArrayList<>();
-            for(ItemPedido ip : getItems()) {
-                items.add(ip.toEntity());
+            for (ItemPedido ip : getItems()) {
+                ItemPedidoEntity ipe = ip.toEntity();
+                ipe.setPedido(p);
+                items.add(ipe);
             }
             p.setItems(items);
         }
         p.setCliente(cliente != null ? cliente.toEntity() : null);
         p.setDomicilio(domicilio != null ? domicilio.toEntity() : null);
-        if(getEstados() != null) {
+        if (getEstados() != null) {
             List<EstadoEntity> estados = new ArrayList<>();
-            for(Estado e : getEstados()) {
-                estados.add(e.toEntity());
+            for (Estado e : getEstados()) {
+                EstadoEntity ee = e.toEntity();
+                ee.setPedido(p);
+                estados.add(ee);
             }
             p.setEstados(estados);
         }
@@ -195,24 +198,24 @@ public class Pedido {
 
     public static Pedido fromEntity(PedidoEntity entity) {
         Pedido p = null;
-        if(entity != null) {
+        if (entity != null) {
             p = new Pedido();
             p.setId(entity.getId());
             p.setFechaPedido(entity.getFechaPedido());
             p.setFechaEntrega(entity.getFechaEntrega());
             p.setFechaDespacho(entity.getFechaDespacho());
-            if(entity.getItems() != null) {
+            if (entity.getItems() != null) {
                 List<ItemPedido> items = new ArrayList<>();
-                for(ItemPedidoEntity ipe : entity.getItems()) {
+                for (ItemPedidoEntity ipe : entity.getItems()) {
                     items.add(ItemPedido.fromEntity(ipe));
                 }
                 p.setItems(items);
             }
             p.setCliente(Cliente.fromEntity(entity.getCliente()));
             p.setDomicilio(Domicilio.fromEntity(entity.getDomicilio()));
-            if(entity.getEstados() != null) {
+            if (entity.getEstados() != null) {
                 List<Estado> estados = new ArrayList<>();
-                for(EstadoEntity ee : entity.getEstados()) {
+                for (EstadoEntity ee : entity.getEstados()) {
                     estados.add(Estado.fromEntity(ee));
                 }
                 p.setEstados(estados);

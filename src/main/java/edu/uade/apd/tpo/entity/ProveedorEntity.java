@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "proveedores")
-public class ProveedorEntity implements Serializable {
+public class ProveedorEntity implements Persistible {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -14,7 +14,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "domicilios")
-public class DomicilioEntity implements Serializable {
+public class DomicilioEntity implements Persistible {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

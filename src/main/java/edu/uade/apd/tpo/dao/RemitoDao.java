@@ -28,8 +28,4 @@ public class RemitoDao extends AbstractDao<RemitoEntity> {
             return result.isEmpty() ? null : result.get(0);
         }
     }
-
-    public void save(RemitoEntity remito) {
-        super.save(remito);
-    }
 }

@@ -14,10 +14,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "ordenes_compra")
-public class OrdenCompraEntity implements Serializable {
+public class OrdenCompraEntity implements Persistible {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +33,8 @@ public class OrdenCompraEntity implements Serializable {
     @OneToOne
     @JoinColumn(name = "proveedor_id")
     private ProveedorEntity proveedor;
+    @Column(name = "fecha")
+    private Date fecha;
 
     public Integer getId() {
         return id;
@@ -63,5 +66,13 @@ public class OrdenCompraEntity implements Serializable {
 
     public void setProveedor(ProveedorEntity proveedor) {
         this.proveedor = proveedor;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 }

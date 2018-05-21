@@ -34,8 +34,6 @@ public class ArticuloDaoTest {
         le.setCodigo("cxzv");
         le.setFechaElaboracion(new Date());
         le.setFechaVto(new Date());
-        List<LoteEntity> lotes = new ArrayList<>();
-        entity.setLotes(lotes);
 
         dao.save(entity);
 

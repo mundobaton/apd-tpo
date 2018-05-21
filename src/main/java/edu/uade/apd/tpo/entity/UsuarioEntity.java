@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "usuarios")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class UsuarioEntity implements Serializable {
+public class UsuarioEntity implements Persistible {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

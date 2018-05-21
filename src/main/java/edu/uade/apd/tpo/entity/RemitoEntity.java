@@ -16,7 +16,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "remitos")
-public class RemitoEntity implements Serializable {
+public class RemitoEntity implements Persistible {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

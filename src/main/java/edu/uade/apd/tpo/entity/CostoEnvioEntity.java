@@ -15,7 +15,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "costos_envios")
-public class CostoEnvioEntity implements Serializable {
+public class CostoEnvioEntity implements Persistible {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -16,7 +16,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "item_pedidos")
-public class ItemPedidoEntity implements Serializable {
+public class ItemPedidoEntity implements Persistible {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

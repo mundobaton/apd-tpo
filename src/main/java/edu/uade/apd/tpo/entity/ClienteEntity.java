@@ -9,11 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import java.util.List;
 
 @Entity
 @Table(name = "clientes")
@@ -32,8 +30,6 @@ public class ClienteEntity extends UsuarioEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cuenta_corriente_id")
     private CuentaCorrienteEntity cuentaCorriente;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
-    private List<PedidoEntity> pedidos;
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "condicion_iva")
     private CondIva condIva;
@@ -81,14 +77,6 @@ public class ClienteEntity extends UsuarioEntity {
 
     public void setCuentaCorriente(CuentaCorrienteEntity cuentaCorriente) {
         this.cuentaCorriente = cuentaCorriente;
-    }
-
-    public List<PedidoEntity> getPedidos() {
-        return pedidos;
-    }
-
-    public void setPedidos(List<PedidoEntity> pedidos) {
-        this.pedidos = pedidos;
     }
 
     public DomicilioEntity getDomicilio() {

@@ -1,6 +1,7 @@
 package edu.uade.apd.tpo.dao;
 
 import edu.uade.apd.tpo.entity.ArticuloEntity;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -20,17 +21,17 @@ public class ArticuloDao extends AbstractDao<ArticuloEntity> {
         return instance;
     }
 
-    public void save(ArticuloEntity entity) {
-        super.save(entity);
-    }
-
-    public ArticuloEntity findById(Long articuloId) {
+    public ArticuloEntity findById(Integer articuloId) {
         String query = "select a from ArticuloEntity a where a.id = :articuloId";
         try (Session session = getSession()) {
             Query<ArticuloEntity> q = session.createQuery(query);
             q.setParameter("articuloId", articuloId);
             List<ArticuloEntity> result = q.getResultList();
-            return result.isEmpty() ? null : result.get(0);
+            ArticuloEntity entity = null;
+            if(!result.isEmpty()) {
+                entity = result.get(0);
+            }
+            return entity;
         }
     }
 

@@ -5,7 +5,7 @@ import edu.uade.apd.tpo.entity.PosicionEntity;
 public class Posicion {
 
     private Integer id;
-    private final static int CAPACIDAD = 21;
+    public final static int CAPACIDAD = 21;
     private String codigoUbicacion;
     private EstadoPosicion estado;
     private Lote lote;

@@ -3,6 +3,7 @@ package edu.uade.apd.tpo.entity;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +19,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "pedidos")
-public class PedidoEntity implements Serializable {
+public class PedidoEntity implements Persistible {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +39,7 @@ public class PedidoEntity implements Serializable {
     private DomicilioEntity domicilio;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
     private List<ItemPedidoEntity> items;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido", fetch = FetchType.EAGER)
     private List<EstadoEntity> estados;
 
     public Integer getId() {

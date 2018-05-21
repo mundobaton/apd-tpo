@@ -6,6 +6,7 @@ import edu.uade.apd.tpo.entity.MovimientoEntity;
 import edu.uade.apd.tpo.entity.StockEntity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Stock {
@@ -27,6 +28,17 @@ public class Stock {
 
     public void setMovimientos(List<Movimiento> movimientos) {
         this.movimientos = movimientos;
+    }
+
+    public void agregarMovimientoIngreso(MotivoIngreso motivo, int cant) {
+        if (movimientos == null) {
+            movimientos = new ArrayList<>();
+        }
+        Ingreso ingreso = new Ingreso();
+        ingreso.setMotivoIngreso(motivo);
+        ingreso.setCantidad(cant);
+        ingreso.setFecha(new Date());
+        movimientos.add(ingreso);
     }
 
     public static Stock fromEntity(StockEntity entity) {

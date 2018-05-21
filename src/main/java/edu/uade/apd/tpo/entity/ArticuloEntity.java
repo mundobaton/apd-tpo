@@ -10,12 +10,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "articulos")
-public class ArticuloEntity implements Serializable {
+public class ArticuloEntity implements Persistible {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,13 +35,8 @@ public class ArticuloEntity implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "stock_id")
     private StockEntity stock;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
-    private List<LoteEntity> lotes;
     @Column(name = "volumen")
     private int volumen;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
-    private List<OrdenCompraEntity> ordenesCompra;
-
 
     public Integer getId() {
         return id;
@@ -100,14 +94,6 @@ public class ArticuloEntity implements Serializable {
         this.cantCompra = cantCompra;
     }
 
-    public List<LoteEntity> getLotes() {
-        return lotes;
-    }
-
-    public void setLotes(List<LoteEntity> lotes) {
-        this.lotes = lotes;
-    }
-
     public int getVolumen() {
         return volumen;
     }
@@ -124,11 +110,4 @@ public class ArticuloEntity implements Serializable {
         this.stock = stock;
     }
 
-    public List<OrdenCompraEntity> getOrdenesCompra() {
-        return ordenesCompra;
-    }
-
-    public void setOrdenesCompra(List<OrdenCompraEntity> ordenesCompra) {
-        this.ordenesCompra = ordenesCompra;
-    }
 }

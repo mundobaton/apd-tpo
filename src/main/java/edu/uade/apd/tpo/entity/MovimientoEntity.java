@@ -16,7 +16,7 @@ import java.util.Date;
 @Entity
 @Table(name = "movimientos")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class MovimientoEntity implements Serializable {
+public abstract class MovimientoEntity implements Persistible {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
