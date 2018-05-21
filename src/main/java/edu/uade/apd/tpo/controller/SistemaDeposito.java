@@ -6,7 +6,6 @@ import edu.uade.apd.tpo.dao.LoteDao;
 import edu.uade.apd.tpo.dao.PosicionDao;
 import edu.uade.apd.tpo.entity.ArticuloEntity;
 import edu.uade.apd.tpo.entity.ItemLoteEntity;
-import edu.uade.apd.tpo.entity.LoteEntity;
 import edu.uade.apd.tpo.entity.PosicionEntity;
 import edu.uade.apd.tpo.exception.BusinessException;
 import edu.uade.apd.tpo.model.Articulo;
