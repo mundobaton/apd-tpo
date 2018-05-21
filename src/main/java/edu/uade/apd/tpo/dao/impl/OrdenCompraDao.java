@@ -6,9 +6,7 @@ import java.util.stream.Collectors;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import edu.uade.apd.tpo.entity.ArticuloEntity;
 import edu.uade.apd.tpo.entity.OrdenCompraEntity;
-import edu.uade.apd.tpo.model.Articulo;
 import edu.uade.apd.tpo.model.OrdenCompra;
 import edu.uade.apd.tpo.remote.TransformUtils;
 
@@ -42,6 +40,15 @@ public class OrdenCompraDao extends AbstractDao<OrdenCompraEntity> {
     
     public List<OrdenCompra> findAll(){
     	String query = "select a from OrdenCompraEntity a";
+        try (Session session = getSession()) {
+            Query<OrdenCompraEntity> q = session.createQuery(query);
+            List<OrdenCompraEntity> entities = q.getResultList();
+            return entities.parallelStream().map(u -> TransformUtils.to(u, OrdenCompra.class)).collect(Collectors.toList());
+        }
+    }
+    
+    public List<OrdenCompra> findAllPendientes(){
+    	String query = "select a from OrdenCompraEntity a where a.estado = 'PENDIENTE'";
         try (Session session = getSession()) {
             Query<OrdenCompraEntity> q = session.createQuery(query);
             List<OrdenCompraEntity> entities = q.getResultList();

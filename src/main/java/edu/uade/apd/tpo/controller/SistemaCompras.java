@@ -1,6 +1,6 @@
 package edu.uade.apd.tpo.controller;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -8,7 +8,6 @@ import java.util.Random;
 import edu.uade.apd.tpo.dao.impl.OrdenCompraDao;
 import edu.uade.apd.tpo.model.Articulo;
 import edu.uade.apd.tpo.model.EstadoCompra;
-import edu.uade.apd.tpo.model.ItemLote;
 import edu.uade.apd.tpo.model.OrdenCompra;
 import edu.uade.apd.tpo.model.Proveedor;
 
@@ -39,7 +38,6 @@ public class SistemaCompras {
     	return ordenCompraDao.findById(ordenId);
     }
     
-    //A OrdenCompra no le faltaria el atributo fecha para saber cuales son las ultimas?
     public List<OrdenCompra> buscarOrdenesPorArticulo(Articulo art){
     	List<OrdenCompra> ordenes = ordenCompraDao.findAll();
     	List<OrdenCompra> ordenesArticulo = new ArrayList<>();
@@ -82,29 +80,26 @@ public class SistemaCompras {
     	return orden.getProveedor();
     }
     
-    public void ejecutar(Long ordenId, List<ItemLote> itemLotes, Date fechaActual){
-    	OrdenCompra orden = buscarOrdenCompra(ordenId);
+    public void procesarOrdenesCompraPendientes() {
+    	List<OrdenCompra> ordenesPendientes = ordenCompraDao.getInstance().findAllPendientes();
+    	for (OrdenCompra ordenCompra : ordenesPendientes) {
+    		procesarOrdenCompra(ordenCompra);
+		}
+    }
+    
+    public void procesarOrdenCompra(OrdenCompra orden){
     	Articulo art = orden.getArticulo();
     	List<OrdenCompra> ordenes = buscarOrdenesPorArticulo(art);
     	Proveedor proveedor = obtenerProveedor(ordenes);
     	orden.setEstado(EstadoCompra.GENERADO);
-    	orden.setFecha(fechaActual);
+    	orden.setFecha(new Date());
     	orden.setProveedor(proveedor);
-    	orden.setItemLotes(itemLotes);
     	orden.guardar();
     }
     
-    public void procesarOrdenCompra(Long ordenId, List<ItemLote> itemLotes, Date fechaActual){
+    public void aceptarOrdenCompra(Long ordenId) {
     	OrdenCompra orden = buscarOrdenCompra(ordenId);
-    	Articulo art = orden.getArticulo();
-    	List<OrdenCompra> ordenes = buscarOrdenesPorArticulo(art);
-    	Proveedor proveedor = obtenerProveedor(ordenes);
-    	orden.setProveedor(proveedor);
-    	orden.setFecha(fechaActual);
-    	//Falta definir si SistemaCompras llama a SistemaDeposito para almacenar
-    	//O SistemaDeposito busca cada x tiempo Ordenes de compra que esten en estado GENERADO
-    	//Para poder almacenar
-    	//SistemaDeposito.getInstance().almacenar(art.getId(), itemLotes, art.getCantCompra());  
+    	orden.setEstado(EstadoCompra.COMPLETO);
     	orden.guardar();
     }
 

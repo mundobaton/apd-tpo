@@ -1,6 +1,6 @@
 package edu.uade.apd.tpo.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import edu.uade.apd.tpo.dao.impl.OrdenCompraDao;
@@ -50,8 +50,8 @@ public class OrdenCompra {
     	return fecha;
     }
     
-    public void setFecha(Date fecha) {
-    	this.fecha = fecha;
+    public void setFecha(Date date) {
+    	this.fecha = date;
     }
 
 	public List<ItemLote> getItemLotes() {
