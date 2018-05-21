@@ -9,6 +9,7 @@ import edu.uade.apd.tpo.model.Articulo;
 import edu.uade.apd.tpo.model.ItemLote;
 import edu.uade.apd.tpo.model.Lote;
 import edu.uade.apd.tpo.model.MotivoIngreso;
+import edu.uade.apd.tpo.model.OrdenCompra;
 import edu.uade.apd.tpo.model.Posicion;
 import edu.uade.apd.tpo.model.Stock;
 
@@ -45,15 +46,22 @@ public class SistemaDeposito {
     	posicion.guardar();
     }
     
-    public void almacenar(Long articuloId, List<ItemLote> itemsLotes, int cantidad) {
-    	Articulo articulo = this.buscarArticulo(articuloId);
+    public void ingresarCompra(Long ordenId, List<ItemLote> itemLotes) {
+    	OrdenCompra orden = SistemaCompras.getInstance().buscarOrdenCompra(ordenId);
+    	Articulo articulo = orden.getArticulo();
+    	int cantCompra = orden.getArticulo().getCantCompra();
+    	almacenar(articulo, itemLotes, cantCompra);
+    	SistemaCompras.getInstance().aceptarOrdenCompra();
+    }
+    
+    public void almacenar(Articulo articulo, List<ItemLote> itemLotes, int cantidad) {
     	List<Lote> lotes = articulo.getLotes();
     	Stock stock = articulo.getStock();
     	stock.agregarMovimientoIngreso(MotivoIngreso.COMPRA, cantidad);
     	articulo.setStock(stock);
     	List<Posicion> posiciones = posicionDao.obtenerObtenerPosicionesVacias();
     	if(posiciones.size() * 21 >= cantidad) {
-	    	for (ItemLote item : itemsLotes) {
+	    	for (ItemLote item : itemLotes) {
 		    	int cantidadLote = item.getCantidad(); 
 		    	lotes.add(item.getLote());
 	    		while(cantidadLote > 0) {
@@ -71,6 +79,8 @@ public class SistemaDeposito {
 	    	}
 	    	articulo.setLotes(lotes);
 	    	articulo.guardar();
+    	}else {
+    		//TODO Arrojar exception porque no hay lugar suficiente
     	}
     }
 
