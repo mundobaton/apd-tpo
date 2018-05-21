@@ -5,7 +5,6 @@ import edu.uade.apd.tpo.dao.impl.PedidoDao;
 import edu.uade.apd.tpo.exception.ArticulosFaltantesException;
 import edu.uade.apd.tpo.remote.TransformUtils;
 import edu.uade.apd.tpo.repository.stub.PedidoStub;
-import edu.uade.apd.tpo.repository.stub.UsuarioStub;
 
 import java.util.ArrayList;
 import java.util.Date;

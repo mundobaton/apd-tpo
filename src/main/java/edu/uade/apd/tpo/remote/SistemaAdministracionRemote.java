@@ -62,22 +62,22 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
         this.controller.crearCliente(email, password, nombre, cuil, telefono, CondIva.fromStub(condIva), calle, numero, codPostal, localidad, provincia, ZonaEnvio.fromStub(zona), saldo, limiteCredito);
     }
 
-	@Override
-	public void generarPedido(String email, String calle, int num, String codPostal, String localidad, String prov, ZonaEnvioStub zona) throws RemoteException {
-		this.controller.generarPedido(email, calle, num, codPostal, localidad, prov, ZonaEnvio.fromStub(zona));
-	}
-	
-	@Override
-	 public void agregarItemPedido(Long pedidoId, Long articuloId, int cant)  throws RemoteException {
-		 this.controller.agregarItemPedido(pedidoId, articuloId, cant);
-	 }
-	
-	  @Override
-	    public List<PedidoStub> getPedidosPendientes() throws RemoteException {
-	        return controller.getPedidosPendientes().parallelStream().map(p -> p.toStub()).collect(Collectors.toList());
-	    }
+    @Override
+    public void generarPedido(String email, String calle, int num, String codPostal, String localidad, String prov, ZonaEnvioStub zona) throws RemoteException {
+        this.controller.generarPedido(email, calle, num, codPostal, localidad, prov, ZonaEnvio.fromStub(zona));
+    }
 
-	}
+    @Override
+    public void agregarItemPedido(Long pedidoId, Long articuloId, int cant) throws RemoteException {
+        this.controller.agregarItemPedido(pedidoId, articuloId, cant);
+    }
+
+    @Override
+    public List<PedidoStub> getPedidosPendientes() throws RemoteException {
+        return controller.getPedidosPendientes().parallelStream().map(p -> p.toStub()).collect(Collectors.toList());
+    }
+
+}
 
 
 	

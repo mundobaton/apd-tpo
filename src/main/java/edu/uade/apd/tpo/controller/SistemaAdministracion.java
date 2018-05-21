@@ -20,8 +20,6 @@ import edu.uade.apd.tpo.model.Rol;
 import edu.uade.apd.tpo.model.Usuario;
 import edu.uade.apd.tpo.model.ZonaEnvio;
 import edu.uade.apd.tpo.repository.exception.UserNotFoundException;
-import edu.uade.apd.tpo.repository.stub.PedidoStub;
-import edu.uade.apd.tpo.repository.stub.UsuarioStub;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
