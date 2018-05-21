@@ -42,7 +42,7 @@ public class PosicionDao extends AbstractDao<PosicionEntity> {
     
     public List<Posicion> obtenerObtenerPosicionesVacias() {
         String query = "select f from PosicionEntity" +
-                	   "where f.estado = :DISPONIBLE";
+                	   "where f.estado = 'DISPONIBLE'";
         try (Session session = getSession()) {
             Query<PosicionEntity> q = session.createQuery(query);
             List<PosicionEntity> entities = q.getResultList();

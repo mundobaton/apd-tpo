@@ -1,7 +1,9 @@
 package edu.uade.apd.tpo.dao.impl;
 
 import edu.uade.apd.tpo.entity.ArticuloEntity;
+import edu.uade.apd.tpo.entity.FacturaEntity;
 import edu.uade.apd.tpo.model.Articulo;
+import edu.uade.apd.tpo.model.Factura;
 import edu.uade.apd.tpo.remote.TransformUtils;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -39,5 +41,10 @@ public class ArticuloDao extends AbstractDao<ArticuloEntity> {
             List<ArticuloEntity> entities = q.getResultList();
             return entities.parallelStream().map(u -> TransformUtils.to(u, Articulo.class)).collect(Collectors.toList());
         }
+    }
+    
+    public void save(Articulo articulo) {
+        ArticuloEntity entity = TransformUtils.to(articulo, ArticuloEntity.class);
+        super.save(entity);
     }
 }

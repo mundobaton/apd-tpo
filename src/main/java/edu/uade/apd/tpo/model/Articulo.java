@@ -2,6 +2,8 @@ package edu.uade.apd.tpo.model;
 
 import java.util.List;
 
+import edu.uade.apd.tpo.dao.impl.ArticuloDao;
+
 public class Articulo {
 
     private Long id;
@@ -102,5 +104,9 @@ public class Articulo {
 
     public void setOrdenesCompra(List<OrdenCompra> ordenesCompra) {
         this.ordenesCompra = ordenesCompra;
+    }
+    
+    public void guardar() {
+    	ArticuloDao.getInstance().save(this);
     }
 }

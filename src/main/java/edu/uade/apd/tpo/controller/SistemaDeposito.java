@@ -3,9 +3,11 @@ package edu.uade.apd.tpo.controller;
 
 import edu.uade.apd.tpo.dao.impl.ArticuloDao;
 import edu.uade.apd.tpo.dao.impl.ItemLoteDao;
+import edu.uade.apd.tpo.dao.impl.OrdenCompraDao;
 import edu.uade.apd.tpo.dao.impl.PosicionDao;
 import edu.uade.apd.tpo.model.Articulo;
 import edu.uade.apd.tpo.model.ItemLote;
+import edu.uade.apd.tpo.model.Lote;
 import edu.uade.apd.tpo.model.MotivoIngreso;
 import edu.uade.apd.tpo.model.Posicion;
 import edu.uade.apd.tpo.model.Stock;
@@ -19,6 +21,7 @@ public class SistemaDeposito {
     private ArticuloDao articuloDao;
     private ItemLoteDao itemLoteDao;
     private PosicionDao posicionDao;
+    private OrdenCompraDao ordenCompraDao;
 
     private static SistemaDeposito instance;
 
@@ -26,22 +29,33 @@ public class SistemaDeposito {
         this.articuloDao = ArticuloDao.getInstance();
         this.itemLoteDao = ItemLoteDao.getInstance();
         this.posicionDao = PosicionDao.getInstance();
+        this.ordenCompraDao = OrdenCompraDao.getInstance();
+    }
+    
+    public static SistemaDeposito getInstance() {
+        if (instance == null) {
+            instance = new SistemaDeposito();
+        }
+        return instance;
     }
     
     public void liberarPosicion(String codigoUbicacion, int cantidad) {
     	Posicion posicion = posicionDao.findById(codigoUbicacion);
     	posicion.liberar(cantidad);
-    	posicionDao.save(posicion);
+    	posicion.guardar();
     }
     
     public void almacenar(Long articuloId, List<ItemLote> itemsLotes, int cantidad) {
     	Articulo articulo = this.buscarArticulo(articuloId);
+    	List<Lote> lotes = articulo.getLotes();
     	Stock stock = articulo.getStock();
     	stock.agregarMovimientoIngreso(MotivoIngreso.COMPRA, cantidad);
+    	articulo.setStock(stock);
     	List<Posicion> posiciones = posicionDao.obtenerObtenerPosicionesVacias();
     	if(posiciones.size() * 21 >= cantidad) {
 	    	for (ItemLote item : itemsLotes) {
 		    	int cantidadLote = item.getCantidad(); 
+		    	lotes.add(item.getLote());
 	    		while(cantidadLote > 0) {
 		        	Posicion posicion = new Posicion();
 		        	posicion.setLote(item.getLote());
@@ -52,9 +66,11 @@ public class SistemaDeposito {
 		    			posicion.setCantidad(cantidadLote);
 		    	    	cantidadLote = 0;
 		    		}
-	    	    	posicionDao.save(posicion);
+	    	    	posicion.guardar();
 		    	}
 	    	}
+	    	articulo.setLotes(lotes);
+	    	articulo.guardar();
     	}
     }
 
