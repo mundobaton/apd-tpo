@@ -1,5 +1,8 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.dao.impl.PedidoDao;
+import edu.uade.apd.tpo.dao.impl.PosicionDao;
+
 public class Posicion {
 
     private Long id;
@@ -92,5 +95,23 @@ public class Posicion {
 
     public void setNumero(int numero) {
         this.numero = numero;
+    }
+    
+    public void guardar() {
+        PosicionDao.getInstance().save(this);
+    }
+    
+    public void liberar(int cantidad) {
+    	if(cantidad == this.CAPACIDAD) {
+    		this.setEstado(EstadoPosicion.DISPONIBLE);
+    	}
+    	this.setCantidad(this.cantidad - cantidad); 
+    }
+    
+    public void almacenar(Lote lote, int cantidad, String codigoUbicacion) {
+    	this.setEstado(EstadoPosicion.OCUPADO);
+    	this.setLote(lote);
+    	this.setCodigoUbicacion(codigoUbicacion);
+    	this.setCantidad(cantidad);
     }
 }

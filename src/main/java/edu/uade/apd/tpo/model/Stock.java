@@ -31,6 +31,13 @@ public class Stock {
     public void setMovimientos(List<Movimiento> movimientos) {
         this.movimientos = movimientos;
     }
+    
+    public void agregarMovimientoIngreso(MotivoIngreso motivo, int cantidad) {
+    	Ingreso ingreso = new Ingreso();
+    	ingreso.setMotivoIngreso(motivo);
+    	this.movimientos.add(ingreso);
+    	this.cantidad += cantidad; 
+    }
 
     public void agregarMovimientoEgreso(MotivoEgreso motivo, int cantidad){
         Egreso egreso = new Egreso();

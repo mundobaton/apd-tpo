@@ -1,7 +1,9 @@
 package edu.uade.apd.tpo.dao.impl;
 
 import edu.uade.apd.tpo.entity.ArticuloEntity;
+import edu.uade.apd.tpo.entity.FacturaEntity;
 import edu.uade.apd.tpo.model.Articulo;
+import edu.uade.apd.tpo.model.Factura;
 import edu.uade.apd.tpo.remote.TransformUtils;
 import org.hibernate.Session;
 import org.hibernate.query.Query;

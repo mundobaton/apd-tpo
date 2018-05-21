@@ -4,6 +4,8 @@ import edu.uade.apd.tpo.dao.impl.ArticuloDao;
 
 import java.util.List;
 
+import edu.uade.apd.tpo.dao.impl.ArticuloDao;
+
 public class Articulo {
 
     private Long id;
