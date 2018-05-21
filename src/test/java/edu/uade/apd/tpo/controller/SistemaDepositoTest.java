@@ -39,7 +39,7 @@ public class SistemaDepositoTest {
 
 		item.setLote(lote);
 		item.setCantidad(30);
-		
+
 		itemLotes.add(item);
 		
 		sistemaDeposito.ingresarCompra(ordenId, itemLotes);
@@ -48,6 +48,7 @@ public class SistemaDepositoTest {
 	
 	@Test
 	public void testAlmacenar() {
+		//Articulo art = ArticuloDao.getInstance().findById(new Long(1));
 		
 	}
 	
