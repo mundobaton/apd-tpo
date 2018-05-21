@@ -2,8 +2,10 @@ package edu.uade.apd.tpo.dao.impl;
 
 import edu.uade.apd.tpo.entity.FacturaEntity;
 import edu.uade.apd.tpo.entity.PedidoEntity;
+import edu.uade.apd.tpo.entity.UsuarioEntity;
 import edu.uade.apd.tpo.model.Factura;
 import edu.uade.apd.tpo.model.Pedido;
+import edu.uade.apd.tpo.model.Usuario;
 import edu.uade.apd.tpo.remote.TransformUtils;
 
 import java.util.List;
@@ -51,5 +53,23 @@ public class PedidoDao extends AbstractDao<PedidoEntity> {
     public void save(Pedido pedido) {
         PedidoEntity entity = TransformUtils.to(pedido, PedidoEntity.class);
         super.save(entity);
+    }
+    
+    public List<Pedido> findAll() {
+        String queryStr = "select p from PedidoEntity p";
+        try (Session session = getSession()) {
+            List<PedidoEntity> resultList = session.createQuery(queryStr).getResultList();
+            return resultList.parallelStream().map(p -> TransformUtils.to(p, Pedido.class)).collect(Collectors.toList());
+        }
+    }
+    
+    public List<Pedido> findAllPending() {
+        String query = "select p from PedidoEntity p inner join p.estados as e " +
+                "where e.estadoPedido = 'PENDIENTE'";
+        try (Session session = getSession()) {
+            Query<PedidoEntity> q = session.createQuery(query);
+            List<PedidoEntity> entities = q.getResultList();
+            return entities.parallelStream().map(u -> TransformUtils.to(u, Pedido.class)).collect(Collectors.toList());
+        } 
     }
 }
