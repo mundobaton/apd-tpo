@@ -1,11 +1,13 @@
 package edu.uade.apd.tpo.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import edu.uade.apd.tpo.dao.impl.OrdenCompraDao;
 import edu.uade.apd.tpo.model.Articulo;
+import edu.uade.apd.tpo.model.EstadoCompra;
 import edu.uade.apd.tpo.model.ItemLote;
 import edu.uade.apd.tpo.model.OrdenCompra;
 import edu.uade.apd.tpo.model.Proveedor;
@@ -29,6 +31,8 @@ public class SistemaCompras {
     public void generarOrdenCompra(Long articuloId) {
         Articulo art = SistemaDeposito.getInstance().buscarArticulo(articuloId);
         OrdenCompra oc = new OrdenCompra(art);
+        oc.setEstado(EstadoCompra.PENDIENTE);
+        oc.guardar();
     }
     
     public OrdenCompra buscarOrdenCompra(Long ordenId) {
@@ -41,7 +45,31 @@ public class SistemaCompras {
     	List<OrdenCompra> ordenesArticulo = new ArrayList<>();
     	for (OrdenCompra ordenCompra : ordenes) {
 			if(ordenCompra.getArticulo().getId() == art.getId()) {
-				ordenesArticulo.add(ordenCompra);
+				if(ordenesArticulo.isEmpty()) {
+					ordenesArticulo.add(ordenCompra);
+				}else {
+					if(ordenesArticulo.get(0).getFecha().compareTo(ordenCompra.getFecha()) <= 0) {
+						OrdenCompra temp1 = ordenesArticulo.get(0);
+						OrdenCompra temp2 = ordenesArticulo.get(1);
+						ordenesArticulo.add(0, ordenCompra);
+						ordenesArticulo.add(1, temp1);
+						ordenesArticulo.add(2, temp2);
+					}else {
+						if(ordenesArticulo.get(1) == null) {
+							ordenesArticulo.add(1, ordenCompra);
+						}else{
+							if(ordenesArticulo.get(1).getFecha().compareTo(ordenCompra.getFecha()) <= 0) {
+								OrdenCompra temp = ordenesArticulo.get(1);
+								ordenesArticulo.add(ordenCompra);
+								ordenesArticulo.add(2, temp);
+							}else {
+								if(ordenesArticulo.get(2) == null || ordenesArticulo.get(2).getFecha().compareTo(ordenCompra.getFecha()) <= 0) {
+									ordenesArticulo.add(2, ordenCompra);
+								}
+							}
+						}
+					}
+				}
 			}
 		}
     	return ordenesArticulo;
@@ -54,17 +82,30 @@ public class SistemaCompras {
     	return orden.getProveedor();
     }
     
-    public void procesarOrdenCompra(Long ordenId) {
+    public void ejecutar(Long ordenId, List<ItemLote> itemLotes, Date fechaActual){
     	OrdenCompra orden = buscarOrdenCompra(ordenId);
-    	List<ItemLote> itemsLote = new ArrayList<>();
+    	Articulo art = orden.getArticulo();
+    	List<OrdenCompra> ordenes = buscarOrdenesPorArticulo(art);
+    	Proveedor proveedor = obtenerProveedor(ordenes);
+    	orden.setEstado(EstadoCompra.GENERADO);
+    	orden.setFecha(fechaActual);
+    	orden.setProveedor(proveedor);
+    	orden.setItemLotes(itemLotes);
+    	orden.guardar();
+    }
+    
+    public void procesarOrdenCompra(Long ordenId, List<ItemLote> itemLotes, Date fechaActual){
+    	OrdenCompra orden = buscarOrdenCompra(ordenId);
     	Articulo art = orden.getArticulo();
     	List<OrdenCompra> ordenes = buscarOrdenesPorArticulo(art);
     	Proveedor proveedor = obtenerProveedor(ordenes);
     	orden.setProveedor(proveedor);
-    	
-    	
-    	SistemaDeposito.getInstance().almacenar(art.getId(), itemsLote, cantidad);  
-    	ordenCompraDao.save(orden);
+    	orden.setFecha(fechaActual);
+    	//Falta definir si SistemaCompras llama a SistemaDeposito para almacenar
+    	//O SistemaDeposito busca cada x tiempo Ordenes de compra que esten en estado GENERADO
+    	//Para poder almacenar
+    	//SistemaDeposito.getInstance().almacenar(art.getId(), itemLotes, art.getCantCompra());  
+    	orden.guardar();
     }
 
 }
