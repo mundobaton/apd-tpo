@@ -77,6 +77,7 @@ public class SistemaDeposito {
 	    	    	posicion.guardar();
 		    	}
 	    	}
+	    	//TODO Guardar la posicion asignada dentro del lote
 	    	articulo.setLotes(lotes);
 	    	articulo.guardar();
     	}else {
