@@ -25,12 +25,12 @@ public class FacturaDao extends AbstractDao<FacturaEntity> {
     }
 
     public Factura findById(Long facturaId) {
-        String query = "select f from FacturaEntity where id = :facturaId";
+        String query = "select f from FacturaEntity f where f.id = :facturaId";
 
         try (Session session = getSession()) {
             Query<FacturaEntity> q = session.createQuery(query).setParameter("facturaId", facturaId);
-            FacturaEntity result = q.getSingleResult();
-            return TransformUtils.to(result, Factura.class);
+            List<FacturaEntity> results = q.getResultList();
+            return results.isEmpty() ? null : TransformUtils.to(results.get(0), Factura.class);
         }
     }
 
@@ -41,7 +41,7 @@ public class FacturaDao extends AbstractDao<FacturaEntity> {
 
     public List<Factura> obtenerFacturasCliente(String email) {
         String query = "select f from FacturaEntity f inner join f.pedido as p inner join p.cliente as c " +
-                "where c.email = :email order by fecha ASC";
+                "where c.email = :email order by f.fecha ASC";
         try (Session session = getSession()) {
             Query<FacturaEntity> q = session.createQuery(query);
             q.setParameter("email", email);
