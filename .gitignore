@@ -10,3 +10,4 @@
 bin/hibernate.cfg.xml
 bin/log4j.properties
 
+out/production/classes/hibernate.cfg.xml
