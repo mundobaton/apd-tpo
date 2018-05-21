@@ -8,6 +8,7 @@ public class Estado {
     private Date fecha;
     private EstadoPedido estado;
     private String motivo;
+    private Pedido pedido;
 
     public Long getId() {
         return id;
@@ -39,5 +40,13 @@ public class Estado {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 }

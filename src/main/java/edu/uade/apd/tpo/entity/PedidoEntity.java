@@ -32,9 +32,7 @@ public class PedidoEntity extends BaseEntity {
     private Date fechaEntrega;
     @Column(name = "fecha_despacho")
     private Date fechaDespacho;
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "pedido_id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
     private List<ItemPedidoEntity> items;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cliente_id")
@@ -42,9 +40,7 @@ public class PedidoEntity extends BaseEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "domicilio_id")
     private DomicilioEntity domicilio;
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "pedido_id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
     private List<EstadoEntity> estados;
 
 

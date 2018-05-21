@@ -9,6 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.Date;
 
@@ -27,6 +29,9 @@ public class EstadoEntity extends BaseEntity {
     private Date fecha;
     @Column(name = "motivo")
     private String motivo;
+    @ManyToOne
+    @JoinColumn(name = "pedido_id")
+    private PedidoEntity pedido;
 
     public Long getId() {
         return id;
@@ -58,5 +63,13 @@ public class EstadoEntity extends BaseEntity {
 
     public void setMotivo(String motivo) {
         this.motivo = motivo;
+    }
+
+    public PedidoEntity getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(PedidoEntity pedido) {
+        this.pedido = pedido;
     }
 }

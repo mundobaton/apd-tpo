@@ -6,6 +6,7 @@ import edu.uade.apd.tpo.exception.ArticulosFaltantesException;
 import edu.uade.apd.tpo.remote.TransformUtils;
 import edu.uade.apd.tpo.repository.stub.PedidoStub;
 
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -87,6 +88,7 @@ public class Pedido {
 	}
 
 	public void addEstado(Estado estado) {
+		estado.setPedido(this);
 		if (this.estados == null) {
 			estados = new ArrayList<>();
 		}

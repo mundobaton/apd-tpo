@@ -1,5 +1,7 @@
 package edu.uade.apd.tpo.entity;
 
+import edu.uade.apd.tpo.model.Pedido;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -28,6 +31,9 @@ public class ItemPedidoEntity extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "item_pedido_id")
     private List<ItemLoteEntity> lotes;
+    @ManyToOne
+    @JoinColumn(name = "pedido_id")
+    private PedidoEntity pedido;
 
     public Long getId() {
         return id;
@@ -59,5 +65,13 @@ public class ItemPedidoEntity extends BaseEntity {
 
     public void setArticulo(ArticuloEntity articulo) {
         this.articulo = articulo;
+    }
+
+    public PedidoEntity getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(PedidoEntity pedido) {
+        this.pedido = pedido;
     }
 }
