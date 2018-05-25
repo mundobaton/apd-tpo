@@ -1,9 +1,10 @@
 package edu.uade.apd.tpo.model;
 
-public class Ingreso {
+public class Ingreso extends Movimiento {
 	
 	private MotivoIngreso motivo;
 
+	
 	public MotivoIngreso getMotivo() {
 		return motivo;
 	}
@@ -12,5 +13,13 @@ public class Ingreso {
 		this.motivo = motivo;
 	}
 	
+	public void guardar() {
+		
+	}
+	
+	public int cantidad() {
+		return this.cantidad;
+	}
+	 
 	
 }

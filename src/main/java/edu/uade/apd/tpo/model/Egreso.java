@@ -1,8 +1,8 @@
 package edu.uade.apd.tpo.model;
 
-public class Egreso {
+public class Egreso  extends Movimiento {
 	private MotivoEgreso motivo;
-	private Usuario encargado;
+	private Cliente encargado;
 	private String autorizante;
 	private String destino;
 	
@@ -15,10 +15,10 @@ public class Egreso {
 		this.motivo = motivo;
 	}
 	
-	public Usuario getEncargado() {
+	public Cliente getEncargado() {
 		return encargado;
 	}
-	public void setEncargado(Usuario encargado) {
+	public void setEncargado(Cliente encargado) {
 		this.encargado = encargado;
 	}
 	public String getAutorizante() {
@@ -33,6 +33,14 @@ public class Egreso {
 	public void setDestino(String destino) {
 		this.destino = destino;
 	}
+	
+	public void guardar() {
+
+	}
+	
+	public int cantidad() {
+		return	this.cantidad;
+		}
 	
 	
 }

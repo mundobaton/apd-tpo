@@ -1,59 +1,38 @@
 package edu.uade.apd.tpo.model;
 
-import java.util.List;
-
 public class Usuario {
-	
-	private String nombre;
-	private Long cuil;
-	private String telefono;
-	private Domicilio domicilio;
-	private CondicionIva condIva;
-	private CuentaCorriente cuentaCorriente;
-	private List<Pedido> pedidos;
-	
-	public String getNombre() {
-		return nombre;
+
+	private Long id;
+	private String email;
+	private String password;
+	private Rol rol;
+
+	public String getEmail() {
+		return email;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	public Long getCuil() {
-		return cuil;
+
+	public String getPassword() {
+		return password;
 	}
-	public void setCuil(Long cuil) {
-		this.cuil = cuil;
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	public String getTelefono() {
-		return telefono;
+
+	public Long getId() {
+		return id;
 	}
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
-	public Domicilio getDomicilio() {
-		return domicilio;
+
+	public void guardar() {
+
 	}
-	public void setDomicilio(Domicilio domicilio) {
-		this.domicilio = domicilio;
-	}
-	public CondicionIva getCondIva() {
-		return condIva;
-	}
-	public void setCondIva(CondicionIva condIva) {
-		this.condIva = condIva;
-	}
-	public CuentaCorriente getCuentaCorriente() {
-		return cuentaCorriente;
-	}
-	public void setCuentaCorriente(CuentaCorriente cuentaCorriente) {
-		this.cuentaCorriente = cuentaCorriente;
-	}
-	public List<Pedido> getPedidos() {
-		return pedidos;
-	}
-	public void setPedidos(List<Pedido> pedidos) {
-		this.pedidos = pedidos;
-	}
- 
-	 
+
 }
