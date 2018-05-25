@@ -1,8 +1,10 @@
 package edu.uade.apd.tpo.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ArticuloEntity {
+
+public class ArticuloEntity implements Serializable {
 	
 	private Long id;
 	private String codBarras;
@@ -68,6 +70,7 @@ public class ArticuloEntity {
 	public void setVolumen(int volumen) {
 		this.volumen = volumen;
 	}
+	
 	
 	
 	

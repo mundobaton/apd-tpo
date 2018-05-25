@@ -1,8 +1,10 @@
 package edu.uade.apd.tpo.entity;
 
+import java.io.Serializable;
+
 import edu.uade.apd.tpo.model.Rol;
 
-public class ClienteEntity {
+public class ClienteEntity  implements Serializable{
 
 	private Long id;
 	private String email;

@@ -1,8 +1,9 @@
 package edu.uade.apd.tpo.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class RemitoEntity {
+public class RemitoEntity implements Serializable {
 	
 	private Long id;
 	private Date fecha;

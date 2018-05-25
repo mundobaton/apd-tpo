@@ -1,8 +1,10 @@
 package edu.uade.apd.tpo.entity;
 
+import java.io.Serializable;
+
 import edu.uade.apd.tpo.model.Transportista;
 
-public class EnvioEntity {
+public class EnvioEntity implements Serializable {
 	
 	private Long id;
 	private DomicilioEntity domicilio;

@@ -1,6 +1,6 @@
 package edu.uade.apd.tpo.dao;
 
-import edu.uade.apd.tpo.entity.PosicionEntity;
+import edu.uade.apd.tpo.entity.ProveedorEntity;
 
 public class ProveedorDao extends AbstractDao<ProveedorEntity> {
 

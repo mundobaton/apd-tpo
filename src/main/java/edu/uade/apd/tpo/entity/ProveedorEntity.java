@@ -1,6 +1,8 @@
 package edu.uade.apd.tpo.entity;
 
-public class ProveedorEntity {
+import java.io.Serializable;
+
+public class ProveedorEntity implements Serializable {
 	private Long id;
 	private String nombre;
 	private String cuit;

@@ -1,5 +1,19 @@
 package edu.uade.apd.tpo.dao;
 
-public class OrdenCompraDao {
+import edu.uade.apd.tpo.entity.OrdenCompraEntity;
 
+public class OrdenCompraDao extends AbstractDao<OrdenCompraEntity> {
+
+	private static OrdenCompraDao instance;
+	
+	private OrdenCompraDao(){
+		
+	}
+	
+	public static OrdenCompraDao getInstance() {
+		if(instance == null) {
+			instance = new OrdenCompraDao();
+		}
+		return instance;
+	}
 }

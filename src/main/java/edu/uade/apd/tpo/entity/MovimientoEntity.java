@@ -1,8 +1,9 @@
 package edu.uade.apd.tpo.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class MovimientoEntity {
+public class MovimientoEntity implements Serializable {
 	private Long id;
 	private Date fecha;
 	private int cantidad;

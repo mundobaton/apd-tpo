@@ -1,12 +1,13 @@
 package edu.uade.apd.tpo.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 import edu.uade.apd.tpo.model.Factura;
 import edu.uade.apd.tpo.model.MedioPago;
 
-public class TransaccionEntity {
+public class TransaccionEntity implements Serializable{
 	
 	private Long id;
 	private float importe;

@@ -1,10 +1,11 @@
 package edu.uade.apd.tpo.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import edu.uade.apd.tpo.model.CondicionIva;
 
-public class UsuarioEntity {
+public class UsuarioEntity implements Serializable {
 	
 	private String nombre;
 	private Long cuil;

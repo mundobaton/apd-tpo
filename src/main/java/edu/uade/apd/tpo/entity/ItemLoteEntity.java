@@ -1,6 +1,8 @@
 package edu.uade.apd.tpo.entity;
 
-public class ItemLoteEntity {
+import java.io.Serializable;
+
+public class ItemLoteEntity implements Serializable {
 	private Long id;
 	private LoteEntity lote;
 	private int cantidad;

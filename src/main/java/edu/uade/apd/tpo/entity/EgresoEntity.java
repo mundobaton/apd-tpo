@@ -1,8 +1,10 @@
 package edu.uade.apd.tpo.entity;
 
+import java.io.Serializable;
+
 import edu.uade.apd.tpo.model.MotivoEgreso;
 
-public class EgresoEntity {
+public class EgresoEntity implements Serializable {
 	private MotivoEgreso motivo;
 	private String encargado;
 	private String autorizante;

@@ -1,10 +1,11 @@
 package edu.uade.apd.tpo.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import edu.uade.apd.tpo.model.EstadoCompra;
 
-public class OrdenCompraEntity {
+public class OrdenCompraEntity implements Serializable {
 	private Long id;
 	private ArticuloEntity articulo;
 	private EstadoCompra estado;

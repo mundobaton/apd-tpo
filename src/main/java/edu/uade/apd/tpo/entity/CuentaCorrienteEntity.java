@@ -1,8 +1,9 @@
 package edu.uade.apd.tpo.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class CuentaCorrienteEntity {
+public class CuentaCorrienteEntity  implements Serializable{
 	
 	 private Long id;
 	 private float saldo;

@@ -1,9 +1,10 @@
 package edu.uade.apd.tpo.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class LoteEntity {
+public class LoteEntity implements Serializable {
 	private Long id;
 	private String codigo;
 	private Date fechaVto;

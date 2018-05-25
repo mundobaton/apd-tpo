@@ -1,8 +1,9 @@
 package edu.uade.apd.tpo.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ItemPedidoEntity {
+public class ItemPedidoEntity implements Serializable {
 	
 	private Long id;
 	private ArticuloEntity articulo;
