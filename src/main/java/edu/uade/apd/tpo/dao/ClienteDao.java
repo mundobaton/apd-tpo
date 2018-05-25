@@ -1,8 +1,8 @@
 package edu.uade.apd.tpo.dao;
 
-import edu.uade.apd.tpo.entity.ClienteEntity;
+import edu.uade.apd.tpo.entity.UsuarioEntity;
 
-public class ClienteDao extends AbstractDao<ClienteEntity> {
+public class ClienteDao extends AbstractDao<UsuarioEntity> {
 
 	private static ClienteDao instance;
 	

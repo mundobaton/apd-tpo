@@ -1,46 +1,62 @@
 package edu.uade.apd.tpo.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
-import edu.uade.apd.tpo.model.Rol;
+import edu.uade.apd.tpo.model.CondicionIva;
 
-public class ClienteEntity  implements Serializable{
-
-	private Long id;
-	private String email;
-	private String password;
-	private Rol rol;
-
-	public String getEmail() {
-		return email;
+public class ClienteEntity implements Serializable {
+	
+	private String nombre;
+	private Long cuil;
+	private String telefono;
+	private DomicilioEntity domicilio;
+	private CondicionIva condIva;
+    private CuentaCorrienteEntity cuentaCorriente;
+	private List<PedidoEntity> pedidos;
+	
+	public String getNombre() {
+		return nombre;
 	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
-
-	public String getPassword() {
-		return password;
+	public Long getCuil() {
+		return cuil;
 	}
-
-	public void setPassword(String password) {
-		this.password = password;
+	public void setCuil(Long cuil) {
+		this.cuil = cuil;
 	}
-
-	public Rol getRol() {
-		return rol;
+	public String getTelefono() {
+		return telefono;
 	}
-
-	public void setRol(Rol rol) {
-		this.rol = rol;
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
-
-	public Long getId() {
-		return id;
+	public DomicilioEntity getDomicilio() {
+		return domicilio;
 	}
-
-	public void setId(Long id) {
-		this.id = id;
+	public void setDomicilio(DomicilioEntity domicilio) {
+		this.domicilio = domicilio;
 	}
-
+	public CondicionIva getCondIva() {
+		return condIva;
+	}
+	public void setCondIva(CondicionIva condIva) {
+		this.condIva = condIva;
+	}
+	public CuentaCorrienteEntity getCuentaCorriente() {
+		return cuentaCorriente;
+	}
+	public void setCuentaCorriente(CuentaCorrienteEntity cuentaCorriente) {
+		this.cuentaCorriente = cuentaCorriente;
+	}
+	public List<PedidoEntity> getPedidos() {
+		return pedidos;
+	}
+	public void setPedidos(List<PedidoEntity> pedidos) {
+		this.pedidos = pedidos;
+	}
+	 
+	 
 }

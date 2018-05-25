@@ -1,62 +1,46 @@
 package edu.uade.apd.tpo.entity;
 
 import java.io.Serializable;
-import java.util.List;
 
-import edu.uade.apd.tpo.model.CondicionIva;
+import edu.uade.apd.tpo.model.Rol;
 
-public class UsuarioEntity implements Serializable {
-	
-	private String nombre;
-	private Long cuil;
-	private String telefono;
-	private DomicilioEntity domicilio;
-	private CondicionIva condIva;
-    private CuentaCorrienteEntity cuentaCorriente;
-	private List<PedidoEntity> pedidos;
-	
-	public String getNombre() {
-		return nombre;
+public class UsuarioEntity  implements Serializable{
+
+	private Long id;
+	private String email;
+	private String password;
+	private Rol rol;
+
+	public String getEmail() {
+		return email;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	public Long getCuil() {
-		return cuil;
+
+	public String getPassword() {
+		return password;
 	}
-	public void setCuil(Long cuil) {
-		this.cuil = cuil;
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	public String getTelefono() {
-		return telefono;
+
+	public Rol getRol() {
+		return rol;
 	}
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
+
+	public void setRol(Rol rol) {
+		this.rol = rol;
 	}
-	public DomicilioEntity getDomicilio() {
-		return domicilio;
+
+	public Long getId() {
+		return id;
 	}
-	public void setDomicilio(DomicilioEntity domicilio) {
-		this.domicilio = domicilio;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
-	public CondicionIva getCondIva() {
-		return condIva;
-	}
-	public void setCondIva(CondicionIva condIva) {
-		this.condIva = condIva;
-	}
-	public CuentaCorrienteEntity getCuentaCorriente() {
-		return cuentaCorriente;
-	}
-	public void setCuentaCorriente(CuentaCorrienteEntity cuentaCorriente) {
-		this.cuentaCorriente = cuentaCorriente;
-	}
-	public List<PedidoEntity> getPedidos() {
-		return pedidos;
-	}
-	public void setPedidos(List<PedidoEntity> pedidos) {
-		this.pedidos = pedidos;
-	}
-	 
-	 
+
 }

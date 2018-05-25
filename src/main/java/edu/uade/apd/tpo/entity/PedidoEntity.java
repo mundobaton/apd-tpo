@@ -12,7 +12,7 @@ public class PedidoEntity implements Serializable {
 	private Date fechaDepacho;
 	private List<ItemPedidoEntity> items;
 	private List<EstadoEntity> estados;
-	private ClienteEntity cliente;
+	private UsuarioEntity cliente;
 	private EnvioEntity envio;
 	private FacturaEntity factura;
 	
@@ -52,10 +52,10 @@ public class PedidoEntity implements Serializable {
 	public void setEstados(List<EstadoEntity> estados) {
 		this.estados = estados;
 	}
-	public ClienteEntity getCliente() {
+	public UsuarioEntity getCliente() {
 		return cliente;
 	}
-	public void setCliente(ClienteEntity cliente) {
+	public void setCliente(UsuarioEntity cliente) {
 		this.cliente = cliente;
 	}
 	public EnvioEntity getEnvio() {
