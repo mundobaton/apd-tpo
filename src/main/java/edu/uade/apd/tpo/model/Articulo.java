@@ -86,7 +86,8 @@ public class Articulo {
 	}
 
 	public void vender(int cantidad) {
-
+		this.stock.agregarMovimientoEgreso(MotivoEgreso.VENTA, cantidad);
+		
 	}
 
 	public void guardar() {

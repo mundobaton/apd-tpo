@@ -2,23 +2,28 @@ package edu.uade.apd.tpo.model;
 
 public class itemPosicion {
 
-	private int cantidad;
-	private Posicion posicion;
+    private Long id;
+    private int cantidad;
+    private Posicion posicion;
 
-	public int getCantidad() {
-		return cantidad;
-	}
+    public Long getId() { return id; }
 
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
-	}
+    public void setId(Long id) { this.id = id; }
 
-	public Posicion getPosicion() {
-		return posicion;
-	}
+    public int getCantidad() {
+        return cantidad;
+    }
 
-	public void setPosicion(Posicion posicion) {
-		this.posicion = posicion;
-	}
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public Posicion getPosicion() {
+        return posicion;
+    }
+
+    public void setPosicion(Posicion posicion) {
+        this.posicion = posicion;
+    }
 
 }

@@ -14,7 +14,7 @@ public class Pedido {
 	private Date fechaDespacho;
 	private List<ItemPedido> items;
 	private List<Estado> estados;
-	private Usuario cliente;
+	private Cliente cliente;
 	private Factura factura;
 	private Envio envio;
 
@@ -66,11 +66,11 @@ public class Pedido {
 		this.estados = estados;
 	}
 
-	public Usuario getCliente() {
+	public Cliente getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Usuario cliente) {
+	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
 
