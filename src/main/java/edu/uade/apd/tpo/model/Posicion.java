@@ -11,6 +11,8 @@ public class Posicion {
 	private int estanteria;
 	private int estante;
 	private int numero;
+	private static int CAPACIDAD = 100;
+	
 
 	public Long getId() {
 		return id;
@@ -94,6 +96,18 @@ public class Posicion {
 
 	public void guardar() {
 
+	}
+	
+	public void liberar(int cantidad) {
+		this.cantidad -= cantidad;
+	}
+
+	public static int getCAPACIDAD() {
+		return CAPACIDAD;
+	}
+
+	public static void setCAPACIDAD(int cAPACIDAD) {
+		CAPACIDAD = cAPACIDAD;
 	}
 
 }

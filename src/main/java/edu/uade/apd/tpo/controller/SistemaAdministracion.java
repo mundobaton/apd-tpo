@@ -5,6 +5,8 @@ import java.util.List;
 import edu.uade.apd.tpo.dao.ArticuloDao;
 import edu.uade.apd.tpo.dao.ClienteDao;
 import edu.uade.apd.tpo.dao.PedidoDao;
+import edu.uade.apd.tpo.entity.ClienteEntity;
+import edu.uade.apd.tpo.entity.PedidoEntity;
 import edu.uade.apd.tpo.model.Articulo;
 import edu.uade.apd.tpo.model.Cliente;
 import edu.uade.apd.tpo.model.CondicionIva;
@@ -13,6 +15,7 @@ import edu.uade.apd.tpo.model.Domicilio;
 import edu.uade.apd.tpo.model.Envio;
 import edu.uade.apd.tpo.model.EstadoPedido;
 import edu.uade.apd.tpo.model.ItemPedido;
+import edu.uade.apd.tpo.model.MedioPago;
 import edu.uade.apd.tpo.model.Pedido;
 import edu.uade.apd.tpo.model.Stock;
 import edu.uade.apd.tpo.model.Zona;
@@ -79,7 +82,7 @@ public class SistemaAdministracion {
 	}
 	
 	public Pedido generarPedido(Long cuil, String calle, Long num, String cp, String loc, String prov, Zona zona) {
-		Cliente cliente = buscarCliente(cuil);
+		ClienteEntity cliente = buscarCliente(cuil);
 		Pedido pedido = new Pedido();
 		pedido.setCliente(cliente);
 		Domicilio domicilio = new Domicilio();
@@ -164,7 +167,7 @@ public class SistemaAdministracion {
 			if(stock.calcular() >= cantidad) {
 				stock.reservar(cantidad);
 			}else {
-				SistemaCompras.getInstance().generarOrdenCompra(articulo.getId());
+				SistemaCompras.getInstance().generarOrdenCompra(articulo.getId(), pedido.getId());
 				pedidoCompleto = false;
 			}
 		}
@@ -177,4 +180,11 @@ public class SistemaAdministracion {
 		pedido.guardar();
 	}
 
+	public void realizarPago(Long facturaId, float importe, MedioPago mp) {
+		
+	}
+	
+	public void realizarPago(Long cuit, float importe, MedioPago mp) {
+		
+	}
 }
