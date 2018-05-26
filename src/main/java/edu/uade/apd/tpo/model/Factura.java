@@ -73,4 +73,12 @@ public class Factura {
 
 	}
 
+	public static float getIMPUESTOS() {
+		return IMPUESTOS;
+	}
+
+	public static void setIMPUESTOS(float iMPUESTOS) {
+		IMPUESTOS = iMPUESTOS;
+	}
+
 }
