@@ -2,6 +2,7 @@ package edu.uade.apd.tpo.entity;
 
 import edu.uade.apd.tpo.model.ItemPedido;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +21,7 @@ public class ItemLoteEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_lote_id")
     private Long id;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "lote_id")
     private LoteEntity lote;
     @Column(name = "cantidad")
