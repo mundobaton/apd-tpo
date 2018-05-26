@@ -2,6 +2,8 @@ package edu.uade.apd.tpo.model;
 
 import java.util.Date;
 
+import edu.uade.apd.tpo.dao.OrdenCompraDao;
+
 public class OrdenCompra {
 	private Long id;
 	private Articulo articulo;
@@ -59,6 +61,6 @@ public class OrdenCompra {
 	}
 
 	public void guardar() {
-
+		OrdenCompraDao.getInstance().save(this);
 	}
 }

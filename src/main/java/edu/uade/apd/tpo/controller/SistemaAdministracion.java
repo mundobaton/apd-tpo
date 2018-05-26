@@ -1,5 +1,7 @@
 package edu.uade.apd.tpo.controller;
 
+import java.util.List;
+
 import edu.uade.apd.tpo.dao.ArticuloDao;
 import edu.uade.apd.tpo.dao.ClienteDao;
 import edu.uade.apd.tpo.dao.PedidoDao;
@@ -10,7 +12,9 @@ import edu.uade.apd.tpo.model.CuentaCorriente;
 import edu.uade.apd.tpo.model.Domicilio;
 import edu.uade.apd.tpo.model.Envio;
 import edu.uade.apd.tpo.model.EstadoPedido;
+import edu.uade.apd.tpo.model.ItemPedido;
 import edu.uade.apd.tpo.model.Pedido;
+import edu.uade.apd.tpo.model.Stock;
 import edu.uade.apd.tpo.model.Zona;
 
 public class SistemaAdministracion {
@@ -139,6 +143,38 @@ public class SistemaAdministracion {
 				pedido.guardar();
 			}
 		}
+	}
+	
+	public void aprobarPedido(Long pedidoId) {
+		Pedido pedido = buscarPedido(pedidoId);
+		if(pedido != null) {
+			pedido.aprobar();
+			notificarClienteEstadoPedido(pedidoId, EstadoPedido.APROBADO);
+			verificarPedido(pedido);
+		}
+	}
+	
+	private void verificarPedido(Pedido pedido) {
+		List<ItemPedido> items = pedido.getItems();
+		boolean pedidoCompleto = true;
+		for(ItemPedido item : items) {
+			Articulo articulo = item.getArticulo();
+			Stock stock = articulo.getStock();
+			int cantidad = item.getCantidad();
+			if(stock.calcular() >= cantidad) {
+				stock.reservar(cantidad);
+			}else {
+				SistemaCompras.getInstance().generarOrdenCompra(articulo.getId());
+				pedidoCompleto = false;
+			}
+		}
+		if(pedidoCompleto) {
+			pedido.verificado();
+		}else {
+			pedido.marcarPendiente();
+			notificarClienteEstadoPedido(pedido.getId(), EstadoPedido.PENDIENTE, "Falta de stock");
+		}
+		pedido.guardar();
 	}
 
 }

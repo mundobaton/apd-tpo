@@ -162,6 +162,14 @@ public class Pedido {
 		this.estados.add(completo);
 
 	}
+	
+	public void verificado() {
+		Estado verificado = new Estado();
+		verificado.setEstado(EstadoPedido.VERIFICADO);
+		verificado.setFecha(new Date());
+		this.estados.add(verificado);
+
+	}
 
 	public void marcarPendiente() {
 		Estado pendiente = new Estado();
