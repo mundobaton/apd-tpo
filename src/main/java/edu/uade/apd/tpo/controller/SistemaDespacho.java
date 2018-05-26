@@ -9,9 +9,11 @@ import edu.uade.apd.tpo.entity.ItemLoteEntity;
 import edu.uade.apd.tpo.entity.ItemPedidoEntity;
 import edu.uade.apd.tpo.entity.PedidoEntity;
 import edu.uade.apd.tpo.entity.PosicionEntity;
+import edu.uade.apd.tpo.model.Articulo;
 import edu.uade.apd.tpo.model.Factura;
 import edu.uade.apd.tpo.model.ItemLote;
 import edu.uade.apd.tpo.model.ItemPedido;
+import edu.uade.apd.tpo.model.Lote;
 import edu.uade.apd.tpo.model.MotivoEgreso;
 import edu.uade.apd.tpo.model.Pedido;
 import edu.uade.apd.tpo.model.Posicion;
@@ -33,26 +35,31 @@ public class SistemaDespacho {
 	}
 	
 	public void despacharPedido(Long pedidoId) {
-
-		PedidoEntity p = buscarPedido(pedidoId);
 		Pedido pedido = SistemaAdministracion.getInstance().buscarPedido(pedidoId);
-		
-		for(ItemPedido item : pedido.getItems()){
-
-			item.getArticulo().getStock().agregarMovimientoEgreso(MotivoEgreso.VENTA, item.getCantidad());
-
-			for(ItemLote lote : item.getLotes()){
-				for(Posicion posicion : lote.getLote().getPosiciones()){
-					//SistemaDeposito.getInstance().liberarPosicion(posicion.getCodigoUbicacion(), item.getCantidad());
+		List<ItemPedido> items = pedido.getItems();
+		for(ItemPedido item : items) {
+			Articulo articulo = item.getArticulo();
+			int cantidadVenta = item.getCantidad();
+			articulo.vender(cantidadVenta);
+			List<ItemLote> itemLotes = item.getLotes();
+			for(ItemLote itemLote : itemLotes) {
+				Lote lote = itemLote.getLote();
+				List<Posicion> posiciones = lote.getPosiciones();
+				int cantidadLote = itemLote.getCantidad();
+				int index = 0;
+				while(!posiciones.isEmpty() && cantidadLote > 0) {
+					String ubicacion = posiciones.get(index).getCodUbicacion();
+					cantidadLote -= SistemaDeposito.getInstance().liberarPosicion(ubicacion, cantidadLote);
+					index ++;
 				}
 			}
-			item.getArticulo().guardar();
 		}
+		pedido.setFechaDepacho(new Date());
 		SistemaFacturacion.getInstance().facturar(pedidoId);
 	}
 	
 	public void alistarPedido(Long idPedido) {
-		Pedido pedido = SistemaAdministracion.getInstance().buscarPedido(pedidoId);
+		Pedido pedido = SistemaAdministracion.getInstance().buscarPedido(idPedido);
 		Remito remito = SistemaFacturacion.getInstance().crearRemito();
 		Factura factura = SistemaFacturacion.getInstance().crearFactura();
 		Transportista transportista = seleccionarTransportista();

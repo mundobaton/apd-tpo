@@ -38,5 +38,18 @@ public class SistemaCompras {
 		ordenCompra.guardar();
 	}
 	
+	public OrdenCompra buscarOrdenDeCompra(Long ordenId) {
+		return ordenCompraDao.getInstance().findById(ordenId);
+		
+	}
+
+	public void aceptarOrdenCompra(Long ordenId) {
+		OrdenCompra orden =  buscarOrdenDeCompra(ordenId);
+		orden.setEstado(EstadoCompra.ACEPTADA);
+		orden.guardar();
+	}
+	
+	
+	
 	
 }
