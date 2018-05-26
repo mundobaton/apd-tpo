@@ -8,3 +8,7 @@ gradle/wrapper/gradle-wrapper.properties
 gradlew
 
 *.bat
+*.class
+*.prefs
+.project
+.classpath
