@@ -4,43 +4,64 @@ import java.io.Serializable;
 
 import edu.uade.apd.tpo.model.Rol;
 
-public class UsuarioEntity  implements Serializable{
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 
-	private Long id;
-	private String email;
-	private String password;
-	private Rol rol;
+@Entity
+@Table(name = "usuarios")
+@Inheritance(strategy = InheritanceType.JOINED)
+public class UsuarioEntity implements Serializable {
 
-	public String getEmail() {
-		return email;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "usuario_id")
+    protected Long id;
+    @Column(name = "email")
+    protected String email;
+    @Column(name = "password")
+    protected String password;
+    @Column(name = "rol")
+    @Enumerated(EnumType.ORDINAL)
+    protected Rol rol;
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public Rol getRol() {
-		return rol;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setRol(Rol rol) {
-		this.rol = rol;
-	}
+    public Rol getRol() {
+        return rol;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
 }

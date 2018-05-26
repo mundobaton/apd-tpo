@@ -1,75 +1,120 @@
 package edu.uade.apd.tpo.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+@Entity
+@Table(name = "pedidos")
 public class PedidoEntity implements Serializable {
-	
-	private Long id;
-	private Date fechaPedido;
-	private Date fechaEntrega;
-	private Date fechaDepacho;
-	private List<ItemPedidoEntity> items;
-	private List<EstadoEntity> estados;
-	private UsuarioEntity cliente;
-	private EnvioEntity envio;
-	private FacturaEntity factura;
-	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public Date getFechaPedido() {
-		return fechaPedido;
-	}
-	public void setFechaPedido(Date fechaPedido) {
-		this.fechaPedido = fechaPedido;
-	}
-	public Date getFechaEntrega() {
-		return fechaEntrega;
-	}
-	public void setFechaEntrega(Date fechaEntrega) {
-		this.fechaEntrega = fechaEntrega;
-	}
-	public Date getFechaDepacho() {
-		return fechaDepacho;
-	}
-	public void setFechaDepacho(Date fechaDepacho) {
-		this.fechaDepacho = fechaDepacho;
-	}
-	public List<ItemPedidoEntity> getItems() {
-		return items;
-	}
-	public void setItems(List<ItemPedidoEntity> items) {
-		this.items = items;
-	}
-	public List<EstadoEntity> getEstados() {
-		return estados;
-	}
-	public void setEstados(List<EstadoEntity> estados) {
-		this.estados = estados;
-	}
-	public UsuarioEntity getCliente() {
-		return cliente;
-	}
-	public void setCliente(UsuarioEntity cliente) {
-		this.cliente = cliente;
-	}
-	public EnvioEntity getEnvio() {
-		return envio;
-	}
-	public void setEnvio(EnvioEntity envio) {
-		this.envio = envio;
-	}
-	public FacturaEntity getFactura() {
-		return factura;
-	}
-	public void setFactura(FacturaEntity factura) {
-		this.factura = factura;
-	}
-	
-	
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pedido_id")
+    private Long id;
+    @Column(name = "fecha_pedido")
+    private Date fechaPedido;
+    @Column(name = "fecha_entrega")
+    private Date fechaEntrega;
+    @Column(name = "fecha_despacho")
+    private Date fechaDepacho;
+    @Transient
+    private List<ItemPedidoEntity> items;
+    @Transient
+    private List<EstadoEntity> estados;
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private ClienteEntity cliente;
+    //@OneToOne
+    //@JoinColumn(name = "envio_id")
+    @Transient
+    private EnvioEntity envio;
+    //@OneToOne
+    //@JoinColumn(name = "factura_id")
+    @Transient
+    private FacturaEntity factura;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getFechaPedido() {
+        return fechaPedido;
+    }
+
+    public void setFechaPedido(Date fechaPedido) {
+        this.fechaPedido = fechaPedido;
+    }
+
+    public Date getFechaEntrega() {
+        return fechaEntrega;
+    }
+
+    public void setFechaEntrega(Date fechaEntrega) {
+        this.fechaEntrega = fechaEntrega;
+    }
+
+    public Date getFechaDepacho() {
+        return fechaDepacho;
+    }
+
+    public void setFechaDepacho(Date fechaDepacho) {
+        this.fechaDepacho = fechaDepacho;
+    }
+
+    public List<ItemPedidoEntity> getItems() {
+        return items;
+    }
+
+    public void setItems(List<ItemPedidoEntity> items) {
+        this.items = items;
+    }
+
+    public List<EstadoEntity> getEstados() {
+        return estados;
+    }
+
+    public void setEstados(List<EstadoEntity> estados) {
+        this.estados = estados;
+    }
+
+    public void setCliente(ClienteEntity cliente) {
+        this.cliente = cliente;
+    }
+
+    public ClienteEntity getCliente() {
+        return cliente;
+    }
+
+    public EnvioEntity getEnvio() {
+        return envio;
+    }
+
+    public void setEnvio(EnvioEntity envio) {
+        this.envio = envio;
+    }
+
+    public FacturaEntity getFactura() {
+        return factura;
+    }
+
+    public void setFactura(FacturaEntity factura) {
+        this.factura = factura;
+    }
+
+
 }

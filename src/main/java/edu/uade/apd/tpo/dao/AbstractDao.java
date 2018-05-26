@@ -17,7 +17,6 @@ public class AbstractDao<T extends Serializable> {
             session.beginTransaction();
             session.saveOrUpdate(t);
             session.getTransaction().commit();
-            session.flush();
         }
     }
 
