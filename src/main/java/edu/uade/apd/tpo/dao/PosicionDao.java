@@ -1,6 +1,10 @@
 package edu.uade.apd.tpo.dao;
 
 import edu.uade.apd.tpo.entity.PosicionEntity;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
+
+import java.util.List;
 
 public class PosicionDao  extends AbstractDao<PosicionEntity> {
 
@@ -15,5 +19,15 @@ public class PosicionDao  extends AbstractDao<PosicionEntity> {
 			instance = new PosicionDao();
 		}
 		return instance;
+	}
+
+	public PosicionEntity findByCodigo(String codigo){
+		String query = "select p from PosicionEntity p where p.codUbicacion = :codigo";
+		try (Session session = getSession()) {
+			Query<PosicionEntity> q = session.createQuery(query);
+			q.setParameter("codigo", codigo);
+			List<PosicionEntity> result = q.getResultList();
+			return result.isEmpty() ? null : result.get(0);
+		}
 	}
 }

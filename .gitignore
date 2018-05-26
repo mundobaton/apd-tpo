@@ -12,3 +12,5 @@ gradlew
 *.prefs
 .project
 .classpath
+*.properties
+*.xml
