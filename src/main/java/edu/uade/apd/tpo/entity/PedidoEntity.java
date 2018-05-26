@@ -1,5 +1,6 @@
 package edu.uade.apd.tpo.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -28,20 +30,18 @@ public class PedidoEntity implements Serializable {
     private Date fechaEntrega;
     @Column(name = "fecha_despacho")
     private Date fechaDepacho;
-    @Transient
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
     private List<ItemPedidoEntity> items;
     @Transient
     private List<EstadoEntity> estados;
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private ClienteEntity cliente;
-    //@OneToOne
-    //@JoinColumn(name = "envio_id")
-    @Transient
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "envio_id")
     private EnvioEntity envio;
-    //@OneToOne
-    //@JoinColumn(name = "factura_id")
-    @Transient
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "factura_id")
     private FacturaEntity factura;
 
     public Long getId() {
@@ -115,6 +115,5 @@ public class PedidoEntity implements Serializable {
     public void setFactura(FacturaEntity factura) {
         this.factura = factura;
     }
-
 
 }

@@ -9,7 +9,7 @@ public class Factura {
 	private FacturaTipo tipo;
 	private Pedido pedido;
 	private float costoEnvio;
-	private float impuesto;
+	private static float IMPUESTOS = 0.21f;
 	private float total;
 	private Transaccion transaccion;
 
@@ -51,14 +51,6 @@ public class Factura {
 
 	public void setCostoEnvio(float costoEnvio) {
 		this.costoEnvio = costoEnvio;
-	}
-
-	public float getImpuesto() {
-		return impuesto;
-	}
-
-	public void setImpuesto(float impuesto) {
-		this.impuesto = impuesto;
 	}
 
 	public float getTotal() {
