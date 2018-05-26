@@ -69,7 +69,7 @@ public class Cliente extends Usuario{
 	}
 
 	public void guardar() {
-		this.ClienteDao.getInstance().save(this);
+		//this.ClienteDao.getInstance().save(this);
 	}
 
 }
