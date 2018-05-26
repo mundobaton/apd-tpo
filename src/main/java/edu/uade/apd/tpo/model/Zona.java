@@ -1,8 +1,20 @@
 package edu.uade.apd.tpo.model;
 
 public enum Zona {
-	CABA,
-	NORTE,
-	SUR,
-	OESTE
+	CABA (3), 
+	NORTE (6), 
+	SUR (4), 
+	OESTE  (5);
+
+	private float precio;
+	
+	Zona (float precio){
+		this.precio = precio;
+	}
+	
+	public float getPrecio() {
+		return this.precio;
+	}
+	
+	
 }

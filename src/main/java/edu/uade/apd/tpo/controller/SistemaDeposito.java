@@ -35,6 +35,10 @@ public class SistemaDeposito {
 		return instance;
 	}
 
+	public Articulo buscarArticulo(Long articuloId) {
+		return articuloDao.getInstance().findById(articuloId);
+	}
+	
 	public void completarPedido(Long pedidoId) {
 		int cantidad = 0;
 		Pedido pedido = SistemaAdministracion.getInstance().buscarPedido(pedidoId);
@@ -123,6 +127,10 @@ public class SistemaDeposito {
 		}
 		posicion.guardar();
 		return result;
+	}
+	
+	public List<Articulo> obtenerArticulos(){
+		return articuloDao.getInstance().findAll();
 	}
 
 }

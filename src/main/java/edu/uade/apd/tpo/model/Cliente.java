@@ -2,6 +2,8 @@ package edu.uade.apd.tpo.model;
 
 import java.util.List;
 
+import edu.uade.apd.tpo.dao.ClienteDao;
+
 public class Cliente extends Usuario{
 
 	private String nombre;
@@ -69,7 +71,7 @@ public class Cliente extends Usuario{
 	}
 
 	public void guardar() {
-		//this.ClienteDao.getInstance().save(this);
+		ClienteDao.getInstance().save(this);
 	}
 
 }

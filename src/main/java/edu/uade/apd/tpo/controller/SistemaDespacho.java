@@ -34,8 +34,12 @@ public class SistemaDespacho {
 	        return instance;
 	}
 	
+	public Pedido buscarPedido(Long pedidoId) {
+		return SistemaAdministracion.getInstance().buscarPedido(pedidoId);
+	}
+	
 	public void despacharPedido(Long pedidoId) {
-		Pedido pedido = SistemaAdministracion.getInstance().buscarPedido(pedidoId);
+		Pedido pedido = buscarPedido(pedidoId);
 		List<ItemPedido> items = pedido.getItems();
 		for(ItemPedido item : items) {
 			Articulo articulo = item.getArticulo();
@@ -59,7 +63,7 @@ public class SistemaDespacho {
 	}
 	
 	public void alistarPedido(Long idPedido) {
-		Pedido pedido = SistemaAdministracion.getInstance().buscarPedido(idPedido);
+		Pedido pedido = buscarPedido(idPedido);
 		Remito remito = SistemaFacturacion.getInstance().crearRemito();
 		Factura factura = SistemaFacturacion.getInstance().crearFactura();
 		Transportista transportista = seleccionarTransportista();

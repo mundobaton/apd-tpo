@@ -45,9 +45,8 @@ public class Envio {
 	public void guardar() {
 
 	}
-
 	public float calcular() {
-		return 0;
+		return domicilio.getZona().getPrecio() * transportista.getPrecio();
 	}
 
 }

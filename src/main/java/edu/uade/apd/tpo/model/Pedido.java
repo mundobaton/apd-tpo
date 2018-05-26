@@ -199,5 +199,9 @@ public class Pedido {
 	public void guardar() {
 		PedidoDao.getInstance().save(this);
 	}
+	
+	public float calcularCostoEnvio() {
+		return envio.calcular();
+	}
 
 }

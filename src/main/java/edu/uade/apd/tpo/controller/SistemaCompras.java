@@ -12,13 +12,9 @@ public class SistemaCompras {
 
 	private static SistemaCompras instance;
 	private OrdenCompraDao ordenCompraDao;
-	private ArticuloDao articuloDao;
-	private PedidoDao pedidoDao;
 
 	private SistemaCompras() {
 		this.ordenCompraDao = OrdenCompraDao.getInstance();
-		this.articuloDao = ArticuloDao.getInstance();
-		this.pedidoDao = PedidoDao.getInstance();
 	}
 
 	public static SistemaCompras getInstance() {
@@ -31,7 +27,7 @@ public class SistemaCompras {
 	public void generarOrdenCompra(Long articuloId, Long pedidoId) {
 		Pedido pedido = SistemaAdministracion.getInstance().buscarPedido(pedidoId);
 		OrdenCompra ordenCompra = new OrdenCompra();
-		Articulo articulo = SistemaAdministracion.getInstance().buscarArticulo(articuloId);
+		Articulo articulo = SistemaDeposito.getInstance().buscarArticulo(articuloId);
 		ordenCompra.setArticulo(articulo);
 		ordenCompra.setEstado(EstadoCompra.PENDIENTE);
 		ordenCompra.setPedido(pedido);
