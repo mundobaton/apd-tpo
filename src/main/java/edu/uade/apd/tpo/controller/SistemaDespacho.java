@@ -2,6 +2,7 @@ package edu.uade.apd.tpo.controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import edu.uade.apd.tpo.dao.PedidoDao;
 import edu.uade.apd.tpo.entity.ItemLoteEntity;
@@ -12,6 +13,7 @@ import edu.uade.apd.tpo.model.Factura;
 import edu.uade.apd.tpo.model.ItemPedido;
 import edu.uade.apd.tpo.model.MotivoEgreso;
 import edu.uade.apd.tpo.model.Remito;
+import edu.uade.apd.tpo.model.Transportista;
 
 public class SistemaDespacho {
 	
@@ -56,11 +58,17 @@ public class SistemaDespacho {
 	}
 	
 	public void alistarPedido(Long idPedido) {
-		PedidoEntity p = buscarPedido(idPedido);
+		PedidoEntity pedido = buscarPedido(idPedido);
 		Remito remito = SistemaFacturacion.getInstance().crearRemito();
 		Factura factura = SistemaFacturacion.getInstance().crearFactura();
-		
-		p.pedidoListo();
-		
+		Transportista transportista = seleccionarTransportista();
+		pedido.setFactura(factura);
+		pedido.pedidoListo(remito, transportista);
+	}
+	
+	private Transportista seleccionarTransportista() {
+		Random random = new Random();
+    	int index = random.nextInt(2);
+    	return Transportista.values()[index];
 	}
 }

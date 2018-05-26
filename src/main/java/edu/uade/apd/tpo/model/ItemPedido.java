@@ -50,6 +50,10 @@ public class ItemPedido {
 		this.lotes = lotes;
 	}
 
+	public void actualizar(int cant) {
+		this.cantidad += cant; 
+	}
+	
 	public void guardar() {
 
 	}

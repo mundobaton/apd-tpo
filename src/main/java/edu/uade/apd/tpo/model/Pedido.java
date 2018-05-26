@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import edu.uade.apd.tpo.dao.PedidoDao;
+
 public class Pedido {
 
 	private Long id;
@@ -92,13 +94,27 @@ public class Pedido {
 		Estado iniciar = new Estado();
 		iniciar.setEstado(EstadoPedido.INICIADO);
 		iniciar.setFecha(new Date());
+		iniciar.setMotivo(null);
 		this.setFechaPedido(new Date());
 		this.estados.add(iniciar);
-
 	}
 
 	public void agregarItem(Articulo articulo, int cantidad) {
-
+		int i = 0;
+		boolean temp = false;
+		ItemPedido items = new ItemPedido();
+		for(ItemPedido item : this.items) {
+			if(item.getArticulo().getId() == articulo.getId()) {
+				this.items.get(i).actualizar(cantidad);
+				temp = true;
+			}
+			i++;
+		}
+		if(!temp) {
+			items.setArticulo(articulo);
+			items.setCantidad(cantidad);
+			this.items.add(items);
+		}
 	}
 
 	public void cerrar() {
@@ -115,6 +131,20 @@ public class Pedido {
 		aprobado.setEstado(EstadoPedido.APROBADO);
 		aprobado.setFecha(new Date());
 		this.estados.add(aprobado);
+	}
+	
+	public void preAprobar() {
+		Estado preAprobar = new Estado();
+		preAprobar.setEstado(EstadoPedido.PREAPROBADO);
+		preAprobar.setFecha(new Date());
+		this.estados.add(preAprobar);
+	}
+	
+	public void revision() {
+		Estado revision = new Estado();
+		revision.setEstado(EstadoPedido.EN_REVISION);
+		revision.setFecha(new Date());
+		this.estados.add(revision);
 	}
 
 	public void rechazar(String motivo) {
@@ -141,23 +171,25 @@ public class Pedido {
 
 	}
 	
-	public void pedidoListo(Remito remito) {
+	public void pedidoListo(Remito remito, Transportista transportista) {
 		Estado listo = new Estado();
 		listo.setFecha(new Date());
 		listo.setEstado(EstadoPedido.LISTO);
 		this.estados.add(listo);
 		this.envio.setRemito(remito);
-		this.envio.setTransportista(seleccionarTransportista());
+		this.envio.setTransportista(transportista);
 	}
 	
-	private Transportista seleccionarTransportista() {
-		Random random = new Random();
-    	int index = random.nextInt(2);
-    	return Transportista.values()[index];
+	public float obtenerTotal() {
+		float total = 0;
+		for(ItemPedido item : this.items){
+			total = total + item.getSubTotal(); 
+		}
+		return total;
 	}
 
 	public void guardar() {
-
+		PedidoDao.getInstance().save(this);
 	}
 
 }

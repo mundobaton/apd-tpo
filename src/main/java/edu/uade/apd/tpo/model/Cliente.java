@@ -2,7 +2,7 @@ package edu.uade.apd.tpo.model;
 
 import java.util.List;
 
-public class Cliente {
+public class Cliente extends Usuario{
 
 	private String nombre;
 	private Long cuil;
@@ -69,7 +69,7 @@ public class Cliente {
 	}
 
 	public void guardar() {
-
+		this.ClienteDao.getInstance().save(this);
 	}
 
 }
