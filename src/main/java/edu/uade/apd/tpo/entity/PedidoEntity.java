@@ -32,7 +32,7 @@ public class PedidoEntity implements Serializable {
     private Date fechaDepacho;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
     private List<ItemPedidoEntity> items;
-    @Transient
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
     private List<EstadoEntity> estados;
     @ManyToOne
     @JoinColumn(name = "cliente_id")

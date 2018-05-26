@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -34,7 +35,7 @@ public class ArticuloEntity implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "stock_id")
     private StockEntity stock;
-    @Transient
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
     private List<LoteEntity> lotes;
     @JoinColumn(name = "volumen")
     private int volumen;

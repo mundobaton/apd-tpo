@@ -5,6 +5,7 @@ import edu.uade.apd.tpo.entity.ClienteEntity;
 import edu.uade.apd.tpo.entity.CuentaCorrienteEntity;
 import edu.uade.apd.tpo.entity.DomicilioEntity;
 import edu.uade.apd.tpo.entity.EnvioEntity;
+import edu.uade.apd.tpo.entity.EstadoEntity;
 import edu.uade.apd.tpo.entity.FacturaEntity;
 import edu.uade.apd.tpo.entity.ItemLoteEntity;
 import edu.uade.apd.tpo.entity.ItemPedidoEntity;
@@ -15,6 +16,7 @@ import edu.uade.apd.tpo.entity.RemitoEntity;
 import edu.uade.apd.tpo.entity.StockEntity;
 import edu.uade.apd.tpo.entity.TransaccionEntity;
 import edu.uade.apd.tpo.model.CondicionIva;
+import edu.uade.apd.tpo.model.EstadoPedido;
 import edu.uade.apd.tpo.model.EstadoPosicion;
 import edu.uade.apd.tpo.model.FacturaTipo;
 import edu.uade.apd.tpo.model.MedioPago;
@@ -130,7 +132,7 @@ public class ClienteDaoTest {
 
         ItemPedidoEntity ipe = new ItemPedidoEntity();
         ArticuloEntity ae = new ArticuloEntity();
-        ae.setCodBarras("1234");
+        ae.setCodBarras("3215");
         ae.setDescripcion("Una descripcion");
         ae.setUnidad("asasda");
         ae.setPresentacion("Bolsita pequeña");
@@ -174,6 +176,16 @@ public class ClienteDaoTest {
             ipe.setLotes(new ArrayList<>());
         }
         ipe.getLotes().add(ile);
+
+        EstadoEntity estado = new EstadoEntity();
+        estado.setFecha(new Date());
+        estado.setMotivo("un motivo");
+        estado.setEstado(EstadoPedido.APROBADO);
+        if (pe.getEstados() == null) {
+            pe.setEstados(new ArrayList<>());
+        }
+        estado.setPedido(pe);
+        pe.getEstados().add(estado);
 
         pedidos.add(pe);
         ce.setPedidos(pedidos);
