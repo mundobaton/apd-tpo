@@ -10,18 +10,19 @@ import edu.uade.apd.tpo.entity.ItemPedidoEntity;
 import edu.uade.apd.tpo.entity.PedidoEntity;
 import edu.uade.apd.tpo.entity.PosicionEntity;
 import edu.uade.apd.tpo.model.Factura;
+import edu.uade.apd.tpo.model.ItemLote;
 import edu.uade.apd.tpo.model.ItemPedido;
 import edu.uade.apd.tpo.model.MotivoEgreso;
+import edu.uade.apd.tpo.model.Pedido;
+import edu.uade.apd.tpo.model.Posicion;
 import edu.uade.apd.tpo.model.Remito;
 import edu.uade.apd.tpo.model.Transportista;
 
 public class SistemaDespacho {
 	
 	private static SistemaDespacho instance;
-	private PedidoDao pedidoDao;
 
 	private SistemaDespacho() {
-		this.pedidoDao = PedidoDao.getInstance();
 	}
 
 	public static SistemaDespacho getInstance() {
@@ -34,13 +35,14 @@ public class SistemaDespacho {
 	public void despacharPedido(Long pedidoId) {
 
 		PedidoEntity p = buscarPedido(pedidoId);
-
-		for(ItemPedidoEntity item : p.getItems()){
+		Pedido pedido = SistemaAdministracion.getInstance().buscarPedido(pedidoId);
+		
+		for(ItemPedido item : pedido.getItems()){
 
 			item.getArticulo().getStock().agregarMovimientoEgreso(MotivoEgreso.VENTA, item.getCantidad());
 
-			for(ItemLoteEntity lote : item.getLotes()){
-				for(PosicionEntity posicion : lote.getLote().getPosiciones()){
+			for(ItemLote lote : item.getLotes()){
+				for(Posicion posicion : lote.getLote().getPosiciones()){
 					//SistemaDeposito.getInstance().liberarPosicion(posicion.getCodigoUbicacion(), item.getCantidad());
 				}
 			}
@@ -49,16 +51,8 @@ public class SistemaDespacho {
 		SistemaFacturacion.getInstance().facturar(pedidoId);
 	}
 	
-	public List<PedidoEntity> obtenerPedidosCompletos(){
-		return pedidoDao.obtenerPedidosCompletos();
-	}
-	
-	public PedidoEntity buscarPedido(Long pedidoId) {
-		return pedidoDao.findById(pedidoId);
-	}
-	
 	public void alistarPedido(Long idPedido) {
-		PedidoEntity pedido = buscarPedido(idPedido);
+		Pedido pedido = SistemaAdministracion.getInstance().buscarPedido(pedidoId);
 		Remito remito = SistemaFacturacion.getInstance().crearRemito();
 		Factura factura = SistemaFacturacion.getInstance().crearFactura();
 		Transportista transportista = seleccionarTransportista();

@@ -28,18 +28,10 @@ public class SistemaCompras {
 	        return instance;
 	}
 	
-	public Articulo buscarArticulo(Long articuloId) {
-		return articuloDao.getInstance().findById(articuloId);
-	}
-	
-	public Pedido buscarPedido(Long pedidoId) {
-		return pedidoDao.getInstance().findById(pedidoId);
-	}
-	
 	public void generarOrdenCompra(Long articuloId, Long pedidoId) {
-		Pedido pedido = buscarPedido(pedidoId);
+		Pedido pedido = SistemaAdministracion.getInstance().buscarPedido(pedidoId);
 		OrdenCompra ordenCompra = new OrdenCompra();
-		Articulo articulo = buscarArticulo(articuloId);
+		Articulo articulo = SistemaAdministracion.getInstance().buscarArticulo(articuloId);
 		ordenCompra.setArticulo(articulo);
 		ordenCompra.setEstado(EstadoCompra.PENDIENTE);
 		ordenCompra.setPedido(pedido);
