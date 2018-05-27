@@ -3,6 +3,7 @@ package edu.uade.apd.tpo.transform;
 import edu.uade.apd.tpo.dao.ClienteDao;
 import edu.uade.apd.tpo.entity.ClienteEntity;
 import edu.uade.apd.tpo.model.Cliente;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class ClienteMappingTest {
@@ -12,9 +13,7 @@ public class ClienteMappingTest {
         ClienteEntity entity = ClienteDao.getInstance().findByEmail("cliente@prueba.com");
         Cliente cli = Cliente.fromEntity(entity);
 
-        System.out.println(cli);
+        Assert.assertNotNull(cli);
 
     }
-
-
 }

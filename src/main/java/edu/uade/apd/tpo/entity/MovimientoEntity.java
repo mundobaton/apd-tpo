@@ -17,6 +17,7 @@ import java.util.Date;
 @Table(name = "movimientos")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class MovimientoEntity implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "movimiento_id")
@@ -25,9 +26,6 @@ public class MovimientoEntity implements Serializable {
     protected Date fecha;
     @Column(name = "cantidad")
     protected int cantidad;
-    @ManyToOne
-    @JoinColumn(name = "stock_id")
-    private StockEntity stock;
 
     public Long getId() {
         return id;
@@ -53,11 +51,4 @@ public class MovimientoEntity implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public StockEntity getStock() {
-        return stock;
-    }
-
-    public void setStock(StockEntity stock) {
-        this.stock = stock;
-    }
 }

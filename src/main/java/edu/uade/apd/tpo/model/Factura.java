@@ -15,7 +15,6 @@ public class Factura {
     private float costoEnvio;
     private static float IMPUESTOS = 0.21f;
     private float total;
-    private Transaccion transaccion;
 
     public Long getId() {
         return id;
@@ -65,16 +64,8 @@ public class Factura {
         this.total = total;
     }
 
-    public Transaccion getTransaccion() {
-        return transaccion;
-    }
-
-    public void setTransaccion(Transaccion transaccion) {
-        this.transaccion = transaccion;
-    }
-
     public void guardar() {
-        FacturaDao.getInstance().save(this.toEntity(transaccion.toEntity()));
+        FacturaDao.getInstance().save(this.toEntity());
     }
 
     public static float getIMPUESTOS() {
@@ -85,30 +76,27 @@ public class Factura {
         IMPUESTOS = iMPUESTOS;
     }
 
-    public static Factura fromEntity(FacturaEntity entity, Transaccion transaccion) {
+    public static Factura fromEntity(FacturaEntity entity) {
         Factura f = null;
         if (entity != null) {
             f = new Factura();
             f.setId(entity.getId());
             f.setFecha(entity.getFecha());
             f.setTipo(entity.getTipo());
-            f.setPedido(Pedido.fromEntity(entity.getPedido(), Cliente.fromEntity(entity.getPedido().getCliente())));
             f.setCostoEnvio(entity.getCostoEnvio());
             f.setTotal(entity.getTotal());
-            f.setTransaccion(transaccion);
         }
         return f;
     }
 
-    public FacturaEntity toEntity(TransaccionEntity transaccionEntity) {
+    public FacturaEntity toEntity() {
         FacturaEntity entity = new FacturaEntity();
         entity.setId(id);
         entity.setFecha(fecha);
         entity.setTipo(tipo);
-        entity.setPedido(pedido.toEntity(pedido.getCliente().toEntity()));
+        entity.setPedido(pedido.toEntity());
         entity.setCostoEnvio(costoEnvio);
         entity.setTotal(total);
-        entity.setTransaccion(transaccionEntity);
         return entity;
     }
 }

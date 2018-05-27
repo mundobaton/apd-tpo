@@ -74,7 +74,7 @@ public class Transaccion {
             if (entity.getFacturas() != null) {
                 t.setFacturas(new ArrayList<>());
                 for (FacturaEntity fe : entity.getFacturas()) {
-                    t.getFacturas().add(Factura.fromEntity(fe, t));
+                    t.getFacturas().add(Factura.fromEntity(fe));
                 }
             }
             t.setMedioPago(entity.getMedioPago());
@@ -91,7 +91,7 @@ public class Transaccion {
         if (facturas != null) {
             entity.setFacturas(new ArrayList<>());
             for (Factura f : facturas) {
-                entity.getFacturas().add(f.toEntity(entity));
+                entity.getFacturas().add(f.toEntity());
             }
         }
         entity.setMedioPago(medioPago);

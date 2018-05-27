@@ -62,10 +62,11 @@ public class SistemaDeposito {
                     ItemPosicion itemPosi = new ItemPosicion();
                     itemPosi.setPosicion(posicion);
                     if (cantidadItem < posicion.getCantidad()) {
-                        itemPedido.agregarLote(posicion.getLote(), cantidadItem);
+                        //TODO Buscar lote por posicion
+                        //itemPedido.agregarLote(posicion.getLote(), cantidadItem);
                         liberarPosicion(posicion.getCodUbicacion(), cantidadItem);
                     } else {
-                        itemPedido.agregarLote(posicion.getLote(), Posicion.getCAPACIDAD());
+                        //itemPedido.agregarLote(posicion.getLote(), Posicion.getCAPACIDAD());
                         liberarPosicion(posicion.getCodUbicacion(), Posicion.getCAPACIDAD());
                     }
                     cantidadItem -= posicion.getCantidad();
@@ -119,7 +120,8 @@ public class SistemaDeposito {
                 lotes.add(item.getLote());
                 while (cantidadLote > 0) {
                     Posicion posicion = new Posicion();
-                    posicion.setLote(item.getLote());
+                    //TODO ver esto
+                    //posicion.setLote(item.getLote());
                     if (cantidad > posicion.getCAPACIDAD()) {
                         posicion.setCantidad(21);
                         cantidadLote = cantidadLote - posicion.getCAPACIDAD();
@@ -176,8 +178,6 @@ public class SistemaDeposito {
 
     public Lote crearLote(String codigo, Date fechaVen, Date fechaElab, Long idArticulo) {
         Lote lote = new Lote();
-        Articulo articulo = buscarArticulo(idArticulo);
-        lote.setArticulo(articulo);
         lote.setFechaElaboracion(fechaElab);
         lote.setFechaVto(fechaVen);
         lote.setCodigo(codigo);

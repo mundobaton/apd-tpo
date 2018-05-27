@@ -27,10 +27,8 @@ public class LoteEntity implements Serializable {
     private Date fechaVto;
     @Column(name = "fecha_elaboracion")
     private Date fechaElaboracion;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "articulo_id")
-    private ArticuloEntity articulo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lote")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "lote_id")
     private List<PosicionEntity> posiciones;
 
     public Long getId() {
@@ -63,14 +61,6 @@ public class LoteEntity implements Serializable {
 
     public void setFechaElaboracion(Date fechaElaboracion) {
         this.fechaElaboracion = fechaElaboracion;
-    }
-
-    public ArticuloEntity getArticulo() {
-        return articulo;
-    }
-
-    public void setArticulo(ArticuloEntity articulo) {
-        this.articulo = articulo;
     }
 
     public List<PosicionEntity> getPosiciones() {

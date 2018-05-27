@@ -41,7 +41,7 @@ public class ItemLote {
         if (entity != null) {
             il = new ItemLote();
             il.setId(entity.getId());
-            il.setLote(Lote.fromEntity(entity.getLote(), Articulo.fromEntity(entity.getLote().getArticulo())));
+            il.setLote(Lote.fromEntity(entity.getLote()));
             il.setCantidad(entity.getCantidad());
         }
         return il;
@@ -50,7 +50,7 @@ public class ItemLote {
     public ItemLoteEntity toEntity() {
         ItemLoteEntity ile = new ItemLoteEntity();
         ile.setId(id);
-        ile.setLote(lote != null ? lote.toEntity(lote.getArticulo().toEntity()) : null);
+        ile.setLote(lote != null ? lote.toEntity() : null);
         ile.setCantidad(cantidad);
         return ile;
     }

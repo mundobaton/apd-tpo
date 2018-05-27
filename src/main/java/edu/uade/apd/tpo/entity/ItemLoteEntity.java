@@ -26,9 +26,6 @@ public class ItemLoteEntity implements Serializable {
     private LoteEntity lote;
     @Column(name = "cantidad")
     private int cantidad;
-    @ManyToOne
-    @JoinColumn(name = "item_pedido_id")
-    private ItemPedidoEntity itemPedido;
 
     public Long getId() {
         return id;
@@ -54,11 +51,4 @@ public class ItemLoteEntity implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public ItemPedidoEntity getItemPedido() {
-        return itemPedido;
-    }
-
-    public void setItemPedido(ItemPedidoEntity itemPedido) {
-        this.itemPedido = itemPedido;
-    }
 }

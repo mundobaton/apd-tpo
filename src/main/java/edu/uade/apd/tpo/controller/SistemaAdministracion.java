@@ -59,7 +59,7 @@ public class SistemaAdministracion {
 
     public List<Pedido> obtenerPedidosParaAprobar() {
         return pedidoDao.getInstance().obtenerPedidosPreAprobadosRevision()
-                .parallelStream().map(pe -> Pedido.fromEntity(pe, Cliente.fromEntity(pe.getCliente()))).collect(Collectors.toList());
+                .parallelStream().map(pe -> Pedido.fromEntity(pe)).collect(Collectors.toList());
     }
 
     public Cliente buscarCliente(Long cuil) {
@@ -121,7 +121,6 @@ public class SistemaAdministracion {
         Cliente cliente = buscarCliente(cuil);
         if (cliente != null) {
             Pedido pedido = new Pedido();
-            pedido.setCliente(cliente);
             Domicilio domicilio = new Domicilio();
             domicilio.setCalle(calle);
             domicilio.setNumero(num);
@@ -143,8 +142,7 @@ public class SistemaAdministracion {
     public Pedido buscarPedido(Long pedidoId) {
         PedidoEntity entity = pedidoDao.findById(pedidoId);
         if (entity != null) {
-            Cliente cli = Cliente.fromEntity(entity.getCliente());
-            return Pedido.fromEntity(entity, cli);
+            return Pedido.fromEntity(entity);
         }
         return null;
     }
@@ -165,8 +163,12 @@ public class SistemaAdministracion {
     }
 
     private boolean validarCtaCteCliente(Pedido pedido) {
+        //TODO buscar cliente por pedido
+        return false;
+        /*
         return (pedido.getCliente().getCuentaCorriente().getSaldo()
                 + pedido.getCliente().getCuentaCorriente().getLimiteCredito()) >= pedido.obtenerTotal();
+                */
     }
 
     public void notificarClienteEstadoPedido(Long pedidoId) throws BusinessException {
@@ -226,7 +228,8 @@ public class SistemaAdministracion {
     public void realizarPago(Long facturaId, float importe, MedioPago mp) throws BusinessException {
         Factura factura = SistemaFacturacion.getInstance().buscarFactura(facturaId);
         if (factura != null) {
-            Cliente cliente = factura.getPedido().getCliente();
+            //TODO Buscar cliente por factura
+            Cliente cliente = new Cliente();
             CuentaCorriente ctaCte = cliente.getCuentaCorriente();
             float saldo = ctaCte.getSaldo();
             float limiteCred = ctaCte.getLimiteCredito();
@@ -301,16 +304,16 @@ public class SistemaAdministracion {
 
     public List<Pedido> obtenerPedidoCompletos() {
         return pedidoDao.getInstance().obtenerPedidosCompletos()
-                .parallelStream().map(pe -> Pedido.fromEntity(pe, Cliente.fromEntity(pe.getCliente()))).collect(Collectors.toList());
+                .parallelStream().map(pe -> Pedido.fromEntity(pe)).collect(Collectors.toList());
     }
 
     public List<Pedido> obtenerPedidosListos() {
         return pedidoDao.getInstance().obtenerPedidosListos()
-                .parallelStream().map(pe -> Pedido.fromEntity(pe, Cliente.fromEntity(pe.getCliente()))).collect(Collectors.toList());
+                .parallelStream().map(pe -> Pedido.fromEntity(pe)).collect(Collectors.toList());
     }
 
     public List<Pedido> obtenerPedidosACompletar() {
         return pedidoDao.getInstance().obtenerPedidosVerificados()
-                .parallelStream().map(pe -> Pedido.fromEntity(pe, Cliente.fromEntity(pe.getCliente()))).collect(Collectors.toList());
+                .parallelStream().map(pe -> Pedido.fromEntity(pe)).collect(Collectors.toList());
     }
 }

@@ -38,9 +38,6 @@ public class FacturaEntity implements Serializable {
     private float costoEnvio;
     @Column(name = "total")
     private float total;
-    @ManyToOne
-    @JoinColumn(name = "transaccion_id")
-    private TransaccionEntity transaccion;
 
     public Long getId() {
         return id;
@@ -89,14 +86,5 @@ public class FacturaEntity implements Serializable {
     public void setTotal(float total) {
         this.total = total;
     }
-
-    public TransaccionEntity getTransaccion() {
-        return transaccion;
-    }
-
-    public void setTransaccion(TransaccionEntity transaccion) {
-        this.transaccion = transaccion;
-    }
-
 
 }

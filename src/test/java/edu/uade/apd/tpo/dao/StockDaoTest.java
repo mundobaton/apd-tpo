@@ -39,13 +39,11 @@ public class StockDaoTest {
         egreso.setMotivo(MotivoEgreso.DETERIORO);
         egreso.setEncargado(usuario);
         egreso.setAutorizante("yo mismo");
-        egreso.setStock(stock);
 
         IngresoEntity ingreso = new IngresoEntity();
         ingreso.setFecha(new Date());
         ingreso.setCantidad(50);
         ingreso.setMotivo(MotivoIngreso.OTROS);
-        ingreso.setStock(stock);
 
         if (stock.getMovimientos() == null) {
             stock.setMovimientos(new ArrayList<>());

@@ -78,7 +78,6 @@ public class ClienteDaoTest {
 
         PedidoEntity pe = new PedidoEntity();
         pe.setFechaPedido(new Date());
-        pe.setCliente(ce);
 
         DomicilioEntity de = new DomicilioEntity();
         de.setCalle("asd");
@@ -111,7 +110,6 @@ public class ClienteDaoTest {
         facturas.add(fe);
         te.setFacturas(facturas);
 
-        fe.setTransaccion(te);
         pe.setFactura(fe);
 
         te.setMedioPago(MedioPago.EFECTIVO);
@@ -127,8 +125,6 @@ public class ClienteDaoTest {
             ce.getCuentaCorriente().setTransacciones(transacciones);
         }
         ce.getCuentaCorriente().getTransacciones().add(te);
-
-        te.setCuentaCorriente(ce.getCuentaCorriente());
 
         ItemPedidoEntity ipe = new ItemPedidoEntity();
         ArticuloEntity ae = new ArticuloEntity();
@@ -146,7 +142,6 @@ public class ClienteDaoTest {
         if (pe.getItems() == null) {
             pe.setItems(new ArrayList<>());
         }
-        ipe.setPedido(pe);
         pe.getItems().add(ipe);
 
         ItemLoteEntity ile = new ItemLoteEntity();
@@ -156,13 +151,11 @@ public class ClienteDaoTest {
         lote.setCodigo("un codigo");
         lote.setFechaVto(new Date());
         lote.setFechaElaboracion(new Date());
-        lote.setArticulo(ae);
 
         lote.setPosiciones(new ArrayList<>());
         PosicionEntity posicion = new PosicionEntity();
         posicion.setCodUbicacion("una ubicacion");
         posicion.setEstado(EstadoPosicion.DISPONIBLE);
-        posicion.setLote(lote);
         posicion.setCantidad(99);
         posicion.setCalle('B');
         posicion.setBloque(12);
@@ -184,7 +177,6 @@ public class ClienteDaoTest {
         if (pe.getEstados() == null) {
             pe.setEstados(new ArrayList<>());
         }
-        estado.setPedido(pe);
         pe.getEstados().add(estado);
 
         pedidos.add(pe);

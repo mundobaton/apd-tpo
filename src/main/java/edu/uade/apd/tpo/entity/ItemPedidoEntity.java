@@ -30,11 +30,9 @@ public class ItemPedidoEntity implements Serializable {
     private int cantidad;
     @Column(name = "subtotal")
     private float subTotal;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemPedido")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "item_pedido_id")
     private List<ItemLoteEntity> lotes;
-    @ManyToOne
-    @JoinColumn(name = "pedido_id")
-    private PedidoEntity pedido;
 
     public Long getId() {
         return id;
@@ -74,13 +72,5 @@ public class ItemPedidoEntity implements Serializable {
 
     public void setLotes(List<ItemLoteEntity> lotes) {
         this.lotes = lotes;
-    }
-
-    public PedidoEntity getPedido() {
-        return pedido;
-    }
-
-    public void setPedido(PedidoEntity pedido) {
-        this.pedido = pedido;
     }
 }

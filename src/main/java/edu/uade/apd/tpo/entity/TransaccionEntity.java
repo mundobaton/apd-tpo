@@ -31,14 +31,12 @@ public class TransaccionEntity implements Serializable {
     private float importe;
     @Column(name = "fecha")
     private Date fecha;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "transaccion")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "transaccion_id")
     private List<FacturaEntity> facturas;
     @Column(name = "medio_pago_id")
     @Enumerated(EnumType.ORDINAL)
     private MedioPago medioPago;
-    @ManyToOne
-    @JoinColumn(name = "cuenta_corriente_id")
-    private CuentaCorrienteEntity cuentaCorriente;
 
     public Long getId() {
         return id;
@@ -78,13 +76,5 @@ public class TransaccionEntity implements Serializable {
 
     public void setMedioPago(MedioPago medioPago) {
         this.medioPago = medioPago;
-    }
-
-    public CuentaCorrienteEntity getCuentaCorriente() {
-        return cuentaCorriente;
-    }
-
-    public void setCuentaCorriente(CuentaCorrienteEntity cuentaCorriente) {
-        this.cuentaCorriente = cuentaCorriente;
     }
 }

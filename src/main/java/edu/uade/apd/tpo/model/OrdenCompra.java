@@ -74,7 +74,7 @@ public class OrdenCompra {
             oc.setEstado(entity.getEstado());
             oc.setArticulo(Articulo.fromEntity(entity.getArticulo()));
             oc.setProveedor(Proveedor.fromEntity(entity.getProveedor()));
-            oc.setPedido(Pedido.fromEntity(entity.getPedido(), Cliente.fromEntity(entity.getPedido().getCliente())));
+            oc.setPedido(Pedido.fromEntity(entity.getPedido()));
         }
         return oc;
     }
@@ -86,7 +86,7 @@ public class OrdenCompra {
         entity.setEstado(estado);
         entity.setArticulo(articulo != null ? articulo.toEntity() : null);
         entity.setProveedor(proveedor != null ? proveedor.toEntity() : null);
-        entity.setPedido(pedido != null ? pedido.toEntity(pedido.getCliente().toEntity()) : null);
+        entity.setPedido(pedido != null ? pedido.toEntity() : null);
         return entity;
     }
 

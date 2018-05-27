@@ -95,7 +95,7 @@ public class Cliente extends Usuario {
             if (entity.getPedidos() != null) {
                 cli.setPedidos(new ArrayList<>());
                 for (PedidoEntity pe : entity.getPedidos()) {
-                    cli.getPedidos().add(Pedido.fromEntity(pe, cli));
+                    cli.getPedidos().add(Pedido.fromEntity(pe));
                 }
             }
         }
@@ -117,7 +117,7 @@ public class Cliente extends Usuario {
         if (pedidos != null) {
             entity.setPedidos(new ArrayList<>());
             for (Pedido p : pedidos) {
-                entity.getPedidos().add(p.toEntity(entity));
+                entity.getPedidos().add(p.toEntity());
             }
         }
 

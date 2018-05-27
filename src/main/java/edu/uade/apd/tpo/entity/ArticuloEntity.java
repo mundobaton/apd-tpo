@@ -35,7 +35,8 @@ public class ArticuloEntity implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "stock_id")
     private StockEntity stock;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "articulo_id")
     private List<LoteEntity> lotes;
     @JoinColumn(name = "volumen")
     private int volumen;

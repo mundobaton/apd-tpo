@@ -36,14 +36,15 @@ public class SistemaFacturacion {
 	
 	public Factura buscarFactura(Long facturaId) {
 		FacturaEntity entity = facturaDao.getInstance().findById(facturaId);
-		Factura factura = Factura.fromEntity(entity, Transaccion.fromEntity(entity.getTransaccion()));
+		Factura factura = Factura.fromEntity(entity);
 		return factura;
 	}
 	
 	public void facturar(Long pedidoId) {
 		Factura factura = new Factura();
 		Pedido pedido = SistemaAdministracion.getInstance().buscarPedido(pedidoId);
-		Cliente cliente = pedido.getCliente();
+		//TODO obtener el cliente por pedido
+		Cliente cliente = new Cliente();
 		factura.setPedido(pedido);
 		factura.setFecha(new Date());
 		if(cliente.getCondIva() == CondicionIva.CONS_FINAL) {
@@ -77,7 +78,6 @@ public class SistemaFacturacion {
 			transaccion.setImporte(total);
 			transaccion.setMedioPago(mp);
 			transaccion.agregarFactura(factura);
-			factura.setTransaccion(transaccion);
 			factura.guardar();
 		}
 		return importeRestante - limiteCred; 
@@ -88,9 +88,12 @@ public class SistemaFacturacion {
 		List<Pedido> pedidos = cliente.getPedidos();
 		List<Factura> facturasImpagas = new ArrayList();
 		for(Pedido pedido : pedidos) {
+			//TODO Buscar si la factura tiene transaccion asociada
+			/*
 			if(pedido.getFactura().getTransaccion() == null){
 				facturasImpagas.add(pedido.getFactura());
 			}
+			*/
 		}
 		return facturasImpagas;
 	}
@@ -106,7 +109,6 @@ public class SistemaFacturacion {
 				transaccion.setImporte(total);
 				transaccion.setMedioPago(mp);
 				transaccion.agregarFactura(factura);
-				factura.setTransaccion(transaccion);
 				importeRestante -= total;
 			}
 		}

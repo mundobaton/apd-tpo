@@ -14,7 +14,6 @@ public class Lote {
     private String codigo;
     private Date fechaVto;
     private Date fechaElaboracion;
-    private Articulo articulo;
     private List<Posicion> posiciones;
 
     public Long getId() {
@@ -49,14 +48,6 @@ public class Lote {
         this.fechaElaboracion = fechaElaboracion;
     }
 
-    public Articulo getArticulo() {
-        return articulo;
-    }
-
-    public void setArticulo(Articulo articulo) {
-        this.articulo = articulo;
-    }
-
     public List<Posicion> getPosiciones() {
         return posiciones;
     }
@@ -66,15 +57,14 @@ public class Lote {
     }
 
     public void guardar() {
-        LoteDao.getInstance().save(this.toEntity(articulo.toEntity()));
+        LoteDao.getInstance().save(this.toEntity());
     }
 
-    public static Lote fromEntity(LoteEntity entity, Articulo art) {
+    public static Lote fromEntity(LoteEntity entity) {
         Lote l = null;
         if (entity != null) {
             l = new Lote();
             l.setId(entity.getId());
-            l.setArticulo(art);
             l.setCodigo(entity.getCodigo());
             l.setFechaElaboracion(entity.getFechaElaboracion());
             l.setFechaVto(entity.getFechaVto());
@@ -88,10 +78,9 @@ public class Lote {
         return l;
     }
 
-    public LoteEntity toEntity(ArticuloEntity articuloEntity) {
+    public LoteEntity toEntity() {
         LoteEntity entity = new LoteEntity();
         entity.setId(id);
-        entity.setArticulo(articuloEntity);
         entity.setCodigo(codigo);
         entity.setFechaElaboracion(fechaElaboracion);
         entity.setFechaVto(fechaVto);

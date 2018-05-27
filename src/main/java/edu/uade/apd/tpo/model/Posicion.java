@@ -7,7 +7,6 @@ public class Posicion {
     private Long id;
     private String codUbicacion;
     private EstadoPosicion estado;
-    private Lote lote;
     private int cantidad;
     private char calle;
     private int bloque;
@@ -39,14 +38,6 @@ public class Posicion {
 
     public void setEstado(EstadoPosicion estado) {
         this.estado = estado;
-    }
-
-    public Lote getLote() {
-        return lote;
-    }
-
-    public void setLote(Lote lote) {
-        this.lote = lote;
     }
 
     public int getCantidad() {
@@ -116,6 +107,7 @@ public class Posicion {
     public static Posicion fromEntity(PosicionEntity entity) {
         Posicion p = null;
         if (entity != null) {
+            p = new Posicion();
             p.setId(entity.getId());
             p.setBloque(entity.getBloque());
             p.setCalle(entity.getCalle());
@@ -124,7 +116,6 @@ public class Posicion {
             p.setEstante(entity.getEstante());
             p.setEstado(entity.getEstado());
             p.setEstanteria(entity.getEstanteria());
-            p.setLote(entity.getLote() != null ? Lote.fromEntity(entity.getLote(), Articulo.fromEntity(entity.getLote().getArticulo())) : null);
             p.setNumero(entity.getNumero());
         }
         return p;
@@ -140,7 +131,6 @@ public class Posicion {
         entity.setEstante(estante);
         entity.setEstado(estado);
         entity.setEstanteria(estanteria);
-        entity.setLote(lote != null ? lote.toEntity(lote.getArticulo().toEntity()) : null);
         entity.setNumero(numero);
         return entity;
 

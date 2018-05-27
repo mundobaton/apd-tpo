@@ -19,7 +19,6 @@ public class Pedido {
     private Date fechaDespacho;
     private List<ItemPedido> items;
     private List<Estado> estados;
-    private Cliente cliente;
     private Factura factura;
     private Envio envio;
 
@@ -69,14 +68,6 @@ public class Pedido {
 
     public void setEstados(List<Estado> estados) {
         this.estados = estados;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
     }
 
     public Factura getFactura() {
@@ -217,14 +208,14 @@ public class Pedido {
     }
 
     public void guardar() {
-        PedidoDao.getInstance().save(this.toEntity(cliente.toEntity()));
+        PedidoDao.getInstance().save(this.toEntity());
     }
 
     public float calcularCostoEnvio() {
         return envio.calcular();
     }
 
-    public static Pedido fromEntity(PedidoEntity entity, Cliente cli) {
+    public static Pedido fromEntity(PedidoEntity entity) {
         Pedido pedido = null;
         if (entity != null) {
             pedido = new Pedido();
@@ -244,15 +235,14 @@ public class Pedido {
                     pedido.getEstados().add(Estado.fromEntity(estado));
                 }
             }
-            pedido.setCliente(cli);
-            pedido.setFactura(Factura.fromEntity(entity.getFactura(), Transaccion.fromEntity(entity.getFactura().getTransaccion())));
+            pedido.setFactura(Factura.fromEntity(entity.getFactura()));
             pedido.setEnvio(Envio.fromEntity(entity.getEnvio()));
 
         }
         return pedido;
     }
 
-    public PedidoEntity toEntity(ClienteEntity clienteEntity) {
+    public PedidoEntity toEntity() {
         PedidoEntity entity = new PedidoEntity();
         entity.setId(id);
         entity.setFechaPedido(fechaPedido);
@@ -270,8 +260,7 @@ public class Pedido {
                 entity.getEstados().add(e.toEntity());
             }
         }
-        entity.setCliente(clienteEntity);
-        entity.setFactura(factura != null ? factura.toEntity(factura.getTransaccion().toEntity()) : null);
+        entity.setFactura(factura != null ? factura.toEntity() : null);
         entity.setEnvio(envio != null ? envio.toEntity() : null);
         return entity;
     }

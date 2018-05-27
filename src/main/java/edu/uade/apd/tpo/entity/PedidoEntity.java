@@ -30,13 +30,12 @@ public class PedidoEntity implements Serializable {
     private Date fechaEntrega;
     @Column(name = "fecha_despacho")
     private Date fechaDepacho;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pedido_id")
     private List<ItemPedidoEntity> items;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pedido_id")
     private List<EstadoEntity> estados;
-    @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    private ClienteEntity cliente;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "envio_id")
     private EnvioEntity envio;
@@ -90,14 +89,6 @@ public class PedidoEntity implements Serializable {
 
     public void setEstados(List<EstadoEntity> estados) {
         this.estados = estados;
-    }
-
-    public void setCliente(ClienteEntity cliente) {
-        this.cliente = cliente;
-    }
-
-    public ClienteEntity getCliente() {
-        return cliente;
     }
 
     public EnvioEntity getEnvio() {

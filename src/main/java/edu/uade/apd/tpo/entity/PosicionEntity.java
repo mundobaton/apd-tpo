@@ -27,9 +27,6 @@ public class PosicionEntity implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "estado_id")
     private EstadoPosicion estado;
-    @ManyToOne
-    @JoinColumn(name = "lote_id")
-    private LoteEntity lote;
     @Column(name = "cantidad")
     private int cantidad;
     @Column(name = "calle")
@@ -65,14 +62,6 @@ public class PosicionEntity implements Serializable {
 
     public void setEstado(EstadoPosicion estado) {
         this.estado = estado;
-    }
-
-    public LoteEntity getLote() {
-        return lote;
-    }
-
-    public void setLote(LoteEntity lote) {
-        this.lote = lote;
     }
 
     public int getCantidad() {

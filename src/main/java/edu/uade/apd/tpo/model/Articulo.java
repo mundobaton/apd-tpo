@@ -123,7 +123,7 @@ public class Articulo {
             if (entity.getLotes() != null) {
                 articulo.setLotes(new ArrayList<>());
                 for (LoteEntity le : entity.getLotes()) {
-                    articulo.getLotes().add(Lote.fromEntity(le, articulo));
+                    articulo.getLotes().add(Lote.fromEntity(le));
                 }
             }
             articulo.setVolumen(entity.getVolumen());
@@ -144,7 +144,7 @@ public class Articulo {
         if (lotes != null) {
             entity.setLotes(new ArrayList<>());
             for (Lote lote : lotes) {
-                entity.getLotes().add(lote.toEntity(entity));
+                entity.getLotes().add(lote.toEntity());
             }
         }
         entity.setVolumen(volumen);
