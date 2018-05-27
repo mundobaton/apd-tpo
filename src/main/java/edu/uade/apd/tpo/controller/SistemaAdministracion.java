@@ -179,8 +179,6 @@ public class SistemaAdministracion {
         Pedido pedido = cliente.obtenerPedido(pedidoId);
         if (pedido != null) {
             pedido.iniciar();
-            cliente.guardar();
-            notificarClienteEstadoPedido(pedido.getId());
 
             if (validarCtaCteCliente(pedido, cliente)) {
                 pedido.preAprobar();
@@ -188,6 +186,8 @@ public class SistemaAdministracion {
                 pedido.revision();
             }
             cliente.guardar();
+            notificarClienteEstadoPedido(pedido.getId());
+
         } else {
             throw new BusinessException("El pedido '" + pedidoId + "' no existe o no pertenece al usuario");
         }
