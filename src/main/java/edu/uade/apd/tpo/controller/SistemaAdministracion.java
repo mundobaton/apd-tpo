@@ -138,8 +138,8 @@ public class SistemaAdministracion {
                 cliente.setPedidos(new ArrayList<>());
             }
             cliente.getPedidos().add(pedido);
-            cliente.guardar();
-            return pedido;
+            cliente = cliente.guardar();
+            return cliente.getPedidos().get(cliente.getPedidos().size() - 1);
         } else {
             throw new BusinessException("No existe el cliente con cuil: " + cuil);
         }

@@ -42,6 +42,9 @@ public class PedidoEntity implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "factura_id")
     private FacturaEntity factura;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cliente_id")
+    private ClienteEntity cliente;
 
     public Long getId() {
         return id;
@@ -107,4 +110,11 @@ public class PedidoEntity implements Serializable {
         this.factura = factura;
     }
 
+    public ClienteEntity getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteEntity cliente) {
+        this.cliente = cliente;
+    }
 }

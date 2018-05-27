@@ -23,7 +23,7 @@ public class OrdenCompraDaoTest {
     @Test
     public void testCrearOrdenCompraPendiente(){
         OrdenCompraEntity oc = new OrdenCompraEntity();
-        ArticuloEntity art = ArticuloDao.getInstance().findByCodigo("1234");
+        ArticuloEntity art = ArticuloDaoTest.getInstance().findByCodigo("1234");
         PedidoEntity ped = PedidoDao.getInstance().findById(new Long(10));
         ProveedorEntity prov = ProveedorDao.getInstance().findByCuit("27329616253");
 
