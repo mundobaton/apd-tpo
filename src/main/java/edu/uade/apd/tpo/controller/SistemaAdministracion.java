@@ -197,7 +197,7 @@ public class SistemaAdministracion {
     public void aprobarPedido(Long pedidoId) throws BusinessException {
         Pedido pedido = buscarPedido(pedidoId);
         if (pedido != null) {
-            pedido.aprobar();
+            pedido.aprobar("Pedido aprobado");
             notificarClienteEstadoPedido(pedido.getId());
             verificarPedido(pedido);
         } else {

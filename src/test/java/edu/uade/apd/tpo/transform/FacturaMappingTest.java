@@ -11,7 +11,7 @@ public class FacturaMappingTest {
     @Test
     public void testMapFactura(){
         FacturaEntity entity = FacturaDao.getInstance().findById(2L);
-        Factura factura = Factura.fromEntity(entity, Transaccion.fromEntity(entity.getTransaccion()));
+        Factura factura = Factura.fromEntity(entity);
         System.out.print(factura);
     }
 }

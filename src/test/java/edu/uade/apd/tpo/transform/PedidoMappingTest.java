@@ -11,7 +11,7 @@ public class PedidoMappingTest {
     @Test
     public void testMapPedido(){
         PedidoEntity entity = PedidoDao.getInstance().findById(1L);
-        Pedido pedido = Pedido.fromEntity(entity, Cliente.fromEntity(entity.getCliente()));
+        Pedido pedido = Pedido.fromEntity(entity);
         System.out.print(pedido);
     }
 }

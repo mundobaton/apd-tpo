@@ -32,7 +32,7 @@ public class SistemaDespacho {
 	
 	public void despacharPedido(Long pedidoId) {
 		Pedido pedido = SistemaAdministracion.getInstance().buscarPedido(pedidoId);
-		pedido.setFechaDepacho(new Date());
+		pedido.setFechaDespacho(new Date());
 		Date fechaEnvio = new Date();
 		Calendar f = Calendar.getInstance();
 		f.setTime(fechaEnvio);
