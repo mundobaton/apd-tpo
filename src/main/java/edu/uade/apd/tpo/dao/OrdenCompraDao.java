@@ -35,7 +35,7 @@ public class OrdenCompraDao extends AbstractDao<OrdenCompraEntity> {
         String query = "select oc from OrdenCompraEntity oc where oc.estado = :estado";
         try (Session session = getSession()) {
             Query<OrdenCompraEntity> q = session.createQuery(query);
-            q.setParameter("estado", estado.toString());
+            q.setParameter("estado", estado);
             return q.getResultList();
         }
     }

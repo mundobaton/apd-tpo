@@ -7,6 +7,7 @@ import edu.uade.apd.tpo.model.Articulo;
 import edu.uade.apd.tpo.model.EstadoCompra;
 import edu.uade.apd.tpo.model.OrdenCompra;
 import edu.uade.apd.tpo.model.Pedido;
+import edu.uade.apd.tpo.model.Proveedor;
 
 import java.util.Date;
 import java.util.List;
@@ -71,4 +72,22 @@ public class SistemaCompras {
                 .map(oce -> OrdenCompra.fromEntity(oce)).collect(Collectors.toList());
     }
 
+    /**
+     * Simula la acción del proceso que corre cada 1 hora
+     *
+     * @return
+     */
+    public void procesarOrdenesCompraPendientes(String nombreProv, String cuitProv, String telProv) {
+        List<OrdenCompra> ocs = ordenCompraDao.findByEstado(EstadoCompra.PENDIENTE).parallelStream()
+                .map(oce -> OrdenCompra.fromEntity(oce)).collect(Collectors.toList());
+        for (OrdenCompra oc : ocs) {
+            Proveedor prov = new Proveedor();
+            prov.setNombre(nombreProv);
+            prov.setCuit(cuitProv);
+            prov.setTelefono(telProv);
+            oc.setProveedor(prov);
+            oc.setEstado(EstadoCompra.EMITIDA);
+            oc.guardar();
+        }
+    }
 }

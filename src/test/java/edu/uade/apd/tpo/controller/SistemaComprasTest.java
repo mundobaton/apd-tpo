@@ -44,4 +44,8 @@ public class SistemaComprasTest {
         Assert.assertNotNull(ocs);
     }
 
+    @Test
+    public void testProcesarOrdenesComprasPendientes() {
+        sistema.procesarOrdenesCompraPendientes("un nombre prov", "123123", "4123-4567");
+    }
 }

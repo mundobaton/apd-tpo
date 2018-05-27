@@ -25,7 +25,7 @@ public class OrdenCompraEntity implements Serializable {
 	private ProveedorEntity proveedor;
 	@Column(name = "fecha")
 	private Date fecha;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "pedido_id")
 	private PedidoEntity pedido;
 
