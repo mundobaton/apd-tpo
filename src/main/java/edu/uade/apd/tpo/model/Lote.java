@@ -1,5 +1,9 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.entity.LoteEntity;
+import edu.uade.apd.tpo.entity.PosicionEntity;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -61,6 +65,42 @@ public class Lote {
 
     public void guardar() {
 
+    }
+
+    public static Lote fromEntity(LoteEntity entity) {
+        Lote l = null;
+        if(entity != null){
+            l = new Lote();
+            l.setId(entity.getId());
+            l.setArticulo(Articulo.fromEntity(entity.getArticulo()));
+            l.setCodigo(entity.getCodigo());
+            l.setFechaElaboracion(entity.getFechaElaboracion());
+            l.setFechaVto(entity.getFechaVto());
+            if(entity.getPosiciones() != null){
+                l.setPosiciones(new ArrayList<>());
+                for(PosicionEntity pe : entity.getPosiciones()){
+                    l.getPosiciones().add(Posicion.fromEntity(pe));
+                }
+            }
+        }
+        return l;
+    }
+
+    public LoteEntity toEntity(){
+        LoteEntity entity = new LoteEntity();
+        entity.setId(id);
+        entity.setArticulo(articulo.toEntity());
+        entity.setCodigo(codigo);
+        entity.setFechaElaboracion(fechaElaboracion);
+        entity.setFechaVto(fechaVto);
+
+        if(posiciones != null){
+            entity.setPosiciones(new ArrayList<>());
+            for(Posicion p : posiciones){
+                entity.getPosiciones().add(p.toEntity());
+            }
+        }
+        return entity;
     }
 
 }

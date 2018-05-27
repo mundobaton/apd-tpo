@@ -1,5 +1,7 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.entity.PosicionEntity;
+
 public class Posicion {
 	private Long id;
 	private String codUbicacion;
@@ -108,6 +110,39 @@ public class Posicion {
 
 	public static void setCAPACIDAD(int cAPACIDAD) {
 		CAPACIDAD = cAPACIDAD;
+	}
+
+	public static Posicion fromEntity(PosicionEntity entity) {
+		Posicion p = null;
+		if(entity != null){
+			p.setId(entity.getId());
+			p.setBloque(entity.getBloque());
+			p.setCalle(entity.getCalle());
+			p.setCantidad(entity.getCantidad());
+			p.setCodUbicacion(entity.getCodUbicacion());
+			p.setEstante(entity.getEstante());
+			p.setEstado(entity.getEstado());
+			p.setEstanteria(entity.getEstanteria());
+			p.setLote(Lote.fromEntity(entity.getLote()));
+			p.setNumero(entity.getNumero());
+		}
+		return p;
+	}
+
+	public PosicionEntity toEntity(){
+		PosicionEntity entity = new PosicionEntity();
+		entity.setId(id);
+		entity.setBloque(bloque);
+		entity.setCalle(calle);
+		entity.setCantidad(cantidad);
+		entity.setCodUbicacion(codUbicacion);
+		entity.setEstante(estante);
+		entity.setEstado(estado);
+		entity.setEstanteria(estanteria);
+		entity.setLote(lote.toEntity());
+		entity.setNumero(numero);
+		return entity;
+
 	}
 
 }
