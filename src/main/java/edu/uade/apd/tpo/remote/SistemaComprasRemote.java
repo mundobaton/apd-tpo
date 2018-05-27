@@ -7,6 +7,7 @@ import edu.uade.apd.tpo.repository.stub.OrdenCompraStub;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 public class SistemaComprasRemote extends UnicastRemoteObject implements SistemaComprasRepository {
 
@@ -23,21 +24,24 @@ public class SistemaComprasRemote extends UnicastRemoteObject implements Sistema
         }
         return instance;
     }
-    
-    @Override
-    public void generarOrdenCompra(Long articuloId, Long pedidoId) throws BusinessException {
-		controller.generarOrdenCompra(articuloId, pedidoId);
-	}
 
     @Override
-	public OrdenCompraStub buscarOrdenCompra(Long ordenId) {
-		return controller.buscarOrdenCompra(ordenId);
-	}
+    public void generarOrdenCompra(Long articuloId, Long pedidoId) throws RemoteException {
+    }
 
     @Override
-	public void aceptarOrdenCompra(Long ordenId) throws BusinessException {
-		controller.aceptarOrdenCompra(ordenId);
-	}
+    public OrdenCompraStub buscarOrdenCompra(Long ordenId) throws RemoteException {
+        return null;
+    }
+
+    @Override
+    public void aceptarOrdenCompra(Long ordenId) throws RemoteException {
+    }
+
+    @Override
+    public List<OrdenCompraStub> obtenerOrdenesDeCompraEmitidas() {
+        return null;
+    }
 
 }
 

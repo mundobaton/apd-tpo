@@ -7,6 +7,7 @@ import edu.uade.apd.tpo.repository.stub.PedidoStub;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Date;
 import java.util.List;
 
 public class SistemaDespachoRemote extends UnicastRemoteObject implements SistemaDespachoRepository {
@@ -23,29 +24,31 @@ public class SistemaDespachoRemote extends UnicastRemoteObject implements Sistem
         }
         return instance;
     }
-    
+
     @Override
-    public List<OrdenCompraStub> obtenerOrdenesDeCompraEmitidas(){
-		return controller.obtenerOrdenesDeCompraEmitidas();
-	}
-	
+    public List<OrdenCompraStub> obtenerOrdenesDeCompraEmitidas() {
+        return null;
+    }
+
     @Override
-	public PedidoStub buscarPedido(Long pedidoId) {
-		return controller.buscarPedido(pedidoId);
-	}
-    
+    public PedidoStub buscarPedido(Long pedidoId) {
+        return null;
+    }
+
     @Override
-	public void despacharPedido(Long pedidoId) {
-		controller.despacharPedido(pedidoId);
-	}
-	
+    public void despacharPedido(Long pedidoId) {
+    }
+
     @Override
-	public void alistarPedido(Long idPedido) {
-		controller.alistarPedido(idPedido);
-	}
-    
+    public void alistarPedido(Long idPedido) {
+    }
+
     @Override
-	public List<PedidoStub> obtenerPedidosCompletos(){
-		return controller.obtenerPedidosCompletos();
-	}
+    public List<PedidoStub> obtenerPedidosCompletos() {
+        return null;
+    }
+
+    @Override
+    public void notificarFechaDeEnvioAsignada(Date fechaEnvio) {
+    }
 }

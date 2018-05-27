@@ -4,6 +4,7 @@ import edu.uade.apd.tpo.controller.SistemaFacturacion;
 import edu.uade.apd.tpo.model.MedioPago;
 import edu.uade.apd.tpo.repository.SistemaFacturacionRepository;
 import edu.uade.apd.tpo.repository.stub.FacturaStub;
+import edu.uade.apd.tpo.repository.stub.MedioPagoStub;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -24,28 +25,28 @@ public class SistemaFacturacionRemote extends UnicastRemoteObject implements Sis
         }
         return instance;
     }
+
     @Override
     public FacturaStub buscarFactura(Long facturaId) {
-		return controller.buscarFactura(facturaId);
-	}
-	
+        return null;
+    }
+
     @Override
-	public void facturar(Long pedidoId) {
-		controller.facturar(pedidoId);
-	}
-	
+    public void facturar(Long pedidoId) {
+    }
+
     @Override
-	public float procesarPago(Long facturaId, float importe, MedioPago mp, float saldo, float limiteCred) {
-		return controller.procesarPago(facturaId, importe, mp, saldo, limiteCred);
-	}
-	
+    public float procesarPago(Long facturaId, float importe, MedioPagoStub mp, float saldo, float limiteCred) {
+        return 0;
+    }
+
     @Override
-	public List<FacturaStub> obtenerFacturasImpagas(Long cuil){
-		return controller.obtenerFacturasImpagas(cuil);
-	}
-	
+    public List<FacturaStub> obtenerFacturasImpagas(Long cuil) {
+        return null;
+    }
+
     @Override
-	public float procesarPagoImporte(Long cuil, float importe, MedioPago mp, float saldo, float limiteCred) {
-		return procesarPagoImporte(cuil, importe, mp, saldo, limiteCred); 
-	}
+    public float procesarPagoImporte(Long cuil, float importe, MedioPagoStub mp, float saldo, float limiteCred) {
+        return 0;
+    }
 }

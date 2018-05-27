@@ -3,6 +3,7 @@ package edu.uade.apd.tpo.remote;
 import edu.uade.apd.tpo.controller.SistemaAdministracion;
 import edu.uade.apd.tpo.model.*;
 import edu.uade.apd.tpo.repository.SistemaAdministracionRepository;
+import edu.uade.apd.tpo.repository.exception.UserNotFoundException;
 import edu.uade.apd.tpo.repository.stub.*;
 
 
@@ -28,126 +29,109 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
     }
 
     @Override
-    public void crearUsuario(String email, String password, RolStub rolStub) throws RemoteException {
-        Rol rol = Rol.fromStub(rolStub);
-        this.controller.crearUsuario(email, password, rol);
+    public List<UsuarioStub> getUsuarios() {
+        return null;
     }
 
     @Override
-    public List<UsuarioStub> getUsuarios() throws RemoteException {
-        return controller.getUsuarios();
+    public void actualizarUsuario(UsuarioStub u) {
     }
 
     @Override
-    public List<ClienteStub> getClientes() throws RemoteException {
-        return controller.getClientes();
+    public List<ClienteStub> getClientes() {
+        return null;
     }
 
     @Override
-    public void actualizarUsuario(UsuarioStub usuarioStub) throws RemoteException {
-        Usuario u = Usuario.fromStub(usuarioStub);
-        controller.actualizarUsuario(u);
+    public List<PedidoStub> obtenerPedidosParaAprobar() {
+        return null;
     }
 
     @Override
-    public void crearCliente(String email, String password, String nombre, long cuil, String telefono, CondIvaStub condIva, String calle, int numero, String codPostal, String localidad, String provincia, ZonaStub zona, float saldo, float limiteCredito) throws RemoteException {
-        this.controller.crearCliente(email, password, nombre, cuil, telefono, CondicionIva.fromStub(condIva), calle, numero, codPostal, localidad, provincia, Zona.fromStub(zona), saldo, limiteCredito);
+    public ClienteStub buscarCliente(Long cuil) {
+        return null;
     }
 
     @Override
-    public void generarPedido(Long cuil, String calle, Long num, String codPostal, String localidad, String prov, ZonaStub zona) throws RemoteException {
-        this.controller.generarPedido(cuil, calle, num, codPostal, localidad, prov, Zona.fromStub(zona));
+    public ClienteStub buscarCliente(String email) throws RemoteException {
+        return null;
+    }
+
+    @Override
+    public void crearUsuario(String email, String password, RolStub rol) {
+    }
+
+    @Override
+    public List<ArticuloStub> obtenerArticulos() {
+        return null;
+    }
+
+    @Override
+    public void crearCliente(Long cuil, String email, String password, String nombre, String telefono, String calle,
+                             Long num, String cp, String loc, String prov, CondIvaStub condIva, ZonaStub zona, float saldo,
+                             float limiteCredito) throws RemoteException {
+    }
+
+    @Override
+    public PedidoStub generarPedido(Long cuil, String calle, Long num, String cp, String loc, String prov, ZonaStub zona) throws RemoteException {
+        return null;
+    }
+
+    @Override
+    public PedidoStub buscarPedido(Long pedidoId) {
+        return null;
     }
 
     @Override
     public void agregarItemPedido(Long pedidoId, Long articuloId, int cant) throws RemoteException {
-        this.controller.agregarItemPedido(pedidoId, articuloId, cant);
     }
 
     @Override
-    public List<PedidoStub> getPedidosPendientes() throws RemoteException {
-        return controller.getPedidosPendientes().parallelStream().map(p -> p.toStub()).collect(Collectors.toList());
-    }
-	
-    @Override
-    public List<PedidoStub> obtenerPedidosParaAprobar(){
-    	return controller.obtenerPedidosParaAprobar();
-    }
-    
-    @Override
-    public List<PedidoStub> obtenerPedidoCompletos(){
-    	return controller.obtenerPedidoCompletos();
-    }
-    
-    @Override
-    public List<PedidoStub> obtenerPedidosACompletar(){
-    	return controller.obtenerPedidosACompletar();
-    }
-    
-    @Override
-    public ClienteStub buscarCliente(Long cuil){
-    	return controller.buscarCliente(cuil);
-    }
-    
-    @Override
-    public ClienteStub buscarCliente(String email){
-    	return controller.buscarCliente(email);
+    public void notificarClienteEstadoPedido(Long pedidoId) throws RemoteException {
     }
 
     @Override
-    public List<ArticuloStub> obtenerArticulos(){
-    	return controller.obtenerArticulos();
+    public void cerrarPedido(Long pedidoId) throws RemoteException {
     }
 
     @Override
-	public PedidoStub buscarPedido(Long pedidoId) {
-		return controller.buscarPedido(pedidoId);
-	}
-
-    @Override
- 	public void cerrarPedido(Long pedidoId) {
- 		return controller.cerrarPedido(pedidoId);
- 	}
-
-    @Override
-   	public void aprobarPedido(Long pedidoId) {
-   		return controller.aprobarPedido(pedidoId);;
-   	}
-
-  
-    @Override
-   	public void realizarPago(Long facturaId, float importe, MedioPago mp) {
-   		return controller.realizarPago(facturaId, importe, mp);
-   	}
-    
-    
-    @Override
-   	public void realizarPagoimporte(Long cuil, float importe, MedioPago mp) {
-   		return controller.realizarPagoImporte(cuil, importe, mp);
-   	}
-    
-    
-    @Override
-   	public void  rechazarPedido(Long pedidoId, String motivo) {
-   		return controller.rechazarPedido(pedidoId, motivo);
-   	}
-    
-    @Override
-   	public UsuarioStub login(String email, String password) {
-   		return controller.login(email, password);
-   	}
-
-    @Override
-   	public void  eliminarItemPedido(Long pedidoId, Long articuloId)  {
-   		return controller.eliminarItemPedido(pedidoId, articuloId);
-   	}
-
-    @Override
-    public List<PedidoStub> obtenerPedidosListos(){
-    	return controller.obtenerPedidosListos();
+    public void aprobarPedido(Long pedidoId) throws RemoteException {
     }
-	
-  
 
-	
+    @Override
+    public void realizarPago(Long facturaId, float importe, MedioPagoStub mp) throws RemoteException {
+    }
+
+    @Override
+    public void realizarPagoImporte(Long cuil, float importe, MedioPagoStub mp) throws RemoteException {
+    }
+
+    @Override
+    public void rechazarPedido(Long pedidoId, String motivo) throws RemoteException {
+    }
+
+    @Override
+    public UsuarioStub login(String email, String password) throws UserNotFoundException {
+        return null;
+    }
+
+    @Override
+    public void eliminarItemPedido(Long pedidoId, Long articuloId) throws RemoteException {
+    }
+
+    @Override
+    public List<PedidoStub> obtenerPedidoCompletos() {
+        return null;
+    }
+
+    @Override
+    public List<PedidoStub> obtenerPedidosListos() {
+        return null;
+    }
+
+    @Override
+    public List<PedidoStub> obtenerPedidosACompletar() {
+        return null;
+    }
+
 }
