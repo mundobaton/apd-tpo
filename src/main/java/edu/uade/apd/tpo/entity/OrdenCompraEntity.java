@@ -14,7 +14,7 @@ public class OrdenCompraEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="orden_compra_id")
 	private Long id;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "articulo_id")
 	private ArticuloEntity articulo;
 	@Column(name = "estado_id")

@@ -8,6 +8,7 @@ import edu.uade.apd.tpo.model.EstadoCompra;
 import edu.uade.apd.tpo.model.OrdenCompra;
 import edu.uade.apd.tpo.model.Pedido;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +35,7 @@ public class SistemaCompras {
             if (articulo != null) {
                 OrdenCompra ordenCompra = new OrdenCompra();
                 ordenCompra.setArticulo(articulo);
+                ordenCompra.setFecha(new Date());
                 ordenCompra.setEstado(EstadoCompra.PENDIENTE);
                 ordenCompra.setPedido(pedido);
                 ordenCompra.guardar();

@@ -206,15 +206,22 @@ public class SistemaAdministracion {
 
     }
 
-    public void aprobarPedido(Long pedidoId, String motivo) throws BusinessException {
-        Pedido pedido = buscarPedido(pedidoId);
+    public void aprobarPedido(Long pedidoId, Long cuil, String motivo) throws BusinessException {
+        Cliente cliente = buscarCliente(cuil);
+
+        if (cliente == null) {
+            throw new BusinessException("El cliente con cuil '" + cuil + "' no existe");
+        }
+        Pedido pedido = cliente.obtenerPedido(pedidoId);
+
         if (pedido != null) {
             pedido.aprobar(motivo);
             notificarClienteEstadoPedido(pedido.getId());
             verificarPedido(pedido);
         } else {
-            throw new BusinessException("No existe pedido");
+            throw new BusinessException("No existe el pedido '" + pedidoId + "' o no pertenece al usuario");
         }
+        cliente.guardar();
     }
 
     private void verificarPedido(Pedido pedido) throws BusinessException {
@@ -234,7 +241,6 @@ public class SistemaAdministracion {
             pedido.marcarPendiente();
             notificarClienteEstadoPedido(pedido.getId());
         }
-        pedido.guardar();
     }
 
     public void realizarPago(Long facturaId, float importe, MedioPago mp) throws BusinessException {

@@ -129,9 +129,9 @@ public class Pedido {
 
         Estado aprobado = new Estado();
 
-        if(this.estados.get(0).equals(EstadoPedido.EN_REVISION)){
+        if (this.estados.get(0).equals(EstadoPedido.EN_REVISION)) {
             aprobado.setMotivo(motivo);
-        }else{
+        } else {
             aprobado.setMotivo("Pedido aprobado por el administrador.");
         }
         aprobado.setEstado(EstadoPedido.APROBADO);

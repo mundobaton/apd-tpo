@@ -36,11 +36,16 @@ public class SistemaAdministracionTest {
 
     @Test
     public void testAgregarItemPedido() throws BusinessException {
-        sistema.agregarItemPedido(36L, 1235431124L, 16L, 700);
+        sistema.agregarItemPedido(37L, 1235431124L, 16L, 700);
     }
 
     @Test
     public void testCerrarPedido() throws BusinessException {
-        sistema.cerrarPedido(36L, 1235431124L);
+        sistema.cerrarPedido(37L, 1235431124L);
+    }
+
+    @Test
+    public void testAprobarPedido() throws BusinessException {
+        sistema.aprobarPedido(37L, 1235431124L, "un motivo");
     }
 }

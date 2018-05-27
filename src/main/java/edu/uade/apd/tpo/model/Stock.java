@@ -32,10 +32,10 @@ public class Stock {
 
     public int calcular() {
         int stock = 0;
-        for(Movimiento m : movimientos){
-            if(m instanceof Ingreso){
+        for (Movimiento m : movimientos) {
+            if (m instanceof Ingreso) {
                 stock += m.getCantidad();
-            }else{
+            } else {
                 stock -= m.getCantidad();
             }
         }
@@ -58,7 +58,7 @@ public class Stock {
         movimientos.add(egreso);
     }
 
-    public void agregarMovimientoEgreso(MotivoEgreso motivo, int cantidad, Usuario encargado, String autorizante, String destino){
+    public void agregarMovimientoEgreso(MotivoEgreso motivo, int cantidad, Usuario encargado, String autorizante, String destino) {
         Egreso egreso = new Egreso();
         egreso.setFecha(new Date());
         egreso.setCantidad(cantidad);
