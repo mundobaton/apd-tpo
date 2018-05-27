@@ -179,6 +179,14 @@ public class Pedido {
 
 	}
 	
+	public void alistar(Transportista transportista) {
+		Estado listo = new Estado();
+		listo.setFecha(new Date());
+		listo.setEstado(EstadoPedido.LISTO);
+		this.estados.add(listo);
+		this.envio.setTransportista(transportista);
+	}
+	
 	public void pedidoListo(Remito remito, Transportista transportista) {
 		Estado listo = new Estado();
 		listo.setFecha(new Date());

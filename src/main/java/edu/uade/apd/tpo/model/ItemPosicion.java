@@ -1,6 +1,6 @@
 package edu.uade.apd.tpo.model;
 
-public class itemPosicion {
+public class ItemPosicion {
 
     private Long id;
     private int cantidad;

@@ -1,5 +1,6 @@
 package edu.uade.apd.tpo.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import edu.uade.apd.tpo.model.Articulo;
 import edu.uade.apd.tpo.model.EstadoPosicion;
 import edu.uade.apd.tpo.model.ItemLote;
 import edu.uade.apd.tpo.model.ItemPedido;
+import edu.uade.apd.tpo.model.ItemPosicion;
 import edu.uade.apd.tpo.model.Lote;
 import edu.uade.apd.tpo.model.MotivoEgreso;
 import edu.uade.apd.tpo.model.MotivoIngreso;
@@ -43,26 +45,43 @@ public class SistemaDeposito {
 		int cantidad = 0;
 		Pedido pedido = SistemaAdministracion.getInstance().buscarPedido(pedidoId);
 		List<ItemPedido> items = pedido.getItems();
-		for (ItemPedido item : items) {
-			Articulo articulo = item.getArticulo();
-			int cantidadItem = item.getCantidad();
+		for (ItemPedido itemPedido : items) {
+			Articulo articulo = itemPedido.getArticulo();
+			int cantidadItem = itemPedido.getCantidad();
 			Stock stock = articulo.getStock();
 			stock.agregarMovimientoEgreso(MotivoEgreso.VENTA, cantidadItem);
+			int index = 0;
 			while (cantidadItem >= 0) {
 				List<Posicion> posiciones = extraerArticulosPosicion(articulo);
+				for(Posicion posicion : posiciones) {
+					ItemPosicion itemPosi = new ItemPosicion();
+					itemPosi.setPosicion(posicion);
+					if(cantidadItem < posicion.getCantidad()) {
+						itemPosi.setCantidad(cantidadItem);
+					}else {
+						itemPosi.setCantidad(posicion.getCantidad());
+					}
+				}
+				itemPedido.agregarLote(posiciones.get(index).getLote(), cantidad);
+				index++;
 			}
 		}
+		
+		pedido.completar();
+		pedido.guardar();
 	}
 
+	
 	private List<Posicion> extraerArticulosPosicion(Articulo articulo) {
 		Date fechaVtoAnterio = articulo.getLotes().get(0).getFechaVto();
-		List<Posicion> posiciones;
+		List<Posicion> posiciones = new ArrayList();
 		for (Lote lote : articulo.getLotes()) {
-			if (fechaVtoAnterio.compareTo(lote.getFechaVto()) > 0) {
+			if (fechaVtoAnterio.compareTo(lote.getFechaVto()) < 0) {
 				fechaVtoAnterio = lote.getFechaVto();
 				posiciones = lote.getPosiciones();
 			}
 		}
+		return posiciones;
 	}
 
 	public void ingresarCompra(Long ordenId, List<ItemLote> items) {
@@ -107,7 +126,7 @@ public class SistemaDeposito {
 		}
 	}
 
-	private void aceptarOrdenCompra(Long ordenId) {
+	public void aceptarOrdenCompra(Long ordenId) {
     	SistemaCompras.getInstance().aceptarOrdenCompra(ordenId);
 	}
 	
@@ -133,4 +152,18 @@ public class SistemaDeposito {
 		return articuloDao.getInstance().findAll();
 	}
 
+	public Lote crearLote(String codigo, Date fechaVen, Date fechaElab, Long idArticulo) {
+		Lote lote = new Lote();
+		Articulo articulo = buscarArticulo(idArticulo);
+		lote.setArticulo(articulo);
+		lote.setFechaElaboracion(fechaElab);
+		lote.setFechaVto(fechaVen);
+		lote.setCodigo(codigo);
+		lote.guardar();
+		return lote;
+	}
+	
+	public List<Pedido> obtenerPedidosACompletar(){
+		return SistemaAdministracion.getInstance().obtenerPedidosACompletar();
+	}
 }

@@ -64,16 +64,17 @@ public class SistemaDespacho {
 	
 	public void alistarPedido(Long idPedido) {
 		Pedido pedido = buscarPedido(idPedido);
-		Remito remito = SistemaFacturacion.getInstance().crearRemito();
-		Factura factura = SistemaFacturacion.getInstance().crearFactura();
-		Transportista transportista = seleccionarTransportista();
-		pedido.setFactura(factura);
-		pedido.pedidoListo(remito, transportista);
+		pedido.alistar(seleccionarTransportista());
+		pedido.guardar();
 	}
 	
 	private Transportista seleccionarTransportista() {
 		Random random = new Random();
     	int index = random.nextInt(2);
     	return Transportista.values()[index];
+	}
+	
+	public List<Pedido> obtenerPedidosCompletos(){
+		return SistemaAdministracion.getInstance().obtenerPedidoCompletos();
 	}
 }

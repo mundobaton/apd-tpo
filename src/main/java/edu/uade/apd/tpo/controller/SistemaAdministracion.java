@@ -110,6 +110,7 @@ public class SistemaAdministracion {
         domicilio.setZona(zona);
         Envio envio = new Envio();
         envio.setDomicilio(domicilio);
+        pedido.setEnvio(envio);
         pedido.guardar();
         return pedido;
 	}
@@ -241,5 +242,9 @@ public class SistemaAdministracion {
     		}
     	}
     	pedido.guardar();
+    }
+    
+    public List<Pedido> obtenerPedidoCompletos(){
+    	return pedidoDao.getInstance().obtenerPedidosCompletos();
     }
 }
