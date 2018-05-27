@@ -6,6 +6,8 @@ import java.util.List;
 
 import edu.uade.apd.tpo.dao.ArticuloDao;
 import edu.uade.apd.tpo.dao.PosicionDao;
+import edu.uade.apd.tpo.entity.ArticuloEntity;
+import edu.uade.apd.tpo.entity.PosicionEntity;
 import edu.uade.apd.tpo.exception.BusinessException;
 import edu.uade.apd.tpo.model.Articulo;
 import edu.uade.apd.tpo.model.EstadoPosicion;
@@ -19,6 +21,7 @@ import edu.uade.apd.tpo.model.OrdenCompra;
 import edu.uade.apd.tpo.model.Pedido;
 import edu.uade.apd.tpo.model.Posicion;
 import edu.uade.apd.tpo.model.Stock;
+import javafx.geometry.Pos;
 
 public class SistemaDeposito {
 
@@ -39,7 +42,9 @@ public class SistemaDeposito {
     }
 
     public Articulo buscarArticulo(Long articuloId) {
-        return articuloDao.getInstance().findById(articuloId);
+        ArticuloEntity art = articuloDao.getInstance().findById(articuloId);
+        Articulo articulo = Articulo.fromEntity(art);
+        return articulo;
     }
 
     public void completarPedido(Long pedidoId) {
@@ -99,7 +104,15 @@ public class SistemaDeposito {
         Stock stock = articulo.getStock();
         stock.agregarMovimientoIngreso(MotivoIngreso.COMPRA, cantidad);
         articulo.setStock(stock);
-        List<Posicion> posiciones = posicionDao.obtenerObtenerPosicionesVacias();
+
+        List<PosicionEntity> entities = posicionDao.obtenerObtenerPosicionesVacias();
+        List<Posicion> posiciones = new ArrayList<>();
+
+        for(PosicionEntity entity : entities){
+            Posicion posicion = Posicion.fromEntity(entity);
+            posiciones.add(posicion);
+        }
+
         if (posiciones.size() * Posicion.getCAPACIDAD() >= cantidad) {
             for (ItemLote item : itemLotes) {
                 int cantidadLote = item.getCantidad();
@@ -131,7 +144,9 @@ public class SistemaDeposito {
     }
 
     public Posicion buscarPosicionPorUbicacion(String ubicacion) {
-        return posicionDao.getInstance().findByUbicacion(ubicacion);
+        PosicionEntity pe = posicionDao.getInstance().findByUbicacion(ubicacion);
+        Posicion pos = Posicion.fromEntity(pe);
+        return pos;
     }
 
     public int liberarPosicion(String codUbicacion, int cantidad) {
@@ -149,7 +164,14 @@ public class SistemaDeposito {
     }
 
     public List<Articulo> obtenerArticulos() {
-        return articuloDao.getInstance().findAll();
+        List<ArticuloEntity> entities = articuloDao.getInstance().findAll();
+        List<Articulo> articulos = new ArrayList<>();
+
+        for (ArticuloEntity entity : entities){
+            Articulo art = Articulo.fromEntity(entity);
+            articulos.add(art);
+        }
+        return articulos;
     }
 
     public Lote crearLote(String codigo, Date fechaVen, Date fechaElab, Long idArticulo) {

@@ -6,6 +6,7 @@ import java.util.List;
 
 import edu.uade.apd.tpo.dao.FacturaDao;
 import edu.uade.apd.tpo.dao.RemitoDao;
+import edu.uade.apd.tpo.entity.FacturaEntity;
 import edu.uade.apd.tpo.model.Cliente;
 import edu.uade.apd.tpo.model.CondicionIva;
 import edu.uade.apd.tpo.model.Factura;
@@ -34,7 +35,9 @@ public class SistemaFacturacion {
 	}
 	
 	public Factura buscarFactura(Long facturaId) {
-		return facturaDao.getInstance().findById(facturaId);
+		FacturaEntity entity = facturaDao.getInstance().findById(facturaId);
+		Factura factura = Factura.fromEntity(entity, Transaccion.fromEntity(entity.getTransaccion()));
+		return factura;
 	}
 	
 	public void facturar(Long pedidoId) {
