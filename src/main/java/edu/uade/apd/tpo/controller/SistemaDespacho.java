@@ -4,22 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-
-import edu.uade.apd.tpo.dao.PedidoDao;
-import edu.uade.apd.tpo.entity.ItemLoteEntity;
-import edu.uade.apd.tpo.entity.ItemPedidoEntity;
-import edu.uade.apd.tpo.entity.PedidoEntity;
-import edu.uade.apd.tpo.entity.PosicionEntity;
-import edu.uade.apd.tpo.model.Articulo;
-import edu.uade.apd.tpo.model.Factura;
-import edu.uade.apd.tpo.model.ItemLote;
-import edu.uade.apd.tpo.model.ItemPedido;
-import edu.uade.apd.tpo.model.Lote;
-import edu.uade.apd.tpo.model.MotivoEgreso;
 import edu.uade.apd.tpo.model.OrdenCompra;
 import edu.uade.apd.tpo.model.Pedido;
-import edu.uade.apd.tpo.model.Posicion;
-import edu.uade.apd.tpo.model.Remito;
 import edu.uade.apd.tpo.model.Transportista;
 
 public class SistemaDespacho {

@@ -74,7 +74,7 @@ public class Cliente extends Usuario {
     }
 
     public void guardar() {
-        //ClienteDao.getInstance().save(this);
+        ClienteDao.getInstance().save(this.toEntity());
     }
 
     public static Cliente fromEntity(ClienteEntity entity) {
@@ -92,7 +92,7 @@ public class Cliente extends Usuario {
             cli.setDomicilio(Domicilio.fromEntity(entity.getDomicilio()));
             cli.setCondIva(entity.getCondIva());
             cli.setCuentaCorriente(CuentaCorriente.fromEntity(entity.getCuentaCorriente()));
-            if(entity.getPedidos() != null) {
+            if (entity.getPedidos() != null) {
                 cli.setPedidos(new ArrayList<>());
                 for (PedidoEntity pe : entity.getPedidos()) {
                     cli.getPedidos().add(Pedido.fromEntity(pe, cli));
@@ -103,7 +103,25 @@ public class Cliente extends Usuario {
     }
 
     public ClienteEntity toEntity() {
-        return null;
+        ClienteEntity entity = new ClienteEntity();
+        entity.setId(id);
+        entity.setEmail(email);
+        entity.setPassword(password);
+        entity.setRol(rol);
+        entity.setNombre(nombre);
+        entity.setCuil(cuil);
+        entity.setTelefono(telefono);
+        entity.setDomicilio(domicilio != null ? domicilio.toEntity() : null);
+        entity.setCondIva(condIva);
+        entity.setCuentaCorriente(cuentaCorriente != null ? cuentaCorriente.toEntity() : null);
+        if (pedidos != null) {
+            entity.setPedidos(new ArrayList<>());
+            for (Pedido p : pedidos) {
+                entity.getPedidos().add(p.toEntity(entity));
+            }
+        }
+
+        return entity;
     }
 
 }

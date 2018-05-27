@@ -1,13 +1,14 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.dao.UsuarioDao;
 import edu.uade.apd.tpo.entity.UsuarioEntity;
 
 public class Usuario {
 
-    private Long id;
-    private String email;
-    private String password;
-    private Rol rol;
+    protected Long id;
+    protected String email;
+    protected String password;
+    protected Rol rol;
 
     public String getEmail() {
         return email;
@@ -34,7 +35,7 @@ public class Usuario {
     }
 
     public void guardar() {
-
+        UsuarioDao.getInstance().save(this.toEntity());
     }
 
     public Rol getRol() {

@@ -27,7 +27,7 @@ public class StockDao extends AbstractDao<StockEntity> {
             Query<StockEntity> q = session.createQuery(query);
             q.setParameter("stockId", stockId);
             List<StockEntity> result = q.getResultList();
-            return result == null ? null : result.get(0);
+            return result.isEmpty() ? null : result.get(0);
         }
     }
 }

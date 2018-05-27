@@ -10,18 +10,18 @@ public class ItemPosicionDao extends AbstractDao<ItemPosicionEntity> {
 
     private static ItemPosicionDao instance;
 
-    private ItemPosicionDao(){
+    private ItemPosicionDao() {
 
     }
 
     public static ItemPosicionDao getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new ItemPosicionDao();
         }
         return instance;
     }
 
-    public ItemPosicionEntity findById(Long itemPosicionId){
+    public ItemPosicionEntity findById(Long itemPosicionId) {
         String query = "select ip from ItemPosicionEntity ip where ip.id = :itemPosicionId";
         try (Session session = getSession()) {
             Query<ItemPosicionEntity> q = session.createQuery(query);

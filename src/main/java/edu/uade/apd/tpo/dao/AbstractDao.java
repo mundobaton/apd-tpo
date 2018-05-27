@@ -12,7 +12,7 @@ public class AbstractDao<T extends Serializable> {
         this.sessionManager = SessionManager.getInstance();
     }
 
-    protected void save(T t) {
+    public void save(T t) {
         try (Session session = sessionManager.getSessionFactory().openSession()) {
             session.beginTransaction();
             session.saveOrUpdate(t);

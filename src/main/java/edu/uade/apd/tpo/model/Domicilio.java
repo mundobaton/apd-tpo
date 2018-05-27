@@ -1,5 +1,6 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.dao.DomicilioDao;
 import edu.uade.apd.tpo.entity.DomicilioEntity;
 
 public class Domicilio {
@@ -68,18 +69,36 @@ public class Domicilio {
         this.zona = zona;
     }
 
-    public void guardar() {
-
-    }
-
     public static Domicilio fromEntity(DomicilioEntity entity) {
-        //TODO
-        return null;
+        Domicilio dom = null;
+        if (entity != null) {
+            dom = new Domicilio();
+            dom.setId(entity.getId());
+            dom.setCalle(entity.getCalle());
+            dom.setNumero(entity.getNumero());
+            dom.setCodPostal(entity.getCodPostal());
+            dom.setLocalidad(entity.getLocalidad());
+            dom.setProvincia(entity.getProvincia());
+            dom.setZona(entity.getZona());
+        }
+        return dom;
     }
 
     public DomicilioEntity toEntity() {
-        //TODO
-        return null;
+        DomicilioEntity entity = new DomicilioEntity();
+        entity.setId(id);
+        entity.setCalle(calle);
+        entity.setNumero(numero);
+        entity.setCodPostal(codPostal);
+        entity.setLocalidad(localidad);
+        entity.setProvincia(provincia);
+        entity.setZona(zona);
+
+        return entity;
+    }
+
+    public void guardar() {
+        DomicilioDao.getInstance().save(this.toEntity());
     }
 
 

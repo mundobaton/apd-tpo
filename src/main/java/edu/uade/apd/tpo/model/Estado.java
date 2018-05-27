@@ -1,5 +1,6 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.dao.EstadoDao;
 import edu.uade.apd.tpo.entity.EstadoEntity;
 
 import java.util.Date;
@@ -43,16 +44,31 @@ public class Estado {
         this.motivo = motivo;
     }
 
-    public void guardar() {
-
-    }
-
     public static Estado fromEntity(EstadoEntity entity) {
-        return null;
+        Estado estado = null;
+        if (entity != null) {
+            estado = new Estado();
+            estado.setId(entity.getId());
+            estado.setEstado(entity.getEstado());
+            estado.setFecha(entity.getFecha());
+            estado.setMotivo(entity.getMotivo());
+        }
+
+        return estado;
     }
 
     public EstadoEntity toEntity() {
-        return null;
+        EstadoEntity ee = new EstadoEntity();
+        ee.setId(id);
+        ee.setEstado(estado);
+        ee.setFecha(fecha);
+        ee.setMotivo(motivo);
+
+        return ee;
+    }
+
+    public void guardar() {
+        EstadoDao.getInstance().save(this.toEntity());
     }
 
 }

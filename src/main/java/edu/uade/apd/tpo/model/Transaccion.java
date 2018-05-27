@@ -1,5 +1,6 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.dao.TransaccionDao;
 import edu.uade.apd.tpo.entity.FacturaEntity;
 import edu.uade.apd.tpo.entity.TransaccionEntity;
 
@@ -60,20 +61,20 @@ public class Transaccion {
     }
 
     public void guardar() {
-
+        TransaccionDao.getInstance().save(this.toEntity());
     }
 
     public static Transaccion fromEntity(TransaccionEntity entity) {
         Transaccion t = null;
-        if(entity != null){
+        if (entity != null) {
             t = new Transaccion();
             t.setId(entity.getId());
             t.setImporte(entity.getImporte());
             t.setFecha(entity.getFecha());
-            if(entity.getFacturas() != null){
+            if (entity.getFacturas() != null) {
                 t.setFacturas(new ArrayList<>());
-                for(FacturaEntity fe : entity.getFacturas()){
-                    t.getFacturas().add(Factura.fromEntity(fe));
+                for (FacturaEntity fe : entity.getFacturas()) {
+                    t.getFacturas().add(Factura.fromEntity(fe, t));
                 }
             }
             t.setMedioPago(entity.getMedioPago());
@@ -87,10 +88,10 @@ public class Transaccion {
         entity.setImporte(importe);
         entity.setFecha(fecha);
 
-        if(facturas != null){
+        if (facturas != null) {
             entity.setFacturas(new ArrayList<>());
-            for(Factura f : facturas){
-                entity.getFacturas().add(f.toEntity());
+            for (Factura f : facturas) {
+                entity.getFacturas().add(f.toEntity(entity));
             }
         }
         entity.setMedioPago(medioPago);

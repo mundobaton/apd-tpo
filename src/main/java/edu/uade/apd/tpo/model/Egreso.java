@@ -1,5 +1,6 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.dao.EgresoDao;
 import edu.uade.apd.tpo.entity.EgresoEntity;
 import edu.uade.apd.tpo.entity.IngresoEntity;
 
@@ -42,17 +43,13 @@ public class Egreso extends Movimiento {
         this.destino = destino;
     }
 
-    public void guardar() {
-
-    }
-
     public int cantidad() {
         return this.cantidad;
     }
 
     public static Egreso fromEntity(EgresoEntity entity) {
         Egreso e = null;
-        if(entity != null){
+        if (entity != null) {
             e = new Egreso();
             e.setId(entity.getId());
             e.setFecha(entity.getFecha());
@@ -73,7 +70,11 @@ public class Egreso extends Movimiento {
         entity.setAutorizante(autorizante);
         entity.setDestino(destino);
         entity.setMotivo(motivo);
-        entity.setEncargado(encargado.toEntity());
+        entity.setEncargado(encargado != null ? encargado.toEntity() : null);
         return entity;
+    }
+
+    public void guardar() {
+        EgresoDao.getInstance().save(this.toEntity());
     }
 }

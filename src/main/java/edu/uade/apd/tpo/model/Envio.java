@@ -1,8 +1,7 @@
 package edu.uade.apd.tpo.model;
 
-import edu.uade.apd.tpo.entity.DomicilioEntity;
+import edu.uade.apd.tpo.dao.EnvioDao;
 import edu.uade.apd.tpo.entity.EnvioEntity;
-import edu.uade.apd.tpo.entity.RemitoEntity;
 
 public class Envio {
 
@@ -43,20 +42,33 @@ public class Envio {
         this.remito = remito;
     }
 
-    public void guardar() {
-
-    }
-
     public float calcular() {
         return domicilio.getZona().getPrecio() * transportista.getPrecio();
     }
 
     public static Envio fromEntity(EnvioEntity entity) {
-        return null;
+        Envio envio = null;
+        if (entity != null) {
+            envio = new Envio();
+            envio.setId(entity.getId());
+            envio.setDomicilio(Domicilio.fromEntity(entity.getDomicilio()));
+            envio.setTransportista(entity.getTransportista());
+            envio.setRemito(Remito.fromEntity(entity.getRemito()));
+        }
+        return envio;
     }
 
     public EnvioEntity toEntity() {
-        return null;
+        EnvioEntity ee = new EnvioEntity();
+        ee.setId(id);
+        ee.setDomicilio(domicilio != null ? domicilio.toEntity() : null);
+        ee.setTransportista(transportista);
+        ee.setRemito(remito != null ? remito.toEntity() : null);
+        return ee;
+    }
+
+    public void guardar() {
+        EnvioDao.getInstance().save(this.toEntity());
     }
 
 }

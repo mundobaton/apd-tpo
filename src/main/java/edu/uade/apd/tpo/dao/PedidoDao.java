@@ -10,62 +10,74 @@ import edu.uade.apd.tpo.model.Pedido;
 
 public class PedidoDao extends AbstractDao<PedidoEntity> {
 
-	private static PedidoDao instance;
+    private static PedidoDao instance;
 
-	private PedidoDao() {
+    private PedidoDao() {
 
-	}
+    }
 
-	public static PedidoDao getInstance() {
-		if (instance == null) {
-			instance = new PedidoDao();
-		}
-		return instance;
-	}
+    public static PedidoDao getInstance() {
+        if (instance == null) {
+            instance = new PedidoDao();
+        }
+        return instance;
+    }
 
-	public PedidoEntity findById(Long pedidoId) {
-		String query = "select p from PedidoEntity p where p.id = :pedidoId";
+    public PedidoEntity findById(Long pedidoId) {
+        String query = "select p from PedidoEntity p where p.id = :pedidoId";
 
-		try (Session session = getSession()) {
-			Query<PedidoEntity> q = session.createQuery(query).setParameter("pedidoId", pedidoId);
-			PedidoEntity result = q.getSingleResult();
-			return result;
-		}
-	}
+        try (Session session = getSession()) {
+            Query<PedidoEntity> q = session.createQuery(query).setParameter("pedidoId", pedidoId);
+            PedidoEntity result = q.getSingleResult();
+            return result;
+        }
+    }
 
-	public void save(PedidoEntity pedido) {
-		super.save(pedido);
-	}
-    
-    public List<PedidoEntity> obtenerPedidosCompletos(){
-       
-    	String query = "select p from PedidoEntity p inner join p.estados as e " +
+    public void save(PedidoEntity pedido) {
+        super.save(pedido);
+    }
+
+    public List<PedidoEntity> obtenerPedidosCompletos() {
+
+        String query = "select p from PedidoEntity p inner join p.estados as e " +
                 "where e.estadoPedido = 'COMPLETO'";
         try (Session session = getSession()) {
             Query<PedidoEntity> q = session.createQuery(query);
             List<PedidoEntity> entities = q.getResultList();
             return entities;
-        } 
-    	
+        }
+
     }
 
-	public List<Pedido> obtenerPedidosPreAprobadosRevision() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public List<PedidoEntity> obtenerPedidosPreAprobadosRevision() {
+        String query = "select p from PedidoEntity p inner join p.estados as e " +
+                "where e.estadoPedido in ('PREAPROBADO', 'EN_REVISION')";
+        try (Session session = getSession()) {
+            Query<PedidoEntity> q = session.createQuery(query);
+            List<PedidoEntity> entities = q.getResultList();
+            return entities;
+        }
+    }
 
-	public List<Pedido> obtenerPedidosListos() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public List<PedidoEntity> obtenerPedidosListos() {
+        String query = "select p from PedidoEntity p inner join p.estados as e " +
+                "where e.estadoPedido = 'LISTO'";
+        try (Session session = getSession()) {
+            Query<PedidoEntity> q = session.createQuery(query);
+            List<PedidoEntity> entities = q.getResultList();
+            return entities;
+        }
+    }
 
-	public List<Pedido> obtenerPedidosVerificados() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
+    public List<PedidoEntity> obtenerPedidosVerificados() {
+        String query = "select p from PedidoEntity p inner join p.estados as e " +
+                "where e.estadoPedido = 'VERIFICADO'";
+        try (Session session = getSession()) {
+            Query<PedidoEntity> q = session.createQuery(query);
+            List<PedidoEntity> entities = q.getResultList();
+            return entities;
+        }
+    }
 
 
 }

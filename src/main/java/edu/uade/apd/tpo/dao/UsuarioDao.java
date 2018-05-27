@@ -31,4 +31,12 @@ public class UsuarioDao extends AbstractDao<UsuarioEntity> {
             return result.isEmpty() ? null : result.get(0);
         }
     }
+
+    public List<UsuarioEntity> findAll() {
+        String query = "select u from UsuarioEntity u";
+        try (Session session = getSession()) {
+            Query<UsuarioEntity> q = session.createQuery(query);
+            return q.getResultList();
+        }
+    }
 }

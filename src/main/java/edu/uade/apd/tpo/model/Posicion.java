@@ -1,148 +1,149 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.dao.PosicionDao;
 import edu.uade.apd.tpo.entity.PosicionEntity;
 
 public class Posicion {
-	private Long id;
-	private String codUbicacion;
-	private EstadoPosicion estado;
-	private Lote lote;
-	private int cantidad;
-	private char calle;
-	private int bloque;
-	private int estanteria;
-	private int estante;
-	private int numero;
-	private static int CAPACIDAD = 100;
-	
+    private Long id;
+    private String codUbicacion;
+    private EstadoPosicion estado;
+    private Lote lote;
+    private int cantidad;
+    private char calle;
+    private int bloque;
+    private int estanteria;
+    private int estante;
+    private int numero;
+    private static int CAPACIDAD = 100;
 
-	public Long getId() {
-		return id;
-	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getCodUbicacion() {
-		return codUbicacion;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setCodUbicacion(String codUbicacion) {
-		this.codUbicacion = codUbicacion;
-	}
+    public String getCodUbicacion() {
+        return codUbicacion;
+    }
 
-	public EstadoPosicion getEstado() {
-		return estado;
-	}
+    public void setCodUbicacion(String codUbicacion) {
+        this.codUbicacion = codUbicacion;
+    }
 
-	public void setEstado(EstadoPosicion estado) {
-		this.estado = estado;
-	}
+    public EstadoPosicion getEstado() {
+        return estado;
+    }
 
-	public Lote getLote() {
-		return lote;
-	}
+    public void setEstado(EstadoPosicion estado) {
+        this.estado = estado;
+    }
 
-	public void setLote(Lote lote) {
-		this.lote = lote;
-	}
+    public Lote getLote() {
+        return lote;
+    }
 
-	public int getCantidad() {
-		return cantidad;
-	}
+    public void setLote(Lote lote) {
+        this.lote = lote;
+    }
 
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
-	}
+    public int getCantidad() {
+        return cantidad;
+    }
 
-	public char getCalle() {
-		return calle;
-	}
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
 
-	public void setCalle(char calle) {
-		this.calle = calle;
-	}
+    public char getCalle() {
+        return calle;
+    }
 
-	public int getBloque() {
-		return bloque;
-	}
+    public void setCalle(char calle) {
+        this.calle = calle;
+    }
 
-	public void setBloque(int bloque) {
-		this.bloque = bloque;
-	}
+    public int getBloque() {
+        return bloque;
+    }
 
-	public int getEstanteria() {
-		return estanteria;
-	}
+    public void setBloque(int bloque) {
+        this.bloque = bloque;
+    }
 
-	public void setEstanteria(int estanteria) {
-		this.estanteria = estanteria;
-	}
+    public int getEstanteria() {
+        return estanteria;
+    }
 
-	public int getEstante() {
-		return estante;
-	}
+    public void setEstanteria(int estanteria) {
+        this.estanteria = estanteria;
+    }
 
-	public void setEstante(int estante) {
-		this.estante = estante;
-	}
+    public int getEstante() {
+        return estante;
+    }
 
-	public int getNumero() {
-		return numero;
-	}
+    public void setEstante(int estante) {
+        this.estante = estante;
+    }
 
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
+    public int getNumero() {
+        return numero;
+    }
 
-	public void guardar() {
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
 
-	}
-	
-	public void liberar(int cantidad) {
-		this.cantidad -= cantidad;
-	}
+    public void guardar() {
+        PosicionDao.getInstance().save(this.toEntity());
+    }
 
-	public static int getCAPACIDAD() {
-		return CAPACIDAD;
-	}
+    public void liberar(int cantidad) {
+        this.cantidad -= cantidad;
+    }
 
-	public static void setCAPACIDAD(int cAPACIDAD) {
-		CAPACIDAD = cAPACIDAD;
-	}
+    public static int getCAPACIDAD() {
+        return CAPACIDAD;
+    }
 
-	public static Posicion fromEntity(PosicionEntity entity) {
-		Posicion p = null;
-		if(entity != null){
-			p.setId(entity.getId());
-			p.setBloque(entity.getBloque());
-			p.setCalle(entity.getCalle());
-			p.setCantidad(entity.getCantidad());
-			p.setCodUbicacion(entity.getCodUbicacion());
-			p.setEstante(entity.getEstante());
-			p.setEstado(entity.getEstado());
-			p.setEstanteria(entity.getEstanteria());
-			p.setLote(Lote.fromEntity(entity.getLote()));
-			p.setNumero(entity.getNumero());
-		}
-		return p;
-	}
+    public static void setCAPACIDAD(int cAPACIDAD) {
+        CAPACIDAD = cAPACIDAD;
+    }
 
-	public PosicionEntity toEntity(){
-		PosicionEntity entity = new PosicionEntity();
-		entity.setId(id);
-		entity.setBloque(bloque);
-		entity.setCalle(calle);
-		entity.setCantidad(cantidad);
-		entity.setCodUbicacion(codUbicacion);
-		entity.setEstante(estante);
-		entity.setEstado(estado);
-		entity.setEstanteria(estanteria);
-		entity.setLote(lote.toEntity());
-		entity.setNumero(numero);
-		return entity;
+    public static Posicion fromEntity(PosicionEntity entity) {
+        Posicion p = null;
+        if (entity != null) {
+            p.setId(entity.getId());
+            p.setBloque(entity.getBloque());
+            p.setCalle(entity.getCalle());
+            p.setCantidad(entity.getCantidad());
+            p.setCodUbicacion(entity.getCodUbicacion());
+            p.setEstante(entity.getEstante());
+            p.setEstado(entity.getEstado());
+            p.setEstanteria(entity.getEstanteria());
+            p.setLote(entity.getLote() != null ? Lote.fromEntity(entity.getLote(), Articulo.fromEntity(entity.getLote().getArticulo())) : null);
+            p.setNumero(entity.getNumero());
+        }
+        return p;
+    }
 
-	}
+    public PosicionEntity toEntity() {
+        PosicionEntity entity = new PosicionEntity();
+        entity.setId(id);
+        entity.setBloque(bloque);
+        entity.setCalle(calle);
+        entity.setCantidad(cantidad);
+        entity.setCodUbicacion(codUbicacion);
+        entity.setEstante(estante);
+        entity.setEstado(estado);
+        entity.setEstanteria(estanteria);
+        entity.setLote(lote != null ? lote.toEntity(lote.getArticulo().toEntity()) : null);
+        entity.setNumero(numero);
+        return entity;
+
+    }
 
 }

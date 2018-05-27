@@ -1,5 +1,7 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.dao.LoteDao;
+import edu.uade.apd.tpo.entity.ArticuloEntity;
 import edu.uade.apd.tpo.entity.LoteEntity;
 import edu.uade.apd.tpo.entity.PosicionEntity;
 
@@ -64,21 +66,21 @@ public class Lote {
     }
 
     public void guardar() {
-
+        LoteDao.getInstance().save(this.toEntity(articulo.toEntity()));
     }
 
-    public static Lote fromEntity(LoteEntity entity) {
+    public static Lote fromEntity(LoteEntity entity, Articulo art) {
         Lote l = null;
-        if(entity != null){
+        if (entity != null) {
             l = new Lote();
             l.setId(entity.getId());
-            l.setArticulo(Articulo.fromEntity(entity.getArticulo()));
+            l.setArticulo(art);
             l.setCodigo(entity.getCodigo());
             l.setFechaElaboracion(entity.getFechaElaboracion());
             l.setFechaVto(entity.getFechaVto());
-            if(entity.getPosiciones() != null){
+            if (entity.getPosiciones() != null) {
                 l.setPosiciones(new ArrayList<>());
-                for(PosicionEntity pe : entity.getPosiciones()){
+                for (PosicionEntity pe : entity.getPosiciones()) {
                     l.getPosiciones().add(Posicion.fromEntity(pe));
                 }
             }
@@ -86,17 +88,17 @@ public class Lote {
         return l;
     }
 
-    public LoteEntity toEntity(){
+    public LoteEntity toEntity(ArticuloEntity articuloEntity) {
         LoteEntity entity = new LoteEntity();
         entity.setId(id);
-        entity.setArticulo(articulo.toEntity());
+        entity.setArticulo(articuloEntity);
         entity.setCodigo(codigo);
         entity.setFechaElaboracion(fechaElaboracion);
         entity.setFechaVto(fechaVto);
 
-        if(posiciones != null){
+        if (posiciones != null) {
             entity.setPosiciones(new ArrayList<>());
-            for(Posicion p : posiciones){
+            for (Posicion p : posiciones) {
                 entity.getPosiciones().add(p.toEntity());
             }
         }

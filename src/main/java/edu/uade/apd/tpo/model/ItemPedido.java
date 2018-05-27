@@ -78,7 +78,7 @@ public class ItemPedido {
     }
 
     public void guardar() {
-        //ItemPedidoDao.getInstance().save(this);
+        ItemPedidoDao.getInstance().save(this.toEntity());
     }
 
     public static ItemPedido fromEntity(ItemPedidoEntity entity) {

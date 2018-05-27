@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import edu.uade.apd.tpo.dao.PedidoDao;
+import edu.uade.apd.tpo.entity.ClienteEntity;
 import edu.uade.apd.tpo.entity.EstadoEntity;
 import edu.uade.apd.tpo.entity.ItemPedidoEntity;
 import edu.uade.apd.tpo.entity.PedidoEntity;
@@ -216,7 +217,7 @@ public class Pedido {
     }
 
     public void guardar() {
-        //PedidoDao.getInstance().save(this);
+        PedidoDao.getInstance().save(this.toEntity(cliente.toEntity()));
     }
 
     public float calcularCostoEnvio() {
@@ -244,14 +245,14 @@ public class Pedido {
                 }
             }
             pedido.setCliente(cli);
-            pedido.setFactura(Factura.fromEntity(entity.getFactura()));
+            pedido.setFactura(Factura.fromEntity(entity.getFactura(), Transaccion.fromEntity(entity.getFactura().getTransaccion())));
             pedido.setEnvio(Envio.fromEntity(entity.getEnvio()));
 
         }
         return pedido;
     }
 
-    public PedidoEntity toEntity() {
+    public PedidoEntity toEntity(ClienteEntity clienteEntity) {
         PedidoEntity entity = new PedidoEntity();
         entity.setId(id);
         entity.setFechaPedido(fechaPedido);
@@ -269,9 +270,9 @@ public class Pedido {
                 entity.getEstados().add(e.toEntity());
             }
         }
-        entity.setCliente(cliente.toEntity());
-        entity.setFactura(factura.toEntity());
-        entity.setEnvio(envio.toEntity());
+        entity.setCliente(clienteEntity);
+        entity.setFactura(factura != null ? factura.toEntity(factura.getTransaccion().toEntity()) : null);
+        entity.setEnvio(envio != null ? envio.toEntity() : null);
         return entity;
     }
 }
