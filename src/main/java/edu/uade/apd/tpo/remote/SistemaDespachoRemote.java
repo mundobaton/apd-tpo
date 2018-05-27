@@ -20,4 +20,29 @@ public class SistemaDespachoRemote extends UnicastRemoteObject implements Sistem
         }
         return instance;
     }
+    
+    @Override
+    public List<OrdenCompraStub> obtenerOrdenesDeCompraEmitidas(){
+		return controller.obtenerOrdenesDeCompraEmitidas();
+	}
+	
+    @Override
+	public PedidoStub buscarPedido(Long pedidoId) {
+		return controller.buscarPedido(pedidoId);
+	}
+    
+    @Override
+	public void despacharPedido(Long pedidoId) {
+		controller.despacharPedido(pedidoId);
+	}
+	
+    @Override
+	public void alistarPedido(Long idPedido) {
+		controller.alistarPedido(idPedido);
+	}
+    
+    @Override
+	public List<PedidoStub> obtenerPedidosCompletos(){
+		return controller.obtenerPedidosCompletos();
+	}
 }

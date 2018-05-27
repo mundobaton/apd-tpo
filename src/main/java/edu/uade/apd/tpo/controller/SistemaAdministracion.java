@@ -46,6 +46,18 @@ public class SistemaAdministracion {
 		}
 		return instance;
 	}
+	
+	public List<Usuario> getUsuarios(){
+		return usuarioDao.getInstance().findAll();
+	}
+	
+	public void actualizarUsuario(Usuario u) {
+        u.guardar();
+    }
+	
+	public List<Cliente> getClientes(){
+		return clienteDao.getInstance().findAll();
+	}
 
 	public List<Pedido> obtenerPedidosParaAprobar() {
 		return pedidoDao.getInstance().obtenerPedidosPreAprobadosRevision();
