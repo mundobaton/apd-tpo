@@ -29,5 +29,13 @@ public class ProveedorDao extends AbstractDao<ProveedorEntity> {
 			return result.isEmpty() ? null : result.get(0);
 		}
 	}
+
+	public List<ProveedorEntity> findAll() {
+		String query = "select p from ProveedorEntity p";
+		try (Session session = getSession()) {
+			Query<ProveedorEntity> q = session.createQuery(query);
+			return q.getResultList();
+		}
+	}
 }
 

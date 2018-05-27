@@ -109,7 +109,7 @@ public class SistemaDeposito {
         List<PosicionEntity> entities = posicionDao.obtenerObtenerPosicionesVacias();
         List<Posicion> posiciones = new ArrayList<>();
 
-        for(PosicionEntity entity : entities){
+        for (PosicionEntity entity : entities) {
             Posicion posicion = Posicion.fromEntity(entity);
             posiciones.add(posicion);
         }
@@ -120,8 +120,10 @@ public class SistemaDeposito {
                 lotes.add(item.getLote());
                 while (cantidadLote > 0) {
                     Posicion posicion = new Posicion();
-                    //TODO ver esto
-                    //posicion.setLote(item.getLote());
+                    if (item.getLote().getPosiciones() == null) {
+                        item.getLote().setPosiciones(new ArrayList<>());
+                    }
+                    item.getLote().getPosiciones().add(posicion);
                     if (cantidad > posicion.getCAPACIDAD()) {
                         posicion.setCantidad(21);
                         cantidadLote = cantidadLote - posicion.getCAPACIDAD();
@@ -130,8 +132,7 @@ public class SistemaDeposito {
                         cantidadLote = 0;
                     }
                     posicion.setEstado(EstadoPosicion.OCUPADO);
-                    posicion.guardar();
-
+                    item.guardar();
                 }
             }
             articulo.setLotes(lotes);
@@ -169,7 +170,7 @@ public class SistemaDeposito {
         List<ArticuloEntity> entities = articuloDao.getInstance().findAll();
         List<Articulo> articulos = new ArrayList<>();
 
-        for (ArticuloEntity entity : entities){
+        for (ArticuloEntity entity : entities) {
             Articulo art = Articulo.fromEntity(entity);
             articulos.add(art);
         }

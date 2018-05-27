@@ -107,6 +107,7 @@ public class Pedido {
         Estado iniciar = new Estado();
         iniciar.setEstado(EstadoPedido.INICIADO);
         iniciar.setFecha(new Date());
+        iniciar.setMotivo("Iniciado");
         this.setFechaPedido(new Date());
         this.estados.add(iniciar);
     }
@@ -115,6 +116,7 @@ public class Pedido {
         Estado preAprobar = new Estado();
         preAprobar.setEstado(EstadoPedido.PREAPROBADO);
         preAprobar.setFecha(new Date());
+        preAprobar.setMotivo("Pre-aprobado");
         this.estados.add(preAprobar);
     }
 
@@ -122,6 +124,7 @@ public class Pedido {
         Estado revision = new Estado();
         revision.setEstado(EstadoPedido.EN_REVISION);
         revision.setFecha(new Date());
+        revision.setMotivo("En revisión");
         this.estados.add(revision);
     }
 
@@ -130,7 +133,7 @@ public class Pedido {
         Estado aprobado = new Estado();
 
         if (this.estados.get(0).equals(EstadoPedido.EN_REVISION)) {
-            aprobado.setMotivo(motivo);
+            aprobado.setMotivo("Aprobado: "+motivo);
         } else {
             aprobado.setMotivo("Pedido aprobado por el administrador.");
         }
@@ -143,7 +146,7 @@ public class Pedido {
         Estado rechazado = new Estado();
         rechazado.setEstado(EstadoPedido.RECHAZADO);
         rechazado.setFecha(new Date());
-        rechazado.setMotivo(motivo);
+        rechazado.setMotivo("Rechazado: "+motivo);
         this.estados.add(rechazado);
     }
 
@@ -151,6 +154,7 @@ public class Pedido {
         Estado completo = new Estado();
         completo.setEstado(EstadoPedido.COMPLETO);
         completo.setFecha(new Date());
+        completo.setMotivo("Completo");
         this.estados.add(completo);
 
     }
@@ -159,6 +163,7 @@ public class Pedido {
         Estado verificado = new Estado();
         verificado.setEstado(EstadoPedido.VERIFICADO);
         verificado.setFecha(new Date());
+        verificado.setMotivo("Verificado");
         this.estados.add(verificado);
 
     }
@@ -167,6 +172,7 @@ public class Pedido {
         Estado pendiente = new Estado();
         pendiente.setEstado(EstadoPedido.PENDIENTE);
         pendiente.setFecha(new Date());
+        pendiente.setMotivo("Pendiente por falta de stock");
         this.estados.add(pendiente);
 
     }
@@ -175,6 +181,7 @@ public class Pedido {
         Estado listo = new Estado();
         listo.setFecha(new Date());
         listo.setEstado(EstadoPedido.LISTO);
+        listo.setMotivo("Listo");
         this.estados.add(listo);
         this.envio.setTransportista(transportista);
     }
@@ -183,6 +190,7 @@ public class Pedido {
         Estado enviado = new Estado();
         enviado.setFecha(new Date());
         enviado.setEstado(EstadoPedido.ENVIADO);
+        enviado.setMotivo("Enviado");
         this.estados.add(enviado);
     }
 

@@ -12,19 +12,7 @@ import edu.uade.apd.tpo.dao.UsuarioDao;
 import edu.uade.apd.tpo.entity.ClienteEntity;
 import edu.uade.apd.tpo.entity.PedidoEntity;
 import edu.uade.apd.tpo.exception.BusinessException;
-import edu.uade.apd.tpo.model.Articulo;
-import edu.uade.apd.tpo.model.Cliente;
-import edu.uade.apd.tpo.model.CondicionIva;
-import edu.uade.apd.tpo.model.CuentaCorriente;
-import edu.uade.apd.tpo.model.Domicilio;
-import edu.uade.apd.tpo.model.Envio;
-import edu.uade.apd.tpo.model.Factura;
-import edu.uade.apd.tpo.model.ItemPedido;
-import edu.uade.apd.tpo.model.MedioPago;
-import edu.uade.apd.tpo.model.Pedido;
-import edu.uade.apd.tpo.model.Rol;
-import edu.uade.apd.tpo.model.Usuario;
-import edu.uade.apd.tpo.model.Zona;
+import edu.uade.apd.tpo.model.*;
 import edu.uade.apd.tpo.repository.exception.UserNotFoundException;
 
 public class SistemaAdministracion {
@@ -191,8 +179,6 @@ public class SistemaAdministracion {
         Pedido pedido = cliente.obtenerPedido(pedidoId);
         if (pedido != null) {
             pedido.iniciar();
-            cliente.guardar();
-            notificarClienteEstadoPedido(pedido.getId());
 
             if (validarCtaCteCliente(pedido, cliente)) {
                 pedido.preAprobar();
@@ -200,6 +186,8 @@ public class SistemaAdministracion {
                 pedido.revision();
             }
             cliente.guardar();
+            notificarClienteEstadoPedido(pedido.getId());
+
         } else {
             throw new BusinessException("El pedido '" + pedidoId + "' no existe o no pertenece al usuario");
         }
@@ -333,5 +321,31 @@ public class SistemaAdministracion {
     public List<Pedido> obtenerPedidosACompletar() {
         return pedidoDao.getInstance().obtenerPedidosVerificados()
                 .parallelStream().map(pe -> Pedido.fromEntity(pe)).collect(Collectors.toList());
+    }
+
+    public Articulo crearArticulo(String codBarras, String descripcion, String presentacion, String unidad, int cantCompra, int volumen, float precio) {
+
+        Articulo art = new Articulo();
+        art.setCodBarras(codBarras);
+        art.setDescripcion(descripcion);
+        art.setPresentacion(presentacion);
+        art.setUnidad(unidad);
+        art.setCantCompra(cantCompra);
+        art.setVolumen(volumen);
+        art.setPrecio(precio);
+
+        Stock stock = new Stock();
+        if(stock.getMovimientos() == null){
+            List<Movimiento> moves = new ArrayList<>();
+            stock.setMovimientos(moves);
+        }
+        stock.agregarMovimientoIngreso(MotivoIngreso.COMPRA, cantCompra);
+        List<Lote> lotes = new ArrayList<>();
+
+        art.setStock(stock);
+        art.setLotes(lotes);
+        art.guardar();
+
+        return art;
     }
 }

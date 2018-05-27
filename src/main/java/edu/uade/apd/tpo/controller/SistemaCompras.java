@@ -1,6 +1,7 @@
 package edu.uade.apd.tpo.controller;
 
 import edu.uade.apd.tpo.dao.OrdenCompraDao;
+import edu.uade.apd.tpo.dao.ProveedorDao;
 import edu.uade.apd.tpo.entity.OrdenCompraEntity;
 import edu.uade.apd.tpo.exception.BusinessException;
 import edu.uade.apd.tpo.model.Articulo;
@@ -11,15 +12,18 @@ import edu.uade.apd.tpo.model.Proveedor;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 public class SistemaCompras {
 
     private static SistemaCompras instance;
     private OrdenCompraDao ordenCompraDao;
+    private ProveedorDao proveedorDao;
 
     private SistemaCompras() {
         this.ordenCompraDao = OrdenCompraDao.getInstance();
+        this.proveedorDao = ProveedorDao.getInstance();
     }
 
     public static SistemaCompras getInstance() {
@@ -59,7 +63,7 @@ public class SistemaCompras {
 
     public void aceptarOrdenCompra(Long ordenId) throws BusinessException {
         OrdenCompra orden = buscarOrdenCompra(ordenId);
-        if (orden != null) {
+        if (orden != null && orden.getEstado() != EstadoCompra.EMITIDA) {
             orden.setEstado(EstadoCompra.ACEPTADA);
             orden.guardar();
         } else {
@@ -77,17 +81,17 @@ public class SistemaCompras {
      *
      * @return
      */
-    public void procesarOrdenesCompraPendientes(String nombreProv, String cuitProv, String telProv) {
+    public void procesarOrdenesCompraPendientes() {
         List<OrdenCompra> ocs = ordenCompraDao.findByEstado(EstadoCompra.PENDIENTE).parallelStream()
                 .map(oce -> OrdenCompra.fromEntity(oce)).collect(Collectors.toList());
-        for (OrdenCompra oc : ocs) {
-            Proveedor prov = new Proveedor();
-            prov.setNombre(nombreProv);
-            prov.setCuit(cuitProv);
-            prov.setTelefono(telProv);
-            oc.setProveedor(prov);
-            oc.setEstado(EstadoCompra.EMITIDA);
-            oc.guardar();
+        if (ocs != null) {
+            List<Proveedor> proveedores = proveedorDao.findAll().parallelStream().map(pe -> Proveedor.fromEntity(pe)).collect(Collectors.toList());
+            Proveedor prov = proveedores.get(ThreadLocalRandom.current().nextInt(0, proveedores.size()));
+            for (OrdenCompra oc : ocs) {
+                oc.setProveedor(prov);
+                oc.setEstado(EstadoCompra.EMITIDA);
+                oc.guardar();
+            }
         }
     }
 }

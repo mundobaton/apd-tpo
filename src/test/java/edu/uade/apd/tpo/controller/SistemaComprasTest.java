@@ -46,6 +46,6 @@ public class SistemaComprasTest {
 
     @Test
     public void testProcesarOrdenesComprasPendientes() {
-        sistema.procesarOrdenesCompraPendientes("un nombre prov", "123123", "4123-4567");
+        sistema.procesarOrdenesCompraPendientes();
     }
 }
