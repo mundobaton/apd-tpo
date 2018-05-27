@@ -188,4 +188,34 @@ public class SistemaDeposito {
     public List<Pedido> obtenerPedidosACompletar() {
         return SistemaAdministracion.getInstance().obtenerPedidosACompletar();
     }
+    
+    public void inicializarPosiciones() throws BusinessException {
+    	List<PosicionEntity> posicionesEntity = posicionDao.getInstance().findAll();
+    	char[] calles = {'A', 'B', 'C', 'D'};
+    	if(posicionesEntity.isEmpty()) {
+    		for(int i = 0; i <= 3; i++) {
+    			for(int j = 0; j <= 10; j++) {
+    				for(int k = 0; k <= 10; k++) {
+    					for(int t = 0; t <= 10; t++) {
+    						for(int h = 0; h <= 0; h++) {
+    							Posicion posicion = new Posicion();
+    				    		posicion.setEstado(EstadoPosicion.DISPONIBLE);
+    				    		String codUbi = "" + calles[i] + j + k + t + h;
+    				    		posicion.setCodUbicacion(codUbi);
+    				    		posicion.setCantidad(0);
+    				    		posicion.setCalle(calles[i]);
+    				    		posicion.setBloque(j);
+    				    		posicion.setEstanteria(k);
+    				    		posicion.setEstante(t);
+    				    		posicion.setNumero(h);
+    				    		posicion.guardar();
+    						}
+    					}
+    				}
+    			}
+    		}
+    	}else {
+    		throw new BusinessException("Ya fueron inicializadas las posiciones");
+    	}
+    }
 }

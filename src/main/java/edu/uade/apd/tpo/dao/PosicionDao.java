@@ -49,4 +49,12 @@ public class PosicionDao extends AbstractDao<PosicionEntity> {
             return result.isEmpty() ? null : result.get(0);
         }
     }
+    
+    public List<PosicionEntity> findAll() {
+        String query = "select p from PosicionEntity p";
+        try (Session session = getSession()) {
+            Query<PosicionEntity> q = session.createQuery(query);
+            return q.getResultList();
+        }
+    }
 }
