@@ -90,7 +90,7 @@ public class SistemaAdministracion {
     public void crearCliente(Long cuil, String email, String password, String nombre, String telefono, String calle,
                              Long num, String cp, String loc, String prov, CondicionIva condIva, Zona zona, float saldo,
                              float limiteCredito) throws BusinessException {
-        if (buscarCliente(cuil) != null) {
+        if (buscarCliente(cuil) == null) {
             Cliente cliente = new Cliente();
             cliente.setEmail(email);
             cliente.setPassword(password);
@@ -113,7 +113,7 @@ public class SistemaAdministracion {
             cliente.setRol(Rol.CLIENTE);
             cliente.guardar();
         } else {
-            throw new BusinessException("No existe clinte");
+            throw new BusinessException("El cliente con cuil '" + cuil + "' ya existe");
         }
     }
 
