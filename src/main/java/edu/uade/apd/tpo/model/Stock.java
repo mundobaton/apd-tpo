@@ -1,5 +1,11 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.entity.EgresoEntity;
+import edu.uade.apd.tpo.entity.IngresoEntity;
+import edu.uade.apd.tpo.entity.MovimientoEntity;
+import edu.uade.apd.tpo.entity.StockEntity;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Stock {
@@ -48,4 +54,40 @@ public class Stock {
 	public void liberarReserva(int cantidad) {
 
 	}
+
+	public static Stock fromEntity(StockEntity entity) {
+		Stock s = null;
+		if(entity != null){
+			s = new Stock();
+			s.setId(entity.getId());
+			if(entity.getMovimientos() != null){
+				s.setMovimientos(new ArrayList<>());
+				for(MovimientoEntity m : entity.getMovimientos()){
+					if(m instanceof IngresoEntity){
+						s.getMovimientos().add(Ingreso.fromEntity((IngresoEntity)m));
+					}else{
+						s.getMovimientos().add(Egreso.fromEntity((EgresoEntity)m));
+					}
+				}
+			}
+		}
+		return s;
+	}
+
+	public StockEntity toEntity(){
+		StockEntity entity = new StockEntity();
+		entity.setId(id);
+		if(movimientos != null){
+			entity.setMovimientos(new ArrayList<>());
+			for(Movimiento m : movimientos){
+				if(m instanceof Ingreso){
+					entity.getMovimientos().add(((Ingreso)m).toEntity());
+				}else{
+					entity.getMovimientos().add(((Egreso)m).toEntity());
+				}
+			}
+		}
+		return entity;
+	}
+
 }

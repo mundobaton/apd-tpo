@@ -1,5 +1,7 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.entity.FacturaEntity;
+
 import java.util.Date;
 
 public class Factura {
@@ -81,4 +83,30 @@ public class Factura {
 		IMPUESTOS = iMPUESTOS;
 	}
 
+	public static Factura fromEntity(FacturaEntity entity) {
+		Factura f = null;
+		if(entity != null){
+			f = new Factura();
+			f.setId(entity.getId());
+			f.setFecha(entity.getFecha());
+			f.setTipo(entity.getTipo());
+			f.setPedido(Pedido.fromEntity(entity.getPedido(), Cliente.fromEntity(entity.getPedido().getCliente())));
+			f.setCostoEnvio(entity.getCostoEnvio());
+			f.setTotal(entity.getTotal());
+			f.setTransaccion(Transaccion.fromEntity(entity.getTransaccion()));
+		}
+		return f;
+	}
+
+	public FacturaEntity toEntity(){
+		FacturaEntity entity = new FacturaEntity();
+		entity.setId(id);
+		entity.setFecha(fecha);
+		entity.setTipo(tipo);
+		entity.setPedido(pedido.toEntity());
+		entity.setCostoEnvio(costoEnvio);
+		entity.setTotal(total);
+		entity.setTransaccion(transaccion.toEntity());
+		return entity;
+	}
 }

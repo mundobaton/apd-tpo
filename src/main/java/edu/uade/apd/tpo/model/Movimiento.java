@@ -34,4 +34,6 @@ public abstract class Movimiento {
 	public int obtenerCantidad() {
 		return cantidad;
 	}
+
+
 }
