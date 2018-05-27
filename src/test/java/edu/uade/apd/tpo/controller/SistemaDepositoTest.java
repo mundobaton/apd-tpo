@@ -114,9 +114,13 @@ public class SistemaDepositoTest {
     public void testAceptarCompra2() throws BusinessException {
         List<ItemLote> lotes = new ArrayList<>();
         ItemLote il = new ItemLote();
-        
-
-
+        Lote lote = new Lote();
+        lote.setFechaVto(new Date());
+        lote.setFechaElaboracion(new Date());
+        lote.setCodigo("123123asd");
+        il.setLote(lote);
+        il.setCantidad(1500);
+        lotes.add(il);
 
         sistema.ingresarCompra(3L, lotes);
     }

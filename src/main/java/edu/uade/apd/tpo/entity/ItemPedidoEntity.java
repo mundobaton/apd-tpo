@@ -23,7 +23,7 @@ public class ItemPedidoEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_pedido_id")
     private Long id;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "articulo_id")
     private ArticuloEntity articulo;
     @Column(name = "cantidad")
