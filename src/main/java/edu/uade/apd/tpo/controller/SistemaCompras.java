@@ -25,27 +25,25 @@ public class SistemaCompras {
 	}
 	
 	public void generarOrdenCompra(Long articuloId, Long pedidoId) {
+		//TODO implementar las excepciones
 		Pedido pedido = SistemaAdministracion.getInstance().buscarPedido(pedidoId);
-		OrdenCompra ordenCompra = new OrdenCompra();
 		Articulo articulo = SistemaDeposito.getInstance().buscarArticulo(articuloId);
+		OrdenCompra ordenCompra = new OrdenCompra();
 		ordenCompra.setArticulo(articulo);
 		ordenCompra.setEstado(EstadoCompra.PENDIENTE);
 		ordenCompra.setPedido(pedido);
 		ordenCompra.guardar();
 	}
-	
-	public OrdenCompra buscarOrdenDeCompra(Long ordenId) {
+
+	public OrdenCompra buscarOrdenCompra(Long ordenId) {
 		return ordenCompraDao.getInstance().findById(ordenId);
-		
 	}
 
 	public void aceptarOrdenCompra(Long ordenId) {
-		OrdenCompra orden =  buscarOrdenDeCompra(ordenId);
+		//TODO implementar excepcion
+		OrdenCompra orden =  buscarOrdenCompra(ordenId);
 		orden.setEstado(EstadoCompra.ACEPTADA);
 		orden.guardar();
 	}
-	
-	
-	
-	
+
 }
