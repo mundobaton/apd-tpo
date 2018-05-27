@@ -36,7 +36,7 @@ public class ClienteEntity extends UsuarioEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cuenta_corriente_id")
     private CuentaCorrienteEntity cuentaCorriente;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "cliente_id")
     private List<PedidoEntity> pedidos;
 
