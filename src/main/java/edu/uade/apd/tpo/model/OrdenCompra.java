@@ -3,6 +3,7 @@ package edu.uade.apd.tpo.model;
 import java.util.Date;
 
 import edu.uade.apd.tpo.dao.OrdenCompraDao;
+import edu.uade.apd.tpo.entity.OrdenCompraEntity;
 
 public class OrdenCompra {
 	private Long id;
@@ -63,4 +64,30 @@ public class OrdenCompra {
 	public void guardar() {
 		OrdenCompraDao.getInstance().save(this);
 	}
+
+	public static OrdenCompra fromEntity(OrdenCompraEntity entity) {
+		OrdenCompra oc = null;
+		if(entity != null){
+			oc = new OrdenCompra();
+			oc.setId(entity.getId());
+			oc.setFecha(entity.getFecha());
+			oc.setEstado(entity.getEstado());
+			oc.setArticulo(Articulo.fromEntity(entity.getArticulo()));
+			oc.setProveedor(Proveedor.fromEntity(entity.getProveedor()));
+			oc.setPedido(Pedido.fromEntity(entity.getPedido(), Cliente.fromEntity(entity.getPedido().getCliente())));
+		}
+		return oc;
+	}
+
+	public OrdenCompraEntity toEntity(){
+		OrdenCompraEntity entity = new OrdenCompraEntity();
+		entity.setId(id);
+		entity.setFecha(fecha);
+		entity.setEstado(estado);
+		entity.setArticulo(articulo.toEntity());
+		entity.setProveedor(proveedor.toEntity());
+		entity.setPedido(pedido.toEntity());
+		return entity;
+	}
+
 }
