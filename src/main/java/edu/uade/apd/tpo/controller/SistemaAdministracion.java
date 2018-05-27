@@ -335,6 +335,11 @@ public class SistemaAdministracion {
         art.setPrecio(precio);
 
         Stock stock = new Stock();
+        if(stock.getMovimientos() == null){
+            List<Movimiento> moves = new ArrayList<>();
+            stock.setMovimientos(moves);
+        }
+        stock.agregarMovimientoIngreso(MotivoIngreso.COMPRA, cantCompra);
         List<Lote> lotes = new ArrayList<>();
 
         art.setStock(stock);
