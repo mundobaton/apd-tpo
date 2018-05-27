@@ -6,6 +6,7 @@ import java.util.List;
 
 import edu.uade.apd.tpo.dao.ArticuloDao;
 import edu.uade.apd.tpo.dao.PosicionDao;
+import edu.uade.apd.tpo.exception.BusinessException;
 import edu.uade.apd.tpo.model.Articulo;
 import edu.uade.apd.tpo.model.EstadoPosicion;
 import edu.uade.apd.tpo.model.ItemLote;
@@ -94,7 +95,7 @@ public class SistemaDeposito {
 		aceptarOrdenCompra(ordenId);
 	}
 
-	public void almacenar(Articulo articulo, List<ItemLote> itemLotes, int cantidad) {
+	public void almacenar(Articulo articulo, List<ItemLote> itemLotes, int cantidad) throws BusinessException {
 		List<Lote> lotes = articulo.getLotes();
 		Stock stock = articulo.getStock();
 		stock.agregarMovimientoIngreso(MotivoIngreso.COMPRA, cantidad);
@@ -122,7 +123,7 @@ public class SistemaDeposito {
 			articulo.setLotes(lotes);
 			articulo.guardar();
 		} else {
-			// TODO Arrojar exception porque no hay lugar suficiente
+					throw new BusinessException("No hay lugar suficiente");
 		}
 	}
 
