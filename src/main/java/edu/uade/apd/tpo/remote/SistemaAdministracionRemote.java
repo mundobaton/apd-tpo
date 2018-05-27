@@ -1,17 +1,9 @@
 package edu.uade.apd.tpo.remote;
 
 import edu.uade.apd.tpo.controller.SistemaAdministracion;
-import edu.uade.apd.tpo.model.MedioPago;
-import edu.uade.apd.tpo.model.Rol;
-import edu.uade.apd.tpo.model.Usuario;
-import edu.uade.apd.tpo.model.Zona;
+import edu.uade.apd.tpo.model.*;
 import edu.uade.apd.tpo.repository.SistemaAdministracionRepository;
-import edu.uade.apd.tpo.repository.stub.ClienteStub;
-import edu.uade.apd.tpo.repository.stub.CondIvaStub;
-import edu.uade.apd.tpo.repository.stub.PedidoStub;
-import edu.uade.apd.tpo.repository.stub.RolStub;
-import edu.uade.apd.tpo.repository.stub.UsuarioStub;
-import edu.uade.apd.tpo.repository.stub.ZonaStub;
+import edu.uade.apd.tpo.repository.stub.*;
 
 
 import java.rmi.RemoteException;
@@ -59,7 +51,7 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
 
     @Override
     public void crearCliente(String email, String password, String nombre, long cuil, String telefono, CondIvaStub condIva, String calle, int numero, String codPostal, String localidad, String provincia, ZonaStub zona, float saldo, float limiteCredito) throws RemoteException {
-        this.controller.crearCliente(email, password, nombre, cuil, telefono, CondIva.fromStub(condIva), calle, numero, codPostal, localidad, provincia, ZonaEnvio.fromStub(zona), saldo, limiteCredito);
+        this.controller.crearCliente(email, password, nombre, cuil, telefono, CondicionIva.fromStub(condIva), calle, numero, codPostal, localidad, provincia, Zona.fromStub(zona), saldo, limiteCredito);
     }
 
     @Override

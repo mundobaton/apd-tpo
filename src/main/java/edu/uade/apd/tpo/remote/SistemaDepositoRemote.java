@@ -47,22 +47,22 @@ public class SistemaDepositoRemote extends UnicastRemoteObject implements Sistem
    
     @Override
     public void completarPedido(Long pedidoId){
-		return controller.completarPedido(pedidoId);
+        controller.completarPedido(pedidoId);
 	}
     
     @Override
     public void ingresarCompra(Long ordenId, List<ItemLote> items) {
-		return controller.ingresarCompra(ordenId, items);
+        controller.ingresarCompra(ordenId, items);
 	}
     
     @Override
     public void almacenar(Articulo articulo, List<ItemLote> itemLotes, int cantidad) {
-		return controller.almacenar(articulo, itemLotes, cantidad);
+        controller.almacenar(articulo, itemLotes, cantidad);
     }
     
     @Override
-    public void  aceptarOrdenCompra(Long ordenId) {
-		return controller.aceptarOrdenCompra(ordenId);
+    public void aceptarOrdenCompra(Long ordenId) {
+        controller.aceptarOrdenCompra(ordenId);
     } 
     
     
