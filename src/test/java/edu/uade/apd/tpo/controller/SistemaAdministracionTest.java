@@ -1,10 +1,7 @@
 package edu.uade.apd.tpo.controller;
 
 import edu.uade.apd.tpo.exception.BusinessException;
-import edu.uade.apd.tpo.model.CondicionIva;
-import edu.uade.apd.tpo.model.Pedido;
-import edu.uade.apd.tpo.model.Rol;
-import edu.uade.apd.tpo.model.Zona;
+import edu.uade.apd.tpo.model.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,32 +17,38 @@ public class SistemaAdministracionTest {
 
     @Test
     public void testCrearUsuario() {
-        sistema.crearUsuario("test@otrotest.com", "12345", Rol.FACTURACION);
+        sistema.crearUsuario("erica@mail.com", "12345", Rol.TODOS);
     }
 
     @Test
     public void testCrearCliente() throws BusinessException {
-        sistema.crearCliente(1235431124L, "test3@otrocliente.com", "123", "fulano", "4123-4567", "una calle", 1234L, "1406", "Capital", "Bsas", CondicionIva.CONS_FINAL, Zona.CABA, 1000, 500);
+        sistema.crearCliente(30329616250L, "erica@cliente.com", "123", "Erica Nunez", "4123-4567", "Independencia", 467L, "1099", "Capital", "Bs As", CondicionIva.CONS_FINAL, Zona.CABA, 5000, 500);
     }
 
     @Test
     public void testCrearPedido() throws BusinessException {
-        Pedido p = sistema.generarPedido(1235431124L, "una calle", 123L, "1406", "Capital", "Buenos Aires", Zona.CABA);
+        Pedido p = sistema.generarPedido(30329616250L, "Cordoba", 2057L, "1120", "Capital", "Buenos Aires", Zona.CABA);
         Assert.assertNotNull(p.getId());
     }
 
     @Test
     public void testAgregarItemPedido() throws BusinessException {
-        sistema.agregarItemPedido(37L, 1235431124L, 16L, 700);
+        sistema.agregarItemPedido(38L, 30329616250L, 18L, 200);
     }
 
     @Test
     public void testCerrarPedido() throws BusinessException {
-        sistema.cerrarPedido(37L, 1235431124L);
+        sistema.cerrarPedido(38L, 30329616250L);
     }
 
     @Test
     public void testAprobarPedido() throws BusinessException {
-        sistema.aprobarPedido(37L, 1235431124L, "un motivo");
+        sistema.aprobarPedido(38L, 30329616250L, "");
+    }
+
+    @Test
+    public void testCrearArticulo(){
+        Articulo art = sistema.crearArticulo("54209988", "Berenjena", "Bolsa", "1kg", 15000, 1, 70);
+        Assert.assertNotNull(art);
     }
 }
