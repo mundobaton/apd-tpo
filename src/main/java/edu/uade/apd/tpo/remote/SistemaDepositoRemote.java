@@ -16,6 +16,12 @@ import edu.uade.apd.tpo.model.OrdenCompra;
 import edu.uade.apd.tpo.model.Pedido;
 import edu.uade.apd.tpo.model.Posicion;
 import edu.uade.apd.tpo.model.Stock;
+import edu.uade.apd.tpo.repository.SistemaDepositoRepository;
+import edu.uade.apd.tpo.repository.stub.ArticuloStub;
+import edu.uade.apd.tpo.repository.stub.LoteStub;
+import edu.uade.apd.tpo.repository.stub.PedidoStub;
+import edu.uade.apd.tpo.repository.stub.PosicionStub;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -76,7 +82,7 @@ public class SistemaDepositoRemote extends UnicastRemoteObject implements Sistem
     }
 	
     @Override
-    public LoteStub  crearLote(String codigo, Date fechaVen, Date fechaElab, Long idArticulo) {
+    public LoteStub crearLote(String codigo, Date fechaVen, Date fechaElab, Long idArticulo) {
     	return controller.crearLote(codigo, fechaVen, fechaElab, idArticulo);
     }
 
