@@ -8,7 +8,7 @@ public enum EstadoPedido {
 	RECHAZADO,
 	PENDIENTE,
 	VERIFICADO,
-	COPMPLETO,
+	COMPLETO,
 	LISTO,
 	ENVIADO
 }

@@ -56,6 +56,10 @@ public class Factura {
         this.costoEnvio = costoEnvio;
     }
 
+    public static float getImpuestos() {
+        return IMPUESTOS;
+    }
+
     public float getTotal() {
         return total;
     }
@@ -64,6 +68,7 @@ public class Factura {
         this.total = total;
     }
 
+<<<<<<< HEAD
     public void guardar() {
         FacturaDao.getInstance().save(this.toEntity());
     }
@@ -77,6 +82,17 @@ public class Factura {
     }
 
     public static Factura fromEntity(FacturaEntity entity) {
+=======
+    public Transaccion getTransaccion() {
+        return transaccion;
+    }
+
+    public void setTransaccion(Transaccion transaccion) {
+        this.transaccion = transaccion;
+    }
+
+    public static Factura fromEntity(FacturaEntity entity, Transaccion transaccion) {
+>>>>>>> develop2
         Factura f = null;
         if (entity != null) {
             f = new Factura();
@@ -98,5 +114,9 @@ public class Factura {
         entity.setCostoEnvio(costoEnvio);
         entity.setTotal(total);
         return entity;
+    }
+
+    public void guardar() {
+        FacturaDao.getInstance().save(this.toEntity(transaccion.toEntity()));
     }
 }

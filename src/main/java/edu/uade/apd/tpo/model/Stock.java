@@ -7,6 +7,7 @@ import edu.uade.apd.tpo.entity.MovimientoEntity;
 import edu.uade.apd.tpo.entity.StockEntity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Stock {
@@ -30,30 +31,50 @@ public class Stock {
     }
 
     public int calcular() {
-        return 0;
-    }
-
-    public void agregarMovimiento(Movimiento mov) {
-        movimientos.add(mov);
+        int stock = 0;
+        for(Movimiento m : movimientos){
+            if(m instanceof Ingreso){
+                stock += m.getCantidad();
+            }else{
+                stock -= m.getCantidad();
+            }
+        }
+        return stock;
     }
 
     public void agregarMovimientoIngreso(MotivoIngreso m, int cantidad) {
-
+        Ingreso ingreso = new Ingreso();
+        ingreso.setFecha(new Date());
+        ingreso.setCantidad(cantidad);
+        ingreso.setMotivo(m);
+        movimientos.add(ingreso);
     }
 
     public void agregarMovimientoEgreso(MotivoEgreso motivo, int cantidad) {
         Egreso egreso = new Egreso();
+        egreso.setFecha(new Date());
         egreso.setCantidad(cantidad);
         egreso.setMotivo(motivo);
-        agregarMovimiento(egreso);
+        movimientos.add(egreso);
+    }
+
+    public void agregarMovimientoEgreso(MotivoEgreso motivo, int cantidad, Usuario encargado, String autorizante, String destino){
+        Egreso egreso = new Egreso();
+        egreso.setFecha(new Date());
+        egreso.setCantidad(cantidad);
+        egreso.setMotivo(motivo);
+        egreso.setEncargado(encargado);
+        egreso.setAutorizante(autorizante);
+        egreso.setDestino(destino);
+        movimientos.add(egreso);
     }
 
     public void reservar(int cantidad) {
-
+        this.agregarMovimientoEgreso(MotivoEgreso.RESERVA, cantidad);
     }
 
     public void liberarReserva(int cantidad) {
-
+        this.agregarMovimientoIngreso(MotivoIngreso.LIBERA_RESERVA, cantidad);
     }
 
     public static Stock fromEntity(StockEntity entity) {
