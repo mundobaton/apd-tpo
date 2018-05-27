@@ -22,18 +22,19 @@ public class SistemaAdministracionTest {
 
     @Test
     public void testCrearCliente() throws BusinessException {
-        sistema.crearCliente(30329616250L, "erica@cliente.com", "123", "Erica Nunez", "4123-4567", "Independencia", 467L, "1099", "Capital", "Bs As", CondicionIva.CONS_FINAL, Zona.CABA, 5000, 500);
+        sistema.crearCliente(1235431125L, "test4@otrocliente.com", "123", "fulano", "4123-4567", "una calle", 1234L, "1406", "Capital", "Bsas", CondicionIva.CONS_FINAL, Zona.CABA, 1000, 500);
     }
 
     @Test
     public void testCrearPedido() throws BusinessException {
-        Pedido p = sistema.generarPedido(30329616250L, "Cordoba", 2057L, "1120", "Capital", "Buenos Aires", Zona.CABA);
+        Pedido p = sistema.generarPedido(1235431125L, "una calle", 123L, "1406", "Capital", "Buenos Aires", Zona.CABA);
         Assert.assertNotNull(p.getId());
     }
 
     @Test
     public void testAgregarItemPedido() throws BusinessException {
-        sistema.agregarItemPedido(38L, 30329616250L, 18L, 200);
+        sistema.agregarItemPedido(39L, 1235431125L, 16L, 700);
+        sistema.agregarItemPedido(39L, 1235431125L, 13L, 200);
     }
 
     @Test

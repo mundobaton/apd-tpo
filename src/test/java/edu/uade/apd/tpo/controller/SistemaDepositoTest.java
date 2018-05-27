@@ -40,7 +40,7 @@ public class SistemaDepositoTest {
         OrdenCompraEntity entity = OrdenCompraDao.getInstance().findById(1L);
         OrdenCompra oc = OrdenCompra.fromEntity(entity);
         List<ItemLote> items = new ArrayList<>();
-        for(int i = 0; i <= 5; i++){
+        for (int i = 0; i <= 5; i++) {
             String loteCod = UUID.randomUUID().toString();
             Lote lote = new Lote();
             lote.setCodigo(loteCod);
@@ -56,11 +56,11 @@ public class SistemaDepositoTest {
     }
 
     @Test
-    public void testAlmacenar() throws BusinessException{
+    public void testAlmacenar() throws BusinessException {
         ArticuloEntity entity = ArticuloDao.getInstance().findById(2L);
         Articulo art = Articulo.fromEntity(entity);
         List<ItemLote> lotes = new ArrayList<>();
-        for(int i = 0; i <= 3; i++){
+        for (int i = 0; i <= 3; i++) {
             String c = UUID.randomUUID().toString();
             Lote lote = new Lote();
             lote.setCodigo(c);
@@ -71,11 +71,11 @@ public class SistemaDepositoTest {
             item.setCantidad(10);
             lotes.add(item);
         }
-        sistema.almacenar(art,lotes, 30);
+        sistema.almacenar(art, lotes, 30);
     }
 
     @Test
-    public void testAceptarOrdenCompra() throws BusinessException{
+    public void testAceptarOrdenCompra() throws BusinessException {
         sistema.aceptarOrdenCompra(1L);
     }
 
@@ -107,6 +107,18 @@ public class SistemaDepositoTest {
     public void testObtenerPedidosACompletar() {
         List<Pedido> pedidos = sistema.obtenerPedidosACompletar();
         Assert.assertNotNull(pedidos);
+    }
+
+    ///
+    @Test
+    public void testAceptarCompra2() throws BusinessException {
+        List<ItemLote> lotes = new ArrayList<>();
+        ItemLote il = new ItemLote();
+        
+
+
+
+        sistema.ingresarCompra(3L, lotes);
     }
 
 }
