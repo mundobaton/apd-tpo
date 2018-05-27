@@ -1,6 +1,8 @@
 package edu.uade.apd.tpo.dao;
 
 import edu.uade.apd.tpo.entity.PosicionEntity;
+import edu.uade.apd.tpo.model.Posicion;
+
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -29,5 +31,15 @@ public class PosicionDao  extends AbstractDao<PosicionEntity> {
 			List<PosicionEntity> result = q.getResultList();
 			return result.isEmpty() ? null : result.get(0);
 		}
+	}
+
+	public List<Posicion> obtenerObtenerPosicionesVacias() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Posicion findByUbicacion(String ubicacion) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -1,6 +1,8 @@
 package edu.uade.apd.tpo.dao;
 
 import edu.uade.apd.tpo.entity.ArticuloEntity;
+import edu.uade.apd.tpo.model.Articulo;
+
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -29,5 +31,15 @@ public class ArticuloDao extends AbstractDao<ArticuloEntity> {
 			List<ArticuloEntity> result = q.getResultList();
 			return result.isEmpty() ? null : result.get(0);
 		}
+	}
+
+	public Articulo findById(Long articuloId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Articulo> findAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

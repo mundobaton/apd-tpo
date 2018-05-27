@@ -2,6 +2,8 @@ package edu.uade.apd.tpo.model;
 
 import java.util.List;
 
+import edu.uade.apd.tpo.dao.ItemPedidoDao;
+
 public class ItemPedido {
 
 	private Long id;
@@ -54,8 +56,26 @@ public class ItemPedido {
 		this.cantidad += cant; 
 	}
 	
+	public void agregarLote(Lote lote, int cantidad) {
+		int index = 0;
+		boolean salir = true;
+		if(this.lotes.get(index) == null) {
+			ItemLote itemLote = new ItemLote();
+			itemLote.setLote(lote);
+			itemLote.setCantidad(cantidad);
+			salir = false;
+		}
+		while(this.lotes.get(index) != null && salir == true) {
+			if(this.lotes.get(index).getLote().getId() == lote.getId())){
+				int cantAnterior = this.lotes.get(index).getCantidad();
+				this.lotes.get(index).setCantidad(cantidad + cantAnterior);
+				salir = false;
+			}
+		}
+	}
+	
 	public void guardar() {
-
+		ItemPedidoDao.getInstance().save(this);
 	}
 
 }

@@ -33,7 +33,7 @@ public class SistemaFacturacion {
 	        return instance;
 	}
 	
-	public Factura buscarFactura(Long faturaId) {
+	public Factura buscarFactura(Long facturaId) {
 		return facturaDao.getInstance().findById(facturaId);
 	}
 	

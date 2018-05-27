@@ -1,6 +1,7 @@
 package edu.uade.apd.tpo.dao;
 
 import edu.uade.apd.tpo.entity.FacturaEntity;
+import edu.uade.apd.tpo.model.Factura;
 
 public class FacturaDao extends AbstractDao<FacturaEntity> {
 
@@ -15,5 +16,10 @@ public class FacturaDao extends AbstractDao<FacturaEntity> {
 			instance = new FacturaDao();
 		}
 		return instance;
+	}
+
+	public Factura findById(Long facturaId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -51,22 +51,22 @@ public class SistemaDeposito {
 			Stock stock = articulo.getStock();
 			stock.agregarMovimientoEgreso(MotivoEgreso.VENTA, cantidadItem);
 			int index = 0;
-			while (cantidadItem >= 0) {
+			while (cantidadItem > 0) {
 				List<Posicion> posiciones = extraerArticulosPosicion(articulo);
 				for(Posicion posicion : posiciones) {
 					ItemPosicion itemPosi = new ItemPosicion();
 					itemPosi.setPosicion(posicion);
 					if(cantidadItem < posicion.getCantidad()) {
-						itemPosi.setCantidad(cantidadItem);
+						itemPedido.agregarLote(posicion.getLote(), cantidadItem);
+						liberarPosicion(posicion.getCodUbicacion(), cantidadItem);
 					}else {
-						itemPosi.setCantidad(posicion.getCantidad());
+						itemPedido.agregarLote(posicion.getLote(), Posicion.getCAPACIDAD());
+						liberarPosicion(posicion.getCodUbicacion(), Posicion.getCAPACIDAD());
 					}
+					cantidadItem -= posicion.getCantidad();
 				}
-				itemPedido.agregarLote(posiciones.get(index).getLote(), cantidad);
-				index++;
 			}
 		}
-		
 		pedido.completar();
 		pedido.guardar();
 	}

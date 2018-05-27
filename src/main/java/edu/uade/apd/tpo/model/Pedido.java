@@ -186,7 +186,7 @@ public class Pedido {
 		this.estados.add(listo);
 		this.envio.setTransportista(transportista);
 	}
-	
+		
 	public void pedidoListo(Remito remito, Transportista transportista) {
 		Estado listo = new Estado();
 		listo.setFecha(new Date());
@@ -194,6 +194,13 @@ public class Pedido {
 		this.estados.add(listo);
 		this.envio.setRemito(remito);
 		this.envio.setTransportista(transportista);
+	}
+	
+	public void enviado() {
+		Estado enviado = new Estado();
+		enviado.setFecha(new Date());
+		enviado.setEstado(EstadoPedido.ENVIADO);
+		this.estados.add(enviado);
 	}
 	
 	public float obtenerTotal() {

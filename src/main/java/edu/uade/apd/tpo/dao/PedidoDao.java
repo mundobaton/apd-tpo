@@ -49,6 +49,16 @@ public class PedidoDao extends AbstractDao<PedidoEntity> {
     	
     }
 
+	public List<Pedido> obtenerPedidosPreAprobadosRevision() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Pedido> obtenerPedidosListos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 

@@ -257,4 +257,13 @@ public class SistemaAdministracion {
     public List<Pedido> obtenerPedidoCompletos(){
     	return pedidoDao.getInstance().obtenerPedidosCompletos();
     }
+    
+    public List<Pedido> obtenerPedidosListos(){
+    	return pedidoDao.getInstance().obtenerPedidosListos();
+    }
+
+	public List<Pedido> obtenerPedidosACompletar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
