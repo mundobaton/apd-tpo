@@ -73,6 +73,7 @@ public class SistemaAdministracion {
     public void crearCliente(Long cuil, String email, String password, String nombre,
                              String telefono, String calle, Long num, String cp, String loc,
                              String prov, CondicionIva condIva, Zona zona, float saldo, float limiteCredito) {
+        //TODO implementar exception
         if (buscarCliente(cuil) != null) {
             Cliente cliente = new Cliente();
             cliente.setEmail(email);
@@ -100,6 +101,7 @@ public class SistemaAdministracion {
 
     public Pedido generarPedido(Long cuil, String calle, Long num, String cp, String loc, String prov, Zona zona) {
         Cliente cliente = buscarCliente(cuil);
+        //TODO implementar exception
         Pedido pedido = new Pedido();
         pedido.setCliente(cliente);
         Domicilio domicilio = new Domicilio();
@@ -123,6 +125,7 @@ public class SistemaAdministracion {
 
     public void agregarItemPedido(Long pedidoId, Long articuloId, int cant) {
         Pedido pedido = buscarPedido(pedidoId);
+        //TODO implementar excepciones pedido y articulo
         if (pedido != null) {
             Articulo articulo = SistemaDeposito.getInstance().buscarArticulo(articuloId);
             if (articulo != null) {
@@ -142,6 +145,7 @@ public class SistemaAdministracion {
 
     public void cerrarPedido(Long pedidoId) {
         Pedido pedido = buscarPedido(pedidoId);
+        //TODO implementar excepcion
         if (pedido != null) {
             pedido.iniciar();
             pedido.guardar();
@@ -158,6 +162,7 @@ public class SistemaAdministracion {
 
     public void aprobarPedido(Long pedidoId) {
         Pedido pedido = buscarPedido(pedidoId);
+        //TODO implementar excepcion
         if (pedido != null) {
             pedido.aprobar();
             notificarClienteEstadoPedido(pedido.getId());
@@ -187,6 +192,7 @@ public class SistemaAdministracion {
 
     public void realizarPago(Long facturaId, float importe, MedioPago mp) {
         Factura factura = SistemaFacturacion.getInstance().buscarFactura(facturaId);
+        //TODO implementar excepcion
         if (factura != null) {
             Cliente cliente = factura.getPedido().getCliente();
             CuentaCorriente ctaCte = cliente.getCuentaCorriente();
@@ -200,6 +206,7 @@ public class SistemaAdministracion {
 
     public void realizarPagoImporte(Long cuil, float importe, MedioPago mp) {
         Cliente cliente = buscarCliente(cuil);
+        //TODO implemnetar exception
         if (cliente != null) {
             CuentaCorriente ctaCte = cliente.getCuentaCorriente();
             float saldo = ctaCte.getSaldo();
@@ -212,6 +219,7 @@ public class SistemaAdministracion {
 
     public void rechazarPedido(Long pedidoId, String motivo) {
         Pedido p = buscarPedido(pedidoId);
+        //TODO implementar excepcion
         if(p != null){
             p.rechazar(motivo);
             p.guardar();
@@ -231,9 +239,9 @@ public class SistemaAdministracion {
     }
 
     public void eliminarItemPedido(Long pedidoId, Long articuloId) {
+        //TODO implementar excepciones
         Articulo articulo = SistemaDeposito.getInstance().buscarArticulo(articuloId);
         Pedido pedido = buscarPedido(pedidoId);
-
         Iterator<ItemPedido> it = pedido.getItems().iterator();
 
         while (it.hasNext()) {
