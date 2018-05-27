@@ -1,5 +1,7 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.entity.ItemLoteEntity;
+
 public class ItemLote {
 	private Long id;
 	private Lote lote;
@@ -31,6 +33,14 @@ public class ItemLote {
 
 	public void guardar() {
 
+	}
+
+	public static ItemLote fromEntity(ItemLoteEntity entity) {
+		return null;
+	}
+
+	public ItemLoteEntity toEntity() {
+		return null;
 	}
 
 }

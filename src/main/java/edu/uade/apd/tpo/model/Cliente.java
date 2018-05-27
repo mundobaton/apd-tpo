@@ -102,4 +102,8 @@ public class Cliente extends Usuario {
         return cli;
     }
 
+    public ClienteEntity toEntity() {
+        return null;
+    }
+
 }

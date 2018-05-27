@@ -1,5 +1,7 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.entity.ArticuloEntity;
+
 import java.util.List;
 
 public class Articulo {
@@ -92,6 +94,14 @@ public class Articulo {
 
 	public void guardar() {
 
+	}
+
+	public static Articulo fromEntity(ArticuloEntity entity) {
+		return null;
+	}
+
+	public ArticuloEntity toEntity() {
+		return null;
 	}
 
 }
