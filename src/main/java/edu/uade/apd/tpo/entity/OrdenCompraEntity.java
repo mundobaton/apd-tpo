@@ -20,7 +20,7 @@ public class OrdenCompraEntity implements Serializable {
 	@Column(name = "estado_id")
 	@Enumerated(EnumType.ORDINAL)
 	private EstadoCompra estado;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "proveedor_id")
 	private ProveedorEntity proveedor;
 	@Column(name = "fecha")

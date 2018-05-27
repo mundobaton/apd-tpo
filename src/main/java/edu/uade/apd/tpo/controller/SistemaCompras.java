@@ -81,7 +81,7 @@ public class SistemaCompras {
      *
      * @return
      */
-    public void procesarOrdenesCompraPendientes(String nombreProv, String cuitProv, String telProv) {
+    public void procesarOrdenesCompraPendientes() {
         List<OrdenCompra> ocs = ordenCompraDao.findByEstado(EstadoCompra.PENDIENTE).parallelStream()
                 .map(oce -> OrdenCompra.fromEntity(oce)).collect(Collectors.toList());
         if (ocs != null) {
