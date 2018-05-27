@@ -30,10 +30,10 @@ public class PedidoEntity implements Serializable {
     private Date fechaEntrega;
     @Column(name = "fecha_despacho")
     private Date fechaDepacho;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "pedido_id")
     private List<ItemPedidoEntity> items;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "pedido_id")
     private List<EstadoEntity> estados;
     @OneToOne(cascade = CascadeType.ALL)

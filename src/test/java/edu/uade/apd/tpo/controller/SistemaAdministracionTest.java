@@ -34,5 +34,13 @@ public class SistemaAdministracionTest {
         Assert.assertNotNull(p.getId());
     }
 
+    @Test
+    public void testAgregarItemPedido() throws BusinessException {
+        sistema.agregarItemPedido(36L, 1235431124L, 16L, 700);
+    }
 
+    @Test
+    public void testCerrarPedido() throws BusinessException {
+        sistema.cerrarPedido(36L, 1235431124L);
+    }
 }

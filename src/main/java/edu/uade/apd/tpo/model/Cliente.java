@@ -1,6 +1,7 @@
 package edu.uade.apd.tpo.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import edu.uade.apd.tpo.dao.ClienteDao;
@@ -123,6 +124,19 @@ public class Cliente extends Usuario {
         }
 
         return entity;
+    }
+
+    public Pedido obtenerPedido(Long pedidoId) {
+        Pedido result = null;
+        if(this.getPedidos() != null) {
+            Iterator<Pedido> it = getPedidos().iterator();
+            while(result == null && it.hasNext()) {
+                Pedido pedido = it.next();
+                result = pedido.getId().longValue() == pedidoId.longValue() ? pedido : null;
+            }
+        }
+
+        return result;
     }
 
 }

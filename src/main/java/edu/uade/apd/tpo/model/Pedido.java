@@ -18,7 +18,7 @@ public class Pedido {
     private Date fechaEntrega;
     private Date fechaDespacho;
     private List<ItemPedido> items;
-    private List<Estado> estados;
+    private List<Estado> estados = new ArrayList<>();
     private Factura factura;
     private Envio envio;
 

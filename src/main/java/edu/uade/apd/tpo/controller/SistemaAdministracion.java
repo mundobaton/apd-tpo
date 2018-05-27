@@ -154,13 +154,17 @@ public class SistemaAdministracion {
         return null;
     }
 
-    public void agregarItemPedido(Long pedidoId, Long articuloId, int cant) throws BusinessException {
-        Pedido pedido = buscarPedido(pedidoId);
+    public void agregarItemPedido(Long pedidoId, Long cuil, Long articuloId, int cant) throws BusinessException {
+        Cliente cliente = buscarCliente(cuil);
+        if (cliente == null) {
+            throw new BusinessException("El cliente con cuil'" + cuil + "' no existe");
+        }
+        Pedido pedido = cliente.obtenerPedido(pedidoId);
         if (pedido != null) {
             Articulo articulo = SistemaDeposito.getInstance().buscarArticulo(articuloId);
             if (articulo != null) {
                 pedido.agregarItem(articulo, cant);
-                pedido.guardar();
+                cliente.guardar();
             } else {
                 throw new BusinessException("No existe articulo");
             }
@@ -169,34 +173,35 @@ public class SistemaAdministracion {
         }
     }
 
-    private boolean validarCtaCteCliente(Pedido pedido) {
-        //TODO buscar cliente por pedido
-        return false;
-        /*
-        return (pedido.getCliente().getCuentaCorriente().getSaldo()
-                + pedido.getCliente().getCuentaCorriente().getLimiteCredito()) >= pedido.obtenerTotal();
-                */
+    private boolean validarCtaCteCliente(Pedido pedido, Cliente cliente) {
+        return (cliente.getCuentaCorriente().getSaldo()
+                + cliente.getCuentaCorriente().getLimiteCredito()) >= pedido.obtenerTotal();
+
     }
 
     public void notificarClienteEstadoPedido(Long pedidoId) throws BusinessException {
-        throw new BusinessException("El estado del pedido :" + pedidoId);
+        //TODO
     }
 
-    public void cerrarPedido(Long pedidoId) throws BusinessException {
-        Pedido pedido = buscarPedido(pedidoId);
+    public void cerrarPedido(Long pedidoId, Long cuil) throws BusinessException {
+        Cliente cliente = buscarCliente(cuil);
+        if (cliente == null) {
+            throw new BusinessException("El cliente con cuil '" + cuil + "' no existe");
+        }
+        Pedido pedido = cliente.obtenerPedido(pedidoId);
         if (pedido != null) {
             pedido.iniciar();
-            pedido.guardar();
+            cliente.guardar();
             notificarClienteEstadoPedido(pedido.getId());
 
-            if (validarCtaCteCliente(pedido)) {
+            if (validarCtaCteCliente(pedido, cliente)) {
                 pedido.preAprobar();
             } else {
                 pedido.revision();
             }
-            pedido.guardar();
+            cliente.guardar();
         } else {
-            throw new BusinessException("No existe pedido");
+            throw new BusinessException("El pedido '" + pedidoId + "' no existe o no pertenece al usuario");
         }
 
     }
