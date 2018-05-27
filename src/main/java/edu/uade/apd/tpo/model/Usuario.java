@@ -34,8 +34,8 @@ public class Usuario {
         this.id = id;
     }
 
-    public void guardar() {
-        UsuarioDao.getInstance().save(this.toEntity());
+    public Usuario guardar() {
+        return Usuario.fromEntity(UsuarioDao.getInstance().save(this.toEntity()));
     }
 
     public Rol getRol() {

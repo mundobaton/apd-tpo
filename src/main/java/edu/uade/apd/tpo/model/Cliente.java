@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.uade.apd.tpo.dao.ClienteDao;
+import edu.uade.apd.tpo.dao.UsuarioDao;
 import edu.uade.apd.tpo.entity.ClienteEntity;
 import edu.uade.apd.tpo.entity.PedidoEntity;
 
@@ -73,8 +74,8 @@ public class Cliente extends Usuario {
         this.pedidos = pedidos;
     }
 
-    public void guardar() {
-        ClienteDao.getInstance().save(this.toEntity());
+    public Cliente guardar() {
+        return Cliente.fromEntity(ClienteDao.getInstance().save(this.toEntity()));
     }
 
     public static Cliente fromEntity(ClienteEntity entity) {

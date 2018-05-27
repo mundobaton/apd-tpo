@@ -33,10 +33,6 @@ public class PedidoDao extends AbstractDao<PedidoEntity> {
         }
     }
 
-    public void save(PedidoEntity pedido) {
-        super.save(pedido);
-    }
-
     public List<PedidoEntity> obtenerPedidosCompletos() {
 
         String query = "select p from PedidoEntity p inner join p.estados as e " +

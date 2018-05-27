@@ -1,5 +1,7 @@
 package edu.uade.apd.tpo.controller;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -121,6 +123,7 @@ public class SistemaAdministracion {
         Cliente cliente = buscarCliente(cuil);
         if (cliente != null) {
             Pedido pedido = new Pedido();
+            pedido.setFechaPedido(new Date());
             Domicilio domicilio = new Domicilio();
             domicilio.setCalle(calle);
             domicilio.setNumero(num);
@@ -131,8 +134,12 @@ public class SistemaAdministracion {
             Envio envio = new Envio();
             envio.setDomicilio(domicilio);
             pedido.setEnvio(envio);
-            pedido.guardar();
-            return pedido;
+            if (cliente.getPedidos() == null) {
+                cliente.setPedidos(new ArrayList<>());
+            }
+            cliente.getPedidos().add(pedido);
+            cliente = cliente.guardar();
+            return cliente.getPedidos().get(cliente.getPedidos().size() - 1);
         } else {
             throw new BusinessException("No existe el cliente con cuil: " + cuil);
         }
