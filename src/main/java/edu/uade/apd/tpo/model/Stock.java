@@ -74,7 +74,7 @@ public class Stock {
     }
 
     public void liberarReserva(int cantidad) {
-        this.agregarMovimientoIngreso(MotivoIngreso.LIB_RESERVA, cantidad);
+        this.agregarMovimientoIngreso(MotivoIngreso.LIBERA_RESERVA, cantidad);
     }
 
     public static Stock fromEntity(StockEntity entity) {

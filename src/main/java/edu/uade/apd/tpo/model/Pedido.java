@@ -116,7 +116,6 @@ public class Pedido {
         Estado iniciar = new Estado();
         iniciar.setEstado(EstadoPedido.INICIADO);
         iniciar.setFecha(new Date());
-        iniciar.setMotivo(null);
         this.setFechaPedido(new Date());
         this.estados.add(iniciar);
     }
@@ -135,14 +134,19 @@ public class Pedido {
         this.estados.add(revision);
     }
 
-    public void aprobar() {
+    public void aprobar(String motivo) {
+
         Estado aprobado = new Estado();
-        aprobado.setMotivo("Aprobación del pedido");
+
+        if(this.estados.get(0).equals(EstadoPedido.EN_REVISION)){
+            aprobado.setMotivo(motivo);
+        }else{
+            aprobado.setMotivo("Pedido aprobado por el administrador.");
+        }
         aprobado.setEstado(EstadoPedido.APROBADO);
         aprobado.setFecha(new Date());
         this.estados.add(aprobado);
     }
-
 
     public void rechazar(String motivo) {
         Estado rechazado = new Estado();
@@ -184,15 +188,6 @@ public class Pedido {
         this.envio.setTransportista(transportista);
     }
 
-    public void pedidoListo(Remito remito, Transportista transportista) {
-        Estado listo = new Estado();
-        listo.setFecha(new Date());
-        listo.setEstado(EstadoPedido.LISTO);
-        this.estados.add(listo);
-        this.envio.setRemito(remito);
-        this.envio.setTransportista(transportista);
-    }
-
     public void enviado() {
         Estado enviado = new Estado();
         enviado.setFecha(new Date());
@@ -203,7 +198,7 @@ public class Pedido {
     public float obtenerTotal() {
         float total = 0;
         for (ItemPedido item : this.items) {
-            total = total + item.getSubTotal();
+            total += item.calcularSubTotal();
         }
         return total;
     }
@@ -223,7 +218,7 @@ public class Pedido {
             pedido.setId(entity.getId());
             pedido.setFechaPedido(entity.getFechaPedido());
             pedido.setFechaEntrega(entity.getFechaEntrega());
-            pedido.setFechaDepacho(entity.getFechaDepacho());
+            pedido.setFechaDespacho(entity.getFechaDepacho());
             if (entity.getItems() != null) {
                 pedido.setItems(new ArrayList<>());
                 for (ItemPedidoEntity ipe : entity.getItems()) {

@@ -12,7 +12,6 @@ public class ItemPedido {
     private Long id;
     private Articulo articulo;
     private int cantidad;
-    private float subTotal;
     private List<ItemLote> lotes;
 
     public Long getId() {
@@ -39,12 +38,8 @@ public class ItemPedido {
         this.cantidad = cantidad;
     }
 
-    public float getSubTotal() {
-        return subTotal;
-    }
-
-    public void setSubTotal(float subTotal) {
-        this.subTotal = subTotal;
+    public float calcularSubTotal() {
+        return this.cantidad * this.articulo.getPrecio();
     }
 
     public List<ItemLote> getLotes() {
@@ -86,7 +81,6 @@ public class ItemPedido {
             ip.setId(entity.getId());
             ip.setArticulo(ip.getArticulo().fromEntity(entity.getArticulo()));
             ip.setCantidad(entity.getCantidad());
-            ip.setSubTotal(entity.getSubTotal());
             if (entity.getLotes() != null) {
                 ip.setLotes(new ArrayList<>());
                 for (ItemLoteEntity ile : entity.getLotes()) {
@@ -103,7 +97,6 @@ public class ItemPedido {
         entity.setId(id);
         entity.setArticulo(articulo.toEntity());
         entity.setCantidad(cantidad);
-        entity.setSubTotal(subTotal);
         if (lotes != null) {
             entity.setLotes(new ArrayList<>());
             for (ItemLote il : lotes) {
