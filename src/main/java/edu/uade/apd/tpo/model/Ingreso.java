@@ -15,14 +15,6 @@ public class Ingreso extends Movimiento {
         this.motivo = motivo;
     }
 
-    public void guardar() {
-        IngresoDao.getInstance().save(this.toEntity());
-    }
-
-    public int cantidad() {
-        return this.cantidad;
-    }
-
     public static Ingreso fromEntity(IngresoEntity entity) {
         Ingreso i = null;
         if (entity != null) {
@@ -43,6 +35,10 @@ public class Ingreso extends Movimiento {
         entity.setMotivo(motivo);
 
         return entity;
+    }
+
+    public void guardar(){
+        IngresoDao.getInstance().save(this.toEntity());
     }
 
 }

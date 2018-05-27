@@ -55,10 +55,12 @@ public class ItemPedido {
         this.lotes = lotes;
     }
 
-    public void actualizar(int cant) {
-        this.cantidad += cant;
+    //TODO revisar comportamiento de la funcion
+    public void actualizar(int cantidad) {
+        this.cantidad += cantidad;
     }
 
+    //TODO revisar comportamiento de la funcion
     public void agregarLote(Lote lote, int cantidad) {
         int index = 0;
         boolean salir = true;
@@ -75,10 +77,6 @@ public class ItemPedido {
                 salir = false;
             }
         }
-    }
-
-    public void guardar() {
-        ItemPedidoDao.getInstance().save(this.toEntity());
     }
 
     public static ItemPedido fromEntity(ItemPedidoEntity entity) {
@@ -113,6 +111,10 @@ public class ItemPedido {
             }
         }
         return entity;
+    }
+
+    public void guardar() {
+        ItemPedidoDao.getInstance().save(this.toEntity());
     }
 
 }

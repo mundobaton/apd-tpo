@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Lote {
+
     private Long id;
     private String codigo;
     private Date fechaVto;

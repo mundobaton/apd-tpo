@@ -47,12 +47,12 @@ public class Pedido {
         this.fechaEntrega = fechaEntrega;
     }
 
-    public Date getFechaDepacho() {
+    public Date getFechaDespacho() {
         return fechaDespacho;
     }
 
-    public void setFechaDepacho(Date fechaDepacho) {
-        this.fechaDespacho = fechaDepacho;
+    public void setFechaDespacho(Date fechaDespacho) {
+        this.fechaDespacho = fechaDespacho;
     }
 
     public List<ItemPedido> getItems() {
@@ -95,6 +95,23 @@ public class Pedido {
         this.envio = envio;
     }
 
+    public void agregarItem(Articulo articulo, int cantidad) {
+        boolean itemExiste = false;
+
+        for (ItemPedido i : this.items) {
+            if (i.getArticulo().getId() == articulo.getId()) {
+                i.actualizar(cantidad);
+                itemExiste = true;
+            }
+        }
+        if (!itemExiste) {
+            ItemPedido item = new ItemPedido();
+            item.setArticulo(articulo);
+            item.setCantidad(cantidad);
+            this.items.add(item);
+        }
+    }
+
     public void iniciar() {
         Estado iniciar = new Estado();
         iniciar.setEstado(EstadoPedido.INICIADO);
@@ -102,40 +119,6 @@ public class Pedido {
         iniciar.setMotivo(null);
         this.setFechaPedido(new Date());
         this.estados.add(iniciar);
-    }
-
-    public void agregarItem(Articulo articulo, int cantidad) {
-        int i = 0;
-        boolean temp = false;
-        ItemPedido items = new ItemPedido();
-        for (ItemPedido item : this.items) {
-            if (item.getArticulo().getId() == articulo.getId()) {
-                this.items.get(i).actualizar(cantidad);
-                temp = true;
-            }
-            i++;
-        }
-        if (!temp) {
-            items.setArticulo(articulo);
-            items.setCantidad(cantidad);
-            this.items.add(items);
-        }
-    }
-
-    public void cerrar() {
-        Estado cerrar = new Estado();
-        cerrar.setEstado(EstadoPedido.INICIADO);
-        cerrar.setFecha(new Date());
-        this.estados.add(cerrar);
-
-    }
-
-    public void aprobar() {
-        Estado aprobado = new Estado();
-        aprobado.setMotivo("Aprobación del pedido");
-        aprobado.setEstado(EstadoPedido.APROBADO);
-        aprobado.setFecha(new Date());
-        this.estados.add(aprobado);
     }
 
     public void preAprobar() {
@@ -152,6 +135,15 @@ public class Pedido {
         this.estados.add(revision);
     }
 
+    public void aprobar() {
+        Estado aprobado = new Estado();
+        aprobado.setMotivo("Aprobación del pedido");
+        aprobado.setEstado(EstadoPedido.APROBADO);
+        aprobado.setFecha(new Date());
+        this.estados.add(aprobado);
+    }
+
+
     public void rechazar(String motivo) {
         Estado rechazado = new Estado();
         rechazado.setEstado(EstadoPedido.RECHAZADO);
@@ -162,7 +154,7 @@ public class Pedido {
 
     public void completar() {
         Estado completo = new Estado();
-        completo.setEstado(EstadoPedido.COPMPLETO);
+        completo.setEstado(EstadoPedido.COMPLETO);
         completo.setFecha(new Date());
         this.estados.add(completo);
 

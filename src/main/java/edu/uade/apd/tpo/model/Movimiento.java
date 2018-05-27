@@ -30,10 +30,4 @@ public abstract class Movimiento {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
-
-	public int obtenerCantidad() {
-		return cantidad;
-	}
-
-
 }

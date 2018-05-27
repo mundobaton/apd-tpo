@@ -10,7 +10,6 @@ public class Egreso extends Movimiento {
     private String autorizante;
     private String destino;
 
-
     public MotivoEgreso getMotivo() {
         return motivo;
     }
@@ -41,10 +40,6 @@ public class Egreso extends Movimiento {
 
     public void setDestino(String destino) {
         this.destino = destino;
-    }
-
-    public int cantidad() {
-        return this.cantidad;
     }
 
     public static Egreso fromEntity(EgresoEntity entity) {
