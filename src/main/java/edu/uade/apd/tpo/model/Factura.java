@@ -83,14 +83,6 @@ public class Factura {
         IMPUESTOS = iMPUESTOS;
     }
 
-    public static Factura fromEntity(FacturaEntity entity) {
-        return null;
-    }
-
-    public FacturaEntity toEntity() {
-        return null;
-    }
-
 	public static Factura fromEntity(FacturaEntity entity) {
 		Factura f = null;
 		if(entity != null){
