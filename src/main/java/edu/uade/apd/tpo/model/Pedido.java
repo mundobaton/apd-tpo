@@ -220,9 +220,37 @@ public class Pedido {
 		return envio.calcular();
 	}
 
-	public static Pedido fromEntity(PedidoEntity entity) {
+	public static Pedido fromEntity(PedidoEntity entity, Cliente cli) {
+		Pedido pedido = null;
+		if(entity != null) {
+			pedido = new Pedido();
+			pedido.setCliente(cli);
+			pedido.setId(entity.getId());
+			pedido.setFechaPedido(entity.getFechaPedido());
+			pedido.setFechaEntrega(entity.getFechaEntrega());
+			pedido.setFechaDepacho(entity.getFechaDepacho());
+			if(entity.getItems() != null) {
+
+			}
+
+		}
+
+
+		/*
+		private Long id;
+	private Date fechaPedido;
+	private Date fechaEntrega;
+	private Date fechaDespacho;
+	private List<ItemPedido> items;
+	private List<Estado> estados;
+	private Cliente cliente;
+	private Factura factura;
+	private Envio envio;
+		 */
+
+
 		//TODO
-		return null;
+		return pedido;
 	}
 
 	public PedidoEntity toEntity() {

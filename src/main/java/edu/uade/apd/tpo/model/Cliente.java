@@ -5,6 +5,7 @@ import java.util.List;
 
 import edu.uade.apd.tpo.dao.ClienteDao;
 import edu.uade.apd.tpo.entity.ClienteEntity;
+import edu.uade.apd.tpo.entity.PedidoEntity;
 
 public class Cliente extends Usuario {
 
@@ -79,6 +80,7 @@ public class Cliente extends Usuario {
     public static Cliente fromEntity(ClienteEntity entity) {
         Cliente cli = null;
         if (entity != null) {
+
             cli = new Cliente();
             cli.setId(entity.getId());
             cli.setEmail(entity.getEmail());
@@ -90,10 +92,12 @@ public class Cliente extends Usuario {
             cli.setDomicilio(Domicilio.fromEntity(entity.getDomicilio()));
             cli.setCondIva(entity.getCondIva());
             cli.setCuentaCorriente(CuentaCorriente.fromEntity(entity.getCuentaCorriente()));
-            
-
-
-            private List<Pedido> pedidos;
+            if(entity.getPedidos() != null) {
+                cli.setPedidos(new ArrayList<>());
+                for (PedidoEntity pe : entity.getPedidos()) {
+                    cli.getPedidos().add(Pedido.fromEntity(pe, cli));
+                }
+            }
         }
         return cli;
     }
