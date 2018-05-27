@@ -1,5 +1,7 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.entity.CuentaCorrienteEntity;
+
 import java.util.List;
 
 public class CuentaCorriente {
@@ -43,6 +45,16 @@ public class CuentaCorriente {
 
 	public void guardar() {
 
+	}
+
+	public static CuentaCorriente fromEntity(CuentaCorrienteEntity entity) {
+		//TODO
+		return null;
+	}
+
+	public CuentaCorrienteEntity toEntity() {
+		//TODO
+		return null;
 	}
 
 }

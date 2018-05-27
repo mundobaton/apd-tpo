@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import edu.uade.apd.tpo.dao.PedidoDao;
+import edu.uade.apd.tpo.entity.PedidoEntity;
 
 public class Pedido {
 
@@ -212,11 +213,21 @@ public class Pedido {
 	}
 
 	public void guardar() {
-		PedidoDao.getInstance().save(this);
+		//PedidoDao.getInstance().save(this);
 	}
 	
 	public float calcularCostoEnvio() {
 		return envio.calcular();
+	}
+
+	public static Pedido fromEntity(PedidoEntity entity) {
+		//TODO
+		return null;
+	}
+
+	public PedidoEntity toEntity() {
+		//TODO
+		return null;
 	}
 
 }

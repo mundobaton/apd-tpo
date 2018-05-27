@@ -1,72 +1,86 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.entity.DomicilioEntity;
+
 public class Domicilio {
 
-	private Long id;
-	private String calle;
-	private Long numero;
-	private String codPostal;
-	private String localidad;
-	private String provincia;
-	private Zona zona;
+    private Long id;
+    private String calle;
+    private Long numero;
+    private String codPostal;
+    private String localidad;
+    private String provincia;
+    private Zona zona;
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getCalle() {
-		return calle;
-	}
+    public String getCalle() {
+        return calle;
+    }
 
-	public void setCalle(String calle) {
-		this.calle = calle;
-	}
+    public void setCalle(String calle) {
+        this.calle = calle;
+    }
 
-	public Long getNumero() {
-		return numero;
-	}
+    public Long getNumero() {
+        return numero;
+    }
 
-	public void setNumero(Long numero) {
-		this.numero = numero;
-	}
+    public void setNumero(Long numero) {
+        this.numero = numero;
+    }
 
-	public String getCodPostal() {
-		return codPostal;
-	}
+    public String getCodPostal() {
+        return codPostal;
+    }
 
-	public void setCodPostal(String codPostal) {
-		this.codPostal = codPostal;
-	}
+    public void setCodPostal(String codPostal) {
+        this.codPostal = codPostal;
+    }
 
-	public String getLocalidad() {
-		return localidad;
-	}
+    public String getLocalidad() {
+        return localidad;
+    }
 
-	public void setLocalidad(String localidad) {
-		this.localidad = localidad;
-	}
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
 
-	public String getProvincia() {
-		return provincia;
-	}
+    public String getProvincia() {
+        return provincia;
+    }
 
-	public void setProvincia(String provincia) {
-		this.provincia = provincia;
-	}
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
 
-	public Zona getZona() {
-		return zona;
-	}
+    public Zona getZona() {
+        return zona;
+    }
 
-	public void setZona(Zona zona) {
-		this.zona = zona;
-	}
+    public void setZona(Zona zona) {
+        this.zona = zona;
+    }
 
-	public void guardar() {
+    public void guardar() {
 
-	}
+    }
+
+    public static Domicilio fromEntity(DomicilioEntity entity) {
+        //TODO
+        return null;
+    }
+
+    public DomicilioEntity toEntity() {
+        //TODO
+        return null;
+    }
+
+
 }
