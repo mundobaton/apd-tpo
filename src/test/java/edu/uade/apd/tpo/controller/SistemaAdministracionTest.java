@@ -52,4 +52,14 @@ public class SistemaAdministracionTest {
         Articulo art = sistema.crearArticulo("54209988", "Berenjena", "Bolsa", "1kg", 15000, 1, 70);
         Assert.assertNotNull(art);
     }
+
+    @Test
+    public void testVerPedido(){
+        Pedido p = sistema.buscarPedido(43L);
+        if(p.getItems()!=null){
+            for(ItemPedido i : p.getItems()){
+                System.out.println(i.getArticulo().getDescripcion() + ": "+ i.getArticulo().getStock().calcular());
+            }
+        }
+    }
 }
