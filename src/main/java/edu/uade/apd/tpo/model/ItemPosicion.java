@@ -2,6 +2,7 @@ package edu.uade.apd.tpo.model;
 
 import edu.uade.apd.tpo.dao.ItemPosicionDao;
 import edu.uade.apd.tpo.entity.ItemPosicionEntity;
+import edu.uade.apd.tpo.repository.stub.ItemPosicionStub;
 
 public class ItemPosicion {
 
@@ -44,11 +45,30 @@ public class ItemPosicion {
         return ip;
     }
 
+    public static ItemPosicion fromStub(ItemPosicionStub ipe) {
+        ItemPosicion ip = null;
+        if (ipe != null) {
+            ip = new ItemPosicion();
+            ip.setId(ipe.getId());
+            ip.setCantidad(ipe.getCantidad());
+            ip.setPosicion(Posicion.fromStub(ipe.getPosicion()));
+        }
+        return ip;
+    }
+
     public ItemPosicionEntity toEntity() {
         ItemPosicionEntity ipe = new ItemPosicionEntity();
         ipe.setId(id);
         ipe.setCantidad(cantidad);
         ipe.setPosicion(posicion != null ? posicion.toEntity() : null);
+        return ipe;
+    }
+
+    public ItemPosicionStub toStub() {
+        ItemPosicionStub ipe = new ItemPosicionStub();
+        ipe.setId(id);
+        ipe.setCantidad(cantidad);
+        ipe.setPosicion(posicion != null ? posicion.toStub() : null);
         return ipe;
     }
 

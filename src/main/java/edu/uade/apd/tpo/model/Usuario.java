@@ -2,6 +2,7 @@ package edu.uade.apd.tpo.model;
 
 import edu.uade.apd.tpo.dao.UsuarioDao;
 import edu.uade.apd.tpo.entity.UsuarioEntity;
+import edu.uade.apd.tpo.repository.stub.UsuarioStub;
 
 public class Usuario {
 
@@ -58,6 +59,18 @@ public class Usuario {
         return u;
     }
 
+    public static Usuario fromStub(UsuarioStub stub) {
+        Usuario u = null;
+        if (stub != null) {
+            u = new Usuario();
+            u.setId(stub.getId());
+            u.setEmail(stub.getEmail());
+            u.setPassword(stub.getPassword());
+            u.setRol(Rol.fromStub(stub.getRol()));
+        }
+        return u;
+    }
+
     public UsuarioEntity toEntity() {
         UsuarioEntity entity = new UsuarioEntity();
         entity.setId(id);
@@ -65,5 +78,14 @@ public class Usuario {
         entity.setPassword(password);
         entity.setRol(rol);
         return entity;
+    }
+
+    public UsuarioStub toStub() {
+        UsuarioStub stub = new UsuarioStub();
+        stub.setId(id);
+        stub.setEmail(email);
+        stub.setPassword(password);
+        stub.setRol(rol.toStub());
+        return stub;
     }
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import edu.uade.apd.tpo.dao.ItemPedidoDao;
 import edu.uade.apd.tpo.entity.ItemLoteEntity;
 import edu.uade.apd.tpo.entity.ItemPedidoEntity;
+import edu.uade.apd.tpo.repository.stub.ItemLoteStub;
+import edu.uade.apd.tpo.repository.stub.ItemPedidoStub;
 
 public class ItemPedido {
 
@@ -92,6 +94,24 @@ public class ItemPedido {
         return ip;
     }
 
+    public static ItemPedido fromStub(ItemPedidoStub stub) {
+        ItemPedido ip = null;
+        if (stub != null) {
+            ip = new ItemPedido();
+            ip.setId(stub.getId());
+            ip.setArticulo(ip.getArticulo().fromStub(stub.getArticulo()));
+            ip.setCantidad(stub.getCantidad());
+            if (stub.getLotes() != null) {
+                ip.setLotes(new ArrayList<>());
+                for (ItemLoteStub ile : stub.getLotes()) {
+                    ip.getLotes().add(ItemLote.fromStub(ile));
+                }
+            }
+        }
+
+        return ip;
+    }
+
     public ItemPedidoEntity toEntity() {
         ItemPedidoEntity entity = new ItemPedidoEntity();
         entity.setId(id);
@@ -104,6 +124,20 @@ public class ItemPedido {
             }
         }
         return entity;
+    }
+
+    public ItemPedidoStub toStub() {
+        ItemPedidoStub stub = new ItemPedidoStub();
+        stub.setId(id);
+        stub.setArticulo(articulo.toStub());
+        stub.setCantidad(cantidad);
+        if (lotes != null) {
+            stub.setLotes(new ArrayList<>());
+            for (ItemLote il : lotes) {
+                stub.getLotes().add(il.toStub());
+            }
+        }
+        return stub;
     }
 
     public void guardar() {

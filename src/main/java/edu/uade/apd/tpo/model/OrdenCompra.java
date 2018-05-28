@@ -4,6 +4,7 @@ import java.util.Date;
 
 import edu.uade.apd.tpo.dao.OrdenCompraDao;
 import edu.uade.apd.tpo.entity.OrdenCompraEntity;
+import edu.uade.apd.tpo.repository.stub.OrdenCompraStub;
 
 public class OrdenCompra {
     private Long id;
@@ -79,6 +80,20 @@ public class OrdenCompra {
         return oc;
     }
 
+    public static OrdenCompra fromStub(OrdenCompraStub stub) {
+        OrdenCompra oc = null;
+        if (stub != null) {
+            oc = new OrdenCompra();
+            oc.setId(stub.getId());
+            oc.setFecha(stub.getFecha());
+            oc.setEstado(EstadoCompra.fromStub(stub.getEstado()));
+            oc.setArticulo(Articulo.fromStub(stub.getArticulo()));
+            oc.setProveedor(Proveedor.fromStub(stub.getProveedor()));
+            oc.setPedido(Pedido.fromStub(stub.getPedido()));
+        }
+        return oc;
+    }
+
     public OrdenCompraEntity toEntity() {
         OrdenCompraEntity entity = new OrdenCompraEntity();
         entity.setId(id);
@@ -88,6 +103,17 @@ public class OrdenCompra {
         entity.setProveedor(proveedor != null ? proveedor.toEntity() : null);
         entity.setPedido(pedido != null ? pedido.toEntity() : null);
         return entity;
+    }
+
+    public OrdenCompraStub toStub() {
+        OrdenCompraStub stub = new OrdenCompraStub();
+        stub.setId(id);
+        stub.setFecha(fecha);
+        stub.setEstado(estado.toStub());
+        stub.setArticulo(articulo != null ? articulo.toStub() : null);
+        stub.setProveedor(proveedor != null ? proveedor.toStub() : null);
+        stub.setPedido(pedido != null ? pedido.toStub() : null);
+        return stub;
     }
 
 }

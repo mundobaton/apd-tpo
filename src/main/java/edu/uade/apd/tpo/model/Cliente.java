@@ -106,7 +106,7 @@ public class Cliente extends Usuario {
         }
         return cli;
     }
-/*
+
     public static Cliente fromStub(ClienteStub stub) {
         Cliente cli = null;
         if (stub != null) {
@@ -153,7 +153,7 @@ public class Cliente extends Usuario {
 
         return stub;
     }
-*/
+
     public ClienteEntity toEntity() {
         ClienteEntity entity = new ClienteEntity();
         entity.setId(id);

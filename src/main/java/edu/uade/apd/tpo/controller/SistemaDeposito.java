@@ -42,7 +42,7 @@ public class SistemaDeposito {
     }
 
     public Articulo buscarArticulo(Long articuloId) {
-        ArticuloEntity art = articuloDao.getInstance().findById(articuloId);
+        ArticuloEntity art = articuloDao.findById(articuloId);
         Articulo articulo = Articulo.fromEntity(art);
         return articulo;
     }
@@ -97,14 +97,21 @@ public class SistemaDeposito {
         almacenar(articulo, items, cantidad);
         aceptarOrdenCompra(ordenId);
     }
+    
+    public List<PosicionEntity> obtenerPosicionesVacias(int cantidad){
+    	return posicionDao.obtenerObtenerPosicionesVacias(cantidad);
+    }
 
     public void almacenar(Articulo articulo, List<ItemLote> itemLotes, int cantidad) throws BusinessException {
-        List<Lote> lotes = articulo.getLotes();
-        Stock stock = articulo.getStock();
+        //List<Lote> lotes = articulo.getLotes();
+        List<Lote> lotes = new ArrayList<>();
+    	Stock stock = articulo.getStock();
         stock.agregarMovimientoIngreso(MotivoIngreso.COMPRA, cantidad);
         articulo.setStock(stock);
-
-        List<PosicionEntity> entities = posicionDao.obtenerObtenerPosicionesVacias();
+        
+        int cantidadDePosiciones = (cantidad / Posicion.getCAPACIDAD()) + 1;
+        List<PosicionEntity> entities = obtenerPosicionesVacias(cantidadDePosiciones);
+        
         List<Posicion> posiciones = new ArrayList<>();
 
         for (PosicionEntity entity : entities) {
@@ -136,7 +143,7 @@ public class SistemaDeposito {
                 }
                 index = 0;
             }
-            articulo.setLotes(lotes);
+            articulo.getLotes().addAll(lotes);
             articulo.guardar();
         } else {
             throw new BusinessException("No hay lugar suficiente");
@@ -148,7 +155,7 @@ public class SistemaDeposito {
     }
 
     public Posicion buscarPosicionPorUbicacion(String ubicacion) {
-        PosicionEntity pe = posicionDao.getInstance().findByUbicacion(ubicacion);
+        PosicionEntity pe = posicionDao.findByUbicacion(ubicacion);
         Posicion pos = Posicion.fromEntity(pe);
         return pos;
     }
@@ -168,7 +175,7 @@ public class SistemaDeposito {
     }
 
     public List<Articulo> obtenerArticulos() {
-        List<ArticuloEntity> entities = articuloDao.getInstance().findAll();
+        List<ArticuloEntity> entities = articuloDao.findAll();
         List<Articulo> articulos = new ArrayList<>();
 
         for (ArticuloEntity entity : entities) {
@@ -192,7 +199,7 @@ public class SistemaDeposito {
     }
     
     public void inicializarPosiciones() throws BusinessException {
-    	List<PosicionEntity> posicionesEntity = posicionDao.getInstance().findAll();
+    	List<PosicionEntity> posicionesEntity = posicionDao.findAll();
     	char[] calles = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
     	String[] bloques = {"01", "02", "03"};
     	String[] estanterias = {"01", "02", "03", "04", "05"};

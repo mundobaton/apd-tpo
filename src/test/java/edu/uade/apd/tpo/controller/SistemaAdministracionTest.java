@@ -17,7 +17,7 @@ public class SistemaAdministracionTest {
 
     @Test
     public void testCrearUsuario() throws BusinessException {
-        sistema.crearUsuario("erica@mail.com", "12345", Rol.TODOS);
+        sistema.crearUsuario("erica@mail.com2", "12345", Rol.TODOS);
     }
 
     @Test

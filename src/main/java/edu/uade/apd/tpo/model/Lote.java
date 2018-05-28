@@ -4,6 +4,8 @@ import edu.uade.apd.tpo.dao.LoteDao;
 import edu.uade.apd.tpo.entity.ArticuloEntity;
 import edu.uade.apd.tpo.entity.LoteEntity;
 import edu.uade.apd.tpo.entity.PosicionEntity;
+import edu.uade.apd.tpo.repository.stub.LoteStub;
+import edu.uade.apd.tpo.repository.stub.PosicionStub;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -79,6 +81,24 @@ public class Lote {
         return l;
     }
 
+    public static Lote fromStub(LoteStub stub) {
+        Lote l = null;
+        if (stub != null) {
+            l = new Lote();
+            l.setId(stub.getId());
+            l.setCodigo(stub.getCodigo());
+            l.setFechaElaboracion(stub.getFechaElaboracion());
+            l.setFechaVto(stub.getFechaVto());
+            if (stub.getPosiciones() != null) {
+                l.setPosiciones(new ArrayList<>());
+                for (PosicionStub pe : stub.getPosiciones()) {
+                    l.getPosiciones().add(Posicion.fromStub(pe));
+                }
+            }
+        }
+        return l;
+    }
+
     public LoteEntity toEntity() {
         LoteEntity entity = new LoteEntity();
         entity.setId(id);
@@ -93,6 +113,22 @@ public class Lote {
             }
         }
         return entity;
+    }
+
+    public LoteStub toStub() {
+        LoteStub stub = new LoteStub();
+        stub.setId(id);
+        stub.setCodigo(codigo);
+        stub.setFechaElaboracion(fechaElaboracion);
+        stub.setFechaVto(fechaVto);
+
+        if (posiciones != null) {
+            stub.setPosiciones(new ArrayList<>());
+            for (Posicion p : posiciones) {
+                stub.getPosiciones().add(p.toStub());
+            }
+        }
+        return stub;
     }
 
 }

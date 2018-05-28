@@ -32,10 +32,11 @@ public class PosicionDao extends AbstractDao<PosicionEntity> {
         }
     }
 
-    public List<PosicionEntity> obtenerObtenerPosicionesVacias() {
+    public List<PosicionEntity> obtenerObtenerPosicionesVacias(int cantidad) {
         String query = "select p from PosicionEntity p where p.estado = 'DISPONIBLE'";
         try (Session session = getSession()) {
             Query<PosicionEntity> q = session.createQuery(query);
+            q.setMaxResults(cantidad);
             return q.getResultList();
         }
     }

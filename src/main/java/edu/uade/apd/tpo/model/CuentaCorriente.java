@@ -64,7 +64,7 @@ public class CuentaCorriente {
         }
         return cuentaCorriente;
     }
-/*
+
     public static CuentaCorriente fromStub(CuentaCorrienteStub stub) {
         CuentaCorriente cuentaCorriente = null;
         if (stub != null) {
@@ -81,7 +81,7 @@ public class CuentaCorriente {
         }
         return cuentaCorriente;
     }
-*/
+
     public CuentaCorrienteEntity toEntity() {
         CuentaCorrienteEntity entity = new CuentaCorrienteEntity();
         entity.setId(id);
@@ -95,7 +95,7 @@ public class CuentaCorriente {
         }
         return entity;
     }
-/*
+
     public CuentaCorrienteStub toStub() {
         CuentaCorrienteStub stub = new CuentaCorrienteStub();
         stub.setId(id);
@@ -109,7 +109,7 @@ public class CuentaCorriente {
         }
         return stub;
     }
-*/
+
     public void guardar() {
         CuentaCorrienteDao.getInstance().save(this.toEntity());
     }

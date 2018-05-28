@@ -2,6 +2,7 @@ package edu.uade.apd.tpo.model;
 
 import edu.uade.apd.tpo.dao.RemitoDao;
 import edu.uade.apd.tpo.entity.RemitoEntity;
+import edu.uade.apd.tpo.repository.stub.RemitoStub;
 
 import java.util.Date;
 
@@ -40,10 +41,27 @@ public class Remito {
         return r;
     }
 
+    public static Remito fromStub(RemitoStub stub) {
+        Remito r = null;
+        if (stub != null) {
+            r = new Remito();
+            r.setId(stub.getId());
+            r.setFecha(stub.getFecha());
+        }
+        return r;
+    }
+
     public RemitoEntity toEntity() {
         RemitoEntity entity = new RemitoEntity();
         entity.setId(id);
         entity.setFecha(fecha);
         return entity;
+    }
+
+    public RemitoStub toStub() {
+        RemitoStub stub = new RemitoStub();
+        stub.setId(id);
+        stub.setFecha(fecha);
+        return stub;
     }
 }

@@ -1,5 +1,7 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.repository.stub.TransportistaStub;
+
 public enum Transportista {
 	OCA (20),
     CORREO_ARGENTINO (25),
@@ -13,5 +15,13 @@ public enum Transportista {
 	
 	public float getPrecio() {
 		return this.precio;
+	}
+
+	public static Transportista fromStub(TransportistaStub stub) {
+		return Transportista.valueOf(stub.name());
+	}
+
+	public TransportistaStub toStub() {
+		return TransportistaStub.valueOf(name());
 	}
 }

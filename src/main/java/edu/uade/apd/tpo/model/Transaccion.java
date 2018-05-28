@@ -3,6 +3,8 @@ package edu.uade.apd.tpo.model;
 import edu.uade.apd.tpo.dao.TransaccionDao;
 import edu.uade.apd.tpo.entity.FacturaEntity;
 import edu.uade.apd.tpo.entity.TransaccionEntity;
+import edu.uade.apd.tpo.repository.stub.FacturaStub;
+import edu.uade.apd.tpo.repository.stub.TransaccionStub;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -82,6 +84,24 @@ public class Transaccion {
         return t;
     }
 
+    public static Transaccion fromStub(TransaccionStub stub) {
+        Transaccion t = null;
+        if (stub != null) {
+            t = new Transaccion();
+            t.setId(stub.getId());
+            t.setImporte(stub.getImporte());
+            t.setFecha(stub.getFecha());
+            if (stub.getFacturas() != null) {
+                t.setFacturas(new ArrayList<>());
+                for (FacturaStub fe : stub.getFacturas()) {
+                    t.getFacturas().add(Factura.fromStub(fe));
+                }
+            }
+            t.setMedioPago(MedioPago.fromStub(stub.getMedioPago()));
+        }
+        return t;
+    }
+
     public TransaccionEntity toEntity() {
         TransaccionEntity entity = new TransaccionEntity();
         entity.setId(id);
@@ -96,5 +116,21 @@ public class Transaccion {
         }
         entity.setMedioPago(medioPago);
         return entity;
+    }
+
+    public TransaccionStub toStub() {
+        TransaccionStub stub = new TransaccionStub();
+        stub.setId(id);
+        stub.setImporte(importe);
+        stub.setFecha(fecha);
+
+        if (facturas != null) {
+            stub.setFacturas(new ArrayList<>());
+            for (Factura f : facturas) {
+                stub.getFacturas().add(f.toStub());
+            }
+        }
+        stub.setMedioPago(medioPago.toStub());
+        return stub;
     }
 }

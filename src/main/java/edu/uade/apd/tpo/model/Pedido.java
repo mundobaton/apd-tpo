@@ -3,13 +3,15 @@ package edu.uade.apd.tpo.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import edu.uade.apd.tpo.dao.PedidoDao;
-import edu.uade.apd.tpo.entity.ClienteEntity;
 import edu.uade.apd.tpo.entity.EstadoEntity;
 import edu.uade.apd.tpo.entity.ItemPedidoEntity;
 import edu.uade.apd.tpo.entity.PedidoEntity;
+import edu.uade.apd.tpo.repository.stub.EstadoCompraStub;
+import edu.uade.apd.tpo.repository.stub.EstadoStub;
+import edu.uade.apd.tpo.repository.stub.ItemPedidoStub;
+import edu.uade.apd.tpo.repository.stub.PedidoStub;
 
 public class Pedido {
 
@@ -133,7 +135,7 @@ public class Pedido {
         Estado aprobado = new Estado();
 
         if (this.estados.get(0).equals(EstadoPedido.EN_REVISION)) {
-            aprobado.setMotivo("Aprobado: "+motivo);
+            aprobado.setMotivo("Aprobado: " + motivo);
         } else {
             aprobado.setMotivo("Pedido aprobado por el administrador.");
         }
@@ -146,7 +148,7 @@ public class Pedido {
         Estado rechazado = new Estado();
         rechazado.setEstado(EstadoPedido.RECHAZADO);
         rechazado.setFecha(new Date());
-        rechazado.setMotivo("Rechazado: "+motivo);
+        rechazado.setMotivo("Rechazado: " + motivo);
         this.estados.add(rechazado);
     }
 
@@ -217,7 +219,7 @@ public class Pedido {
             pedido.setId(entity.getId());
             pedido.setFechaPedido(entity.getFechaPedido());
             pedido.setFechaEntrega(entity.getFechaEntrega());
-            pedido.setFechaDespacho(entity.getFechaDepacho());
+            pedido.setFechaDespacho(entity.getFechaDespacho());
             if (entity.getItems() != null) {
                 pedido.setItems(new ArrayList<>());
                 for (ItemPedidoEntity ipe : entity.getItems()) {
@@ -237,12 +239,39 @@ public class Pedido {
         return pedido;
     }
 
+    public static Pedido fromStub(PedidoStub stub) {
+        Pedido pedido = null;
+        if (stub != null) {
+            pedido = new Pedido();
+            pedido.setId(stub.getId());
+            pedido.setFechaPedido(stub.getFechaPedido());
+            pedido.setFechaEntrega(stub.getFechaEntrega());
+            pedido.setFechaDespacho(stub.getFechaDespacho());
+            if (stub.getItems() != null) {
+                pedido.setItems(new ArrayList<>());
+                for (ItemPedidoStub ipe : stub.getItems()) {
+                    pedido.getItems().add(ItemPedido.fromStub(ipe));
+                }
+            }
+            if (stub.getEstados() != null) {
+                pedido.setEstados(new ArrayList<>());
+                for (EstadoStub estado : stub.getEstados()) {
+                    pedido.getEstados().add(Estado.fromStub(estado));
+                }
+            }
+            pedido.setFactura(Factura.fromStub(stub.getFactura()));
+            pedido.setEnvio(Envio.fromStub(stub.getEnvio()));
+
+        }
+        return pedido;
+    }
+
     public PedidoEntity toEntity() {
         PedidoEntity entity = new PedidoEntity();
         entity.setId(id);
         entity.setFechaPedido(fechaPedido);
         entity.setFechaEntrega(fechaEntrega);
-        entity.setFechaDepacho(fechaDespacho);
+        entity.setFechaDespacho(fechaDespacho);
         if (items != null) {
             entity.setItems(new ArrayList<>());
             for (ItemPedido ip : items) {
@@ -258,5 +287,28 @@ public class Pedido {
         entity.setFactura(factura != null ? factura.toEntity() : null);
         entity.setEnvio(envio != null ? envio.toEntity() : null);
         return entity;
+    }
+
+    public PedidoStub toStub() {
+        PedidoStub stub = new PedidoStub();
+        stub.setId(id);
+        stub.setFechaPedido(fechaPedido);
+        stub.setFechaEntrega(fechaEntrega);
+        stub.setFechaDespacho(fechaDespacho);
+        if (items != null) {
+            stub.setItems(new ArrayList<>());
+            for (ItemPedido ip : items) {
+                stub.getItems().add(ip.toStub());
+            }
+        }
+        if (estados != null) {
+            stub.setEstados(new ArrayList<>());
+            for (Estado e : estados) {
+                stub.getEstados().add(e.toStub());
+            }
+        }
+        stub.setFactura(factura != null ? factura.toStub() : null);
+        stub.setEnvio(envio != null ? envio.toStub() : null);
+        return stub;
     }
 }

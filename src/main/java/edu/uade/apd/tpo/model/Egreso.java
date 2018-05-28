@@ -57,7 +57,7 @@ public class Egreso extends Movimiento {
         }
         return e;
     }
-/*
+
     public static Egreso fromStub(EgresoStub stub) {
         Egreso e = null;
         if (stub != null) {
@@ -72,7 +72,7 @@ public class Egreso extends Movimiento {
         }
         return e;
     }
-*/
+
     public EgresoEntity toEntity() {
         EgresoEntity entity = new EgresoEntity();
         entity.setId(id);
@@ -84,19 +84,18 @@ public class Egreso extends Movimiento {
         entity.setEncargado(encargado != null ? encargado.toEntity() : null);
         return entity;
     }
-/*
+
     public EgresoStub toStub() {
-        EgresoStub entity = new EgresoStub();
-        entity.setId(id);
-        entity.setFecha(fecha);
-        entity.setCantidad(cantidad);
-        entity.setAutorizante(autorizante);
-        entity.setDestino(destino);
-        entity.setMotivo(motivo.toStub());
-        entity.setEncargado(encargado != null ? encargado.toStub() : null);
-        return entity;
+        EgresoStub stub = new EgresoStub();
+        stub.setId(id);
+        stub.setFecha(fecha);
+        stub.setCantidad(cantidad);
+        stub.setAutorizante(autorizante);
+        stub.setDestino(destino);
+        stub.setMotivo(motivo.toStub());
+        stub.setEncargado(encargado != null ? encargado.toStub() : null);
+        return stub;
     }
-    */
 
     public void guardar() {
         EgresoDao.getInstance().save(this.toEntity());

@@ -2,6 +2,7 @@ package edu.uade.apd.tpo.model;
 
 import edu.uade.apd.tpo.dao.ItemLoteDao;
 import edu.uade.apd.tpo.entity.ItemLoteEntity;
+import edu.uade.apd.tpo.repository.stub.ItemLoteStub;
 
 public class ItemLote {
     private Long id;
@@ -45,6 +46,25 @@ public class ItemLote {
             il.setCantidad(entity.getCantidad());
         }
         return il;
+    }
+
+    public static ItemLote fromStub(ItemLoteStub stub) {
+        ItemLote il = null;
+        if (stub != null) {
+            il = new ItemLote();
+            il.setId(stub.getId());
+            il.setLote(Lote.fromStub(stub.getLote()));
+            il.setCantidad(stub.getCantidad());
+        }
+        return il;
+    }
+
+    public ItemLoteStub toStub() {
+        ItemLoteStub ile = new ItemLoteStub();
+        ile.setId(id);
+        ile.setLote(lote != null ? lote.toStub() : null);
+        ile.setCantidad(cantidad);
+        return ile;
     }
 
     public ItemLoteEntity toEntity() {
