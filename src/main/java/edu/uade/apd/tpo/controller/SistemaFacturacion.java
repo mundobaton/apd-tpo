@@ -69,7 +69,7 @@ public class SistemaFacturacion {
 		remito.setFecha(new Date());
 		pedido.getEnvio().setRemito(remito);
 		pedido.setFechaEntrega(new Date());
-		cliente.guardar();
+		
 		pedido.guardar();
 		factura.guardar();
 		remito.guardar();
