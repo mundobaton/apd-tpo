@@ -81,13 +81,13 @@ public class SistemaDepositoTest {
 
     @Test
     public void testBuscarPosicionPorUbicacion() {
-        Posicion p = sistema.buscarPosicionPorUbicacion("AA012012");
+        Posicion p = sistema.buscarPosicionPorUbicacion("A01020110");
         Assert.assertNotNull(p);
     }
 
     @Test
     public void testLiberarPosicion() {
-        int result = sistema.liberarPosicion("BB012012", 1);
+        int result = sistema.liberarPosicion("B01020102", 1);
         System.out.print(result);
     }
 
@@ -99,7 +99,7 @@ public class SistemaDepositoTest {
 
     @Test
     public void testCrearLote() {
-        Lote l = sistema.crearLote("ZZ099099", new Date(), new Date(), 3L);
+        Lote l = sistema.crearLote("Z09090909", new Date(), new Date(), 3L);
         Assert.assertNotNull(l);
     }
 
