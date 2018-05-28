@@ -1,5 +1,7 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.repository.stub.EstadoPedidoStub;
+
 public enum EstadoPedido {
 	INICIADO,
 	PREAPROBADO,
@@ -10,5 +12,13 @@ public enum EstadoPedido {
 	VERIFICADO,
 	COMPLETO,
 	LISTO,
-	ENVIADO
+	ENVIADO;
+
+	public static EstadoPedido fromStub(EstadoPedidoStub stub) {
+		return EstadoPedido.valueOf(stub.name());
+	}
+
+	public EstadoPedidoStub toStub() {
+		return EstadoPedidoStub.valueOf(name());
+	}
 }

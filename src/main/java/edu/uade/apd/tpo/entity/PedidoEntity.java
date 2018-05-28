@@ -7,11 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -29,7 +27,7 @@ public class PedidoEntity implements Serializable {
     @Column(name = "fecha_entrega")
     private Date fechaEntrega;
     @Column(name = "fecha_despacho")
-    private Date fechaDepacho;
+    private Date fechaDespacho;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "pedido_id")
     private List<ItemPedidoEntity> items;
@@ -70,12 +68,12 @@ public class PedidoEntity implements Serializable {
         this.fechaEntrega = fechaEntrega;
     }
 
-    public Date getFechaDepacho() {
-        return fechaDepacho;
+    public Date getFechaDespacho() {
+        return fechaDespacho;
     }
 
-    public void setFechaDepacho(Date fechaDepacho) {
-        this.fechaDepacho = fechaDepacho;
+    public void setFechaDespacho(Date fechaDespacho) {
+        this.fechaDespacho = fechaDespacho;
     }
 
     public List<ItemPedidoEntity> getItems() {

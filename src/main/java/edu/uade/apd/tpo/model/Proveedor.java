@@ -2,6 +2,7 @@ package edu.uade.apd.tpo.model;
 
 import edu.uade.apd.tpo.dao.ProveedorDao;
 import edu.uade.apd.tpo.entity.ProveedorEntity;
+import edu.uade.apd.tpo.repository.stub.ProveedorStub;
 
 public class Proveedor {
     private Long id;
@@ -57,6 +58,18 @@ public class Proveedor {
         return p;
     }
 
+    public static Proveedor fromStub(ProveedorStub stub) {
+        Proveedor p = null;
+        if (stub != null) {
+            p = new Proveedor();
+            p.setId(stub.getId());
+            p.setNombre(stub.getNombre());
+            p.setCuit(stub.getCuit());
+            p.setTelefono(stub.getTelefono());
+        }
+        return p;
+    }
+
     public ProveedorEntity toEntity() {
         ProveedorEntity entity = new ProveedorEntity();
         entity.setId(id);
@@ -64,5 +77,14 @@ public class Proveedor {
         entity.setNombre(nombre);
         entity.setCuit(cuit);
         return entity;
+    }
+
+    public ProveedorStub toStub() {
+        ProveedorStub stub = new ProveedorStub();
+        stub.setId(id);
+        stub.setTelefono(telefono);
+        stub.setNombre(nombre);
+        stub.setCuit(cuit);
+        return stub;
     }
 }

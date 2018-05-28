@@ -151,7 +151,7 @@ public class Articulo {
         entity.setVolumen(volumen);
         return entity;
     }
-/*
+
     public static Articulo fromStub(ArticuloStub stub) {
         Articulo articulo = null;
         if (stub != null) {
@@ -170,7 +170,7 @@ public class Articulo {
                     articulo.getLotes().add(Lote.fromStub(le));
                 }
             }
-            articulo.setVolumen(entity.getVolumen());
+            articulo.setVolumen(stub.getVolumen());
         }
         return articulo;
     }
@@ -194,6 +194,4 @@ public class Articulo {
         stub.setVolumen(volumen);
         return stub;
     }
-    */
-
 }

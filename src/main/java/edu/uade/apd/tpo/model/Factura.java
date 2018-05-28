@@ -3,6 +3,7 @@ package edu.uade.apd.tpo.model;
 import edu.uade.apd.tpo.dao.FacturaDao;
 import edu.uade.apd.tpo.entity.FacturaEntity;
 import edu.uade.apd.tpo.entity.TransaccionEntity;
+import edu.uade.apd.tpo.repository.stub.FacturaStub;
 
 import java.util.Date;
 
@@ -90,6 +91,30 @@ public class Factura {
         entity.setId(id);
         entity.setFecha(fecha);
         entity.setTipo(tipo);
+        entity.setCostoEnvio(costoEnvio);
+        entity.setTotal(total);
+        return entity;
+    }
+
+    public static Factura fromStub(FacturaStub stub) {
+
+        Factura f = null;
+        if (stub != null) {
+            f = new Factura();
+            f.setId(stub.getId());
+            f.setFecha(stub.getFecha());
+            f.setTipo(FacturaTipo.fromStub(stub.getTipo()));
+            f.setCostoEnvio(stub.getCostoEnvio());
+            f.setTotal(stub.getTotal());
+        }
+        return f;
+    }
+
+    public FacturaStub toStub() {
+        FacturaStub entity = new FacturaStub();
+        entity.setId(id);
+        entity.setFecha(fecha);
+        entity.setTipo(tipo.toStub());
         entity.setCostoEnvio(costoEnvio);
         entity.setTotal(total);
         return entity;

@@ -2,6 +2,7 @@ package edu.uade.apd.tpo.model;
 
 import edu.uade.apd.tpo.dao.EstadoDao;
 import edu.uade.apd.tpo.entity.EstadoEntity;
+import edu.uade.apd.tpo.repository.stub.EstadoStub;
 
 import java.util.Date;
 
@@ -57,10 +58,33 @@ public class Estado {
         return estado;
     }
 
+    public static Estado fromStub(EstadoStub stub) {
+        Estado estado = null;
+        if (stub != null) {
+            estado = new Estado();
+            estado.setId(stub.getId());
+            estado.setEstado(EstadoPedido.fromStub(stub.getEstado()));
+            estado.setFecha(stub.getFecha());
+            estado.setMotivo(stub.getMotivo());
+        }
+
+        return estado;
+    }
+
     public EstadoEntity toEntity() {
         EstadoEntity ee = new EstadoEntity();
         ee.setId(id);
         ee.setEstado(estado);
+        ee.setFecha(fecha);
+        ee.setMotivo(motivo);
+
+        return ee;
+    }
+
+    public EstadoStub toStub() {
+        EstadoStub ee = new EstadoStub();
+        ee.setId(id);
+        ee.setEstado(estado.toStub());
         ee.setFecha(fecha);
         ee.setMotivo(motivo);
 

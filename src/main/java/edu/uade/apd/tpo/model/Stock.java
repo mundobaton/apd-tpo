@@ -5,6 +5,10 @@ import edu.uade.apd.tpo.entity.EgresoEntity;
 import edu.uade.apd.tpo.entity.IngresoEntity;
 import edu.uade.apd.tpo.entity.MovimientoEntity;
 import edu.uade.apd.tpo.entity.StockEntity;
+import edu.uade.apd.tpo.repository.stub.EgresoStub;
+import edu.uade.apd.tpo.repository.stub.IngresoStub;
+import edu.uade.apd.tpo.repository.stub.MovimientoStub;
+import edu.uade.apd.tpo.repository.stub.StockStub;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -96,6 +100,25 @@ public class Stock {
         return s;
     }
 
+    public static Stock fromStub(StockStub stub) {
+        Stock s = null;
+        if (stub != null) {
+            s = new Stock();
+            s.setId(stub.getId());
+            if (stub.getMovimientos() != null) {
+                s.setMovimientos(new ArrayList<>());
+                for (MovimientoStub m : stub.getMovimientos()) {
+                    if (m instanceof IngresoStub) {
+                        s.getMovimientos().add(Ingreso.fromStub((IngresoStub) m));
+                    } else {
+                        s.getMovimientos().add(Egreso.fromStub((EgresoStub) m));
+                    }
+                }
+            }
+        }
+        return s;
+    }
+
     public StockEntity toEntity() {
         StockEntity entity = new StockEntity();
         entity.setId(id);
@@ -110,6 +133,22 @@ public class Stock {
             }
         }
         return entity;
+    }
+
+    public StockStub toStub() {
+        StockStub stub = new StockStub();
+        stub.setId(id);
+        if (movimientos != null) {
+            stub.setMovimientos(new ArrayList<>());
+            for (Movimiento m : movimientos) {
+                if (m instanceof Ingreso) {
+                    stub.getMovimientos().add(((Ingreso) m).toStub());
+                } else {
+                    stub.getMovimientos().add(((Egreso) m).toStub());
+                }
+            }
+        }
+        return stub;
     }
 
     public void guardar() {

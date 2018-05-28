@@ -2,6 +2,7 @@ package edu.uade.apd.tpo.model;
 
 import edu.uade.apd.tpo.dao.EnvioDao;
 import edu.uade.apd.tpo.entity.EnvioEntity;
+import edu.uade.apd.tpo.repository.stub.EnvioStub;
 
 public class Envio {
 
@@ -58,12 +59,33 @@ public class Envio {
         return envio;
     }
 
+    public static Envio fromStub(EnvioStub stub) {
+        Envio envio = null;
+        if (stub != null) {
+            envio = new Envio();
+            envio.setId(stub.getId());
+            envio.setDomicilio(Domicilio.fromStub(stub.getDomicilio()));
+            envio.setTransportista(Transportista.fromStub(stub.getTransportista()));
+            envio.setRemito(Remito.fromStub(stub.getRemito()));
+        }
+        return envio;
+    }
+
     public EnvioEntity toEntity() {
         EnvioEntity ee = new EnvioEntity();
         ee.setId(id);
         ee.setDomicilio(domicilio != null ? domicilio.toEntity() : null);
         ee.setTransportista(transportista);
         ee.setRemito(remito != null ? remito.toEntity() : null);
+        return ee;
+    }
+
+    public EnvioStub toStub() {
+        EnvioStub ee = new EnvioStub();
+        ee.setId(id);
+        ee.setDomicilio(domicilio != null ? domicilio.toStub() : null);
+        ee.setTransportista(transportista.toStub());
+        ee.setRemito(remito != null ? remito.toStub() : null);
         return ee;
     }
 

@@ -2,6 +2,7 @@ package edu.uade.apd.tpo.model;
 
 import edu.uade.apd.tpo.dao.PosicionDao;
 import edu.uade.apd.tpo.entity.PosicionEntity;
+import edu.uade.apd.tpo.repository.stub.PosicionStub;
 
 public class Posicion {
     private Long id;
@@ -121,6 +122,23 @@ public class Posicion {
         return p;
     }
 
+    public static Posicion fromStub(PosicionStub stub) {
+        Posicion p = null;
+        if (stub != null) {
+            p = new Posicion();
+            p.setId(stub.getId());
+            p.setBloque(stub.getBloque());
+            p.setCalle(stub.getCalle());
+            p.setCantidad(stub.getCantidad());
+            p.setCodUbicacion(stub.getCodUbicacion());
+            p.setEstante(stub.getEstante());
+            p.setEstado(EstadoPosicion.fromStub(stub.getEstado()));
+            p.setEstanteria(stub.getEstanteria());
+            p.setNumero(stub.getNumero());
+        }
+        return p;
+    }
+
     public PosicionEntity toEntity() {
         PosicionEntity entity = new PosicionEntity();
         entity.setId(id);
@@ -133,6 +151,21 @@ public class Posicion {
         entity.setEstanteria(estanteria);
         entity.setNumero(numero);
         return entity;
+
+    }
+
+    public PosicionStub toStub() {
+        PosicionStub stub = new PosicionStub();
+        stub.setId(id);
+        stub.setBloque(bloque);
+        stub.setCalle(calle);
+        stub.setCantidad(cantidad);
+        stub.setCodUbicacion(codUbicacion);
+        stub.setEstante(estante);
+        stub.setEstado(estado.toStub());
+        stub.setEstanteria(estanteria);
+        stub.setNumero(numero);
+        return stub;
 
     }
 
