@@ -41,6 +41,11 @@ public class SistemaAdministracionTest {
     }
 
     @Test
+    public void testEliminarItemPedido() throws BusinessException{
+        sistema.eliminarItemPedido(45L, 29L);
+    }
+
+    @Test
     public void testCerrarPedido() throws BusinessException {
         sistema.cerrarPedido(48L, 27329616253L);
     }

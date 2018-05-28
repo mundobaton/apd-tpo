@@ -286,24 +286,21 @@ public class SistemaAdministracion {
 
     public void eliminarItemPedido(Long pedidoId, Long articuloId) throws BusinessException {
 
-        Articulo articulo = SistemaDeposito.getInstance().buscarArticulo(articuloId);
-        Pedido pedido = buscarPedido(pedidoId);
-        if (articulo != null) {
-            if (pedido != null) {
-                Iterator<ItemPedido> it = pedido.getItems().iterator();
-                while (it.hasNext()) {
-                    ItemPedido item = it.next();
-                    if (item.getArticulo().getId() == articulo.getId()) {
-                        it.remove();
-                    }
-                }
-            } else {
-                throw new BusinessException("No existe pedido");
+        Cliente cli = this.obtenerClientePorPedido(pedidoId);
+        if (cli == null) throw new BusinessException("Cliente no encontrado.");
+
+        Pedido p = cli.obtenerPedido(pedidoId);
+        if (p == null) throw new BusinessException("No existe pedido asociado al cliente.");
+
+        Iterator<ItemPedido> it = p.getItems().iterator();
+        while (it.hasNext()) {
+            ItemPedido item = it.next();
+            if (item.getArticulo().getId() == articuloId) {
+                it.remove();
             }
-        } else {
-            throw new BusinessException("No existe articulo");
         }
-        pedido.guardar();
+
+        cli.guardar();
     }
 
     public List<Pedido> obtenerPedidoCompletos() {
@@ -311,13 +308,13 @@ public class SistemaAdministracion {
                 .parallelStream().map(pe -> Pedido.fromEntity(pe)).collect(Collectors.toList());
     }
 
-    public Cliente obtenerClientePorPedido(Long pedidoId){
+    public Cliente obtenerClientePorPedido(Long pedidoId) {
         List<Cliente> clientes = clienteDao.findAll().parallelStream().map(ce -> Cliente.fromEntity(ce)).collect(Collectors.toList());
         Cliente result = null;
-        for(Cliente c : clientes){
-            if(c.getPedidos() != null && !c.getPedidos().isEmpty()){
-                for(Pedido p : c.getPedidos()){
-                    if(p.getId() == pedidoId){
+        for (Cliente c : clientes) {
+            if (c.getPedidos() != null && !c.getPedidos().isEmpty()) {
+                for (Pedido p : c.getPedidos()) {
+                    if (p.getId() == pedidoId) {
                         result = c;
                     }
                 }
@@ -326,13 +323,13 @@ public class SistemaAdministracion {
         return result;
     }
 
-    public Cliente obtenerClientePorFactura(Long facturaId){
+    public Cliente obtenerClientePorFactura(Long facturaId) {
         List<Cliente> clientes = clienteDao.findAll().parallelStream().map(ce -> Cliente.fromEntity(ce)).collect(Collectors.toList());
         Cliente result = null;
-        for(Cliente c : clientes){
-            if(c.getPedidos() != null && !c.getPedidos().isEmpty()){
-                for(Pedido p : c.getPedidos()){
-                    if(p.getFactura() != null && p.getFactura().getId() == facturaId){
+        for (Cliente c : clientes) {
+            if (c.getPedidos() != null && !c.getPedidos().isEmpty()) {
+                for (Pedido p : c.getPedidos()) {
+                    if (p.getFactura() != null && p.getFactura().getId() == facturaId) {
                         result = c;
                     }
                 }
