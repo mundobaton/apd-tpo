@@ -2,6 +2,7 @@ package edu.uade.apd.tpo.remote;
 
 import edu.uade.apd.tpo.controller.SistemaAdministracion;
 import edu.uade.apd.tpo.exception.BusinessException;
+import edu.uade.apd.tpo.model.Cliente;
 import edu.uade.apd.tpo.model.CondicionIva;
 import edu.uade.apd.tpo.model.Rol;
 import edu.uade.apd.tpo.model.Zona;
@@ -16,6 +17,7 @@ import edu.uade.apd.tpo.repository.stub.ZonaStub;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SistemaAdministracionRemote extends UnicastRemoteObject implements SistemaAdministracionRepository {
 
@@ -91,13 +93,36 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
             throw new RemoteBusinessException(be.getMessage());
         }
     }
-/*
+
+    @Override
+    public void eliminarItemPedido(Long pedidoId, Long articuloId) throws RemoteException {
+        try {
+            controller.eliminarItemPedido(pedidoId, articuloId);
+        } catch (BusinessException be) {
+            throw new RemoteBusinessException(be.getMessage());
+        }
+    }
+
+    @Override
+    public void crearArticulo(String codBarras, String descripcion, String presentacion, String unidad, int cantCompra, int volumen, float precio) throws RemoteException {
+        controller.crearArticulo(codBarras, descripcion, presentacion, unidad, cantCompra, volumen, precio);
+    }
+
+    @Override
+    public void procesarPedidosPendientes() throws RemoteException {
+        try {
+            controller.procesarPedidosPendientesCompraIngresada();
+        } catch (BusinessException be) {
+            throw new RemoteBusinessException(be.getMessage());
+        }
+
+    }
+
 	@Override
 	public List<ClienteStub> getClientes() throws RemoteException  {
-		// TODO Auto-generated method stub
-		return null;
+	    return controller.getClientes().parallelStream().map(c -> c.toStub()).collect(Collectors.toList());
 	}
-
+/*
 	@Override
 	public List<ClienteStub> getPedidosPendientes() throws RemoteException  {
 		// TODO Auto-generated method stub
