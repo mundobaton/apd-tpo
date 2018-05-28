@@ -84,6 +84,7 @@ public class SistemaCompras {
     public void procesarOrdenesCompraPendientes() {
         List<OrdenCompra> ocs = ordenCompraDao.findByEstado(EstadoCompra.PENDIENTE).parallelStream()
                 .map(oce -> OrdenCompra.fromEntity(oce)).collect(Collectors.toList());
+
         if (ocs != null) {
             List<Proveedor> proveedores = proveedorDao.findAll().parallelStream().map(pe -> Proveedor.fromEntity(pe)).collect(Collectors.toList());
             Proveedor prov = proveedores.get(ThreadLocalRandom.current().nextInt(0, proveedores.size()));
