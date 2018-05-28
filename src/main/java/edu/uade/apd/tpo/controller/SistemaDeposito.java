@@ -93,6 +93,8 @@ public class SistemaDeposito {
         if(ordenCompra == null) throw new BusinessException("No se ha encontrado la orden de compra.");
         almacenar(ordenCompra.getArticulo().getId(), lotesRecibidos, ordenCompra.getArticulo().getCantCompra());
         aceptarOrdenCompra(ordenId);
+        //Disparar la verificacion de pedidos pendientes
+        SistemaAdministracion.getInstance().procesarPedidosPendientesCompraIngresada();
     }
 
     public List<Posicion> obtenerPosicionesVacias(int cantidad) {

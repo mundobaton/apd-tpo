@@ -91,7 +91,7 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
             throw new RemoteBusinessException(be.getMessage());
         }
     }
-
+/*
 	@Override
 	public List<ClienteStub> getClientes() throws RemoteException  {
 		// TODO Auto-generated method stub
@@ -102,5 +102,5 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
 	public List<ClienteStub> getPedidosPendientes() throws RemoteException  {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}*/
 }

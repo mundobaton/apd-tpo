@@ -48,11 +48,6 @@ public class SistemaAdministracion {
         return clienteDao.getInstance().findAll().parallelStream().map(ce -> Cliente.fromEntity(ce)).collect(Collectors.toList());
     }
 
-    public List<Pedido> obtenerPedidosParaAprobar() {
-        return pedidoDao.getInstance().obtenerPedidosPreAprobadosRevision()
-                .parallelStream().map(pe -> Pedido.fromEntity(pe)).collect(Collectors.toList());
-    }
-
     public Cliente buscarCliente(Long cuil) {
         ClienteEntity entity = clienteDao.findByCuil(cuil);
         return entity == null ? null : Cliente.fromEntity(entity);
@@ -298,9 +293,29 @@ public class SistemaAdministracion {
         cli.guardar();
     }
 
-    public List<Pedido> obtenerPedidoCompletos() {
-        return pedidoDao.getInstance().obtenerPedidosCompletos()
+    public List<Pedido> obtenerPedidoPorEstado(EstadoPedido estadoPedido) {
+        List<Pedido> pedidos = pedidoDao.getInstance().findAll()
                 .parallelStream().map(pe -> Pedido.fromEntity(pe)).collect(Collectors.toList());
+
+        Iterator<Pedido> i = pedidos.iterator();
+        while (i.hasNext()) {
+            Pedido p = i.next();
+            if (p.getEstados() != null) {
+                if (p.getEstados().isEmpty()) {
+                    i.remove();
+                } else {
+                    int ultimoEstado = p.getEstados().size() - 1;
+                    if (p.getEstados().get(ultimoEstado).getEstado() != estadoPedido) {
+                        i.remove();
+                    }
+                }
+            }
+        }
+        return pedidos;
+    }
+
+    public List<Pedido> obtenerPedidoCompletos() {
+        return obtenerPedidoPorEstado(EstadoPedido.COMPLETO);
     }
 
     public Cliente obtenerClientePorPedido(Long pedidoId) {
@@ -333,14 +348,35 @@ public class SistemaAdministracion {
         return result;
     }
 
+    public List<Pedido> obtenerPedidosParaAprobar(){
+        List<Pedido> preaprobados = obtenerPedidoPorEstado(EstadoPedido.PREAPROBADO);
+        List<Pedido> en_revision = obtenerPedidoPorEstado(EstadoPedido.EN_REVISION);
+        List<Pedido> pedidos = new ArrayList<>();
+        pedidos.addAll(preaprobados);
+        pedidos.addAll(en_revision);
+        return pedidos;
+    }
+
     public List<Pedido> obtenerPedidosListos() {
-        return pedidoDao.getInstance().obtenerPedidosListos()
-                .parallelStream().map(pe -> Pedido.fromEntity(pe)).collect(Collectors.toList());
+        return obtenerPedidoPorEstado(EstadoPedido.LISTO);
     }
 
     public List<Pedido> obtenerPedidosACompletar() {
-        return pedidoDao.getInstance().obtenerPedidosVerificados()
-                .parallelStream().map(pe -> Pedido.fromEntity(pe)).collect(Collectors.toList());
+        return obtenerPedidoPorEstado(EstadoPedido.VERIFICADO);
+    }
+
+    public List<Pedido> obtenerPedidosPendientes() {
+        return obtenerPedidoPorEstado(EstadoPedido.PENDIENTE);
+    }
+
+    public void procesarPedidosPendientesCompraIngresada() throws BusinessException {
+        List<Pedido> pedidos = obtenerPedidosPendientes();
+        if (pedidos == null) throw new BusinessException("No hay pedidos pendientes.");
+
+        for (Pedido p : pedidos) {
+            verificarPedido(p);
+            p.guardar();
+        }
     }
 
     public Articulo crearArticulo(String codBarras, String descripcion, String presentacion, String unidad, int cantCompra, int volumen, float precio) {

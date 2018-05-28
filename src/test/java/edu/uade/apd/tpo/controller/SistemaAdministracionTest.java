@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class SistemaAdministracionTest {
@@ -30,14 +31,14 @@ public class SistemaAdministracionTest {
 
     @Test
     public void testCrearPedido() throws BusinessException {
-        Pedido p = sistema.generarPedido(27329616253L, "Av Independencia", 466L, "1099", "CABA", "Buenos Aires", Zona.CABA);
+        Pedido p = sistema.generarPedido(27329616253L, "Av Odas", 466L, "1099", "CABA", "Buenos Aires", Zona.CABA);
         System.out.print("Pedido id: "+p.getId());
         Assert.assertNotNull(p.getId());
     }
 
     @Test
     public void testAgregarItemPedido() throws BusinessException {
-        sistema.agregarItemPedido(49L, 27329616253L, 37L, 15);
+        sistema.agregarItemPedido(51L, 27329616253L, 37L, 15);
     }
 
     @Test
@@ -47,7 +48,7 @@ public class SistemaAdministracionTest {
 
     @Test
     public void testCerrarPedido() throws BusinessException {
-        sistema.cerrarPedido(49L, 27329616253L);
+        sistema.cerrarPedido(51L, 27329616253L);
     }
 
     @Test
@@ -75,5 +76,16 @@ public class SistemaAdministracionTest {
     public void testObtenerClientePorPedido(){
         Cliente cli = sistema.obtenerClientePorPedido(45L);
         Assert.assertNotNull(cli);
+    }
+
+    @Test
+    public void testObtenerPedidosPorEstado(){
+        List<Pedido> pedidos = sistema.obtenerPedidoPorEstado(EstadoPedido.ENVIADO);
+        Assert.assertNotNull(pedidos);
+    }
+
+    @Test
+    public void testProcesarPedidosPendientes() throws BusinessException{
+        sistema.procesarPedidosPendientesCompraIngresada();
     }
 }

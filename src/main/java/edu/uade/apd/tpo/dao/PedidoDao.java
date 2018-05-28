@@ -45,6 +45,16 @@ public class PedidoDao extends AbstractDao<PedidoEntity> {
 
     }
 
+    public List<PedidoEntity> obtenerPedidosPendientes() {
+        String query = "select p from PedidoEntity p inner join p.estados as e " +
+                "where e.estado = 'PENDIENTE'";
+        try (Session session = getSession()) {
+            Query<PedidoEntity> q = session.createQuery(query);
+            List<PedidoEntity> entities = q.getResultList();
+            return entities;
+        }
+    }
+
     public List<PedidoEntity> obtenerPedidosPreAprobadosRevision() {
         String query = "select p from PedidoEntity p inner join p.estados as e " +
                 "where e.estado in ('PREAPROBADO', 'EN_REVISION')";
