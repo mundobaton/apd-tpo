@@ -36,7 +36,7 @@ public class PedidoDao extends AbstractDao<PedidoEntity> {
     public List<PedidoEntity> obtenerPedidosCompletos() {
 
         String query = "select p from PedidoEntity p inner join p.estados as e " +
-                "where e.estadoPedido = 'COMPLETO'";
+                "where e.estado = 'COMPLETO'";
         try (Session session = getSession()) {
             Query<PedidoEntity> q = session.createQuery(query);
             List<PedidoEntity> entities = q.getResultList();
@@ -47,7 +47,7 @@ public class PedidoDao extends AbstractDao<PedidoEntity> {
 
     public List<PedidoEntity> obtenerPedidosPreAprobadosRevision() {
         String query = "select p from PedidoEntity p inner join p.estados as e " +
-                "where e.estadoPedido in ('PREAPROBADO', 'EN_REVISION')";
+                "where e.estado in ('PREAPROBADO', 'EN_REVISION')";
         try (Session session = getSession()) {
             Query<PedidoEntity> q = session.createQuery(query);
             List<PedidoEntity> entities = q.getResultList();
@@ -57,7 +57,7 @@ public class PedidoDao extends AbstractDao<PedidoEntity> {
 
     public List<PedidoEntity> obtenerPedidosListos() {
         String query = "select p from PedidoEntity p inner join p.estados as e " +
-                "where e.estadoPedido = 'LISTO'";
+                "where e.estado = 'LISTO'";
         try (Session session = getSession()) {
             Query<PedidoEntity> q = session.createQuery(query);
             List<PedidoEntity> entities = q.getResultList();
@@ -67,7 +67,7 @@ public class PedidoDao extends AbstractDao<PedidoEntity> {
 
     public List<PedidoEntity> obtenerPedidosVerificados() {
         String query = "select p from PedidoEntity p inner join p.estados as e " +
-                "where e.estadoPedido = 'VERIFICADO'";
+                "where e.estado = 'VERIFICADO'";
         try (Session session = getSession()) {
             Query<PedidoEntity> q = session.createQuery(query);
             List<PedidoEntity> entities = q.getResultList();
