@@ -286,6 +286,7 @@ public class SistemaAdministracion {
 
     public void eliminarItemPedido(Long pedidoId, Long articuloId) throws BusinessException {
 
+        //TODO revisar persistencia ya que setea null el pedido_id pero no elimina la row
         Cliente cli = this.obtenerClientePorPedido(pedidoId);
         if (cli == null) throw new BusinessException("Cliente no encontrado.");
 
