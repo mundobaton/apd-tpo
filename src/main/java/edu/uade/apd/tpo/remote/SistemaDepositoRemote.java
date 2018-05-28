@@ -52,6 +52,15 @@ public class SistemaDepositoRemote extends UnicastRemoteObject implements Sistem
             throw new RemoteBusinessException(be.getMessage());
         }
     }
+
+    @Override
+    public void aceptarOrdenCompra(Long ordenCompraId) throws RemoteException {
+        try {
+            controller.aceptarOrdenCompra(ordenCompraId);
+        } catch (BusinessException be) {
+            throw new RemoteBusinessException(be.getMessage());
+        }
+    }
 }
 
 

@@ -84,7 +84,7 @@ public class Envio {
         EnvioStub ee = new EnvioStub();
         ee.setId(id);
         ee.setDomicilio(domicilio != null ? domicilio.toStub() : null);
-        ee.setTransportista(transportista.toStub());
+        ee.setTransportista(transportista != null ? transportista.toStub() : null);
         ee.setRemito(remito != null ? remito.toStub() : null);
         return ee;
     }
