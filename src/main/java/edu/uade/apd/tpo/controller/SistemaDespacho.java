@@ -33,18 +33,27 @@ public class SistemaDespacho {
         return SistemaAdministracion.getInstance().buscarPedido(pedidoId);
     }
 
-    public void despacharPedido(Long pedidoId) {
-        Pedido pedido = SistemaAdministracion.getInstance().buscarPedido(pedidoId);
-        pedido.setFechaDespacho(new Date());
+    public void despacharPedido(Long pedidoId) throws BusinessException {
+
+        Cliente cli = SistemaAdministracion.getInstance().obtenerClientePorPedido(pedidoId);
+        if(cli == null) throw new BusinessException("No se ha encontrado un cliente con el pedido "+pedidoId);
+
+        Pedido pedido = cli.obtenerPedido(pedidoId);
+        if(pedido == null) throw new BusinessException("No se ha encontrado el pedido "+pedidoId);
+
         Date fechaEnvio = new Date();
         Calendar f = Calendar.getInstance();
         f.setTime(fechaEnvio);
         f.add(Calendar.DATE, 4);
         fechaEnvio = f.getTime();
+
         pedido.setFechaEntrega(fechaEnvio);
+        pedido.setFechaDespacho(new Date());
+
         notificarFechaDeEnvioAsignada(fechaEnvio);
+
         pedido.enviado();
-        pedido.guardar();
+        cli.guardar();
     }
 
     public void alistarPedido(Long idPedido) throws BusinessException {
@@ -52,7 +61,7 @@ public class SistemaDespacho {
         if(cli == null) throw new BusinessException("No existe un cliente con el pedido "+idPedido);
 
         Pedido pedido = cli.obtenerPedido(idPedido);
-        if(pedido == null) throw new BusinessException("Pedido no encontrado.");
+        if(pedido == null) throw new BusinessException("El cliente no cuenta con el pedido "+idPedido);
 
         pedido.alistar(seleccionarTransportista());
         cli.guardar();

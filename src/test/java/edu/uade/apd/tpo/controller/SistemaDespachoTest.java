@@ -32,8 +32,8 @@ public class SistemaDespachoTest {
     }
 
     @Test
-    public void testDespacharPedido() {
-        sistema.despacharPedido(3L);
+    public void testDespacharPedido() throws BusinessException {
+        sistema.despacharPedido(45L);
     }
 
     @Test

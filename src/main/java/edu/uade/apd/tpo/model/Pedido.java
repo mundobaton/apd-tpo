@@ -190,7 +190,7 @@ public class Pedido {
         Estado enviado = new Estado();
         enviado.setFecha(new Date());
         enviado.setEstado(EstadoPedido.ENVIADO);
-        enviado.setMotivo("Enviado");
+        enviado.setMotivo("Enviado. Fecha de entrega: "+this.getFechaEntrega());
         this.estados.add(enviado);
     }
 
