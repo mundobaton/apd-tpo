@@ -14,7 +14,6 @@ import edu.uade.apd.tpo.entity.PedidoEntity;
 import edu.uade.apd.tpo.entity.UsuarioEntity;
 import edu.uade.apd.tpo.exception.BusinessException;
 import edu.uade.apd.tpo.model.*;
-import edu.uade.apd.tpo.repository.exception.UserNotFoundException;
 
 public class SistemaAdministracion {
 
@@ -261,10 +260,10 @@ public class SistemaAdministracion {
         }
     }
 
-    public Usuario login(String email, String password) throws UserNotFoundException {
+    public Usuario login(String email, String password) throws BusinessException {
         Usuario u = Usuario.fromEntity(UsuarioDao.getInstance().findByEmail(email));
         if (u == null || !validarPassword(u.getPassword(), password)) {
-            throw new UserNotFoundException("El usuario no existe o el password es incorrecto");
+            throw new BusinessException("El usuario no existe o el password es incorrecto");
         }
         return u;
     }
