@@ -1,6 +1,10 @@
 package edu.uade.apd.tpo;
 
+import edu.uade.apd.tpo.controller.SistemaDeposito;
 import edu.uade.apd.tpo.remote.SistemaAdministracionRemote;
+import edu.uade.apd.tpo.remote.SistemaComprasRemote;
+import edu.uade.apd.tpo.remote.SistemaDepositoRemote;
+import edu.uade.apd.tpo.remote.SistemaDespachoRemote;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +22,9 @@ public class Server {
         logger.info("Initializing server...");
         LocateRegistry.createRegistry(1099);
         Naming.rebind("//127.0.0.1/administracion", SistemaAdministracionRemote.getInstance());
+        Naming.rebind("//127.0.0.1/deposito", SistemaDepositoRemote.getInstance());
+        Naming.rebind("//127.0.0.1/despacho", SistemaDespachoRemote.getInstance());
+        Naming.rebind("//127.0.0.1/compras", SistemaComprasRemote.getInstance());
         logger.info("Server initialized and running..");
 
     }

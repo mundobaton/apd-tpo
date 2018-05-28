@@ -16,7 +16,9 @@ import edu.uade.apd.tpo.model.OrdenCompra;
 import edu.uade.apd.tpo.model.Pedido;
 import edu.uade.apd.tpo.model.Posicion;
 import edu.uade.apd.tpo.model.Stock;
+import edu.uade.apd.tpo.repository.SistemaAdministracionRepository;
 import edu.uade.apd.tpo.repository.SistemaDepositoRepository;
+import edu.uade.apd.tpo.repository.exception.RemoteBusinessException;
 import edu.uade.apd.tpo.repository.stub.*;
 
 import java.rmi.RemoteException;
@@ -25,7 +27,31 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class SistemaDepositoRemote {
+public class SistemaDepositoRemote extends UnicastRemoteObject implements SistemaDepositoRepository {
+
+    private static SistemaDepositoRemote instance;
+    private SistemaDeposito controller;
+
+    private SistemaDepositoRemote() throws RemoteException {
+        this.controller = SistemaDeposito.getInstance();
+    }
+
+    public static SistemaDepositoRemote getInstance() throws RemoteException {
+        if (instance == null) {
+            instance = new SistemaDepositoRemote();
+        }
+        return instance;
+    }
+
+
+    @Override
+    public void completarPedido(Long pedidoId) throws RemoteException {
+        try {
+            controller.completarPedido(pedidoId);
+        } catch (BusinessException be) {
+            throw new RemoteBusinessException(be.getMessage());
+        }
+    }
 }
 
 
