@@ -71,8 +71,7 @@ public class SistemaDepositoTest {
 
     @Test
     public void testAlmacenar() throws BusinessException {
-        ArticuloEntity entity = ArticuloDao.getInstance().findById(2L);
-        Articulo art = Articulo.fromEntity(entity);
+
         List<ItemLote> lotes = new ArrayList<>();
         for (int i = 0; i <= 3; i++) {
             String c = UUID.randomUUID().toString();
@@ -85,7 +84,7 @@ public class SistemaDepositoTest {
             item.setCantidad(10);
             lotes.add(item);
         }
-        sistema.almacenar(art, lotes, 30);
+        sistema.almacenar(30L, lotes, 30);
     }
 
     @Test
@@ -141,7 +140,7 @@ public class SistemaDepositoTest {
     
     @Test
     public void testObtenerPosicionesVacias(){
-    	 List<PosicionEntity> posiciones = sistema.obtenerPosicionesVacias(5);
+    	 List<Posicion> posiciones = sistema.obtenerPosicionesVacias(5);
     	 Assert.assertNotNull(posiciones);
     }
 

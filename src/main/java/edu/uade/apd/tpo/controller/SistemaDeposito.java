@@ -3,6 +3,7 @@ package edu.uade.apd.tpo.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import edu.uade.apd.tpo.dao.ArticuloDao;
 import edu.uade.apd.tpo.dao.PosicionDao;
@@ -91,31 +92,27 @@ public class SistemaDeposito {
     public void ingresarCompra(Long ordenId, List<ItemLote> lotesRecibidos) throws BusinessException {
         OrdenCompra ordenCompra = SistemaCompras.getInstance().buscarOrdenCompra(ordenId);
         if(ordenCompra == null) throw new BusinessException("No se ha encontrado la orden de compra.");
-        Articulo articulo = ordenCompra.getArticulo();
-        if(buscarArticulo(articulo.getId()) == null) throw new BusinessException("Articulo no existente en el deposito.");
-        almacenar(articulo, lotesRecibidos, articulo.getCantCompra());
+        almacenar(ordenCompra.getArticulo().getId(), lotesRecibidos, ordenCompra.getArticulo().getCantCompra());
         aceptarOrdenCompra(ordenId);
     }
 
-    public List<PosicionEntity> obtenerPosicionesVacias(int cantidad) {
-        return posicionDao.obtenerObtenerPosicionesVacias(cantidad);
+    public List<Posicion> obtenerPosicionesVacias(int cantidad) {
+        return posicionDao.obtenerObtenerPosicionesVacias(cantidad).parallelStream().map(po -> Posicion.fromEntity(po)).collect(Collectors.toList());
     }
 
-    public void almacenar(Articulo articulo, List<ItemLote> lotesRecibidos, int cantidad) throws BusinessException {
+    public void almacenar(Long articuloId, List<ItemLote> lotesRecibidos, int cantidad) throws BusinessException {
 
-        Stock stock = articulo.getStock();
+        Articulo art = buscarArticulo(articuloId);
+        if(art == null) throw new BusinessException("Articulo no existente en el deposito...");
+
+        Stock stock = art.getStock();
         stock.agregarMovimientoIngreso(MotivoIngreso.COMPRA, cantidad);
-        articulo.setStock(stock);
+        art.setStock(stock);
 
         List<Lote> lotes = new ArrayList<>();
         int cantidadDePosiciones = (cantidad <= Posicion.getCAPACIDAD()) ? 1 : (cantidad / Posicion.getCAPACIDAD()) + 1;
 
-        List<PosicionEntity> entities = obtenerPosicionesVacias(cantidadDePosiciones);
-        List<Posicion> posiciones = new ArrayList<>();
-        for (PosicionEntity entity : entities) {
-            Posicion posicion = Posicion.fromEntity(entity);
-            posiciones.add(posicion);
-        }
+        List<Posicion> posiciones = obtenerPosicionesVacias(cantidadDePosiciones);
 
         int index = 0;
         if (posiciones.size() * Posicion.getCAPACIDAD() >= cantidad) {
@@ -142,8 +139,8 @@ public class SistemaDeposito {
                 }
                 index = 0;
             }
-            articulo.getLotes().addAll(lotes);
-            articulo.guardar();
+            art.getLotes().addAll(lotes);
+            art.guardar();
         } else {
             throw new BusinessException("No hay lugar suficiente.");
         }
