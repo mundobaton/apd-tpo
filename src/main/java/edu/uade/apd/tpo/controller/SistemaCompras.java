@@ -10,6 +10,7 @@ import edu.uade.apd.tpo.model.OrdenCompra;
 import edu.uade.apd.tpo.model.Pedido;
 import edu.uade.apd.tpo.model.Proveedor;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -82,8 +83,14 @@ public class SistemaCompras {
      * @return
      */
     public void procesarOrdenesCompraPendientes() {
-        List<OrdenCompra> ocs = ordenCompraDao.findByEstado(EstadoCompra.PENDIENTE).parallelStream()
-                .map(oce -> OrdenCompra.fromEntity(oce)).collect(Collectors.toList());
+        List<OrdenCompraEntity> oces = ordenCompraDao.findByEstado(EstadoCompra.PENDIENTE);
+        List<OrdenCompra> ocs = null;
+        if (oces != null) {
+            ocs = new ArrayList<>();
+            for (OrdenCompraEntity oce : oces) {
+                ocs.add(OrdenCompra.fromEntity(oce));
+            }
+        }
         if (ocs != null) {
             List<Proveedor> proveedores = proveedorDao.findAll().parallelStream().map(pe -> Proveedor.fromEntity(pe)).collect(Collectors.toList());
             Proveedor prov = proveedores.get(ThreadLocalRandom.current().nextInt(0, proveedores.size()));
