@@ -49,7 +49,7 @@ public class SistemaFacturacion {
 		if(pedido == null) throw new BusinessException("No existe el pedido nro. "+pedidoId);
 
 		Factura factura = new Factura();
-		factura.setPedido(pedido);
+	//	factura.setPedido(pedido);
 		factura.setFecha(new Date());
 
 		if(cliente.getCondIva() == CondicionIva.CONS_FINAL) {

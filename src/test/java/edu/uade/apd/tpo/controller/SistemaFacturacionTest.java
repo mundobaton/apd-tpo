@@ -42,9 +42,9 @@ public class SistemaFacturacionTest {
 
     @Test
     public void testProcesarPago() {
-        ClienteEntity c_entity = ClienteDao.getInstance().findByCuil(2732961625L);
+        ClienteEntity c_entity = ClienteDao.getInstance().findByCuil(27329616253L);
         Cliente cli = Cliente.fromEntity(c_entity);
-        Factura f = cli.getPedidos().get(0).getFactura();
+        Factura f = cli.obtenerPedido(45L).getFactura();
 
         sistema.procesarPago(f.getId(), f.getTotal(), MedioPago.EFECTIVO, cli.getCuentaCorriente().getSaldo(), cli.getCuentaCorriente().getLimiteCredito());
 

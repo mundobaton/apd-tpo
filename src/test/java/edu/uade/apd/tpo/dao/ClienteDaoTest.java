@@ -97,7 +97,7 @@ public class ClienteDaoTest {
         pe.setEnvio(ee);
 
         FacturaEntity fe = new FacturaEntity();
-        fe.setPedido(pe);
+       // fe.setPedido(pe);
         fe.setFecha(new Date());
         fe.setCostoEnvio(10);
         fe.setTipo(FacturaTipo.A);
