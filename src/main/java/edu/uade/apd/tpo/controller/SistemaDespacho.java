@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import edu.uade.apd.tpo.exception.BusinessException;
+import edu.uade.apd.tpo.model.Cliente;
 import edu.uade.apd.tpo.model.OrdenCompra;
 import edu.uade.apd.tpo.model.Pedido;
 import edu.uade.apd.tpo.model.Transportista;
@@ -45,10 +47,17 @@ public class SistemaDespacho {
         pedido.guardar();
     }
 
-    public void alistarPedido(Long idPedido) {
-        Pedido pedido = buscarPedido(idPedido);
+    public void alistarPedido(Long idPedido) throws BusinessException {
+        Cliente cli = SistemaAdministracion.getInstance().obtenerClientePorPedido(idPedido);
+        if(cli == null) throw new BusinessException("No existe un cliente con el pedido "+idPedido);
+
+        Pedido pedido = cli.obtenerPedido(idPedido);
+        if(pedido == null) throw new BusinessException("Pedido no encontrado.");
+
         pedido.alistar(seleccionarTransportista());
-        pedido.guardar();
+        cli.guardar();
+
+        SistemaFacturacion.getInstance().facturar(pedido.getId());
     }
 
     private Transportista seleccionarTransportista() {

@@ -47,7 +47,7 @@ public class SistemaDeposito {
         return articulo;
     }
 
-    public void completarPedido(Long pedidoId) {
+    public void completarPedido(Long pedidoId) throws BusinessException{
         Pedido pedido = SistemaAdministracion.getInstance().buscarPedido(pedidoId);
         List<ItemPedido> items = pedido.getItems();
         for (ItemPedido itemPedido : items) {
@@ -57,16 +57,15 @@ public class SistemaDeposito {
             stock.agregarMovimientoEgreso(MotivoEgreso.VENTA, cantidadItem);
             int index = 0;
             while (cantidadItem > 0) {
-                List<Posicion> posiciones = extraerArticulosPosicion(articulo);
-                for (Posicion posicion : posiciones) {
+                Lote lote = extraerLoteMenorFechaVencimiento(articulo);
+                for (Posicion posicion : lote.getPosiciones()) {
                     ItemPosicion itemPosi = new ItemPosicion();
                     itemPosi.setPosicion(posicion);
                     if (cantidadItem < posicion.getCantidad()) {
-                        //TODO Buscar lote por posicion
-                        //itemPedido.agregarLote(posicion.getLote(), cantidadItem);
+                        itemPedido.agregarLote(lote, cantidadItem);
                         liberarPosicion(posicion.getCodUbicacion(), cantidadItem);
                     } else {
-                        //itemPedido.agregarLote(posicion.getLote(), Posicion.getCAPACIDAD());
+                        itemPedido.agregarLote(lote, Posicion.getCAPACIDAD());
                         liberarPosicion(posicion.getCodUbicacion(), Posicion.getCAPACIDAD());
                     }
                     cantidadItem -= posicion.getCantidad();
@@ -77,26 +76,25 @@ public class SistemaDeposito {
         pedido.guardar();
     }
 
-
-    private List<Posicion> extraerArticulosPosicion(Articulo articulo) {
+    //Me da el lote del articulo con fecha de vencimiento mas proxima
+    private Lote extraerLoteMenorFechaVencimiento(Articulo articulo) throws BusinessException{
+        if(articulo.getLotes().isEmpty()) throw new BusinessException("No hay lotes cargados para el articulo");
         Date fechaVtoAnterio = articulo.getLotes().get(0).getFechaVto();
-        List<Posicion> posiciones = new ArrayList();
+        Lote loteMenorFecha = new Lote();
         for (Lote lote : articulo.getLotes()) {
             if (fechaVtoAnterio.compareTo(lote.getFechaVto()) < 0) {
                 fechaVtoAnterio = lote.getFechaVto();
-                posiciones = lote.getPosiciones();
+                loteMenorFecha = lote;
             }
         }
-        return posiciones;
+        return loteMenorFecha;
     }
 
     public void ingresarCompra(Long ordenId, List<ItemLote> items) throws BusinessException {
         OrdenCompra ordenCompra = SistemaCompras.getInstance().buscarOrdenCompra(ordenId);
         Articulo articulo = ordenCompra.getArticulo();
         int cantidad = articulo.getCantCompra();
-        while (items != null) {
-            almacenar(articulo, items, cantidad);
-        }
+        almacenar(articulo, items, cantidad);
         aceptarOrdenCompra(ordenId);
     }
 
@@ -113,28 +111,30 @@ public class SistemaDeposito {
             Posicion posicion = Posicion.fromEntity(entity);
             posiciones.add(posicion);
         }
-
+        int index = 0;
         if (posiciones.size() * Posicion.getCAPACIDAD() >= cantidad) {
             for (ItemLote item : itemLotes) {
-                int cantidadLote = item.getCantidad();
+            	int cantidadLote = item.getCantidad();
                 lotes.add(item.getLote());
                 while (cantidadLote > 0) {
-                    Posicion pos = new Posicion();
-                    //creo que falta el codigo ubicacion dentro de posicion
+                    Posicion pos = posiciones.get(index);
                     if (item.getLote().getPosiciones() == null) {
                         item.getLote().setPosiciones(new ArrayList<>());
                     }
-                    item.getLote().getPosiciones().add(pos);
-                    if (cantidad > pos.getCAPACIDAD()) {
-                        pos.setCantidad(21);
-                        cantidadLote = cantidadLote - pos.getCAPACIDAD();
+                    if (cantidadLote > Posicion.getCAPACIDAD()) {
+                    	pos.setCantidad(Posicion.getCAPACIDAD());
+                        cantidadLote = cantidadLote - Posicion.getCAPACIDAD();
                     } else {
                         pos.setCantidad(cantidadLote);
                         cantidadLote = 0;
                     }
                     pos.setEstado(EstadoPosicion.OCUPADO);
+                    pos.guardar();
+                    item.getLote().getPosiciones().add(pos);
                     item.guardar();
+                    index++;
                 }
+                index = 0;
             }
             articulo.setLotes(lotes);
             articulo.guardar();

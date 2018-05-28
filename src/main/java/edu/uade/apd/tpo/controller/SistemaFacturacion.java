@@ -7,6 +7,7 @@ import java.util.List;
 import edu.uade.apd.tpo.dao.FacturaDao;
 import edu.uade.apd.tpo.dao.RemitoDao;
 import edu.uade.apd.tpo.entity.FacturaEntity;
+import edu.uade.apd.tpo.exception.BusinessException;
 import edu.uade.apd.tpo.model.Cliente;
 import edu.uade.apd.tpo.model.CondicionIva;
 import edu.uade.apd.tpo.model.Factura;
@@ -40,32 +41,43 @@ public class SistemaFacturacion {
 		return factura;
 	}
 	
-	public void facturar(Long pedidoId) {
+	public void facturar(Long pedidoId) throws BusinessException{
+		Cliente cliente = SistemaAdministracion.getInstance().obtenerClientePorPedido(pedidoId);
+		if(cliente == null) throw new BusinessException("No existe el cliente asociado.");
+
+		Pedido pedido = cliente.obtenerPedido(pedidoId);
+		if(pedido == null) throw new BusinessException("No existe el pedido nro. "+pedidoId);
+
 		Factura factura = new Factura();
-		Pedido pedido = SistemaAdministracion.getInstance().buscarPedido(pedidoId);
-		//TODO obtener el cliente por pedido
-		Cliente cliente = new Cliente();
 		factura.setPedido(pedido);
 		factura.setFecha(new Date());
+
 		if(cliente.getCondIva() == CondicionIva.CONS_FINAL) {
 			factura.setTipo(FacturaTipo.B);
 		}else {
 			factura.setTipo(FacturaTipo.A);
 		}
+
 		float costoEnvio = pedido.calcularCostoEnvio();
-		factura.setCostoEnvio(costoEnvio);
 		float subTotal = pedido.obtenerTotal();
 		float impuesto = subTotal * Factura.getIMPUESTOS();
 		float total = subTotal + costoEnvio + impuesto;
+
+		factura.setCostoEnvio(costoEnvio);
 		factura.setTotal(total);
+		factura.guardar();
+
 		pedido.setFactura(factura);
+
 		Remito remito = new Remito();
 		remito.setFecha(new Date());
+		remito.guardar();
+
 		pedido.getEnvio().setRemito(remito);
 		pedido.setFechaEntrega(new Date());
-		pedido.guardar();
-		factura.guardar();
-		remito.guardar();
+
+		cliente.guardar();
+
 	}
 	
 	public float procesarPago(Long facturaId, float importe, MedioPago mp, float saldo, float limiteCred) {

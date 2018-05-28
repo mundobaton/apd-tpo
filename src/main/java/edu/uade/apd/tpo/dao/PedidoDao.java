@@ -75,5 +75,13 @@ public class PedidoDao extends AbstractDao<PedidoEntity> {
         }
     }
 
+    public List<PedidoEntity> findAll(){
+        String query = "select p from PedidoEntity p";
+        try (Session session = getSession()) {
+            Query<PedidoEntity> q = session.createQuery(query);
+            return q.getResultList();
+        }
+    }
+
 
 }

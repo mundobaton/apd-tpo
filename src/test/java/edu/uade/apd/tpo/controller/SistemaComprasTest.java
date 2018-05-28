@@ -20,26 +20,25 @@ public class SistemaComprasTest {
     @Before
     public void setup() {
         sistema = SistemaCompras.getInstance();
-
     }
 
     @Test
     public void testGenerarOrdenCompra() throws BusinessException {
-        sistema.generarOrdenCompra(29L, 45L);
+        sistema.generarOrdenCompra(30L, 45L);
     }
 
     @Test
     public void testBuscarOrdenCompra() throws BusinessException {
-        OrdenCompra oc = sistema.buscarOrdenCompra(1L);
+        OrdenCompra oc = sistema.buscarOrdenCompra(25L);
         Assert.assertNotNull(oc);
     }
 
     @Test
+    //Este metodo solo hay que llamarlo luego de reaizar el ingreso de una compra en deposito
     public void testAceptarOrdenCompra() throws BusinessException {
-        sistema.aceptarOrdenCompra(1L);
+        sistema.aceptarOrdenCompra(27L);
     }
 
-    //TODO esta trayendo problemas con el Enum
     @Test
     public void testObtenerOrdenesDeCompraEmitidas() {
         List<OrdenCompra> ocs = sistema.obtenerOrdenesDeCompraEmitidas();

@@ -25,13 +25,18 @@ public class SistemaDepositoTest {
     }
 
     @Test
+    public void testInicializarPosisiones() throws BusinessException {
+    	sistema.inicializarPosiciones();
+    }
+    
+    @Test
     public void testBuscarArticulo() {
         Articulo art = sistema.buscarArticulo(1L);
         Assert.assertNotNull(art);
     }
 
     @Test
-    public void testCompletarPedido() {
+    public void testCompletarPedido() throws BusinessException{
         sistema.completarPedido(45L);
     }
 
@@ -40,7 +45,7 @@ public class SistemaDepositoTest {
         OrdenCompraEntity entity = OrdenCompraDao.getInstance().findById(22L);
         OrdenCompra oc = OrdenCompra.fromEntity(entity);
         List<ItemLote> items = new ArrayList<>();
-        for (int i = 0; i <= 5; i++) {
+        for (int i = 0; i < 5; i++) {
             String loteCod = UUID.randomUUID().toString();
             Lote lote = new Lote();
             lote.setCodigo(loteCod);
@@ -48,7 +53,7 @@ public class SistemaDepositoTest {
             lote.setFechaElaboracion(new Date());
             ItemLote item = new ItemLote();
             item.setLote(lote);
-            item.setCantidad(oc.getArticulo().getCantCompra() / 5);
+            item.setCantidad(oc.getArticulo().getCantCompra() / 4);
             items.add(item);
         }
 
@@ -99,7 +104,7 @@ public class SistemaDepositoTest {
 
     @Test
     public void testCrearLote() {
-        Lote l = sistema.crearLote("G03050621", new Date(), new Date(), 3L);
+        Lote l = sistema.crearLote("B03050680", new Date(), new Date(), 30L);
         Assert.assertNotNull(l);
     }
 

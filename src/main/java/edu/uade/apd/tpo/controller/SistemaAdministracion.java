@@ -325,6 +325,21 @@ public class SistemaAdministracion {
                 .parallelStream().map(pe -> Pedido.fromEntity(pe)).collect(Collectors.toList());
     }
 
+    public Cliente obtenerClientePorPedido(Long pedidoId){
+        List<Cliente> clientes = clienteDao.findAll().parallelStream().map(ce -> Cliente.fromEntity(ce)).collect(Collectors.toList());
+        Cliente result = null;
+        for(Cliente c : clientes){
+            if(c.getPedidos() != null && !c.getPedidos().isEmpty()){
+                for(Pedido p : c.getPedidos()){
+                    if(p.getId() == pedidoId){
+                        result = c;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
     public List<Pedido> obtenerPedidosListos() {
         return pedidoDao.getInstance().obtenerPedidosListos()
                 .parallelStream().map(pe -> Pedido.fromEntity(pe)).collect(Collectors.toList());

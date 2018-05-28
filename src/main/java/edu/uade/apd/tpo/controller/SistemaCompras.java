@@ -1,5 +1,6 @@
 package edu.uade.apd.tpo.controller;
 
+import com.sun.tools.corba.se.idl.constExpr.Or;
 import edu.uade.apd.tpo.dao.OrdenCompraDao;
 import edu.uade.apd.tpo.dao.ProveedorDao;
 import edu.uade.apd.tpo.entity.OrdenCompraEntity;
@@ -64,7 +65,7 @@ public class SistemaCompras {
 
     public void aceptarOrdenCompra(Long ordenId) throws BusinessException {
         OrdenCompra orden = buscarOrdenCompra(ordenId);
-        if (orden != null && orden.getEstado() != EstadoCompra.EMITIDA) {
+        if (orden != null && orden.getEstado() == EstadoCompra.EMITIDA) {
             orden.setEstado(EstadoCompra.ACEPTADA);
             orden.guardar();
         } else {
@@ -73,8 +74,15 @@ public class SistemaCompras {
     }
 
     public List<OrdenCompra> obtenerOrdenesDeCompraEmitidas() {
-        return ordenCompraDao.findByEstado(EstadoCompra.EMITIDA).parallelStream()
-                .map(oce -> OrdenCompra.fromEntity(oce)).collect(Collectors.toList());
+        List<OrdenCompraEntity> oces = ordenCompraDao.findByEstado(EstadoCompra.EMITIDA);
+        List<OrdenCompra> ocs = null;
+        if (oces != null) {
+            ocs = new ArrayList<>();
+            for (OrdenCompraEntity oce : oces) {
+                ocs.add(OrdenCompra.fromEntity(oce));
+            }
+        }
+        return ocs;
     }
 
     /**
