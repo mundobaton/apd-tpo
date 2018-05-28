@@ -25,6 +25,11 @@ public class SistemaDepositoTest {
     }
 
     @Test
+    public void testInicializarPosisiones() throws BusinessException {
+    	sistema.inicializarPosiciones();
+    }
+    
+    @Test
     public void testBuscarArticulo() {
         Articulo art = sistema.buscarArticulo(1L);
         Assert.assertNotNull(art);
