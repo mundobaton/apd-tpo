@@ -97,14 +97,20 @@ public class SistemaDeposito {
         almacenar(articulo, items, cantidad);
         aceptarOrdenCompra(ordenId);
     }
+    
+    public List<PosicionEntity> obtenerPosicionesVacias(int cantidad){
+    	return posicionDao.obtenerObtenerPosicionesVacias(cantidad);
+    }
 
     public void almacenar(Articulo articulo, List<ItemLote> itemLotes, int cantidad) throws BusinessException {
         List<Lote> lotes = articulo.getLotes();
         Stock stock = articulo.getStock();
         stock.agregarMovimientoIngreso(MotivoIngreso.COMPRA, cantidad);
         articulo.setStock(stock);
-
-        List<PosicionEntity> entities = posicionDao.obtenerObtenerPosicionesVacias();
+        
+        int cantidadDePosiciones = (cantidad / Posicion.getCAPACIDAD()) + 1;
+        List<PosicionEntity> entities = obtenerPosicionesVacias(cantidadDePosiciones);
+        
         List<Posicion> posiciones = new ArrayList<>();
 
         for (PosicionEntity entity : entities) {
