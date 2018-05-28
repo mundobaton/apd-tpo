@@ -30,14 +30,14 @@ public class SistemaAdministracionTest {
 
     @Test
     public void testCrearPedido() throws BusinessException {
-        Pedido p = sistema.generarPedido(27329616253L, "Av Cordoba", 2057L, "1099", "CABA", "Buenos Aires", Zona.CABA);
+        Pedido p = sistema.generarPedido(27329616253L, "Av Independencia", 466L, "1099", "CABA", "Buenos Aires", Zona.CABA);
         System.out.print("Pedido id: "+p.getId());
         Assert.assertNotNull(p.getId());
     }
 
     @Test
     public void testAgregarItemPedido() throws BusinessException {
-        sistema.agregarItemPedido(48L, 27329616253L, 31L, 10);
+        sistema.agregarItemPedido(49L, 27329616253L, 37L, 15);
     }
 
     @Test
@@ -47,17 +47,17 @@ public class SistemaAdministracionTest {
 
     @Test
     public void testCerrarPedido() throws BusinessException {
-        sistema.cerrarPedido(48L, 27329616253L);
+        sistema.cerrarPedido(49L, 27329616253L);
     }
 
     @Test
     public void testAprobarPedido() throws BusinessException {
-        sistema.aprobarPedido(48L, 27329616253L, "Cliente fiel");
+        sistema.aprobarPedido(49L, 27329616253L, "Cliente fiel");
     }
 
     @Test
     public void testCrearArticulo(){
-        Articulo art = sistema.crearArticulo("4645765", "Notebook", "Caja", "1 unidad", 2000, 1, 9000);
+        Articulo art = sistema.crearArticulo("234555", "Bombilla", "Caja", "10 unidades", 10, 1, 25);
         Assert.assertNotNull(art);
     }
 

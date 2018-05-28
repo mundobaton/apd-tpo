@@ -42,23 +42,31 @@ public class SistemaDepositoTest {
     }
 
     @Test
-    public void testIngresarCompra() throws BusinessException {//cod ubic
-        OrdenCompraEntity entity = OrdenCompraDao.getInstance().findById(22L);
+    public void testConsultarStockArticulo(){
+        Articulo art = sistema.buscarArticulo(37L);
+        System.out.print(art.getStock().calcular());
+    }
+
+    @Test
+    public void testIngresarCompra() throws BusinessException {
+        OrdenCompraEntity entity = OrdenCompraDao.getInstance().findById(28L);
         OrdenCompra oc = OrdenCompra.fromEntity(entity);
-        List<ItemLote> items = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            String loteCod = UUID.randomUUID().toString();
+        List<ItemLote> lotesRecibidos = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            String codigo = UUID.randomUUID().toString();
             Lote lote = new Lote();
-            lote.setCodigo(loteCod);
+            lote.setPosiciones(new ArrayList<>());
+            lote.setCodigo(codigo);
             lote.setFechaVto(new Date());
             lote.setFechaElaboracion(new Date());
+
             ItemLote item = new ItemLote();
             item.setLote(lote);
-            item.setCantidad(oc.getArticulo().getCantCompra() / 4);
-            items.add(item);
+            item.setCantidad(oc.getArticulo().getCantCompra() / 2);
+            lotesRecibidos.add(item);
         }
 
-        sistema.ingresarCompra(oc.getId(), items);
+        sistema.ingresarCompra(oc.getId(), lotesRecibidos);
     }
 
     @Test
@@ -106,7 +114,7 @@ public class SistemaDepositoTest {
     @Test
     public void testCrearLote() {
         String codigo = UUID.randomUUID().toString();
-        Lote l = sistema.crearLote(codigo, new Date(), new Date(), 36L);
+        Lote l = sistema.crearLote(codigo, new Date(), new Date(), 37L);
         Assert.assertNotNull(l);
     }
 
@@ -116,7 +124,6 @@ public class SistemaDepositoTest {
         Assert.assertNotNull(pedidos);
     }
 
-    ///
     @Test
     public void testAceptarCompra2() throws BusinessException {
         List<ItemLote> lotes = new ArrayList<>();

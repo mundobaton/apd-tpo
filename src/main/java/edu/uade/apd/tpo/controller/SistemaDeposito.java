@@ -88,11 +88,12 @@ public class SistemaDeposito {
         return loteMenorFecha;
     }
 
-    public void ingresarCompra(Long ordenId, List<ItemLote> items) throws BusinessException {
+    public void ingresarCompra(Long ordenId, List<ItemLote> lotesRecibidos) throws BusinessException {
         OrdenCompra ordenCompra = SistemaCompras.getInstance().buscarOrdenCompra(ordenId);
+        if(ordenCompra == null) throw new BusinessException("No se ha encontrado la orden de compra.");
         Articulo articulo = ordenCompra.getArticulo();
-        int cantidad = articulo.getCantCompra();
-        almacenar(articulo, items, cantidad);
+        if(buscarArticulo(articulo.getId()) == null) throw new BusinessException("Articulo no existente en el deposito.");
+        almacenar(articulo, lotesRecibidos, articulo.getCantCompra());
         aceptarOrdenCompra(ordenId);
     }
 
@@ -100,25 +101,25 @@ public class SistemaDeposito {
         return posicionDao.obtenerObtenerPosicionesVacias(cantidad);
     }
 
-    public void almacenar(Articulo articulo, List<ItemLote> itemLotes, int cantidad) throws BusinessException {
-        //List<Lote> lotes = articulo.getLotes();
-        List<Lote> lotes = new ArrayList<>();
+    public void almacenar(Articulo articulo, List<ItemLote> lotesRecibidos, int cantidad) throws BusinessException {
+
         Stock stock = articulo.getStock();
         stock.agregarMovimientoIngreso(MotivoIngreso.COMPRA, cantidad);
         articulo.setStock(stock);
 
-        int cantidadDePosiciones = (cantidad / Posicion.getCAPACIDAD()) + 1;
+        List<Lote> lotes = new ArrayList<>();
+        int cantidadDePosiciones = (cantidad <= Posicion.getCAPACIDAD()) ? 1 : (cantidad / Posicion.getCAPACIDAD()) + 1;
+
         List<PosicionEntity> entities = obtenerPosicionesVacias(cantidadDePosiciones);
-
         List<Posicion> posiciones = new ArrayList<>();
-
         for (PosicionEntity entity : entities) {
             Posicion posicion = Posicion.fromEntity(entity);
             posiciones.add(posicion);
         }
+
         int index = 0;
         if (posiciones.size() * Posicion.getCAPACIDAD() >= cantidad) {
-            for (ItemLote item : itemLotes) {
+            for (ItemLote item : lotesRecibidos) {
                 int cantidadLote = item.getCantidad();
                 lotes.add(item.getLote());
                 while (cantidadLote > 0) {
@@ -144,7 +145,7 @@ public class SistemaDeposito {
             articulo.getLotes().addAll(lotes);
             articulo.guardar();
         } else {
-            throw new BusinessException("No hay lugar suficiente");
+            throw new BusinessException("No hay lugar suficiente.");
         }
     }
 
