@@ -49,14 +49,14 @@ public class SistemaFacturacionTest {
     }
 
     @Test
-    public void testProcesarPagoImporte() {
+    public void testProcesarPagoImporte() throws BusinessException{
         ClienteEntity c_entity = ClienteDao.getInstance().findByCuil(2732961625L);
         Cliente cli = Cliente.fromEntity(c_entity);
         sistema.procesarPagoImporte(cli.getCuil(), 5000, MedioPago.EFECTIVO, cli.getCuentaCorriente().getSaldo(), cli.getCuentaCorriente().getLimiteCredito());
     }
 
     @Test
-    public void testObtenerFacturasImpagas(){
+    public void testObtenerFacturasImpagas() throws BusinessException{
         List<Factura> facturas = sistema.obtenerFacturasImpagas(2732961625L);
         Assert.assertNotNull(facturas);
     }
