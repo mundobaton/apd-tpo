@@ -4,6 +4,7 @@ import edu.uade.apd.tpo.dao.ArticuloDao;
 import edu.uade.apd.tpo.dao.OrdenCompraDao;
 import edu.uade.apd.tpo.entity.ArticuloEntity;
 import edu.uade.apd.tpo.entity.OrdenCompraEntity;
+import edu.uade.apd.tpo.entity.PosicionEntity;
 import edu.uade.apd.tpo.exception.BusinessException;
 import edu.uade.apd.tpo.model.*;
 import org.junit.Assert;
@@ -128,6 +129,12 @@ public class SistemaDepositoTest {
         lotes.add(il);
 
         sistema.ingresarCompra(3L, lotes);
+    }
+    
+    @Test
+    public void testObtenerPosicionesVacias(){
+    	 List<PosicionEntity> posiciones = sistema.obtenerPosicionesVacias(5);
+    	 Assert.assertNotNull(posiciones);
     }
 
 }
