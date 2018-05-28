@@ -11,7 +11,6 @@ public class Factura {
     private Long id;
     private Date fecha;
     private FacturaTipo tipo;
-    private Pedido pedido;
     private float costoEnvio;
     private static float IMPUESTOS = 0.21f;
     private float total;
@@ -38,14 +37,6 @@ public class Factura {
 
     public void setTipo(FacturaTipo tipo) {
         this.tipo = tipo;
-    }
-
-    public Pedido getPedido() {
-        return pedido;
-    }
-
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
     }
 
     public float getCostoEnvio() {
@@ -99,7 +90,6 @@ public class Factura {
         entity.setId(id);
         entity.setFecha(fecha);
         entity.setTipo(tipo);
-        entity.setPedido(pedido.toEntity());
         entity.setCostoEnvio(costoEnvio);
         entity.setTotal(total);
         return entity;

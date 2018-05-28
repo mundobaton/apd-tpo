@@ -39,7 +39,7 @@ public class PedidoEntity implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "envio_id")
     private EnvioEntity envio;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "factura_id")
     private FacturaEntity factura;
     @OneToOne(cascade = CascadeType.ALL)

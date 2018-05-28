@@ -31,9 +31,6 @@ public class FacturaEntity implements Serializable {
     @Column(name = "tipo_factura_id")
     @Enumerated(EnumType.ORDINAL)
     private FacturaTipo tipo;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "pedido_id")
-    private PedidoEntity pedido;
     @Column(name = "costo_envio")
     private float costoEnvio;
     @Column(name = "total")
@@ -61,14 +58,6 @@ public class FacturaEntity implements Serializable {
 
     public void setTipo(FacturaTipo tipo) {
         this.tipo = tipo;
-    }
-
-    public PedidoEntity getPedido() {
-        return pedido;
-    }
-
-    public void setPedido(PedidoEntity pedido) {
-        this.pedido = pedido;
     }
 
     public float getCostoEnvio() {
