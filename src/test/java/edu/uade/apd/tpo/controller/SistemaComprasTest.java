@@ -20,12 +20,11 @@ public class SistemaComprasTest {
     @Before
     public void setup() {
         sistema = SistemaCompras.getInstance();
-
     }
 
     @Test
     public void testGenerarOrdenCompra() throws BusinessException {
-        sistema.generarOrdenCompra(29L, 45L);
+        sistema.generarOrdenCompra(30L, 45L);
     }
 
     @Test
@@ -36,10 +35,9 @@ public class SistemaComprasTest {
 
     @Test
     public void testAceptarOrdenCompra() throws BusinessException {
-        sistema.aceptarOrdenCompra(1L);
+        sistema.aceptarOrdenCompra(27L);
     }
 
-    //TODO esta trayendo problemas con el Enum
     @Test
     public void testObtenerOrdenesDeCompraEmitidas() {
         List<OrdenCompra> ocs = sistema.obtenerOrdenesDeCompraEmitidas();

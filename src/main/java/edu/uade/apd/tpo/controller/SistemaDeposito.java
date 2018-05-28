@@ -47,7 +47,7 @@ public class SistemaDeposito {
         return articulo;
     }
 
-    public void completarPedido(Long pedidoId) {
+    public void completarPedido(Long pedidoId) throws BusinessException{
         Pedido pedido = SistemaAdministracion.getInstance().buscarPedido(pedidoId);
         List<ItemPedido> items = pedido.getItems();
         for (ItemPedido itemPedido : items) {
@@ -77,7 +77,8 @@ public class SistemaDeposito {
     }
 
     //Me da el lote del articulo con fecha de vencimiento mas proxima
-    private Lote extraerLoteMenorFechaVencimiento(Articulo articulo) {
+    private Lote extraerLoteMenorFechaVencimiento(Articulo articulo) throws BusinessException{
+        if(articulo.getLotes().isEmpty()) throw new BusinessException("No hay lotes cargados para el articulo");
         Date fechaVtoAnterio = articulo.getLotes().get(0).getFechaVto();
         Lote loteMenorFecha = new Lote();
         for (Lote lote : articulo.getLotes()) {
