@@ -7,6 +7,7 @@ import java.util.List;
 import edu.uade.apd.tpo.dao.FacturaDao;
 import edu.uade.apd.tpo.dao.RemitoDao;
 import edu.uade.apd.tpo.entity.FacturaEntity;
+import edu.uade.apd.tpo.exception.BusinessException;
 import edu.uade.apd.tpo.model.Cliente;
 import edu.uade.apd.tpo.model.CondicionIva;
 import edu.uade.apd.tpo.model.Factura;
@@ -40,18 +41,23 @@ public class SistemaFacturacion {
 		return factura;
 	}
 	
-	public void facturar(Long pedidoId) {
-		Factura factura = new Factura();
+	public void facturar(Long pedidoId) throws BusinessException{
 		Pedido pedido = SistemaAdministracion.getInstance().buscarPedido(pedidoId);
-		//TODO obtener el cliente por pedido
-		Cliente cliente = new Cliente();
+		if(pedido == null) throw new BusinessException("No existe el pedido nro. "+pedidoId);
+
+		Cliente cliente = SistemaAdministracion.getInstance().obtenerClientePorPedido(pedido.getId());
+		if(cliente == null) throw new BusinessException("No existe el cliente asociado.");
+
+		Factura factura = new Factura();
 		factura.setPedido(pedido);
 		factura.setFecha(new Date());
+
 		if(cliente.getCondIva() == CondicionIva.CONS_FINAL) {
 			factura.setTipo(FacturaTipo.B);
 		}else {
 			factura.setTipo(FacturaTipo.A);
 		}
+
 		float costoEnvio = pedido.calcularCostoEnvio();
 		factura.setCostoEnvio(costoEnvio);
 		float subTotal = pedido.obtenerTotal();

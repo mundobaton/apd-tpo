@@ -1,5 +1,6 @@
 package edu.uade.apd.tpo.controller;
 
+import edu.uade.apd.tpo.exception.BusinessException;
 import edu.uade.apd.tpo.model.OrdenCompra;
 import edu.uade.apd.tpo.model.Pedido;
 import org.junit.Assert;
@@ -36,8 +37,8 @@ public class SistemaDespachoTest {
     }
 
     @Test
-    public void testAlistarPedido() {
-        sistema.alistarPedido(3L);
+    public void testAlistarPedido() throws BusinessException {
+        sistema.alistarPedido(45L);
     }
 
     @Test

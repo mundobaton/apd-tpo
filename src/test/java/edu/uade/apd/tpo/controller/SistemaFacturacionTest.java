@@ -6,6 +6,7 @@ import edu.uade.apd.tpo.dao.PedidoDao;
 import edu.uade.apd.tpo.entity.ClienteEntity;
 import edu.uade.apd.tpo.entity.FacturaEntity;
 import edu.uade.apd.tpo.entity.PedidoEntity;
+import edu.uade.apd.tpo.exception.BusinessException;
 import edu.uade.apd.tpo.model.Cliente;
 import edu.uade.apd.tpo.model.Factura;
 import edu.uade.apd.tpo.model.MedioPago;
@@ -33,7 +34,7 @@ public class SistemaFacturacionTest {
     }
 
     @Test
-    public void testFacturar() {
+    public void testFacturar() throws BusinessException {
         PedidoEntity entity = PedidoDao.getInstance().findById(2L);
         Pedido p = Pedido.fromEntity(entity);
         sistema.facturar(p.getId());
