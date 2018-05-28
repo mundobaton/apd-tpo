@@ -94,9 +94,7 @@ public class SistemaDeposito {
         OrdenCompra ordenCompra = SistemaCompras.getInstance().buscarOrdenCompra(ordenId);
         Articulo articulo = ordenCompra.getArticulo();
         int cantidad = articulo.getCantCompra();
-        while (items != null) {
-            almacenar(articulo, items, cantidad);
-        }
+        almacenar(articulo, items, cantidad);
         aceptarOrdenCompra(ordenId);
     }
 
@@ -120,7 +118,6 @@ public class SistemaDeposito {
                 lotes.add(item.getLote());
                 while (cantidadLote > 0) {
                     Posicion pos = posiciones.get(index);
-                    //creo que falta el codigo ubicacion dentro de posicion
                     if (item.getLote().getPosiciones() == null) {
                         item.getLote().setPosiciones(new ArrayList<>());
                     }
