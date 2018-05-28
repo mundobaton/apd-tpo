@@ -27,9 +27,9 @@ public class SistemaDepositoTest {
 
     @Test
     public void testInicializarPosisiones() throws BusinessException {
-    	sistema.inicializarPosiciones();
+        sistema.inicializarPosiciones();
     }
-    
+
     @Test
     public void testBuscarArticulo() {
         Articulo art = sistema.buscarArticulo(1L);
@@ -37,12 +37,12 @@ public class SistemaDepositoTest {
     }
 
     @Test
-    public void testCompletarPedido() throws BusinessException{
+    public void testCompletarPedido() throws BusinessException {
         sistema.completarPedido(48L);
     }
 
     @Test
-    public void testConsultarStockArticulo(){
+    public void testConsultarStockArticulo() {
         Articulo art = sistema.buscarArticulo(37L);
         System.out.print(art.getStock().calcular());
     }
@@ -52,19 +52,17 @@ public class SistemaDepositoTest {
         OrdenCompraEntity entity = OrdenCompraDao.getInstance().findById(28L);
         OrdenCompra oc = OrdenCompra.fromEntity(entity);
         List<ItemLote> lotesRecibidos = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            String codigo = UUID.randomUUID().toString();
-            Lote lote = new Lote();
-            lote.setPosiciones(new ArrayList<>());
-            lote.setCodigo(codigo);
-            lote.setFechaVto(new Date());
-            lote.setFechaElaboracion(new Date());
 
-            ItemLote item = new ItemLote();
-            item.setLote(lote);
-            item.setCantidad(oc.getArticulo().getCantCompra() / 2);
-            lotesRecibidos.add(item);
-        }
+        String codigo = UUID.randomUUID().toString();
+        Lote lote = new Lote();
+        lote.setPosiciones(new ArrayList<>());
+        lote.setCodigo(codigo);
+        lote.setFechaVto(new Date());
+        lote.setFechaElaboracion(new Date());
+        ItemLote item = new ItemLote();
+        item.setLote(lote);
+        item.setCantidad(oc.getArticulo().getCantCompra());
+        lotesRecibidos.add(item);
 
         sistema.ingresarCompra(oc.getId(), lotesRecibidos);
     }
@@ -137,11 +135,11 @@ public class SistemaDepositoTest {
 
         sistema.ingresarCompra(3L, lotes);
     }
-    
+
     @Test
-    public void testObtenerPosicionesVacias(){
-    	 List<Posicion> posiciones = sistema.obtenerPosicionesVacias(5);
-    	 Assert.assertNotNull(posiciones);
+    public void testObtenerPosicionesVacias() {
+        List<Posicion> posiciones = sistema.obtenerPosicionesVacias(5);
+        Assert.assertNotNull(posiciones);
     }
 
 }

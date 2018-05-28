@@ -113,6 +113,7 @@ public class SistemaDeposito {
         int cantidadDePosiciones = (cantidad <= Posicion.getCAPACIDAD()) ? 1 : (cantidad / Posicion.getCAPACIDAD()) + 1;
 
         List<Posicion> posiciones = obtenerPosicionesVacias(cantidadDePosiciones);
+        if(posiciones == null)throw new BusinessException("No hay posiciones vacias.");
 
         int index = 0;
         if (posiciones.size() * Posicion.getCAPACIDAD() >= cantidad) {
