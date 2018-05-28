@@ -34,6 +34,7 @@ public class SistemaComprasTest {
     }
 
     @Test
+    //Este metodo solo hay que llamarlo luego de reaizar el ingreso de una compra en deposito
     public void testAceptarOrdenCompra() throws BusinessException {
         sistema.aceptarOrdenCompra(27L);
     }

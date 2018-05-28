@@ -45,7 +45,7 @@ public class SistemaDepositoTest {
         OrdenCompraEntity entity = OrdenCompraDao.getInstance().findById(22L);
         OrdenCompra oc = OrdenCompra.fromEntity(entity);
         List<ItemLote> items = new ArrayList<>();
-        for (int i = 0; i <= 5; i++) {
+        for (int i = 0; i < 5; i++) {
             String loteCod = UUID.randomUUID().toString();
             Lote lote = new Lote();
             lote.setCodigo(loteCod);
@@ -53,7 +53,7 @@ public class SistemaDepositoTest {
             lote.setFechaElaboracion(new Date());
             ItemLote item = new ItemLote();
             item.setLote(lote);
-            item.setCantidad(oc.getArticulo().getCantCompra() / 5);
+            item.setCantidad(oc.getArticulo().getCantCompra() / 4);
             items.add(item);
         }
 
