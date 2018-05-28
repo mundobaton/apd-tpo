@@ -32,13 +32,13 @@ public class SistemaDespachoTest {
     }
 
     @Test
-    public void testDespacharPedido() throws BusinessException {
-        sistema.despacharPedido(45L);
+    public void testAlistarPedido() throws BusinessException {
+        sistema.alistarPedido(45L);//probemos de nuevo
     }
 
     @Test
-    public void testAlistarPedido() throws BusinessException {
-        sistema.alistarPedido(45L);//probemos de nuevo
+    public void testDespacharPedido() throws BusinessException {
+        sistema.despacharPedido(45L);
     }
 
     @Test
