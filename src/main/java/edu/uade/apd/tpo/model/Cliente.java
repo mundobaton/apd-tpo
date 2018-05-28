@@ -189,4 +189,17 @@ public class Cliente extends Usuario {
         return result;
     }
 
+    public Factura obtenerFactura(Long facturaId){
+        Factura result = null;
+
+        if(this.getPedidos() != null) {
+            Iterator<Pedido> it = getPedidos().iterator();
+            while(result == null && it.hasNext()) {
+                Pedido pedido = it.next();
+                result = pedido.getFactura().getId().longValue() == facturaId.longValue() ? pedido.getFactura() : null;
+            }
+        }
+        return result;
+    }
+
 }

@@ -80,19 +80,38 @@ public class SistemaFacturacion {
 
 	}
 	
-	public float procesarPago(Long facturaId, float importe, MedioPago mp, float saldo, float limiteCred) {
-		Factura factura = buscarFactura(facturaId);
-		float importeRestante = saldo + limiteCred + importe;
+	public void procesarPago(Long facturaId, float importe, MedioPago mp) throws BusinessException {
+		Cliente cli = SistemaAdministracion.getInstance().obtenerClientePorFactura(facturaId);
+		if(cli == null) throw new BusinessException("No existe cliente asociado al nro. de factura "+facturaId);
+
+		Factura factura = cli.obtenerFactura(facturaId);
+		if(factura == null) throw new BusinessException("No existe la factura solicitada.");
+
+		float saldo = cli.getCuentaCorriente().getSaldo();
+		float limite = cli.getCuentaCorriente().getLimiteCredito();
+		float importeRestante = saldo + limite + importe;
 		float total = factura.getTotal();
+
 		if(total <= importeRestante) {
 			Transaccion transaccion = new Transaccion();
+			transaccion.setFacturas(new ArrayList<>());
 			transaccion.setFecha(new Date());
 			transaccion.setImporte(total);
 			transaccion.setMedioPago(mp);
 			transaccion.agregarFactura(factura);
-			factura.guardar();
+
+			if(cli.getCuentaCorriente().getTransacciones() == null){
+				cli.getCuentaCorriente().setTransacciones(new ArrayList<>());
+			}
+
+			cli.getCuentaCorriente().getTransacciones().add(transaccion);
+			importeRestante = importeRestante - total;
+		}else{
+			throw new BusinessException("Saldo insuficiente para abonar la factura.");
 		}
-		return importeRestante - limiteCred; 
+
+		cli.getCuentaCorriente().setSaldo(importeRestante - limite);
+		cli.guardar();
 	}
 	
 	public List<Factura> obtenerFacturasImpagas(Long cuil){

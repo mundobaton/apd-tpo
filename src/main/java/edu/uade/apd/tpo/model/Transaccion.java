@@ -56,8 +56,8 @@ public class Transaccion {
         this.medioPago = medioPago;
     }
 
-    public void agregarFactura(Factura fatura) {
-        this.facturas.add(fatura);
+    public void agregarFactura(Factura factura) {
+        this.facturas.add(factura);
     }
 
     public void guardar() {

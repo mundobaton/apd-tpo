@@ -244,21 +244,7 @@ public class SistemaAdministracion {
     }
 
     public void realizarPago(Long facturaId, float importe, MedioPago mp) throws BusinessException {
-        Factura factura = SistemaFacturacion.getInstance().buscarFactura(facturaId);
-        if (factura != null) {
-            //TODO Buscar cliente por factura
-            Cliente cliente = new Cliente();
-            CuentaCorriente ctaCte = cliente.getCuentaCorriente();
-            float saldo = ctaCte.getSaldo();
-            float limiteCred = ctaCte.getLimiteCredito();
-            float saldoRestante = SistemaFacturacion.getInstance().procesarPago(facturaId, importe, mp, saldo,
-                    limiteCred);
-            ctaCte.setSaldo(saldoRestante);
-            cliente.guardar();
-        } else {
-            throw new BusinessException("No existe factura");
-
-        }
+        SistemaFacturacion.getInstance().procesarPago(facturaId, importe, mp);
     }
 
     public void realizarPagoImporte(Long cuil, float importe, MedioPago mp) throws BusinessException {
@@ -332,6 +318,21 @@ public class SistemaAdministracion {
             if(c.getPedidos() != null && !c.getPedidos().isEmpty()){
                 for(Pedido p : c.getPedidos()){
                     if(p.getId() == pedidoId){
+                        result = c;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    public Cliente obtenerClientePorFactura(Long facturaId){
+        List<Cliente> clientes = clienteDao.findAll().parallelStream().map(ce -> Cliente.fromEntity(ce)).collect(Collectors.toList());
+        Cliente result = null;
+        for(Cliente c : clientes){
+            if(c.getPedidos() != null && !c.getPedidos().isEmpty()){
+                for(Pedido p : c.getPedidos()){
+                    if(p.getFactura() != null && p.getFactura().getId() == facturaId){
                         result = c;
                     }
                 }

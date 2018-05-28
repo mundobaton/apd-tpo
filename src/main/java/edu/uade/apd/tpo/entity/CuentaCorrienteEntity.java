@@ -25,7 +25,7 @@ public class CuentaCorrienteEntity implements Serializable {
     private float saldo;
     @Column(name = "limite_credito")
     private float limiteCredito;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "cuenta_corriente_id")
     private List<TransaccionEntity> transacciones;
 

@@ -41,13 +41,11 @@ public class SistemaFacturacionTest {
     }
 
     @Test
-    public void testProcesarPago() {
+    public void testProcesarPago() throws BusinessException {
         ClienteEntity c_entity = ClienteDao.getInstance().findByCuil(27329616253L);
         Cliente cli = Cliente.fromEntity(c_entity);
         Factura f = cli.obtenerPedido(45L).getFactura();
-
-        sistema.procesarPago(f.getId(), f.getTotal(), MedioPago.EFECTIVO, cli.getCuentaCorriente().getSaldo(), cli.getCuentaCorriente().getLimiteCredito());
-
+        SistemaAdministracion.getInstance().realizarPago(f.getId(), f.getTotal(), MedioPago.EFECTIVO);
     }
 
     @Test
