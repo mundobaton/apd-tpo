@@ -112,28 +112,31 @@ public class SistemaDeposito {
             Posicion posicion = Posicion.fromEntity(entity);
             posiciones.add(posicion);
         }
-
+        int index = 0;
         if (posiciones.size() * Posicion.getCAPACIDAD() >= cantidad) {
             for (ItemLote item : itemLotes) {
-                int cantidadLote = item.getCantidad();
+            	int cantidadLote = item.getCantidad();
                 lotes.add(item.getLote());
                 while (cantidadLote > 0) {
-                    Posicion pos = new Posicion();
+                    Posicion pos = posiciones.get(index);
                     //creo que falta el codigo ubicacion dentro de posicion
                     if (item.getLote().getPosiciones() == null) {
                         item.getLote().setPosiciones(new ArrayList<>());
                     }
-                    item.getLote().getPosiciones().add(pos);
-                    if (cantidad > pos.getCAPACIDAD()) {
-                        pos.setCantidad(21);
-                        cantidadLote = cantidadLote - pos.getCAPACIDAD();
+                    if (cantidadLote > Posicion.getCAPACIDAD()) {
+                    	pos.setCantidad(Posicion.getCAPACIDAD());
+                        cantidadLote = cantidadLote - Posicion.getCAPACIDAD();
                     } else {
                         pos.setCantidad(cantidadLote);
                         cantidadLote = 0;
                     }
                     pos.setEstado(EstadoPosicion.OCUPADO);
+                    pos.guardar();
+                    item.getLote().getPosiciones().add(pos);
                     item.guardar();
+                    index++;
                 }
+                index = 0;
             }
             articulo.setLotes(lotes);
             articulo.guardar();
