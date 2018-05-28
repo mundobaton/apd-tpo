@@ -111,13 +111,45 @@ public class SistemaFacturacion {
         cli.guardar();
     }
 
+    public void procesarPagoImporte(Long cuil, float importe, MedioPago mp) throws BusinessException {
+        Cliente cli = SistemaAdministracion.getInstance().buscarCliente(cuil);
+        if(cli == null) throw new BusinessException("Cliente no encontrado");
+
+        List<Factura> facturas = obtenerFacturasImpagas(cuil);
+
+        float saldo = cli.getCuentaCorriente().getSaldo();
+        float limiteCred = cli.getCuentaCorriente().getLimiteCredito();
+        float importeRestante = saldo + limiteCred + importe;
+        float importeAbonado = 0;
+
+        Transaccion transaccion = new Transaccion();
+        transaccion.setFacturas(new ArrayList<>());
+        transaccion.setFecha(new Date());
+        transaccion.setMedioPago(mp);
+
+        for (Factura factura : facturas) {
+            float total = factura.getTotal();
+            if (total <= importeRestante) {
+                importeAbonado += total;
+                transaccion.agregarFactura(factura);
+                importeRestante -= total;
+            }
+        }
+        transaccion.setImporte(importeAbonado);
+
+        if(cli.getCuentaCorriente().getTransacciones() == null) cli.getCuentaCorriente().setTransacciones(new ArrayList<>());
+        cli.getCuentaCorriente().getTransacciones().add(transaccion);
+        cli.getCuentaCorriente().setSaldo(importeRestante - limiteCred);
+        cli.guardar();
+    }
+
     public List<Factura> obtenerFacturasImpagas(Long cuil) throws BusinessException {
         Cliente cliente = SistemaAdministracion.getInstance().buscarCliente(cuil);
         if (cliente == null) throw new BusinessException("Cliente no encontrado!");
         List<Pedido> pedidos = cliente.getPedidos();
         if (pedidos == null) throw new BusinessException("El cliente no tiene pedidos!");
         List<Transaccion> transacciones = cliente.getCuentaCorriente().getTransacciones();
-        if (transacciones == null) throw new BusinessException("El cliente no ha realizado pagos.");
+        if (transacciones == null) cliente.getCuentaCorriente().setTransacciones(new ArrayList<>());
         List<Factura> facturasImpagas = new ArrayList();
         //Agregamos todas las facturas del cliente (pagas e impagas)
         for (Pedido p : pedidos) {
@@ -135,21 +167,6 @@ public class SistemaFacturacion {
         return facturasImpagas;
     }
 
-    public float procesarPagoImporte(Long cuil, float importe, MedioPago mp, float saldo, float limiteCred) throws BusinessException {
-        List<Factura> facturas = obtenerFacturasImpagas(cuil);
-        float importeRestante = saldo + limiteCred + importe;
-        for (Factura factura : facturas) {
-            float total = factura.getTotal();
-            if (total <= importeRestante) {
-                Transaccion transaccion = new Transaccion();
-                transaccion.setFecha(new Date());
-                transaccion.setImporte(total);
-                transaccion.setMedioPago(mp);
-                transaccion.agregarFactura(factura);
-                importeRestante -= total;
-            }
-        }
-        return importeRestante - limiteCred;
-    }
+
 
 }

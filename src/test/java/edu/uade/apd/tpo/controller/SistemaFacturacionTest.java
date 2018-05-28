@@ -50,9 +50,9 @@ public class SistemaFacturacionTest {
 
     @Test
     public void testProcesarPagoImporte() throws BusinessException{
-        ClienteEntity c_entity = ClienteDao.getInstance().findByCuil(2732961625L);
+        ClienteEntity c_entity = ClienteDao.getInstance().findByCuil(27329616253L);
         Cliente cli = Cliente.fromEntity(c_entity);
-        sistema.procesarPagoImporte(cli.getCuil(), 5000, MedioPago.EFECTIVO, cli.getCuentaCorriente().getSaldo(), cli.getCuentaCorriente().getLimiteCredito());
+        SistemaAdministracion.getInstance().realizarPagoImporte(cli.getCuil(), 5000, MedioPago.EFECTIVO);
     }
 
     @Test

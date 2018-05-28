@@ -248,18 +248,7 @@ public class SistemaAdministracion {
     }
 
     public void realizarPagoImporte(Long cuil, float importe, MedioPago mp) throws BusinessException {
-        Cliente cliente = buscarCliente(cuil);
-        if (cliente != null) {
-            CuentaCorriente ctaCte = cliente.getCuentaCorriente();
-            float saldo = ctaCte.getSaldo();
-            float limiteCred = ctaCte.getLimiteCredito();
-            float saldoRestante = SistemaFacturacion.getInstance().procesarPagoImporte(cliente.getCuil(), importe, mp,
-                    saldo, limiteCred);
-            ctaCte.setSaldo(saldoRestante);
-            cliente.guardar();
-        } else {
-            throw new BusinessException("No existe cliente");
-        }
+        SistemaFacturacion.getInstance().procesarPagoImporte(cuil, importe, mp);
     }
 
     public void rechazarPedido(Long pedidoId, String motivo) throws BusinessException {
