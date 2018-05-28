@@ -3,6 +3,7 @@ package edu.uade.apd.tpo.model;
 import edu.uade.apd.tpo.dao.EgresoDao;
 import edu.uade.apd.tpo.entity.EgresoEntity;
 import edu.uade.apd.tpo.entity.IngresoEntity;
+import edu.uade.apd.tpo.repository.stub.EgresoStub;
 
 public class Egreso extends Movimiento {
     private MotivoEgreso motivo;
@@ -56,7 +57,22 @@ public class Egreso extends Movimiento {
         }
         return e;
     }
-
+/*
+    public static Egreso fromStub(EgresoStub stub) {
+        Egreso e = null;
+        if (stub != null) {
+            e = new Egreso();
+            e.setId(stub.getId());
+            e.setFecha(stub.getFecha());
+            e.setCantidad(stub.getCantidad());
+            e.setAutorizante(stub.getAutorizante());
+            e.setDestino(stub.getDestino());
+            e.setMotivo(MotivoEgreso.fromStub(stub.getMotivo()));
+            e.setEncargado(Usuario.fromStub(stub.getEncargado()));
+        }
+        return e;
+    }
+*/
     public EgresoEntity toEntity() {
         EgresoEntity entity = new EgresoEntity();
         entity.setId(id);
@@ -68,6 +84,19 @@ public class Egreso extends Movimiento {
         entity.setEncargado(encargado != null ? encargado.toEntity() : null);
         return entity;
     }
+/*
+    public EgresoStub toStub() {
+        EgresoStub entity = new EgresoStub();
+        entity.setId(id);
+        entity.setFecha(fecha);
+        entity.setCantidad(cantidad);
+        entity.setAutorizante(autorizante);
+        entity.setDestino(destino);
+        entity.setMotivo(motivo.toStub());
+        entity.setEncargado(encargado != null ? encargado.toStub() : null);
+        return entity;
+    }
+    */
 
     public void guardar() {
         EgresoDao.getInstance().save(this.toEntity());

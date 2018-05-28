@@ -8,6 +8,9 @@ import edu.uade.apd.tpo.dao.ClienteDao;
 import edu.uade.apd.tpo.dao.UsuarioDao;
 import edu.uade.apd.tpo.entity.ClienteEntity;
 import edu.uade.apd.tpo.entity.PedidoEntity;
+import edu.uade.apd.tpo.repository.stub.ClienteStub;
+import edu.uade.apd.tpo.repository.stub.PedidoStub;
+import edu.uade.apd.tpo.repository.stub.RolStub;
 
 public class Cliente extends Usuario {
 
@@ -103,7 +106,54 @@ public class Cliente extends Usuario {
         }
         return cli;
     }
+/*
+    public static Cliente fromStub(ClienteStub stub) {
+        Cliente cli = null;
+        if (stub != null) {
 
+            cli = new Cliente();
+            cli.setId(stub.getId());
+            cli.setEmail(stub.getEmail());
+            cli.setPassword(stub.getPassword());
+            cli.setRol(Rol.fromStub(stub.getRol()));
+            cli.setNombre(stub.getNombre());
+            cli.setCuil(stub.getCuil());
+            cli.setTelefono(stub.getTelefono());
+            cli.setDomicilio(Domicilio.fromStub(stub.getDomicilio()));
+            cli.setCondIva(CondicionIva.fromStub(stub.getCondIva()));
+            cli.setCuentaCorriente(CuentaCorriente.fromStub(stub.getCuentaCorriente()));
+            if (stub.getPedidos() != null) {
+                cli.setPedidos(new ArrayList<>());
+                for (PedidoStub pe : stub.getPedidos()) {
+                    cli.getPedidos().add(Pedido.fromStub(pe));
+                }
+            }
+        }
+        return cli;
+    }
+
+    public ClienteStub toStub() {
+        ClienteStub stub = new ClienteStub();
+        stub.setId(id);
+        stub.setEmail(email);
+        stub.setPassword(password);
+        stub.setRol(rol.toStub());
+        stub.setNombre(nombre);
+        stub.setCuil(cuil);
+        stub.setTelefono(telefono);
+        stub.setDomicilio(domicilio != null ? domicilio.toStub() : null);
+        stub.setCondIva(condIva.toStub());
+        stub.setCuentaCorriente(cuentaCorriente != null ? cuentaCorriente.toStub() : null);
+        if (pedidos != null) {
+            stub.setPedidos(new ArrayList<>());
+            for (Pedido p : pedidos) {
+                stub.getPedidos().add(p.toStub());
+            }
+        }
+
+        return stub;
+    }
+*/
     public ClienteEntity toEntity() {
         ClienteEntity entity = new ClienteEntity();
         entity.setId(id);

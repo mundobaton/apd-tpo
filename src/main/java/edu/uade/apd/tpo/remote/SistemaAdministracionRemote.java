@@ -3,17 +3,20 @@ package edu.uade.apd.tpo.remote;
 import edu.uade.apd.tpo.controller.SistemaAdministracion;
 import edu.uade.apd.tpo.exception.BusinessException;
 import edu.uade.apd.tpo.model.CondicionIva;
+import edu.uade.apd.tpo.model.Pedido;
 import edu.uade.apd.tpo.model.Rol;
 import edu.uade.apd.tpo.model.Zona;
 import edu.uade.apd.tpo.repository.SistemaAdministracionRepository;
 import edu.uade.apd.tpo.repository.exception.RemoteBusinessException;
 import edu.uade.apd.tpo.repository.stub.CondIvaStub;
+import edu.uade.apd.tpo.repository.stub.PedidoStub;
 import edu.uade.apd.tpo.repository.stub.RolStub;
 import edu.uade.apd.tpo.repository.stub.ZonaStub;
 
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 public class SistemaAdministracionRemote extends UnicastRemoteObject implements SistemaAdministracionRepository {
 
@@ -54,12 +57,45 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
     }
 
     @Override
-    public void crearPedido(Long cuil, String calle, Long num, String cp, String loc, String prov, ZonaStub zona) throws RemoteException {
+    public Long crearPedido(Long cuil, String calle, Long num, String cp, String loc, String prov, ZonaStub zona) throws RemoteException {
         Zona z = Zona.fromStub(zona);
         try {
-            this.controller.generarPedido(cuil, calle, num, cp, loc, prov, z);
+            return this.controller.generarPedido(cuil, calle, num, cp, loc, prov, z).getId();
         } catch (BusinessException be) {
             throw new RemoteBusinessException(be.getMessage());
         }
+    }
+
+    @Override
+    public void agregarItemPedido(Long pedidoId, Long cuil, Long articuloId, int cant) throws RemoteException {
+        try {
+            controller.agregarItemPedido(pedidoId, cuil, articuloId, cant);
+        } catch (BusinessException be) {
+            throw new RemoteBusinessException(be.getMessage());
+        }
+    }
+
+    @Override
+    public void cerrarPedido(Long pedidoId, Long cuil) throws RemoteException {
+        try {
+            controller.cerrarPedido(pedidoId, cuil);
+        } catch (BusinessException be) {
+            throw new RemoteBusinessException(be.getMessage());
+        }
+    }
+
+    @Override
+    public void aprobarPedido(Long pedidoId, Long cuil, String motivo) throws RemoteException {
+        try {
+            controller.aprobarPedido(pedidoId, cuil, motivo);
+        } catch (BusinessException be) {
+            throw new RemoteBusinessException(be.getMessage());
+        }
+    }
+
+    @Override
+    public List<PedidoStub> obtenerPedidosParaAprobar() throws RemoteException {
+        List<Pedido> pedidos = controller.obtenerPedidosParaAprobar();
+        return null;
     }
 }

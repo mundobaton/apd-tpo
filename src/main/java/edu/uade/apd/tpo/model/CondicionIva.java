@@ -24,4 +24,8 @@ public enum CondicionIva {
     public static CondicionIva fromStub(CondIvaStub stub) {
         return CondicionIva.valueOf(stub.name());
     }
+
+    public CondIvaStub toStub() {
+        return CondIvaStub.valueOf(name());
+    }
 }

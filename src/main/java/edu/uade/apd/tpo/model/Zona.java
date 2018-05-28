@@ -22,4 +22,8 @@ public enum Zona {
     public static Zona fromStub(ZonaStub stub) {
         return Zona.valueOf(stub.name());
     }
+
+    public ZonaStub toStub() {
+        return ZonaStub.valueOf(name());
+    }
 }

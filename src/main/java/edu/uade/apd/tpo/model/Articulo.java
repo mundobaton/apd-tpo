@@ -3,6 +3,8 @@ package edu.uade.apd.tpo.model;
 import edu.uade.apd.tpo.dao.ArticuloDao;
 import edu.uade.apd.tpo.entity.ArticuloEntity;
 import edu.uade.apd.tpo.entity.LoteEntity;
+import edu.uade.apd.tpo.repository.stub.ArticuloStub;
+import edu.uade.apd.tpo.repository.stub.LoteStub;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -149,5 +151,49 @@ public class Articulo {
         entity.setVolumen(volumen);
         return entity;
     }
+/*
+    public static Articulo fromStub(ArticuloStub stub) {
+        Articulo articulo = null;
+        if (stub != null) {
+            articulo = new Articulo();
+            articulo.setId(stub.getId());
+            articulo.setCodBarras(stub.getCodBarras());
+            articulo.setDescripcion(stub.getDescripcion());
+            articulo.setPresentacion(stub.getPresentacion());
+            articulo.setUnidad(stub.getUnidad());
+            articulo.setPrecio(stub.getPrecio());
+            articulo.setCantCompra(stub.getCantCompra());
+            articulo.setStock(Stock.fromStub(stub.getStock()));
+            if (stub.getLotes() != null) {
+                articulo.setLotes(new ArrayList<>());
+                for (LoteStub le : stub.getLotes()) {
+                    articulo.getLotes().add(Lote.fromStub(le));
+                }
+            }
+            articulo.setVolumen(entity.getVolumen());
+        }
+        return articulo;
+    }
+
+    public ArticuloStub toStub() {
+        ArticuloStub stub = new ArticuloStub();
+        stub.setId(id);
+        stub.setCodBarras(codBarras);
+        stub.setDescripcion(descripcion);
+        stub.setPresentacion(presentacion);
+        stub.setUnidad(unidad);
+        stub.setPrecio(precio);
+        stub.setCantCompra(cantCompra);
+        stub.setStock(stock != null ? stock.toStub() : null);
+        if (lotes != null) {
+            stub.setLotes(new ArrayList<>());
+            for (Lote lote : lotes) {
+                stub.getLotes().add(lote.toStub());
+            }
+        }
+        stub.setVolumen(volumen);
+        return stub;
+    }
+    */
 
 }

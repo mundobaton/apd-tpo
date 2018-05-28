@@ -15,4 +15,8 @@ public enum Rol {
     public static Rol fromStub(RolStub stub) {
         return Rol.valueOf(stub.name());
     }
+
+    public RolStub toStub() {
+        return RolStub.valueOf(name());
+    }
 }

@@ -2,6 +2,7 @@ package edu.uade.apd.tpo.model;
 
 import edu.uade.apd.tpo.dao.DomicilioDao;
 import edu.uade.apd.tpo.entity.DomicilioEntity;
+import edu.uade.apd.tpo.repository.stub.DomicilioStub;
 
 public class Domicilio {
 
@@ -84,6 +85,21 @@ public class Domicilio {
         return dom;
     }
 
+    public static Domicilio fromStub(DomicilioStub stub) {
+        Domicilio dom = null;
+        if (stub != null) {
+            dom = new Domicilio();
+            dom.setId(stub.getId());
+            dom.setCalle(stub.getCalle());
+            dom.setNumero(stub.getNumero());
+            dom.setCodPostal(stub.getCodPostal());
+            dom.setLocalidad(stub.getLocalidad());
+            dom.setProvincia(stub.getProvincia());
+            dom.setZona(Zona.fromStub(stub.getZona()));
+        }
+        return dom;
+    }
+
     public DomicilioEntity toEntity() {
         DomicilioEntity entity = new DomicilioEntity();
         entity.setId(id);
@@ -95,6 +111,19 @@ public class Domicilio {
         entity.setZona(zona);
 
         return entity;
+    }
+
+    public DomicilioStub toStub() {
+        DomicilioStub stub = new DomicilioStub();
+        stub.setId(id);
+        stub.setCalle(calle);
+        stub.setNumero(numero);
+        stub.setCodPostal(codPostal);
+        stub.setLocalidad(localidad);
+        stub.setProvincia(provincia);
+        stub.setZona(zona.toStub());
+
+        return stub;
     }
 
     public void guardar() {
