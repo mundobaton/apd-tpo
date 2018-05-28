@@ -85,6 +85,12 @@ public class SistemaAdministracionTest {
     }
 
     @Test
+    public void testObtenerPedidosParaAprobar(){
+        List<Pedido> pedidos = sistema.obtenerPedidosParaAprobar();
+        Assert.assertNotNull(pedidos);
+    }
+
+    @Test
     public void testProcesarPedidosPendientes() throws BusinessException{
         sistema.procesarPedidosPendientesCompraIngresada();
     }
