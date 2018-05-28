@@ -75,8 +75,13 @@ public class SistemaAdministracion {
     }
 
     public void crearUsuario(String email, String password, Rol rol) throws BusinessException {
-        Usuario u = this.buscarUsuario(email);
-        if (u == null) {
+        Usuario u;
+        try {
+            u = this.buscarUsuario(email);
+            if (u != null) {
+                throw new BusinessException("El usuario con email '" + email + "' ya existe");
+            }
+        } catch (BusinessException be) {
             u = new Usuario();
             u.setEmail(email);
             u.setPassword(password);

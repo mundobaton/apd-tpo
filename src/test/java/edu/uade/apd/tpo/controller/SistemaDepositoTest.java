@@ -27,9 +27,9 @@ public class SistemaDepositoTest {
 
     @Test
     public void testInicializarPosisiones() throws BusinessException {
-    	sistema.inicializarPosiciones();
+        sistema.inicializarPosiciones();
     }
-    
+
     @Test
     public void testBuscarArticulo() {
         Articulo art = sistema.buscarArticulo(1L);
@@ -37,34 +37,39 @@ public class SistemaDepositoTest {
     }
 
     @Test
-    public void testCompletarPedido() throws BusinessException{
+    public void testCompletarPedido() throws BusinessException {
         sistema.completarPedido(48L);
     }
 
     @Test
-    public void testIngresarCompra() throws BusinessException {//cod ubic
-        OrdenCompraEntity entity = OrdenCompraDao.getInstance().findById(22L);
-        OrdenCompra oc = OrdenCompra.fromEntity(entity);
-        List<ItemLote> items = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            String loteCod = UUID.randomUUID().toString();
-            Lote lote = new Lote();
-            lote.setCodigo(loteCod);
-            lote.setFechaVto(new Date());
-            lote.setFechaElaboracion(new Date());
-            ItemLote item = new ItemLote();
-            item.setLote(lote);
-            item.setCantidad(oc.getArticulo().getCantCompra() / 4);
-            items.add(item);
-        }
+    public void testConsultarStockArticulo() {
+        Articulo art = sistema.buscarArticulo(37L);
+        System.out.print(art.getStock().calcular());
+    }
 
-        sistema.ingresarCompra(oc.getId(), items);
+    @Test
+    public void testIngresarCompra() throws BusinessException {
+        OrdenCompraEntity entity = OrdenCompraDao.getInstance().findById(28L);
+        OrdenCompra oc = OrdenCompra.fromEntity(entity);
+        List<ItemLote> lotesRecibidos = new ArrayList<>();
+
+        String codigo = UUID.randomUUID().toString();
+        Lote lote = new Lote();
+        lote.setPosiciones(new ArrayList<>());
+        lote.setCodigo(codigo);
+        lote.setFechaVto(new Date());
+        lote.setFechaElaboracion(new Date());
+        ItemLote item = new ItemLote();
+        item.setLote(lote);
+        item.setCantidad(oc.getArticulo().getCantCompra());
+        lotesRecibidos.add(item);
+
+        sistema.ingresarCompra(oc.getId(), lotesRecibidos);
     }
 
     @Test
     public void testAlmacenar() throws BusinessException {
-        ArticuloEntity entity = ArticuloDao.getInstance().findById(2L);
-        Articulo art = Articulo.fromEntity(entity);
+
         List<ItemLote> lotes = new ArrayList<>();
         for (int i = 0; i <= 3; i++) {
             String c = UUID.randomUUID().toString();
@@ -77,7 +82,7 @@ public class SistemaDepositoTest {
             item.setCantidad(10);
             lotes.add(item);
         }
-        sistema.almacenar(art, lotes, 30);
+        sistema.almacenar(30L, lotes, 30);
     }
 
     @Test
@@ -106,7 +111,7 @@ public class SistemaDepositoTest {
     @Test
     public void testCrearLote() {
         String codigo = UUID.randomUUID().toString();
-        Lote l = sistema.crearLote(codigo, new Date(), new Date(), 36L);
+        Lote l = sistema.crearLote(codigo, new Date(), new Date(), 37L);
         Assert.assertNotNull(l);
     }
 
@@ -116,7 +121,6 @@ public class SistemaDepositoTest {
         Assert.assertNotNull(pedidos);
     }
 
-    ///
     @Test
     public void testAceptarCompra2() throws BusinessException {
         List<ItemLote> lotes = new ArrayList<>();
@@ -131,11 +135,11 @@ public class SistemaDepositoTest {
 
         sistema.ingresarCompra(3L, lotes);
     }
-    
+
     @Test
-    public void testObtenerPosicionesVacias(){
-    	 List<PosicionEntity> posiciones = sistema.obtenerPosicionesVacias(5);
-    	 Assert.assertNotNull(posiciones);
+    public void testObtenerPosicionesVacias() {
+        List<Posicion> posiciones = sistema.obtenerPosicionesVacias(5);
+        Assert.assertNotNull(posiciones);
     }
 
 }
