@@ -61,4 +61,10 @@ public class SistemaAdministracionTest {
             }
         }
     }
+
+    @Test
+    public void testObtenerClientePorPedido(){
+        Cliente cli = sistema.obtenerClientePorPedido(45L);
+        Assert.assertNotNull(cli);
+    }
 }
