@@ -9,6 +9,7 @@ import edu.uade.apd.tpo.repository.SistemaAdministracionRepository;
 import edu.uade.apd.tpo.repository.exception.RemoteBusinessException;
 import edu.uade.apd.tpo.repository.stub.ClienteStub;
 import edu.uade.apd.tpo.repository.stub.CondIvaStub;
+import edu.uade.apd.tpo.repository.stub.PedidoStub;
 import edu.uade.apd.tpo.repository.stub.RolStub;
 import edu.uade.apd.tpo.repository.stub.ZonaStub;
 
@@ -16,6 +17,7 @@ import edu.uade.apd.tpo.repository.stub.ZonaStub;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SistemaAdministracionRemote extends UnicastRemoteObject implements SistemaAdministracionRepository {
 
@@ -91,16 +93,15 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
             throw new RemoteBusinessException(be.getMessage());
         }
     }
-/*
+
 	@Override
-	public List<ClienteStub> getClientes() throws RemoteException  {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ClienteStub> getClientes() throws RemoteException {
+		return controller.getClientes().parallelStream().map(c -> c.toStub()).collect(Collectors.toList());
+
 	}
 
 	@Override
-	public List<ClienteStub> getPedidosPendientes() throws RemoteException  {
-		// TODO Auto-generated method stub
-		return null;
-	}*/
+	public List<PedidoStub> obtenerPedidosPendientes() throws RemoteException {
+		return controller.obtenerPedidosPendientes().parallelStream().map(c -> c.toStub()).collect(Collectors.toList());
+	}
 }
