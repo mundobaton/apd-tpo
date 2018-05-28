@@ -38,7 +38,7 @@ public class SistemaDepositoTest {
 
     @Test
     public void testCompletarPedido() throws BusinessException{
-        sistema.completarPedido(45L);
+        sistema.completarPedido(48L);
     }
 
     @Test
@@ -105,7 +105,8 @@ public class SistemaDepositoTest {
 
     @Test
     public void testCrearLote() {
-        Lote l = sistema.crearLote("B03050680", new Date(), new Date(), 30L);
+        String codigo = UUID.randomUUID().toString();
+        Lote l = sistema.crearLote(codigo, new Date(), new Date(), 36L);
         Assert.assertNotNull(l);
     }
 

@@ -6,6 +6,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Date;
+import java.util.UUID;
+
 public class SistemaAdministracionTest {
 
     private SistemaAdministracion sistema;
@@ -27,28 +30,29 @@ public class SistemaAdministracionTest {
 
     @Test
     public void testCrearPedido() throws BusinessException {
-        Pedido p = sistema.generarPedido(27329616253L, "Av Siempreviva", 123L, "1099", "CABA", "Buenos Aires", Zona.CABA);
+        Pedido p = sistema.generarPedido(27329616253L, "Av Cordoba", 2057L, "1099", "CABA", "Buenos Aires", Zona.CABA);
+        System.out.print("Pedido id: "+p.getId());
         Assert.assertNotNull(p.getId());
     }
 
     @Test
     public void testAgregarItemPedido() throws BusinessException {
-        sistema.agregarItemPedido(45L, 27329616253L, 29L, 20);
+        sistema.agregarItemPedido(48L, 27329616253L, 31L, 10);
     }
 
     @Test
     public void testCerrarPedido() throws BusinessException {
-        sistema.cerrarPedido(45L, 27329616253L);
+        sistema.cerrarPedido(48L, 27329616253L);
     }
 
     @Test
     public void testAprobarPedido() throws BusinessException {
-        sistema.aprobarPedido(45L, 27329616253L, "Cliente fiel");
+        sistema.aprobarPedido(48L, 27329616253L, "Cliente fiel");
     }
 
     @Test
     public void testCrearArticulo(){
-        Articulo art = sistema.crearArticulo("222222", "Pato", "Caja", "10 patos", 35000, 1, 30);
+        Articulo art = sistema.crearArticulo("4645765", "Notebook", "Caja", "1 unidad", 2000, 1, 9000);
         Assert.assertNotNull(art);
     }
 
