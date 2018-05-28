@@ -42,11 +42,11 @@ public class SistemaFacturacion {
 	}
 	
 	public void facturar(Long pedidoId) throws BusinessException{
-		Pedido pedido = SistemaAdministracion.getInstance().buscarPedido(pedidoId);
-		if(pedido == null) throw new BusinessException("No existe el pedido nro. "+pedidoId);
-
-		Cliente cliente = SistemaAdministracion.getInstance().obtenerClientePorPedido(pedido.getId());
+		Cliente cliente = SistemaAdministracion.getInstance().obtenerClientePorPedido(pedidoId);
 		if(cliente == null) throw new BusinessException("No existe el cliente asociado.");
+
+		Pedido pedido = cliente.obtenerPedido(pedidoId);
+		if(pedido == null) throw new BusinessException("No existe el pedido nro. "+pedidoId);
 
 		Factura factura = new Factura();
 		factura.setPedido(pedido);
@@ -59,20 +59,25 @@ public class SistemaFacturacion {
 		}
 
 		float costoEnvio = pedido.calcularCostoEnvio();
-		factura.setCostoEnvio(costoEnvio);
 		float subTotal = pedido.obtenerTotal();
 		float impuesto = subTotal * Factura.getIMPUESTOS();
 		float total = subTotal + costoEnvio + impuesto;
+
+		factura.setCostoEnvio(costoEnvio);
 		factura.setTotal(total);
+		factura.guardar();
+
 		pedido.setFactura(factura);
+
 		Remito remito = new Remito();
 		remito.setFecha(new Date());
+		remito.guardar();
+
 		pedido.getEnvio().setRemito(remito);
 		pedido.setFechaEntrega(new Date());
-		
-		pedido.guardar();
-		factura.guardar();
-		remito.guardar();
+
+		cliente.guardar();
+
 	}
 	
 	public float procesarPago(Long facturaId, float importe, MedioPago mp, float saldo, float limiteCred) {

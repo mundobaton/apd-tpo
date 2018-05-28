@@ -38,7 +38,7 @@ public class SistemaDespachoTest {
 
     @Test
     public void testAlistarPedido() throws BusinessException {
-        sistema.alistarPedido(45L);
+        sistema.alistarPedido(45L);//probemos de nuevo
     }
 
     @Test
@@ -52,3 +52,4 @@ public class SistemaDespachoTest {
         sistema.notificarFechaDeEnvioAsignada(new Date());
     }
 }
+//Varias

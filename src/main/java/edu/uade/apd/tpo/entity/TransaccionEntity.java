@@ -31,7 +31,7 @@ public class TransaccionEntity implements Serializable {
     private float importe;
     @Column(name = "fecha")
     private Date fecha;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(orphanRemoval = true)
     @JoinColumn(name = "transaccion_id")
     private List<FacturaEntity> facturas;
     @Column(name = "medio_pago_id")

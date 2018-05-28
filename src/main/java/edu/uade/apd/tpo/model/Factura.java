@@ -99,9 +99,13 @@ public class Factura {
         entity.setId(id);
         entity.setFecha(fecha);
         entity.setTipo(tipo);
-        entity.setPedido(pedido.toEntity());
+        entity.setPedido(pedido.toEntity());//estoy pensando.. no se que hacer, quiero llorar.. me2
         entity.setCostoEnvio(costoEnvio);
         entity.setTotal(total);
         return entity;
     }
 }
+
+//ok saquemos el pedido dentro de la fact pero no estaba ya... ya lo habias sacado.. el muy forro se quedo y paso desapercibido
+//pera q lo veo en mi maquina, tenes otra cosa para probar mientras? si, lo que hizo fran
+//ok, dame unos minutos asi arreglo esto.. dale ahi pusheo
