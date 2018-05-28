@@ -49,7 +49,6 @@ public class SistemaFacturacion {
         if (pedido == null) throw new BusinessException("No existe el pedido nro. " + pedidoId);
 
         Factura factura = new Factura();
-        //	factura.setPedido(pedido);
         factura.setFecha(new Date());
 
         if (cliente.getCondIva() == CondicionIva.CONS_FINAL) {
@@ -65,13 +64,11 @@ public class SistemaFacturacion {
 
         factura.setCostoEnvio(costoEnvio);
         factura.setTotal(total);
-        factura.guardar();
 
         pedido.setFactura(factura);
 
         Remito remito = new Remito();
         remito.setFecha(new Date());
-        remito.guardar();
 
         pedido.getEnvio().setRemito(remito);
         pedido.setFechaEntrega(new Date());
