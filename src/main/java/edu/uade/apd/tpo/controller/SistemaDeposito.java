@@ -192,27 +192,27 @@ public class SistemaDeposito {
     
     public void inicializarPosiciones() throws BusinessException {
     	List<PosicionEntity> posicionesEntity = posicionDao.getInstance().findAll();
-    	char[] calles = {'A', 'B', 'C', 'D'};
-    	String[] bloques = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10"};
-    	String[] estanterias = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10"};
-    	String[] estantes = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10"};
-    	String[] numero = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10"};
+    	char[] calles = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
+    	String[] bloques = {"01", "02", "03"};
+    	String[] estanterias = {"01", "02", "03", "04", "05"};
+    	String[] estantes = {"01", "02", "03", "04", "05", "06"};
+    	String[] numero = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21"};
     	if(posicionesEntity.isEmpty()) {
-    		for(int i = 0; i <= 3; i++) {
-    			for(int j = 0; j <= 9; j++) {
-    				for(int k = 0; k <= 9; k++) {
-    					for(int t = 0; t <= 9; t++) {
-    						for(int h = 0; h <= 9; h++) {
+    		for(int i = 0; i <= 6; i++) {
+    			for(int j = 0; j <= 2; j++) {
+    				for(int k = 0; k <= 4; k++) {
+    					for(int t = 0; t <= 5; t++) {
+    						for(int h = 0; h <= 20; h++) {
     							Posicion posicion = new Posicion();
     				    		posicion.setEstado(EstadoPosicion.DISPONIBLE);
     				    		String codUbi = "" + calles[i] + bloques[j] + estanterias[k] + estantes[t] + numero[h];
     				    		posicion.setCodUbicacion(codUbi);
     				    		posicion.setCantidad(0);
     				    		posicion.setCalle(calles[i]);
-    				    		posicion.setBloque(j);
-    				    		posicion.setEstanteria(k);
-    				    		posicion.setEstante(t);
-    				    		posicion.setNumero(h);
+    				    		posicion.setBloque(j + 1);
+    				    		posicion.setEstanteria(k + 1);
+    				    		posicion.setEstante(t + 1);
+    				    		posicion.setNumero(h + 1);
     				    		posicion.guardar();
     						}
     					}

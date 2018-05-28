@@ -99,7 +99,7 @@ public class SistemaDepositoTest {
 
     @Test
     public void testCrearLote() {
-        Lote l = sistema.crearLote("Z09090909", new Date(), new Date(), 3L);
+        Lote l = sistema.crearLote("G03050621", new Date(), new Date(), 3L);
         Assert.assertNotNull(l);
     }
 
