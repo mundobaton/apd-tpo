@@ -30,7 +30,7 @@ public class SistemaComprasTest {
 
     @Test
     public void testBuscarOrdenCompra() throws BusinessException {
-        OrdenCompra oc = sistema.buscarOrdenCompra(1L);
+        OrdenCompra oc = sistema.buscarOrdenCompra(25L);
         Assert.assertNotNull(oc);
     }
 
