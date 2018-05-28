@@ -11,6 +11,7 @@ import edu.uade.apd.tpo.dao.PedidoDao;
 import edu.uade.apd.tpo.dao.UsuarioDao;
 import edu.uade.apd.tpo.entity.ClienteEntity;
 import edu.uade.apd.tpo.entity.PedidoEntity;
+import edu.uade.apd.tpo.entity.UsuarioEntity;
 import edu.uade.apd.tpo.exception.BusinessException;
 import edu.uade.apd.tpo.model.*;
 import edu.uade.apd.tpo.repository.exception.UserNotFoundException;
@@ -65,12 +66,23 @@ public class SistemaAdministracion {
         throw new BusinessException("El cliente con email: '" + email + "' no existe");
     }
 
-    public void crearUsuario(String email, String password, Rol rol) {
-        Usuario u = new Usuario();
-        u.setEmail(email);
-        u.setPassword(password);
-        u.setRol(rol);
-        u.guardar();
+    public Usuario buscarUsuario(String email) throws BusinessException {
+        UsuarioEntity entity = usuarioDao.findByEmail(email);
+        if (entity != null) {
+            return Usuario.fromEntity(entity);
+        }
+        throw new BusinessException("El usuario con email: '" + email + "' no existe");
+    }
+
+    public void crearUsuario(String email, String password, Rol rol) throws BusinessException {
+        Usuario u = this.buscarUsuario(email);
+        if (u == null) {
+            u = new Usuario();
+            u.setEmail(email);
+            u.setPassword(password);
+            u.setRol(rol);
+            u.guardar();
+        }
     }
 
     public List<Articulo> obtenerArticulos() {
@@ -335,7 +347,7 @@ public class SistemaAdministracion {
         art.setPrecio(precio);
 
         Stock stock = new Stock();
-        if(stock.getMovimientos() == null){
+        if (stock.getMovimientos() == null) {
             List<Movimiento> moves = new ArrayList<>();
             stock.setMovimientos(moves);
         }

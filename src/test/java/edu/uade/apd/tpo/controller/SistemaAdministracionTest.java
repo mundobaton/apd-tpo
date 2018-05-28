@@ -16,40 +16,39 @@ public class SistemaAdministracionTest {
     }
 
     @Test
-    public void testCrearUsuario() {
+    public void testCrearUsuario() throws BusinessException {
         sistema.crearUsuario("erica@mail.com", "12345", Rol.TODOS);
     }
 
     @Test
     public void testCrearCliente() throws BusinessException {
-        sistema.crearCliente(3123123132L, "agustin@mail.com", "123", "Baton", "4123-4567", "una calle", 1234L, "1406", "Capital", "Bsas", CondicionIva.CONS_FINAL, Zona.CABA, 1000, 500);
+        sistema.crearCliente(27329616253L, "erica@cliente.com", "123", "Erica", "4123-4567", "Av Independencia", 1234L, "1406", "Capital", "Bsas", CondicionIva.CONS_FINAL, Zona.CABA, 5000, 500);
     }
 
     @Test
     public void testCrearPedido() throws BusinessException {
-        Pedido p = sistema.generarPedido(3123123132L, "una calle", 123L, "1406", "Capital", "Buenos Aires", Zona.CABA);
+        Pedido p = sistema.generarPedido(27329616253L, "Av Siempreviva", 123L, "1099", "CABA", "Buenos Aires", Zona.CABA);
         Assert.assertNotNull(p.getId());
     }
 
     @Test
     public void testAgregarItemPedido() throws BusinessException {
-        sistema.agregarItemPedido(42L, 3123123132L, 16L, 40);
-        sistema.agregarItemPedido(42L, 3123123132L, 13L, 30);
+        sistema.agregarItemPedido(45L, 27329616253L, 29L, 20);
     }
 
     @Test
     public void testCerrarPedido() throws BusinessException {
-        sistema.cerrarPedido(42L, 3123123132L);
+        sistema.cerrarPedido(45L, 27329616253L);
     }
 
     @Test
     public void testAprobarPedido() throws BusinessException {
-        sistema.aprobarPedido(42L, 3123123132L, "");
+        sistema.aprobarPedido(45L, 27329616253L, "Cliente fiel");
     }
 
     @Test
     public void testCrearArticulo(){
-        Articulo art = sistema.crearArticulo("54209988", "Berenjena", "Bolsa", "1kg", 15000, 1, 70);
+        Articulo art = sistema.crearArticulo("222222", "Pato", "Caja", "10 patos", 35000, 1, 30);
         Assert.assertNotNull(art);
     }
 

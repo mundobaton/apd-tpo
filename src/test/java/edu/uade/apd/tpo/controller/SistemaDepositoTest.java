@@ -37,12 +37,12 @@ public class SistemaDepositoTest {
 
     @Test
     public void testCompletarPedido() {
-        sistema.completarPedido(1L);
+        sistema.completarPedido(45L);
     }
 
     @Test
-    public void testIngresarCompra() throws BusinessException {
-        OrdenCompraEntity entity = OrdenCompraDao.getInstance().findById(1L);
+    public void testIngresarCompra() throws BusinessException {//cod ubic
+        OrdenCompraEntity entity = OrdenCompraDao.getInstance().findById(22L);
         OrdenCompra oc = OrdenCompra.fromEntity(entity);
         List<ItemLote> items = new ArrayList<>();
         for (int i = 0; i <= 5; i++) {
@@ -57,7 +57,7 @@ public class SistemaDepositoTest {
             items.add(item);
         }
 
-        sistema.ingresarCompra(1L, items);
+        sistema.ingresarCompra(oc.getId(), items);
     }
 
     @Test
