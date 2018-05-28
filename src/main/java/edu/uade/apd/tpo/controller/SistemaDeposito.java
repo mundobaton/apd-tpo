@@ -10,7 +10,6 @@ import edu.uade.apd.tpo.entity.ArticuloEntity;
 import edu.uade.apd.tpo.entity.PosicionEntity;
 import edu.uade.apd.tpo.exception.BusinessException;
 import edu.uade.apd.tpo.model.*;
-import javafx.geometry.Pos;
 
 public class SistemaDeposito {
 

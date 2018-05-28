@@ -7,6 +7,7 @@ import edu.uade.apd.tpo.model.Rol;
 import edu.uade.apd.tpo.model.Zona;
 import edu.uade.apd.tpo.repository.SistemaAdministracionRepository;
 import edu.uade.apd.tpo.repository.exception.RemoteBusinessException;
+import edu.uade.apd.tpo.repository.stub.ClienteStub;
 import edu.uade.apd.tpo.repository.stub.CondIvaStub;
 import edu.uade.apd.tpo.repository.stub.RolStub;
 import edu.uade.apd.tpo.repository.stub.ZonaStub;
@@ -14,6 +15,7 @@ import edu.uade.apd.tpo.repository.stub.ZonaStub;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 public class SistemaAdministracionRemote extends UnicastRemoteObject implements SistemaAdministracionRepository {
 
@@ -89,4 +91,16 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
             throw new RemoteBusinessException(be.getMessage());
         }
     }
+
+	@Override
+	public List<ClienteStub> getClientes() throws RemoteException  {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ClienteStub> getPedidosPendientes() throws RemoteException  {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
