@@ -1,9 +1,15 @@
 package edu.uade.apd.tpo.entity;
 
+<<<<<<< HEAD
 import java.io.Serializable;
 
 import edu.uade.apd.tpo.model.EstadoPosicion;
 
+=======
+import edu.uade.apd.tpo.model.EstadoPosicion;
+
+import javax.persistence.CascadeType;
+>>>>>>> develop
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,21 +18,40 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+<<<<<<< HEAD
 import javax.persistence.ManyToOne;
+=======
+import javax.persistence.OneToOne;
+>>>>>>> develop
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "posiciones")
+<<<<<<< HEAD
 public class PosicionEntity implements Serializable {
+=======
+public class PosicionEntity extends BaseEntity {
+
+>>>>>>> develop
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "posicion_id")
     private Long id;
     @Column(name = "codigo_ubicacion")
+<<<<<<< HEAD
     private String codUbicacion;
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "estado_id")
     private EstadoPosicion estado;
+=======
+    private String codigoUbicacion;
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "estado")
+    private EstadoPosicion estado;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "lote_id")
+    private LoteEntity lote;
+>>>>>>> develop
     @Column(name = "cantidad")
     private int cantidad;
     @Column(name = "calle")
@@ -48,12 +73,21 @@ public class PosicionEntity implements Serializable {
         this.id = id;
     }
 
+<<<<<<< HEAD
     public String getCodUbicacion() {
         return codUbicacion;
     }
 
     public void setCodUbicacion(String codUbicacion) {
         this.codUbicacion = codUbicacion;
+=======
+    public String getCodigoUbicacion() {
+        return codigoUbicacion;
+    }
+
+    public void setCodigoUbicacion(String codigoUbicacion) {
+        this.codigoUbicacion = codigoUbicacion;
+>>>>>>> develop
     }
 
     public EstadoPosicion getEstado() {
@@ -64,6 +98,17 @@ public class PosicionEntity implements Serializable {
         this.estado = estado;
     }
 
+<<<<<<< HEAD
+=======
+    public LoteEntity getLote() {
+        return lote;
+    }
+
+    public void setLote(LoteEntity lote) {
+        this.lote = lote;
+    }
+
+>>>>>>> develop
     public int getCantidad() {
         return cantidad;
     }
@@ -111,6 +156,9 @@ public class PosicionEntity implements Serializable {
     public void setNumero(int numero) {
         this.numero = numero;
     }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> develop
 }

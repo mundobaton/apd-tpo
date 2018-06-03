@@ -1,15 +1,27 @@
 package edu.uade.apd.tpo.model;
 
+<<<<<<< HEAD
 import edu.uade.apd.tpo.dao.RemitoDao;
 import edu.uade.apd.tpo.entity.RemitoEntity;
 import edu.uade.apd.tpo.repository.stub.RemitoStub;
 
 import java.util.Date;
 
+=======
+import java.util.Date;
+
+import edu.uade.apd.tpo.dao.impl.RemitoDao;
+
+>>>>>>> develop
 public class Remito {
 
     private Long id;
     private Date fecha;
+<<<<<<< HEAD
+=======
+    private Factura factura;
+
+>>>>>>> develop
 
     public Long getId() {
         return id;
@@ -27,6 +39,7 @@ public class Remito {
         this.fecha = fecha;
     }
 
+<<<<<<< HEAD
     public void guardar() {
         RemitoDao.getInstance().save(this.toEntity());
     }
@@ -63,5 +76,17 @@ public class Remito {
         stub.setId(id);
         stub.setFecha(fecha);
         return stub;
+=======
+    public Factura getFactura() {
+        return factura;
+    }
+
+    public void setFactura(Factura factura) {
+        this.factura = factura;
+    }
+    
+    public void guardar() {
+    		RemitoDao.getInstance().save(this);
+>>>>>>> develop
     }
 }

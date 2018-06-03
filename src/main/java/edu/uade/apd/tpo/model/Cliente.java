@@ -1,5 +1,6 @@
 package edu.uade.apd.tpo.model;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -11,10 +12,20 @@ import edu.uade.apd.tpo.entity.PedidoEntity;
 import edu.uade.apd.tpo.repository.stub.ClienteStub;
 import edu.uade.apd.tpo.repository.stub.PedidoStub;
 import edu.uade.apd.tpo.repository.stub.RolStub;
+=======
+import edu.uade.apd.tpo.dao.impl.ClienteDao;
+import edu.uade.apd.tpo.entity.UsuarioEntity;
+import edu.uade.apd.tpo.remote.TransformUtils;
+import edu.uade.apd.tpo.repository.stub.ClienteStub;
+import edu.uade.apd.tpo.repository.stub.UsuarioStub;
+
+import java.util.List;
+>>>>>>> develop
 
 public class Cliente extends Usuario {
 
     private String nombre;
+<<<<<<< HEAD
     private Long cuil;
     private String telefono;
     private Domicilio domicilio;
@@ -22,6 +33,19 @@ public class Cliente extends Usuario {
     private CuentaCorriente cuentaCorriente;
     private List<Pedido> pedidos;
 
+=======
+    private long cuil;
+    private String telefono;
+    private Domicilio domicilio;
+    private CondIva condIva;
+    private CuentaCorriente cuentaCorriente;
+    private List<Pedido> pedidos;
+
+    public Cliente() {
+        this.rol = Rol.CLIENTE;
+    }
+
+>>>>>>> develop
     public String getNombre() {
         return nombre;
     }
@@ -30,11 +54,19 @@ public class Cliente extends Usuario {
         this.nombre = nombre;
     }
 
+<<<<<<< HEAD
     public Long getCuil() {
         return cuil;
     }
 
     public void setCuil(Long cuil) {
+=======
+    public long getCuil() {
+        return cuil;
+    }
+
+    public void setCuil(long cuil) {
+>>>>>>> develop
         this.cuil = cuil;
     }
 
@@ -54,11 +86,19 @@ public class Cliente extends Usuario {
         this.domicilio = domicilio;
     }
 
+<<<<<<< HEAD
     public CondicionIva getCondIva() {
         return condIva;
     }
 
     public void setCondIva(CondicionIva condIva) {
+=======
+    public CondIva getCondIva() {
+        return condIva;
+    }
+
+    public void setCondIva(CondIva condIva) {
+>>>>>>> develop
         this.condIva = condIva;
     }
 
@@ -78,6 +118,7 @@ public class Cliente extends Usuario {
         this.pedidos = pedidos;
     }
 
+<<<<<<< HEAD
     public Cliente guardar() {
         return Cliente.fromEntity(ClienteDao.getInstance().save(this.toEntity()));
     }
@@ -202,4 +243,18 @@ public class Cliente extends Usuario {
         return result;
     }
 
+=======
+    public void guardar() {
+        ClienteDao.getInstance().save(this);
+    }
+
+    @Override
+    public ClienteStub toStub() {
+        return TransformUtils.to(this, ClienteStub.class);
+    }
+
+    public static Cliente fromStub(ClienteStub stub) {
+        return TransformUtils.to(stub, Cliente.class);
+    }
+>>>>>>> develop
 }

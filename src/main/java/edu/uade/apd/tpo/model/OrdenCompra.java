@@ -1,18 +1,31 @@
 package edu.uade.apd.tpo.model;
 
 import java.util.Date;
+<<<<<<< HEAD
 
 import edu.uade.apd.tpo.dao.OrdenCompraDao;
 import edu.uade.apd.tpo.entity.OrdenCompraEntity;
 import edu.uade.apd.tpo.repository.stub.OrdenCompraStub;
 
 public class OrdenCompra {
+=======
+import java.util.List;
+
+import edu.uade.apd.tpo.dao.impl.OrdenCompraDao;
+
+public class OrdenCompra {
+
+>>>>>>> develop
     private Long id;
     private Articulo articulo;
     private EstadoCompra estado;
     private Proveedor proveedor;
     private Date fecha;
+<<<<<<< HEAD
     private Pedido pedido;
+=======
+    private List<ItemLote> itemLotes;
+>>>>>>> develop
 
     public Long getId() {
         return id;
@@ -47,6 +60,7 @@ public class OrdenCompra {
     }
 
     public Date getFecha() {
+<<<<<<< HEAD
         return fecha;
     }
 
@@ -116,4 +130,32 @@ public class OrdenCompra {
         return stub;
     }
 
+=======
+    	return fecha;
+    }
+    
+    public void setFecha(Date date) {
+    	this.fecha = date;
+    }
+
+	public List<ItemLote> getItemLotes() {
+		return itemLotes;
+	}
+
+	public void setItemLotes(List<ItemLote> itemLotes) {
+		this.itemLotes = itemLotes;
+	}
+    
+    public OrdenCompra(Articulo art) {
+        this.articulo = art;
+        this.estado = EstadoCompra.PENDIENTE;
+    }
+
+    public OrdenCompra() {
+    }
+
+    public void guardar() {
+        OrdenCompraDao.getInstance().save(this);
+    }
+>>>>>>> develop
 }

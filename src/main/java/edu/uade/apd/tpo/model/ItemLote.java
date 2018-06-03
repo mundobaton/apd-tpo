@@ -1,10 +1,15 @@
 package edu.uade.apd.tpo.model;
 
+<<<<<<< HEAD
 import edu.uade.apd.tpo.dao.ItemLoteDao;
 import edu.uade.apd.tpo.entity.ItemLoteEntity;
 import edu.uade.apd.tpo.repository.stub.ItemLoteStub;
 
 public class ItemLote {
+=======
+public class ItemLote {
+
+>>>>>>> develop
     private Long id;
     private Lote lote;
     private int cantidad;
@@ -32,6 +37,7 @@ public class ItemLote {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+<<<<<<< HEAD
 
     public void guardar() {
         ItemLoteDao.getInstance().save(this.toEntity());
@@ -75,4 +81,6 @@ public class ItemLote {
         return ile;
     }
 
+=======
+>>>>>>> develop
 }

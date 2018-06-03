@@ -1,5 +1,6 @@
 package edu.uade.apd.tpo.model;
 
+<<<<<<< HEAD
 import edu.uade.apd.tpo.dao.EgresoDao;
 import edu.uade.apd.tpo.entity.EgresoEntity;
 import edu.uade.apd.tpo.entity.IngresoEntity;
@@ -7,16 +8,32 @@ import edu.uade.apd.tpo.repository.stub.EgresoStub;
 
 public class Egreso extends Movimiento {
     private MotivoEgreso motivo;
+=======
+import edu.uade.apd.tpo.entity.UsuarioEntity;
+
+public class Egreso extends Movimiento {
+
+    private MotivoEgreso motivoEgreso;
+>>>>>>> develop
     private Usuario encargado;
     private String autorizante;
     private String destino;
 
+<<<<<<< HEAD
     public MotivoEgreso getMotivo() {
         return motivo;
     }
 
     public void setMotivo(MotivoEgreso motivo) {
         this.motivo = motivo;
+=======
+    public MotivoEgreso getMotivoEgreso() {
+        return motivoEgreso;
+    }
+
+    public void setMotivoEgreso(MotivoEgreso motivoEgreso) {
+        this.motivoEgreso = motivoEgreso;
+>>>>>>> develop
     }
 
     public Usuario getEncargado() {
@@ -42,6 +59,7 @@ public class Egreso extends Movimiento {
     public void setDestino(String destino) {
         this.destino = destino;
     }
+<<<<<<< HEAD
 
     public static Egreso fromEntity(EgresoEntity entity) {
         Egreso e = null;
@@ -100,4 +118,6 @@ public class Egreso extends Movimiento {
     public void guardar() {
         EgresoDao.getInstance().save(this.toEntity());
     }
+=======
+>>>>>>> develop
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .idea/*
 .gradle/*
 /build/*
@@ -16,3 +17,18 @@ gradlew
 *.xml
 /.gradle/
 /build/
+=======
+/.gradle/
+/build/
+*.class
+.idea
+*.iml
+
+.classpath
+.project
+.settings/org.eclipse.buildship.core.prefs
+bin/hibernate.cfg.xml
+bin/log4j.properties
+
+out/production/classes/hibernate.cfg.xml
+>>>>>>> develop

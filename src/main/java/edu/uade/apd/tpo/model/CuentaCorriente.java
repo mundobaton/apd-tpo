@@ -1,5 +1,6 @@
 package edu.uade.apd.tpo.model;
 
+<<<<<<< HEAD
 import edu.uade.apd.tpo.dao.CuentaCorrienteDao;
 import edu.uade.apd.tpo.entity.CuentaCorrienteEntity;
 import edu.uade.apd.tpo.entity.TransaccionEntity;
@@ -7,13 +8,20 @@ import edu.uade.apd.tpo.repository.stub.CuentaCorrienteStub;
 import edu.uade.apd.tpo.repository.stub.TransaccionStub;
 
 import java.util.ArrayList;
+=======
+>>>>>>> develop
 import java.util.List;
 
 public class CuentaCorriente {
 
     private Long id;
+<<<<<<< HEAD
     private float saldo;
     private float limiteCredito;
+=======
+    private Float saldo;
+    private Float limiteCredito;
+>>>>>>> develop
     private List<Transaccion> transacciones;
 
     public Long getId() {
@@ -32,11 +40,19 @@ public class CuentaCorriente {
         this.saldo = saldo;
     }
 
+<<<<<<< HEAD
     public float getLimiteCredito() {
         return limiteCredito;
     }
 
     public void setLimiteCredito(float limiteCredito) {
+=======
+    public Float getLimiteCredito() {
+        return limiteCredito;
+    }
+
+    public void setLimiteCredito(Float limiteCredito) {
+>>>>>>> develop
         this.limiteCredito = limiteCredito;
     }
 
@@ -47,6 +63,7 @@ public class CuentaCorriente {
     public void setTransacciones(List<Transaccion> transacciones) {
         this.transacciones = transacciones;
     }
+<<<<<<< HEAD
 
     public static CuentaCorriente fromEntity(CuentaCorrienteEntity entity) {
         CuentaCorriente cuentaCorriente = null;
@@ -114,4 +131,6 @@ public class CuentaCorriente {
         CuentaCorrienteDao.getInstance().save(this.toEntity());
     }
 
+=======
+>>>>>>> develop
 }

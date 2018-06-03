@@ -1,7 +1,10 @@
 package edu.uade.apd.tpo.entity;
 
+<<<<<<< HEAD
 import edu.uade.apd.tpo.model.ItemPedido;
 
+=======
+>>>>>>> develop
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+<<<<<<< HEAD
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -17,6 +21,15 @@ import java.io.Serializable;
 @Entity
 @Table(name = "item_lotes")
 public class ItemLoteEntity implements Serializable {
+=======
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "item_lotes")
+public class ItemLoteEntity extends BaseEntity {
+
+>>>>>>> develop
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_lote_id")
@@ -50,5 +63,8 @@ public class ItemLoteEntity implements Serializable {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop
 }

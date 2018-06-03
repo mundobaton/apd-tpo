@@ -1,10 +1,15 @@
 package edu.uade.apd.tpo.model;
 
+<<<<<<< HEAD
 import edu.uade.apd.tpo.dao.ProveedorDao;
 import edu.uade.apd.tpo.entity.ProveedorEntity;
 import edu.uade.apd.tpo.repository.stub.ProveedorStub;
 
 public class Proveedor {
+=======
+public class Proveedor {
+
+>>>>>>> develop
     private Long id;
     private String nombre;
     private String cuit;
@@ -41,6 +46,7 @@ public class Proveedor {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
+<<<<<<< HEAD
 
     public void guardar() {
         ProveedorDao.getInstance().save(this.toEntity());
@@ -87,4 +93,6 @@ public class Proveedor {
         stub.setCuit(cuit);
         return stub;
     }
+=======
+>>>>>>> develop
 }

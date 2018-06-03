@@ -1,10 +1,18 @@
 package edu.uade.apd.tpo.entity;
 
+<<<<<<< HEAD
 import java.io.Serializable;
 
 import edu.uade.apd.tpo.model.Zona;
 
 import javax.persistence.Column;
+=======
+import edu.uade.apd.tpo.model.CondIva;
+import edu.uade.apd.tpo.model.ZonaEnvio;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+>>>>>>> develop
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -15,7 +23,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "domicilios")
+<<<<<<< HEAD
 public class DomicilioEntity implements Serializable {
+=======
+public class DomicilioEntity extends BaseEntity {
+>>>>>>> develop
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,14 +36,20 @@ public class DomicilioEntity implements Serializable {
     @Column(name = "calle")
     private String calle;
     @Column(name = "numero")
+<<<<<<< HEAD
     private Long numero;
     @Column(name = "cod_postal")
+=======
+    private Integer numero;
+    @Column(name = "codigo_postal")
+>>>>>>> develop
     private String codPostal;
     @Column(name = "localidad")
     private String localidad;
     @Column(name = "provincia")
     private String provincia;
     @Enumerated(EnumType.ORDINAL)
+<<<<<<< HEAD
     @Column(name = "zona_id")
     private Zona zona;
 
@@ -40,6 +58,16 @@ public class DomicilioEntity implements Serializable {
     }
 
     public void setId(Long id) {
+=======
+    @Column(name = "zona")
+    private ZonaEnvio zona;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+>>>>>>> develop
         this.id = id;
     }
 
@@ -51,11 +79,19 @@ public class DomicilioEntity implements Serializable {
         this.calle = calle;
     }
 
+<<<<<<< HEAD
     public Long getNumero() {
         return numero;
     }
 
     public void setNumero(Long numero) {
+=======
+    public Integer getNumero() {
+        return numero;
+    }
+
+    public void setNumero(Integer numero) {
+>>>>>>> develop
         this.numero = numero;
     }
 
@@ -83,6 +119,7 @@ public class DomicilioEntity implements Serializable {
         this.provincia = provincia;
     }
 
+<<<<<<< HEAD
     public Zona getZona() {
         return zona;
     }
@@ -92,4 +129,13 @@ public class DomicilioEntity implements Serializable {
     }
 
 
+=======
+    public ZonaEnvio getZona() {
+        return zona;
+    }
+
+    public void setZona(ZonaEnvio zona) {
+        this.zona = zona;
+    }
+>>>>>>> develop
 }

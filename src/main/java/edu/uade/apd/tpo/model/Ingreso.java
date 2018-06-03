@@ -1,5 +1,6 @@
 package edu.uade.apd.tpo.model;
 
+<<<<<<< HEAD
 import edu.uade.apd.tpo.dao.IngresoDao;
 import edu.uade.apd.tpo.entity.IngresoEntity;
 import edu.uade.apd.tpo.repository.stub.IngresoStub;
@@ -64,4 +65,17 @@ public class Ingreso extends Movimiento {
         IngresoDao.getInstance().save(this.toEntity());
     }
 
+=======
+public class Ingreso extends Movimiento {
+
+    private MotivoIngreso motivoIngreso;
+
+	public MotivoIngreso getMotivoIngreso() {
+		return motivoIngreso;
+	}
+
+	public void setMotivoIngreso(MotivoIngreso motivoIngreso) {
+		this.motivoIngreso = motivoIngreso;
+	}
+>>>>>>> develop
 }

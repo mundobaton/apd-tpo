@@ -1,5 +1,6 @@
 package edu.uade.apd.tpo.model;
 
+<<<<<<< HEAD
 import edu.uade.apd.tpo.dao.ArticuloDao;
 import edu.uade.apd.tpo.entity.ArticuloEntity;
 import edu.uade.apd.tpo.entity.LoteEntity;
@@ -15,11 +16,31 @@ public class Articulo {
     private String descripcion;
     private String presentacion;
     private String unidad;
+=======
+import edu.uade.apd.tpo.dao.impl.ArticuloDao;
+
+import java.util.List;
+
+import edu.uade.apd.tpo.dao.impl.ArticuloDao;
+
+public class Articulo {
+
+    private Long id;
+    private String codigoBarras;
+    private String descripcion;
+    private String presentacion;
+    private String unidad;
+    private float precio;
+>>>>>>> develop
     private int cantCompra;
     private Stock stock;
     private List<Lote> lotes;
     private int volumen;
+<<<<<<< HEAD
     private float precio;
+=======
+    private List<OrdenCompra> ordenesCompra;
+>>>>>>> develop
 
     public Long getId() {
         return id;
@@ -29,12 +50,21 @@ public class Articulo {
         this.id = id;
     }
 
+<<<<<<< HEAD
     public String getCodBarras() {
         return codBarras;
     }
 
     public void setCodBarras(String codBarras) {
         this.codBarras = codBarras;
+=======
+    public String getCodigoBarras() {
+        return codigoBarras;
+    }
+
+    public void setCodigoBarras(String codigoBarras) {
+        this.codigoBarras = codigoBarras;
+>>>>>>> develop
     }
 
     public String getDescripcion() {
@@ -61,6 +91,17 @@ public class Articulo {
         this.unidad = unidad;
     }
 
+<<<<<<< HEAD
+=======
+    public float getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(float precio) {
+        this.precio = precio;
+    }
+
+>>>>>>> develop
     public int getCantCompra() {
         return cantCompra;
     }
@@ -93,6 +134,7 @@ public class Articulo {
         this.volumen = volumen;
     }
 
+<<<<<<< HEAD
     public float getPrecio() {
         return precio;
     }
@@ -193,5 +235,17 @@ public class Articulo {
         }
         stub.setVolumen(volumen);
         return stub;
+=======
+    public List<OrdenCompra> getOrdenesCompra() {
+        return ordenesCompra;
+    }
+
+    public void setOrdenesCompra(List<OrdenCompra> ordenesCompra) {
+        this.ordenesCompra = ordenesCompra;
+    }
+
+    public void guardar(){
+        ArticuloDao.getInstance().save(this);
+>>>>>>> develop
     }
 }

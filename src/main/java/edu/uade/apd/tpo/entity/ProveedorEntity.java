@@ -1,11 +1,25 @@
 package edu.uade.apd.tpo.entity;
 
+<<<<<<< HEAD
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "proveedores")
 public class ProveedorEntity implements Serializable {
+=======
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "proveedores")
+public class ProveedorEntity extends BaseEntity {
+
+>>>>>>> develop
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "proveedor_id")
@@ -48,6 +62,9 @@ public class ProveedorEntity implements Serializable {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> develop
 }
