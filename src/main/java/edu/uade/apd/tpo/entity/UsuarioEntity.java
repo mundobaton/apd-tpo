@@ -1,5 +1,10 @@
 package edu.uade.apd.tpo.entity;
 
+<<<<<<< HEAD
+import java.io.Serializable;
+
+=======
+>>>>>>> develop
 import edu.uade.apd.tpo.model.Rol;
 
 import javax.persistence.Column;
@@ -16,7 +21,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "usuarios")
 @Inheritance(strategy = InheritanceType.JOINED)
+<<<<<<< HEAD
+public class UsuarioEntity implements Serializable {
+=======
 public class UsuarioEntity extends BaseEntity {
+>>>>>>> develop
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +39,8 @@ public class UsuarioEntity extends BaseEntity {
     @Enumerated(EnumType.ORDINAL)
     protected Rol rol;
 
+<<<<<<< HEAD
+=======
     public UsuarioEntity() {
     }
 
@@ -41,6 +52,7 @@ public class UsuarioEntity extends BaseEntity {
         this.id = id;
     }
 
+>>>>>>> develop
     public String getEmail() {
         return email;
     }
@@ -64,4 +76,16 @@ public class UsuarioEntity extends BaseEntity {
     public void setRol(Rol rol) {
         this.rol = rol;
     }
+<<<<<<< HEAD
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+=======
+>>>>>>> develop
 }

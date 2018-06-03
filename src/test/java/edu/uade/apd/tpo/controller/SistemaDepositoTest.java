@@ -1,0 +1,145 @@
+package edu.uade.apd.tpo.controller;
+
+import edu.uade.apd.tpo.dao.ArticuloDao;
+import edu.uade.apd.tpo.dao.OrdenCompraDao;
+import edu.uade.apd.tpo.entity.ArticuloEntity;
+import edu.uade.apd.tpo.entity.OrdenCompraEntity;
+import edu.uade.apd.tpo.entity.PosicionEntity;
+import edu.uade.apd.tpo.exception.BusinessException;
+import edu.uade.apd.tpo.model.*;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
+public class SistemaDepositoTest {
+
+    private SistemaDeposito sistema;
+
+    @Before
+    public void setup() {
+        sistema = SistemaDeposito.getInstance();
+    }
+
+    @Test
+    public void testInicializarPosisiones() throws BusinessException {
+        sistema.inicializarPosiciones();
+    }
+
+    @Test
+    public void testBuscarArticulo() {
+        Articulo art = sistema.buscarArticulo(1L);
+        Assert.assertNotNull(art);
+    }
+
+    @Test
+    public void testCompletarPedido() throws BusinessException {
+        sistema.completarPedido(48L);
+    }
+
+    @Test
+    public void testConsultarStockArticulo() {
+        Articulo art = sistema.buscarArticulo(37L);
+        System.out.print(art.getStock().calcular());
+    }
+
+    @Test
+    public void testIngresarCompra() throws BusinessException {
+        OrdenCompraEntity entity = OrdenCompraDao.getInstance().findById(28L);
+        OrdenCompra oc = OrdenCompra.fromEntity(entity);
+        List<ItemLote> lotesRecibidos = new ArrayList<>();
+
+        String codigo = UUID.randomUUID().toString();
+        Lote lote = new Lote();
+        lote.setPosiciones(new ArrayList<>());
+        lote.setCodigo(codigo);
+        lote.setFechaVto(new Date());
+        lote.setFechaElaboracion(new Date());
+        ItemLote item = new ItemLote();
+        item.setLote(lote);
+        item.setCantidad(oc.getArticulo().getCantCompra());
+        lotesRecibidos.add(item);
+
+        sistema.ingresarCompra(oc.getId(), lotesRecibidos);
+    }
+
+    @Test
+    public void testAlmacenar() throws BusinessException {
+
+        List<ItemLote> lotes = new ArrayList<>();
+        for (int i = 0; i <= 3; i++) {
+            String c = UUID.randomUUID().toString();
+            Lote lote = new Lote();
+            lote.setCodigo(c);
+            lote.setFechaVto(new Date());
+            lote.setFechaElaboracion(new Date());
+            ItemLote item = new ItemLote();
+            item.setLote(lote);
+            item.setCantidad(10);
+            lotes.add(item);
+        }
+        sistema.almacenar(30L, lotes, 30);
+    }
+
+    @Test
+    public void testAceptarOrdenCompra() throws BusinessException {
+        sistema.aceptarOrdenCompra(1L);
+    }
+
+    @Test
+    public void testBuscarPosicionPorUbicacion() {
+        Posicion p = sistema.buscarPosicionPorUbicacion("A01020110");
+        Assert.assertNotNull(p);
+    }
+
+    @Test
+    public void testLiberarPosicion() {
+        int result = sistema.liberarPosicion("B01020102", 1);
+        System.out.print(result);
+    }
+
+    @Test
+    public void testObtenerArticulos() {
+        List<Articulo> art = sistema.obtenerArticulos();
+        Assert.assertNotNull(art);
+    }
+
+    @Test
+    public void testCrearLote() {
+        String codigo = UUID.randomUUID().toString();
+        Lote l = sistema.crearLote(codigo, new Date(), new Date(), 37L);
+        Assert.assertNotNull(l);
+    }
+
+    @Test
+    public void testObtenerPedidosACompletar() {
+        List<Pedido> pedidos = sistema.obtenerPedidosACompletar();
+        Assert.assertNotNull(pedidos);
+    }
+
+    @Test
+    public void testAceptarCompra2() throws BusinessException {
+        List<ItemLote> lotes = new ArrayList<>();
+        ItemLote il = new ItemLote();
+        Lote lote = new Lote();
+        lote.setFechaVto(new Date());
+        lote.setFechaElaboracion(new Date());
+        lote.setCodigo("123123asd");
+        il.setLote(lote);
+        il.setCantidad(1500);
+        lotes.add(il);
+
+        sistema.ingresarCompra(3L, lotes);
+    }
+
+    @Test
+    public void testObtenerPosicionesVacias() {
+        List<Posicion> posiciones = sistema.obtenerPosicionesVacias(5);
+        Assert.assertNotNull(posiciones);
+    }
+
+}

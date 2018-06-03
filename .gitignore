@@ -1,3 +1,23 @@
+<<<<<<< HEAD
+.idea/*
+.gradle/*
+/build/*
+*.jar
+
+gradle/wrapper/gradle-wrapper.properties
+
+gradlew
+
+*.bat
+*.class
+*.prefs
+.project
+.classpath
+*.properties
+*.xml
+/.gradle/
+/build/
+=======
 /.gradle/
 /build/
 *.class
@@ -11,3 +31,4 @@ bin/hibernate.cfg.xml
 bin/log4j.properties
 
 out/production/classes/hibernate.cfg.xml
+>>>>>>> develop

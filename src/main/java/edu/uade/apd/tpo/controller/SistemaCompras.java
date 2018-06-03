@@ -1,5 +1,23 @@
 package edu.uade.apd.tpo.controller;
 
+<<<<<<< HEAD
+import edu.uade.apd.tpo.dao.OrdenCompraDao;
+import edu.uade.apd.tpo.dao.ProveedorDao;
+import edu.uade.apd.tpo.entity.OrdenCompraEntity;
+import edu.uade.apd.tpo.exception.BusinessException;
+import edu.uade.apd.tpo.model.Articulo;
+import edu.uade.apd.tpo.model.EstadoCompra;
+import edu.uade.apd.tpo.model.OrdenCompra;
+import edu.uade.apd.tpo.model.Pedido;
+import edu.uade.apd.tpo.model.Proveedor;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
+
+=======
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,13 +29,22 @@ import edu.uade.apd.tpo.model.EstadoCompra;
 import edu.uade.apd.tpo.model.OrdenCompra;
 import edu.uade.apd.tpo.model.Proveedor;
 
+>>>>>>> develop
 public class SistemaCompras {
 
     private static SistemaCompras instance;
     private OrdenCompraDao ordenCompraDao;
+<<<<<<< HEAD
+    private ProveedorDao proveedorDao;
+
+    private SistemaCompras() {
+        this.ordenCompraDao = OrdenCompraDao.getInstance();
+        this.proveedorDao = ProveedorDao.getInstance();
+=======
 
     private SistemaCompras() {
     	this.ordenCompraDao = OrdenCompraDao.getInstance();
+>>>>>>> develop
     }
 
     public static SistemaCompras getInstance() {
@@ -27,6 +54,82 @@ public class SistemaCompras {
         return instance;
     }
 
+<<<<<<< HEAD
+    public void generarOrdenCompra(Long articuloId, Long pedidoId) throws BusinessException {
+        Pedido pedido = SistemaAdministracion.getInstance().buscarPedido(pedidoId);
+        Articulo articulo = SistemaDeposito.getInstance().buscarArticulo(articuloId);
+        if (pedido != null) {
+            if (articulo != null) {
+                OrdenCompra ordenCompra = new OrdenCompra();
+                ordenCompra.setArticulo(articulo);
+                ordenCompra.setFecha(new Date());
+                ordenCompra.setEstado(EstadoCompra.PENDIENTE);
+                ordenCompra.setPedido(pedido);
+                ordenCompra.guardar();
+            } else {
+                throw new BusinessException("No existe articulo");
+            }
+        } else {
+            throw new BusinessException("No existe pedido");
+        }
+    }
+
+    public OrdenCompra buscarOrdenCompra(Long ordenId) throws BusinessException {
+        OrdenCompraEntity entity = ordenCompraDao.getInstance().findById(ordenId);
+        if (entity != null) {
+            return OrdenCompra.fromEntity(entity);
+        }
+
+        throw new BusinessException("La orden de compra '" + ordenId + "' no existe");
+    }
+
+    public void aceptarOrdenCompra(Long ordenId) throws BusinessException {
+        OrdenCompra orden = buscarOrdenCompra(ordenId);
+        if (orden != null && orden.getEstado() == EstadoCompra.EMITIDA) {
+            orden.setEstado(EstadoCompra.ACEPTADA);
+            orden.guardar();
+        } else {
+            throw new BusinessException("La orden de compra '" + ordenId + "' no existe");
+        }
+    }
+
+    public List<OrdenCompra> obtenerOrdenesDeCompraEmitidas() {
+        List<OrdenCompraEntity> oces = ordenCompraDao.findByEstado(EstadoCompra.EMITIDA);
+        List<OrdenCompra> ocs = null;
+        if (oces != null) {
+            ocs = new ArrayList<>();
+            for (OrdenCompraEntity oce : oces) {
+                ocs.add(OrdenCompra.fromEntity(oce));
+            }
+        }
+        return ocs;
+    }
+
+    /**
+     * Simula la acción del proceso que corre cada 1 hora
+     *
+     * @return
+     */
+    public void procesarOrdenesCompraPendientes() {
+        List<OrdenCompraEntity> oces = ordenCompraDao.findByEstado(EstadoCompra.PENDIENTE);
+        List<OrdenCompra> ocs = null;
+        if (oces != null) {
+            ocs = new ArrayList<>();
+            for (OrdenCompraEntity oce : oces) {
+                ocs.add(OrdenCompra.fromEntity(oce));
+            }
+        }
+        if (ocs != null) {
+            List<Proveedor> proveedores = proveedorDao.findAll().parallelStream().map(pe -> Proveedor.fromEntity(pe)).collect(Collectors.toList());
+            Proveedor prov = proveedores.get(ThreadLocalRandom.current().nextInt(0, proveedores.size()));
+            for (OrdenCompra oc : ocs) {
+                oc.setProveedor(prov);
+                oc.setEstado(EstadoCompra.EMITIDA);
+                oc.guardar();
+            }
+        }
+    }
+=======
     public void generarOrdenCompra(Long articuloId) {
         Articulo art = SistemaDeposito.getInstance().buscarArticulo(articuloId);
         OrdenCompra oc = new OrdenCompra(art);
@@ -103,4 +206,5 @@ public class SistemaCompras {
     	orden.guardar();
     }
 
+>>>>>>> develop
 }
