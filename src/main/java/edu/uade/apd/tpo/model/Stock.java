@@ -1,6 +1,5 @@
 package edu.uade.apd.tpo.model;
 
-<<<<<<< HEAD
 import edu.uade.apd.tpo.dao.StockDao;
 import edu.uade.apd.tpo.entity.EgresoEntity;
 import edu.uade.apd.tpo.entity.IngresoEntity;
@@ -17,14 +16,6 @@ import java.util.List;
 
 public class Stock {
     private Long id;
-=======
-import java.util.List;
-
-public class Stock {
-
-    private Long id;
-    private int cantidad;
->>>>>>> develop
     private List<Movimiento> movimientos;
 
     public Long getId() {
@@ -35,17 +26,6 @@ public class Stock {
         this.id = id;
     }
 
-<<<<<<< HEAD
-=======
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
-
->>>>>>> develop
     public List<Movimiento> getMovimientos() {
         return movimientos;
     }
@@ -53,7 +33,6 @@ public class Stock {
     public void setMovimientos(List<Movimiento> movimientos) {
         this.movimientos = movimientos;
     }
-<<<<<<< HEAD
 
     public int calcular() {
         int stock = 0;
@@ -174,34 +153,6 @@ public class Stock {
 
     public void guardar() {
         StockDao.getInstance().save(this.toEntity());
-=======
-    
-    public void agregarMovimientoIngreso(MotivoIngreso motivo, int cantidad) {
-    	Ingreso ingreso = new Ingreso();
-    	ingreso.setMotivoIngreso(motivo);
-    	this.movimientos.add(ingreso);
-    	this.cantidad += cantidad; 
-    }
-
-    public void agregarMovimientoEgreso(MotivoEgreso motivo, int cantidad){
-        Egreso egreso = new Egreso();
-        egreso.setMotivoEgreso(motivo);
-        this.movimientos.add(egreso);
-        this.cantidad += cantidad;
-    }
-
-    public void agregarMovimientoEgreso(MotivoEgreso motivo, Usuario encargado, String autorizante, String destino, int cantidad){
-
-        Egreso egreso = new Egreso();
-        egreso.setMotivoEgreso(motivo);
-        egreso.setEncargado(encargado);
-        egreso.setAutorizante(autorizante);
-        egreso.setDestino(destino);
-
-        this.movimientos.add(egreso);
-        this.cantidad += cantidad;
-
->>>>>>> develop
     }
 
 }

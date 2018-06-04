@@ -1,6 +1,5 @@
 package edu.uade.apd.tpo.model;
 
-<<<<<<< HEAD
 import edu.uade.apd.tpo.dao.TransaccionDao;
 import edu.uade.apd.tpo.entity.FacturaEntity;
 import edu.uade.apd.tpo.entity.TransaccionEntity;
@@ -8,8 +7,6 @@ import edu.uade.apd.tpo.repository.stub.FacturaStub;
 import edu.uade.apd.tpo.repository.stub.TransaccionStub;
 
 import java.util.ArrayList;
-=======
->>>>>>> develop
 import java.util.Date;
 import java.util.List;
 
@@ -18,17 +15,10 @@ public class Transaccion {
     private Long id;
     private float importe;
     private Date fecha;
-<<<<<<< HEAD
     private List<Factura> facturas;
     private MedioPago medioPago;
 
     public Long getId() {
-=======
-    private MedioPago medioPago;
-    private List<Factura> facturas;
-
-	public Long getId() {
->>>>>>> develop
         return id;
     }
 
@@ -52,7 +42,6 @@ public class Transaccion {
         this.fecha = fecha;
     }
 
-<<<<<<< HEAD
     public List<Factura> getFacturas() {
         return facturas;
     }
@@ -61,8 +50,6 @@ public class Transaccion {
         this.facturas = facturas;
     }
 
-=======
->>>>>>> develop
     public MedioPago getMedioPago() {
         return medioPago;
     }
@@ -71,7 +58,6 @@ public class Transaccion {
         this.medioPago = medioPago;
     }
 
-<<<<<<< HEAD
     public void agregarFactura(Factura factura) {
         this.facturas.add(factura);
     }
@@ -146,17 +132,5 @@ public class Transaccion {
         }
         stub.setMedioPago(medioPago.toStub());
         return stub;
-=======
-    public List<Factura> getFacturas() {
-        return facturas;
-    }
-
-    public void setFacturas(List<Factura> facturas) {
-        this.facturas = facturas;
-    }
-    
-    public void addFactura(Factura factura){
-    		this.facturas.add(factura);
->>>>>>> develop
     }
 }

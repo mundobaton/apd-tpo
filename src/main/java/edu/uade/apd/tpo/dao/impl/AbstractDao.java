@@ -10,7 +10,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import java.io.Serializable;
 import java.util.List;
 
-public abstract class AbstractDao<R extends BaseEntity> {
+public abstract class AbstractDao<R extends Serializable> {
 
     private SessionManager sessionManager;
 

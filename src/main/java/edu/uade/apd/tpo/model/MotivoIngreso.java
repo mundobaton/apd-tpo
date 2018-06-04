@@ -1,6 +1,5 @@
 package edu.uade.apd.tpo.model;
 
-<<<<<<< HEAD
 import edu.uade.apd.tpo.repository.stub.MotivoIngresoStub;
 
 public enum MotivoIngreso {
@@ -16,12 +15,4 @@ public enum MotivoIngreso {
     public MotivoIngresoStub toStub() {
         return MotivoIngresoStub.valueOf(name());
     }
-=======
-public enum MotivoIngreso {
-
-    COMPRA,
-    AJUSTE_INV,
-    OTROS
-
->>>>>>> develop
 }

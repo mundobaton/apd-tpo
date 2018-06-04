@@ -7,24 +7,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-<<<<<<< HEAD
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
-=======
-import javax.persistence.Table;
->>>>>>> develop
 import java.util.Date;
 
 @Entity
 @Table(name = "movimientos")
 @Inheritance(strategy = InheritanceType.JOINED)
-<<<<<<< HEAD
 public class MovimientoEntity implements Serializable {
-=======
-public abstract class MovimientoEntity extends BaseEntity {
->>>>>>> develop
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,8 +48,4 @@ public abstract class MovimientoEntity extends BaseEntity {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> develop
 }

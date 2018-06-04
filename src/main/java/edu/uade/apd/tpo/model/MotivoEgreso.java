@@ -1,6 +1,5 @@
 package edu.uade.apd.tpo.model;
 
-<<<<<<< HEAD
 import edu.uade.apd.tpo.repository.stub.MotivoEgresoStub;
 
 public enum MotivoEgreso {
@@ -18,14 +17,4 @@ public enum MotivoEgreso {
     public MotivoEgresoStub toStub() {
         return MotivoEgresoStub.valueOf(name());
     }
-=======
-public enum MotivoEgreso {
-
-    VENTA,
-    VENCIMIENTO,
-    DETERIORO,
-    AJUSTE_INV,
-    OTROS
-
->>>>>>> develop
 }

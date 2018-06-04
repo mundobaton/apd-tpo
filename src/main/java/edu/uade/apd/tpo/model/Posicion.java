@@ -1,6 +1,5 @@
 package edu.uade.apd.tpo.model;
 
-<<<<<<< HEAD
 import edu.uade.apd.tpo.dao.PosicionDao;
 import edu.uade.apd.tpo.entity.PosicionEntity;
 import edu.uade.apd.tpo.repository.stub.PosicionStub;
@@ -9,29 +8,13 @@ public class Posicion {
     private Long id;
     private String codUbicacion;
     private EstadoPosicion estado;
-=======
-import edu.uade.apd.tpo.dao.impl.PedidoDao;
-import edu.uade.apd.tpo.dao.impl.PosicionDao;
-
-public class Posicion {
-
-    private Long id;
-    private final static int CAPACIDAD = 21;
-    private String codigoUbicacion;
-    private EstadoPosicion estado;
-    private Lote lote;
->>>>>>> develop
     private int cantidad;
     private char calle;
     private int bloque;
     private int estanteria;
     private int estante;
     private int numero;
-<<<<<<< HEAD
     private static int CAPACIDAD = 100;
-
-=======
->>>>>>> develop
 
     public Long getId() {
         return id;
@@ -41,21 +24,12 @@ public class Posicion {
         this.id = id;
     }
 
-<<<<<<< HEAD
     public String getCodUbicacion() {
         return codUbicacion;
     }
 
     public void setCodUbicacion(String codUbicacion) {
         this.codUbicacion = codUbicacion;
-=======
-    public String getCodigoUbicacion() {
-        return codigoUbicacion;
-    }
-
-    public void setCodigoUbicacion(String codigoUbicacion) {
-        this.codigoUbicacion = codigoUbicacion;
->>>>>>> develop
     }
 
     public EstadoPosicion getEstado() {
@@ -66,17 +40,6 @@ public class Posicion {
         this.estado = estado;
     }
 
-<<<<<<< HEAD
-=======
-    public Lote getLote() {
-        return lote;
-    }
-
-    public void setLote(Lote lote) {
-        this.lote = lote;
-    }
-
->>>>>>> develop
     public int getCantidad() {
         return cantidad;
     }
@@ -124,7 +87,6 @@ public class Posicion {
     public void setNumero(int numero) {
         this.numero = numero;
     }
-<<<<<<< HEAD
 
     public void guardar() {
         PosicionDao.getInstance().save(this.toEntity());
@@ -205,25 +167,4 @@ public class Posicion {
         return stub;
 
     }
-
-=======
-    
-    public void guardar() {
-        PosicionDao.getInstance().save(this);
-    }
-    
-    public void liberar(int cantidad) {
-    	if(cantidad == this.CAPACIDAD) {
-    		this.setEstado(EstadoPosicion.DISPONIBLE);
-    	}
-    	this.setCantidad(this.cantidad - cantidad); 
-    }
-    
-    public void almacenar(Lote lote, int cantidad, String codigoUbicacion) {
-    	this.setEstado(EstadoPosicion.OCUPADO);
-    	this.setLote(lote);
-    	this.setCodigoUbicacion(codigoUbicacion);
-    	this.setCantidad(cantidad);
-    }
->>>>>>> develop
 }

@@ -1,6 +1,5 @@
 package edu.uade.apd.tpo.model;
 
-<<<<<<< HEAD
 import edu.uade.apd.tpo.repository.stub.EstadoCompraStub;
 
 public enum EstadoCompra {
@@ -15,12 +14,4 @@ public enum EstadoCompra {
 	public EstadoCompraStub toStub() {
 		return EstadoCompraStub.valueOf(name());
 	}
-=======
-public enum EstadoCompra {
-
-    PENDIENTE,
-    GENERADO,
-    COMPLETO
-
->>>>>>> develop
 }

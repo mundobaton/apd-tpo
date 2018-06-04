@@ -6,8 +6,4 @@ public class PersistenceException extends RuntimeException {
         super(message, throwable);
     }
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> develop

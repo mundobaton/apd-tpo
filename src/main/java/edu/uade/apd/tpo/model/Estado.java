@@ -1,27 +1,17 @@
 package edu.uade.apd.tpo.model;
 
-<<<<<<< HEAD
 import edu.uade.apd.tpo.dao.EstadoDao;
 import edu.uade.apd.tpo.entity.EstadoEntity;
 import edu.uade.apd.tpo.repository.stub.EstadoStub;
 
-=======
->>>>>>> develop
 import java.util.Date;
 
 public class Estado {
 
     private Long id;
-<<<<<<< HEAD
     private EstadoPedido estado;
     private Date fecha;
     private String motivo;
-=======
-    private Date fecha;
-    private EstadoPedido estado;
-    private String motivo;
-    private Pedido pedido;
->>>>>>> develop
 
     public Long getId() {
         return id;
@@ -39,7 +29,6 @@ public class Estado {
         this.estado = estado;
     }
 
-<<<<<<< HEAD
     public Date getFecha() {
         return fecha;
     }
@@ -48,8 +37,6 @@ public class Estado {
         this.fecha = fecha;
     }
 
-=======
->>>>>>> develop
     public String getMotivo() {
         return motivo;
     }
@@ -58,7 +45,6 @@ public class Estado {
         this.motivo = motivo;
     }
 
-<<<<<<< HEAD
     public static Estado fromEntity(EstadoEntity entity) {
         Estado estado = null;
         if (entity != null) {
@@ -109,21 +95,4 @@ public class Estado {
         EstadoDao.getInstance().save(this.toEntity());
     }
 
-=======
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    public Pedido getPedido() {
-        return pedido;
-    }
-
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
-    }
->>>>>>> develop
 }

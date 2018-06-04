@@ -1,6 +1,5 @@
 package edu.uade.apd.tpo.model;
 
-<<<<<<< HEAD
 import edu.uade.apd.tpo.dao.LoteDao;
 import edu.uade.apd.tpo.entity.ArticuloEntity;
 import edu.uade.apd.tpo.entity.LoteEntity;
@@ -9,8 +8,6 @@ import edu.uade.apd.tpo.repository.stub.LoteStub;
 import edu.uade.apd.tpo.repository.stub.PosicionStub;
 
 import java.util.ArrayList;
-=======
->>>>>>> develop
 import java.util.Date;
 import java.util.List;
 
@@ -20,10 +17,6 @@ public class Lote {
     private String codigo;
     private Date fechaVto;
     private Date fechaElaboracion;
-<<<<<<< HEAD
-=======
-    private Articulo articulo;
->>>>>>> develop
     private List<Posicion> posiciones;
 
     public Long getId() {
@@ -34,7 +27,6 @@ public class Lote {
         this.id = id;
     }
 
-<<<<<<< HEAD
     public String getCodigo() {
         return codigo;
     }
@@ -43,8 +35,6 @@ public class Lote {
         this.codigo = codigo;
     }
 
-=======
->>>>>>> develop
     public Date getFechaVto() {
         return fechaVto;
     }
@@ -61,7 +51,6 @@ public class Lote {
         this.fechaElaboracion = fechaElaboracion;
     }
 
-<<<<<<< HEAD
     public List<Posicion> getPosiciones() {
         return posiciones;
     }
@@ -141,30 +130,4 @@ public class Lote {
         }
         return stub;
     }
-
-=======
-    public Articulo getArticulo() {
-        return articulo;
-    }
-
-    public void setArticulo(Articulo articulo) {
-        this.articulo = articulo;
-    }
-
-    public List<Posicion> getPosiciones() {
-        return posiciones;
-    }
-
-    public void setPosiciones(List<Posicion> posiciones) {
-        this.posiciones = posiciones;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
->>>>>>> develop
 }

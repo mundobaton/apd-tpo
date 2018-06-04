@@ -1,29 +1,18 @@
 package edu.uade.apd.tpo.model;
 
-<<<<<<< HEAD
 import edu.uade.apd.tpo.dao.DomicilioDao;
 import edu.uade.apd.tpo.entity.DomicilioEntity;
 import edu.uade.apd.tpo.repository.stub.DomicilioStub;
 
-=======
->>>>>>> develop
 public class Domicilio {
 
     private Long id;
     private String calle;
-<<<<<<< HEAD
     private Long numero;
     private String codPostal;
     private String localidad;
     private String provincia;
     private Zona zona;
-=======
-    private Integer numero;
-    private String codPostal;
-    private String localidad;
-    private String provincia;
-    private ZonaEnvio zona;
->>>>>>> develop
 
     public Long getId() {
         return id;
@@ -41,19 +30,11 @@ public class Domicilio {
         this.calle = calle;
     }
 
-<<<<<<< HEAD
     public Long getNumero() {
         return numero;
     }
 
     public void setNumero(Long numero) {
-=======
-    public Integer getNumero() {
-        return numero;
-    }
-
-    public void setNumero(Integer numero) {
->>>>>>> develop
         this.numero = numero;
     }
 
@@ -81,7 +62,6 @@ public class Domicilio {
         this.provincia = provincia;
     }
 
-<<<<<<< HEAD
     public Zona getZona() {
         return zona;
     }
@@ -150,27 +130,4 @@ public class Domicilio {
         DomicilioDao.getInstance().save(this.toEntity());
     }
 
-
-=======
-    public ZonaEnvio getZona() {
-        return zona;
-    }
-
-    public void setZona(ZonaEnvio zona) {
-        this.zona = zona;
-    }
-
-    public Domicilio() {
-
-    }
-
-    public Domicilio(String calle, int numero, String codPostal, String localidad, String provincia, ZonaEnvio zona) {
-        this.calle = calle;
-        this.numero = numero;
-        this.codPostal = codPostal;
-        this.localidad = localidad;
-        this.provincia = provincia;
-        this.zona = zona;
-    }
->>>>>>> develop
 }

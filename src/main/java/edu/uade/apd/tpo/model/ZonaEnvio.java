@@ -1,6 +1,6 @@
 package edu.uade.apd.tpo.model;
 
-import edu.uade.apd.tpo.repository.stub.ZonaEnvioStub;
+import edu.uade.apd.tpo.repository.stub.ZonaStub;
 
 public enum ZonaEnvio {
 
@@ -19,7 +19,7 @@ public enum ZonaEnvio {
 		return this.precio;
 	}
 	
-	public static ZonaEnvio fromStub(ZonaEnvioStub stub) {
+	public static ZonaEnvio fromStub(ZonaStub stub) {
 		return ZonaEnvio.valueOf(stub.name());
 	}
 

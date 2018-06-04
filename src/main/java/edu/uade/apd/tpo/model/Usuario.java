@@ -1,38 +1,16 @@
 package edu.uade.apd.tpo.model;
 
-<<<<<<< HEAD
 import edu.uade.apd.tpo.dao.UsuarioDao;
 import edu.uade.apd.tpo.entity.UsuarioEntity;
 import edu.uade.apd.tpo.repository.stub.UsuarioStub;
 
 public class Usuario {
-=======
-import edu.uade.apd.tpo.dao.impl.UsuarioDao;
-import edu.uade.apd.tpo.remote.TransformUtils;
-import edu.uade.apd.tpo.repository.stub.UsuarioStub;
-
-public class Usuario implements Stubeable<UsuarioStub> {
->>>>>>> develop
 
     protected Long id;
     protected String email;
     protected String password;
     protected Rol rol;
 
-<<<<<<< HEAD
-=======
-    public Usuario() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
->>>>>>> develop
     public String getEmail() {
         return email;
     }
@@ -49,7 +27,6 @@ public class Usuario implements Stubeable<UsuarioStub> {
         this.password = password;
     }
 
-<<<<<<< HEAD
     public Long getId() {
         return id;
     }
@@ -62,8 +39,6 @@ public class Usuario implements Stubeable<UsuarioStub> {
         return Usuario.fromEntity(UsuarioDao.getInstance().save(this.toEntity()));
     }
 
-=======
->>>>>>> develop
     public Rol getRol() {
         return rol;
     }
@@ -72,7 +47,6 @@ public class Usuario implements Stubeable<UsuarioStub> {
         this.rol = rol;
     }
 
-<<<<<<< HEAD
     public static Usuario fromEntity(UsuarioEntity entity) {
         Usuario u = null;
         if (entity != null) {
@@ -113,18 +87,5 @@ public class Usuario implements Stubeable<UsuarioStub> {
         stub.setPassword(password);
         stub.setRol(rol.toStub());
         return stub;
-=======
-    public void guardar() {
-        UsuarioDao.getInstance().save(this);
-    }
-
-    @Override
-    public UsuarioStub toStub() {
-        return TransformUtils.to(this, UsuarioStub.class);
-    }
-
-    public static Usuario fromStub(UsuarioStub stub) {
-        return TransformUtils.to(stub, Usuario.class);
->>>>>>> develop
     }
 }

@@ -1,6 +1,5 @@
 package edu.uade.apd.tpo.model;
 
-<<<<<<< HEAD
 import java.util.Date;
 
 public abstract class Movimiento {
@@ -31,17 +30,4 @@ public abstract class Movimiento {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
-=======
-public abstract class Movimiento {
-
-    private Long id;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
->>>>>>> develop
 }

@@ -1,9 +1,6 @@
 package edu.uade.apd.tpo.entity;
 
-<<<<<<< HEAD
 import javax.persistence.CascadeType;
-=======
->>>>>>> develop
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,30 +9,18 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-<<<<<<< HEAD
 import javax.persistence.Transient;
 import java.io.Serializable;
-=======
->>>>>>> develop
 import java.util.List;
 
 @Entity
 @Table(name = "stocks")
-<<<<<<< HEAD
 public class StockEntity implements Serializable {
-=======
-public class StockEntity extends BaseEntity {
-
->>>>>>> develop
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "stock_id")
     private Long id;
-<<<<<<< HEAD
     @OneToMany(cascade = CascadeType.ALL)
-=======
-    @OneToMany
->>>>>>> develop
     @JoinColumn(name = "stock_id")
     private List<MovimientoEntity> movimientos;
 
@@ -54,8 +39,4 @@ public class StockEntity extends BaseEntity {
     public void setMovimientos(List<MovimientoEntity> movimientos) {
         this.movimientos = movimientos;
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> develop
 }
