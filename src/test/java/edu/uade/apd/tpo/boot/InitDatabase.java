@@ -111,8 +111,8 @@ public class InitDatabase {
         SistemaAdministracion.getInstance().agregarItemPedido(1L, 2L, 15);
         SistemaAdministracion.getInstance().finalizarCargaItems(1L);
         SistemaAdministracion.getInstance().aprobarPedido(1L, "un mensaje peligroso");
-        SistemaCompras.getInstance().procesarOrdenCompra(1L);
-        SistemaCompras.getInstance().procesarOrdenCompra(2L);
+        //SistemaCompras.getInstance().procesarOrdenCompra(1L);
+        //SistemaCompras.getInstance().procesarOrdenCompra(2L);
     }
 
 

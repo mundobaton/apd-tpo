@@ -77,5 +77,12 @@ public class SistemaDeposito {
         return ubicacionDao.findByEstado('D');
     }
 
+    public void obtenerMercaderia(ItemLote lote) {
+        for (Ubicacion ubicacion : lote.getUbicaciones()) {
+            ubicacion.liberar();
+            ubicacion.guardar();
+        }
 
+        lote.setUbicaciones(null);
+    }
 }

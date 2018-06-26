@@ -19,6 +19,10 @@ public class Articulo {
     private List<ItemLote> items;
     private int cantPosicion;
 
+    public Articulo() {
+        System.out.println("ENTRA");
+    }
+
     public Long getId() {
         return id;
     }

@@ -7,6 +7,7 @@ public enum EstadoPedido {
     SALDO_INSUFICIENTE,
     COMPLETO,
     RECHAZADO,
+    A_FACTURAR,
     PENDIENTE;
 
 }

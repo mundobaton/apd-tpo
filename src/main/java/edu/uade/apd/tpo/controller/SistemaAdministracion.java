@@ -136,7 +136,7 @@ public class SistemaAdministracion {
         return usuarioDao.findByLegajo(legajo);
     }
 
-    private Pedido buscarPedido(Long pedidoId) {
+    public Pedido buscarPedido(Long pedidoId) {
         return pedidoDao.findById(pedidoId);
     }
 }

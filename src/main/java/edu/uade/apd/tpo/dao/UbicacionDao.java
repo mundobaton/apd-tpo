@@ -39,5 +39,10 @@ public class UbicacionDao extends AbstractDao<UbicacionEntity> {
         }
     }
 
+    public void save(Ubicacion ubicacion) {
+        UbicacionEntity entity = mapper.map(ubicacion, UbicacionEntity.class);
+        super.save(entity);
+    }
+
 
 }

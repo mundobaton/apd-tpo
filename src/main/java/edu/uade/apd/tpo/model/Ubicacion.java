@@ -1,5 +1,7 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.dao.UbicacionDao;
+
 public class Ubicacion {
 
     private Long id;
@@ -73,6 +75,14 @@ public class Ubicacion {
 
     public void setPosicion(int posicion) {
         this.posicion = posicion;
+    }
+
+    public void guardar() {
+        UbicacionDao.getInstance().save(this);
+    }
+
+    public void liberar() {
+        estado = 'D';
     }
 
 }

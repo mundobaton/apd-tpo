@@ -1,6 +1,8 @@
 package edu.uade.apd.tpo.model;
 
 import edu.uade.apd.tpo.controller.SistemaCompras;
+import edu.uade.apd.tpo.controller.SistemaDeposito;
+import edu.uade.apd.tpo.controller.SistemaDespacho;
 import edu.uade.apd.tpo.dao.PedidoDao;
 import edu.uade.apd.tpo.exception.BusinessException;
 
@@ -65,7 +67,7 @@ public class Pedido {
             if (!ip.getArticulo().contieneStock(ip.getCantidad())) {
                 //Checkeo que no exista una OC todavía pendiente para ese articulo
                 List<OrdenCompra> ordenesPendientes = SistemaCompras.getInstance().obtenerOrdenesCompraPendientesPorArticulo(ip.getArticulo().getId());
-                if(ordenesPendientes == null || ordenesPendientes.isEmpty()) {
+                if (ordenesPendientes == null || ordenesPendientes.isEmpty()) {
                     SistemaCompras.getInstance().generarOrdenCompra(ip, this);
                 }
                 esPedidoCompleto = false;
@@ -75,6 +77,19 @@ public class Pedido {
             this.estado = EstadoPedido.COMPLETO;
             guardar();
         }
+    }
+
+    public void despachar() throws BusinessException {
+        if (estado != EstadoPedido.COMPLETO) {
+            throw new BusinessException("El pedido no se encuentra COMPLETO, estado actual: '" + estado + "'");
+        }
+        for (ItemPedido ip: items) {
+            for (ItemLote il: ip.getItems()) {
+                SistemaDeposito.getInstance().obtenerMercaderia(il);
+            }
+        }
+        estado = EstadoPedido.A_FACTURAR;
+        guardar();
     }
 
     public Long getId() {
