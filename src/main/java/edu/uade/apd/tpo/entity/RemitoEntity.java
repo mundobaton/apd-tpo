@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
@@ -19,17 +20,20 @@ public class RemitoEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "remito_id")
-    private Long numeroRemito;
-    @OneToMany
+    private Long id;
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "remito_id")
     private List<ItemPedidoEntity> items;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "domicilio_id")
+    private DomicilioEntity domicilio;
 
-    public long getNumeroRemito() {
-        return numeroRemito;
+    public Long getId() {
+        return id;
     }
 
-    public void setNumeroRemito(long numeroRemito) {
-        this.numeroRemito = numeroRemito;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public List<ItemPedidoEntity> getItems() {
@@ -38,5 +42,13 @@ public class RemitoEntity implements Serializable {
 
     public void setItems(List<ItemPedidoEntity> items) {
         this.items = items;
+    }
+
+    public DomicilioEntity getDomicilio() {
+        return domicilio;
+    }
+
+    public void setDomicilio(DomicilioEntity domicilio) {
+        this.domicilio = domicilio;
     }
 }

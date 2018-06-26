@@ -29,9 +29,12 @@ public class SistemaCompras {
     }
 
     public void generarOrdenCompra(ItemPedido ip, Pedido pedido) {
-        OrdenCompra oc = new OrdenCompra(ip, pedido);
-        oc = oc.guardar();
-        logger.info("Se ha generado la orden de compra '" + oc.getId() + "' exitosamente");
+        List<OrdenCompra> ocs = OrdenCompraDao.getInstance().buscarPorItemPedido(ip.getId(), pedido.getId());
+        if (ocs == null || ocs.isEmpty()) {
+            OrdenCompra oc = new OrdenCompra(ip, pedido);
+            oc = oc.guardar();
+            logger.info("Se ha generado la orden de compra '" + oc.getId() + "' exitosamente");
+        }
     }
 
     public void procesarOrdenCompra(Long ordenCompraId) throws BusinessException {

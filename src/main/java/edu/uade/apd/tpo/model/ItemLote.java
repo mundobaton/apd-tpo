@@ -52,4 +52,8 @@ public class ItemLote {
     public void setUbicaciones(List<Ubicacion> ubicaciones) {
         this.ubicaciones = ubicaciones;
     }
+
+    public void vaciar() {
+        this.ubicaciones = null;
+    }
 }

@@ -28,8 +28,8 @@ public class OrdenCompra {
         }
         SistemaDeposito.getInstance().almacenar(item);
         this.estado = 'C';
-        guardar();
-        pedido.procesar();
+        OrdenCompra oc = guardar();
+        oc.getPedido().procesar();
     }
 
     public Long getId() {

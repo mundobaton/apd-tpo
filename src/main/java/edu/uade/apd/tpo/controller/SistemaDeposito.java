@@ -83,6 +83,6 @@ public class SistemaDeposito {
             ubicacion.guardar();
         }
 
-        lote.setUbicaciones(null);
+        lote.vaciar();
     }
 }

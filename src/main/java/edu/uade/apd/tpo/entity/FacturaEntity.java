@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
@@ -22,11 +23,11 @@ public class FacturaEntity implements Serializable {
     private Long id;
     @Column(name = "tipo")
     private char tipo;
-    @Column(name = "numero_factura")
-    private long numeroFactura;
-    @OneToMany
-    @JoinColumn(name = "factura_id")
-    private List<PedidoEntity> pedidos;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pedido_id")
+    private PedidoEntity pedido;
+    @Column(name = "total")
+    private Float total;
 
     public Long getId() {
         return id;
@@ -44,19 +45,19 @@ public class FacturaEntity implements Serializable {
         this.tipo = tipo;
     }
 
-    public long getNumeroFactura() {
-        return numeroFactura;
+    public PedidoEntity getPedido() {
+        return pedido;
     }
 
-    public void setNumeroFactura(long numeroFactura) {
-        this.numeroFactura = numeroFactura;
+    public void setPedido(PedidoEntity pedido) {
+        this.pedido = pedido;
     }
 
-    public List<PedidoEntity> getPedidos() {
-        return pedidos;
+    public Float getTotal() {
+        return total;
     }
 
-    public void setPedidos(List<PedidoEntity> pedidos) {
-        this.pedidos = pedidos;
+    public void setTotal(Float total) {
+        this.total = total;
     }
 }

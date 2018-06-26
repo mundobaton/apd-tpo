@@ -58,5 +58,19 @@ public class OrdenCompraDao extends AbstractDao<OrdenCompraEntity> {
         }
     }
 
+    public List<OrdenCompra> buscarPorItemPedido(Long itemPedidoId, Long pedidoId) {
+        String query = "select o from OrdenCompraEntity o inner join o.item ip inner join o.pedido p where ip.id = :itemPedidoId and p.id = :pedidoId";
+        try (Session session = getSession()) {
+            Query<OrdenCompraEntity> q = session.createQuery(query);
+            q.setParameter("itemPedidoId", itemPedidoId);
+            q.setParameter("pedidoId", pedidoId);
+            List<OrdenCompraEntity> result = q.getResultList();
+            if (result != null && !result.isEmpty()) {
+                return result.parallelStream().map(o -> mapper.map(o, OrdenCompra.class)).collect(Collectors.toList());
+            }
+            return null;
+        }
+    }
+
 
 }

@@ -11,6 +11,8 @@ import edu.uade.apd.tpo.entity.UbicacionEntity;
 import edu.uade.apd.tpo.exception.BusinessException;
 import org.junit.Test;
 
+import java.util.concurrent.TimeUnit;
+
 public class InitDatabase {
 
     //private final static char[] CALLES = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
@@ -26,7 +28,7 @@ public class InitDatabase {
     }
 
     @Test
-    public void initAll() throws BusinessException {
+    public void initAll() throws BusinessException, InterruptedException {
         initUbicaciones();
         initArticulos();
         initCliente();
@@ -105,14 +107,14 @@ public class InitDatabase {
         SistemaAdministracion.getInstance().crearCliente("baton", "12345", "Fake st", 123, "Cap.Fed", "Buenos Aires", "1406", 500f, 300f);
     }
 
-    private void initPedido() throws BusinessException {
+    private void initPedido() throws BusinessException, InterruptedException {
         SistemaAdministracion.getInstance().crearPedido("baton", "Otra direccion", 111, "Cap.Fed", "Buenos Aires", "1406");
         SistemaAdministracion.getInstance().agregarItemPedido(1L, 1L, 10);
         SistemaAdministracion.getInstance().agregarItemPedido(1L, 2L, 15);
         SistemaAdministracion.getInstance().finalizarCargaItems(1L);
         SistemaAdministracion.getInstance().aprobarPedido(1L, "un mensaje peligroso");
-        //SistemaCompras.getInstance().procesarOrdenCompra(1L);
-        //SistemaCompras.getInstance().procesarOrdenCompra(2L);
+        SistemaCompras.getInstance().procesarOrdenCompra(1L);
+        SistemaCompras.getInstance().procesarOrdenCompra(2L);
     }
 
 

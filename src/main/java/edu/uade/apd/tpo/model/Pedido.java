@@ -7,6 +7,7 @@ import edu.uade.apd.tpo.dao.PedidoDao;
 import edu.uade.apd.tpo.exception.BusinessException;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -87,8 +88,11 @@ public class Pedido {
             for (ItemLote il: ip.getItems()) {
                 SistemaDeposito.getInstance().obtenerMercaderia(il);
             }
+            Articulo art = ip.getArticulo();
+            art.setStock(art.getStock() - ip.getCantidad());
         }
         estado = EstadoPedido.A_FACTURAR;
+        fechaDespacho = calcularFechaDespacho();
         guardar();
     }
 
@@ -150,5 +154,11 @@ public class Pedido {
 
     public Pedido guardar() {
         return PedidoDao.getInstance().save(this);
+    }
+
+    private Date calcularFechaDespacho() {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_MONTH, 7);
+        return cal.getTime();
     }
 }

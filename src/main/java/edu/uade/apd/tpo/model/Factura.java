@@ -1,13 +1,25 @@
 package edu.uade.apd.tpo.model;
 
-import java.util.List;
+import edu.uade.apd.tpo.dao.FacturaDao;
 
 public class Factura {
 
+    private static final float IMPUESTOS = 0.21f;
+
     private Long id;
     private char tipo;
-    private long numeroFactura;
-    private List<Pedido> pedidos;
+    private Pedido pedido;
+    private Float total;
+
+    public Factura() {
+
+    }
+
+    public Factura(Pedido pedido) {
+        this.pedido = pedido;
+        this.tipo = calcularTipoFactura();
+        this.total = calcularTotal();
+    }
 
     public char getTipo() {
         return tipo;
@@ -25,19 +37,31 @@ public class Factura {
         this.tipo = tipo;
     }
 
-    public long getNumeroFactura() {
-        return numeroFactura;
+    public Pedido getPedido() {
+        return pedido;
     }
 
-    public void setNumeroFactura(long numeroFactura) {
-        this.numeroFactura = numeroFactura;
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 
-    public List<Pedido> getPedidos() {
-        return pedidos;
+    public void guardar() {
+        FacturaDao.getInstance().save(this);
     }
 
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
+    private char calcularTipoFactura() {
+        return 'A';
+    }
+
+    private Float calcularTotal() {
+        return this.pedido.getPrecioBruto() * IMPUESTOS + this.pedido.getPrecioBruto();
+    }
+
+    public Float getTotal() {
+        return total;
+    }
+
+    public void setTotal(float total) {
+        this.total = total;
     }
 }
