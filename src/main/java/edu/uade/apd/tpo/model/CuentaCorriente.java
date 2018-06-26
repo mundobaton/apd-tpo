@@ -9,6 +9,7 @@ public class CuentaCorriente {
     private float saldo;
     private float credito;
     private List<Nota> notas;
+    private List<Factura> facturas;
 
     public CuentaCorriente() {
 
@@ -61,5 +62,25 @@ public class CuentaCorriente {
             notas = new ArrayList<>();
         }
         notas.add(nota);
+    }
+
+    public List<Factura> getFacturas() {
+        return facturas;
+    }
+
+    public void setFacturas(List<Factura> facturas) {
+        this.facturas = facturas;
+    }
+
+    public void agregarFactura(Factura factura) {
+        if (this.facturas == null) {
+            facturas = new ArrayList<>();
+        }
+        facturas.add(factura);
+    }
+
+    public void generarFactura(Pedido pedido) {
+        Factura factura = new Factura(pedido);
+        this.agregarFactura(factura);
     }
 }

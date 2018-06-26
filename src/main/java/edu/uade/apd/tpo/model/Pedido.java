@@ -31,6 +31,15 @@ public class Pedido {
 
     }
 
+    public void facturar() throws BusinessException {
+        if (estado != EstadoPedido.A_FACTURAR) {
+            throw new BusinessException("El pedido no se encuentra en estado A FACTURAR, estado actual: '" + estado + "'");
+        }
+        cliente.facturar(this);
+        estado = EstadoPedido.FACTURADO;
+        guardar();
+    }
+
     public float getPrecioBruto() {
         float precio = 0;
         if (items != null) {
@@ -84,8 +93,8 @@ public class Pedido {
         if (estado != EstadoPedido.COMPLETO) {
             throw new BusinessException("El pedido no se encuentra COMPLETO, estado actual: '" + estado + "'");
         }
-        for (ItemPedido ip: items) {
-            for (ItemLote il: ip.getItems()) {
+        for (ItemPedido ip : items) {
+            for (ItemLote il : ip.getItems()) {
                 SistemaDeposito.getInstance().obtenerMercaderia(il);
             }
             Articulo art = ip.getArticulo();

@@ -1,6 +1,7 @@
 package edu.uade.apd.tpo.model;
 
 import edu.uade.apd.tpo.dao.ClienteDao;
+import edu.uade.apd.tpo.exception.BusinessException;
 
 import java.util.List;
 
@@ -22,6 +23,10 @@ public class Cliente {
         this.password = password;
         this.domicilio = new Domicilio(calle, numero, localidad, provincia, codPostal);
         this.cuentaCorriente = new CuentaCorriente(saldo, credito);
+    }
+
+    public void facturar(Pedido pedido) throws BusinessException {
+        cuentaCorriente.generarFactura(pedido);
     }
 
     public Long getId() {

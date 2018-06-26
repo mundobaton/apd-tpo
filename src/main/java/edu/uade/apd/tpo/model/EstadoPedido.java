@@ -8,6 +8,6 @@ public enum EstadoPedido {
     COMPLETO,
     RECHAZADO,
     A_FACTURAR,
-    PENDIENTE;
-
+    PENDIENTE,
+    FACTURADO;
 }

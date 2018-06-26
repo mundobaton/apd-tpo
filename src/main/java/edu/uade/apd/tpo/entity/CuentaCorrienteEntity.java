@@ -24,9 +24,13 @@ public class CuentaCorrienteEntity implements Serializable {
     private float saldo;
     @Column(name = "credito")
     private float credito;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "cuenta_corriente_id")
     private List<NotaEntity> notas;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cuenta_corriente_id")
+    private List<FacturaEntity> facturas;
+
 
     public Long getId() {
         return id;
@@ -58,5 +62,13 @@ public class CuentaCorrienteEntity implements Serializable {
 
     public void setNotas(List<NotaEntity> notas) {
         this.notas = notas;
+    }
+
+    public List<FacturaEntity> getFacturas() {
+        return facturas;
+    }
+
+    public void setFacturas(List<FacturaEntity> facturas) {
+        this.facturas = facturas;
     }
 }
