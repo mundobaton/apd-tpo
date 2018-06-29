@@ -6,7 +6,6 @@ import edu.uade.apd.tpo.dao.UsuarioDao;
 import edu.uade.apd.tpo.exception.BusinessException;
 import edu.uade.apd.tpo.model.Articulo;
 import edu.uade.apd.tpo.model.Cliente;
-import edu.uade.apd.tpo.model.EstadoPedido;
 import edu.uade.apd.tpo.model.Pedido;
 import edu.uade.apd.tpo.model.Rol;
 import edu.uade.apd.tpo.model.Usuario;
@@ -40,7 +39,7 @@ public class SistemaAdministracion {
         if (cli != null) {
             throw new BusinessException("El cliente '" + nombreUsuario + "' ya existe");
         }
-        cli = new Cliente(nombreUsuario, password, calle, numero, localidad, provincia, codPostal, 500f, 300f);
+        cli = new Cliente(nombreUsuario, password, calle, numero, localidad, provincia, codPostal, saldo, credito);
         cli.guardar();
         logger.info("Cliente '" + nombreUsuario + "' creado exitosamente");
     }
