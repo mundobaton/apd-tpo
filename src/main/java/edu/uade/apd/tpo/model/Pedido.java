@@ -50,19 +50,48 @@ public class Pedido {
         return precio;
     }
 
-    public void agregarItem(Articulo art, int cant) {
+    public void agregarItem(Articulo art, int cant) throws BusinessException {
+        if (this.estado != EstadoPedido.GENERADO) {
+            throw new BusinessException("El pedido debe encontrarse en estado GENERADO, actual '" + this.estado.toString() + "'");
+        }
+
         if (items == null) {
             items = new ArrayList<>();
         }
         items.add(new ItemPedido(art, cant));
+        guardar();
     }
 
-    public void cerrar() throws BusinessException {
+    public void aprobar() throws BusinessException {
         if (this.estado != EstadoPedido.PREAPROBADO && this.estado != EstadoPedido.SALDO_INSUFICIENTE) {
             throw new BusinessException("El estado del pedido es incorrecto, actual: '" + estado.toString() + "'");
         }
         this.estado = EstadoPedido.PENDIENTE;
         this.fechaPedido = new Date();
+
+        guardar();
+
+        //Intento procesar el pedido, si no existe suficiente stock genera ordenes de compra y quedara en estado pendiente.
+        //Caso contrario queda en estado completo
+        procesar();
+    }
+
+    public void rechazar() throws BusinessException {
+        if (this.estado != EstadoPedido.PREAPROBADO && this.estado != EstadoPedido.SALDO_INSUFICIENTE) {
+            throw new BusinessException("El estado del pedido es incorrecto, actual: '" + estado.toString() + "'");
+        }
+        this.estado = EstadoPedido.RECHAZADO;
+        guardar();
+    }
+
+    public void finalizarCargaItems() throws BusinessException {
+        if (this.estado != EstadoPedido.GENERADO) {
+            throw new BusinessException("El pedido debe encontrarse en estado GENERADO, actual '" + estado.toString() + "'");
+        }
+
+        //Validar cuenta corriente del cliente
+        this.estado = this.cliente.getCuentaCorriente().tieneSaldoDisponible(getPrecioBruto()) ? EstadoPedido.PREAPROBADO : EstadoPedido.SALDO_INSUFICIENTE;
+        guardar();
     }
 
     public void procesar() throws BusinessException {

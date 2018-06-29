@@ -1,8 +1,7 @@
 package edu.uade.apd.tpo.controller;
 
+import edu.uade.apd.tpo.dao.FacturaDao;
 import edu.uade.apd.tpo.exception.BusinessException;
-import edu.uade.apd.tpo.model.Cliente;
-import edu.uade.apd.tpo.model.EstadoPedido;
 import edu.uade.apd.tpo.model.Factura;
 import edu.uade.apd.tpo.model.Pedido;
 import edu.uade.apd.tpo.model.Remito;
@@ -28,5 +27,17 @@ public class SistemaFacturacion {
 
         Remito remito = new Remito(pedido.getItems(), pedido.getDomicilio());
         remito.guardar();
+    }
+
+    public void pagarFactura(Long facturaId, Float importe) throws BusinessException {
+        Factura factura = this.obtenerFactura(facturaId);
+        if (factura == null) {
+            throw new BusinessException("No se encontro la factura '" + facturaId + "'");
+        }
+        factura.pagar(importe);
+    }
+
+    private Factura obtenerFactura(Long facturaId) {
+        return FacturaDao.getInstance().findById(facturaId);
     }
 }

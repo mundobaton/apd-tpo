@@ -70,15 +70,12 @@ public class SistemaAdministracion {
         if (pedido == null) {
             throw new BusinessException("El pedido '" + pedidoId + "' no existe");
         }
-        if (pedido.getEstado() != EstadoPedido.GENERADO) {
-            throw new BusinessException("El pedido debe encontrarse en estado GENERADO, actual '" + pedido.getEstado().toString() + "'");
-        }
+
         Articulo art = SistemaDeposito.getInstance().buscarArticulo(articuloId);
         if (art == null) {
             throw new BusinessException("El articulo '" + articuloId + "' no existe");
         }
         pedido.agregarItem(art, cantidad);
-        pedido.guardar();
     }
 
     public void finalizarCargaItems(Long pedidoId) throws BusinessException {
@@ -86,19 +83,7 @@ public class SistemaAdministracion {
         if (pedido == null) {
             throw new BusinessException("El pedido '" + pedidoId + "' no existe");
         }
-
-        if (pedido.getEstado() != EstadoPedido.GENERADO) {
-            throw new BusinessException("El pedido debe encontrarse en estado GENERADO, actual '" + pedido.getEstado().toString() + "'");
-        }
-
-        //Validar cuenta corriente del cliente
-        Cliente cliente = pedido.getCliente();
-        if (cliente.getCuentaCorriente().tieneSaldoDisponible(pedido.getPrecioBruto())) {
-            pedido.setEstado(EstadoPedido.PREAPROBADO);
-        } else {
-            pedido.setEstado(EstadoPedido.SALDO_INSUFICIENTE);
-        }
-        pedido.guardar();
+        pedido.finalizarCargaItems();
     }
 
     public void aprobarPedido(Long pedidoId) throws BusinessException {
@@ -106,7 +91,7 @@ public class SistemaAdministracion {
         if (pedido == null) {
             throw new BusinessException("El pedido '" + pedidoId + "' no existe");
         }
-        aprobarPedido(pedido);
+        pedido.aprobar();
     }
 
     public void aprobarPedido(Long pedidoId, String mensaje) throws BusinessException {
@@ -116,16 +101,17 @@ public class SistemaAdministracion {
         }
         Cliente cliente = pedido.getCliente();
         cliente.getCuentaCorriente().agregarNota(mensaje, pedido);
-        aprobarPedido(pedido);
+        pedido.aprobar();
     }
 
-    private void aprobarPedido(Pedido pedido) throws BusinessException {
-        pedido.cerrar();
-        pedido.guardar();
-
-        //Intento procesar el pedido, si no existe suficiente stock genera ordenes de compra y quedara en estado pendiente.
-        //Caso contrario queda en estado completo
-        pedido.procesar();
+    public void rechazarPedido(Long pedidoId, String mensaje) throws BusinessException {
+        Pedido pedido = this.buscarPedido(pedidoId);
+        if (pedido == null) {
+            throw new BusinessException("El pedido '" + pedidoId + "' no existe");
+        }
+        Cliente cliente = pedido.getCliente();
+        cliente.getCuentaCorriente().agregarNota(mensaje, pedido);
+        pedido.rechazar();
     }
 
     private Cliente buscarCliente(String nombreUsuario) {

@@ -18,4 +18,9 @@ public class SistemaFacturacionTest {
         sistema.facturar(1L);
     }
 
+    @Test
+    public void testPagarFactura() throws BusinessException {
+        sistema.pagarFactura(1L, 1000f);
+    }
+
 }

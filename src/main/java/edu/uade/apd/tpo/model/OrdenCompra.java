@@ -5,17 +5,21 @@ import edu.uade.apd.tpo.controller.SistemaDeposito;
 import edu.uade.apd.tpo.dao.OrdenCompraDao;
 import edu.uade.apd.tpo.exception.BusinessException;
 
+import java.util.Date;
+
 public class OrdenCompra {
 
     private Long id;
     private ItemPedido item;
     private Pedido pedido;
     private char estado;
+    private Date fechaCreacion;
 
     public OrdenCompra(ItemPedido item, Pedido pedido) {
         this.item = item;
         this.pedido = pedido;
         this.estado = 'P';
+        this.fechaCreacion = new Date();
     }
 
     public OrdenCompra() {
@@ -66,5 +70,13 @@ public class OrdenCompra {
 
     public OrdenCompra guardar() {
         return OrdenCompraDao.getInstance().save(this);
+    }
+
+    public Date getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 }

@@ -28,6 +28,8 @@ public class FacturaEntity implements Serializable {
     private PedidoEntity pedido;
     @Column(name = "total")
     private Float total;
+    @Column(name = "estado")
+    private char estado;
 
     public Long getId() {
         return id;
@@ -59,5 +61,13 @@ public class FacturaEntity implements Serializable {
 
     public void setTotal(Float total) {
         this.total = total;
+    }
+
+    public char getEstado() {
+        return estado;
+    }
+
+    public void setEstado(char estado) {
+        this.estado = estado;
     }
 }

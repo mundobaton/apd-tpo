@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "orden_compras")
@@ -25,11 +26,13 @@ public class OrdenCompraEntity implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "item_pedido_id")
     private ItemPedidoEntity item;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "pedido_id")
     private PedidoEntity pedido;
     @Column(name = "estado")
     private char estado;
+    @Column(name = "fecha_creacion")
+    private Date fechaCreacion;
 
     public Long getId() {
         return id;
@@ -61,5 +64,13 @@ public class OrdenCompraEntity implements Serializable {
 
     public void setEstado(char estado) {
         this.estado = estado;
+    }
+
+    public Date getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 }
