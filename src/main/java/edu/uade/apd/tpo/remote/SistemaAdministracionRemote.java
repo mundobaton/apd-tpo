@@ -4,9 +4,11 @@ import edu.uade.apd.tpo.controller.SistemaAdministracion;
 import edu.uade.apd.tpo.exception.BusinessException;
 import edu.uade.apd.tpo.model.Cliente;
 import edu.uade.apd.tpo.model.Rol;
+import edu.uade.apd.tpo.model.Usuario;
 import edu.uade.apd.tpo.repository.SistemaAdministracionRepository;
 import edu.uade.apd.tpo.repository.dto.ClienteDTO;
 import edu.uade.apd.tpo.repository.dto.RolDTO;
+import edu.uade.apd.tpo.repository.dto.UsuarioDTO;
 import edu.uade.apd.tpo.repository.exception.RemoteBusinessException;
 import org.modelmapper.ModelMapper;
 
@@ -51,10 +53,84 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
     }
 
     @Override
-    public ClienteDTO login(String email, String password) throws RemoteException {
+    public ClienteDTO loginCliente(String email, String password) throws RemoteException {
         try {
-            Cliente cliente = controller.login(email, password);
+            Cliente cliente = controller.loginCliente(email, password);
             return mapper.map(cliente, ClienteDTO.class);
+        } catch (BusinessException be) {
+            throw new RemoteBusinessException(be.getMessage());
+        }
+    }
+
+    @Override
+    public UsuarioDTO loginUsuario(String legajo, String password) throws RemoteException {
+        try {
+            Usuario usuario = controller.loginUsuario(legajo, password);
+            return mapper.map(usuario, UsuarioDTO.class);
+        } catch (BusinessException be) {
+            throw new RemoteBusinessException(be.getMessage());
+        }
+    }
+
+    @Override
+    public ClienteDTO findClienteById(Long clienteId) throws RemoteException {
+        try {
+            Cliente cliente = controller.buscarClienteById(clienteId);
+            return mapper.map(cliente, ClienteDTO.class);
+        } catch (BusinessException be) {
+            throw new RemoteBusinessException(be.getMessage());
+        }
+    }
+
+    @Override
+    public Long crearPedido(String email, String calle, int numero, String localidad, String provincia, String codPostal) throws RemoteException {
+        try {
+            return controller.crearPedido(email, calle, numero, localidad, provincia, codPostal);
+        } catch (BusinessException be) {
+            throw new RemoteBusinessException(be.getMessage());
+        }
+    }
+
+    @Override
+    public void agregarItemPedido(Long pedidoId, Long articuloId, int cantidad) throws RemoteException {
+        try {
+            controller.agregarItemPedido(pedidoId, articuloId, cantidad);
+        } catch (BusinessException be) {
+            throw new RemoteBusinessException(be.getMessage());
+        }
+    }
+
+    @Override
+    public void finalizarCargaItems(Long pedidoId) throws RemoteException {
+        try {
+            controller.finalizarCargaItems(pedidoId);
+        } catch (BusinessException be) {
+            throw new RemoteBusinessException(be.getMessage());
+        }
+    }
+
+    @Override
+    public void aprobarPedido(Long pedidoId, String mensaje) throws RemoteException {
+        try {
+            controller.aprobarPedido(pedidoId, mensaje);
+        } catch (BusinessException be) {
+            throw new RemoteBusinessException(be.getMessage());
+        }
+    }
+
+    @Override
+    public void aprobarPedido(Long pedidoId) throws RemoteException {
+        try {
+            controller.aprobarPedido(pedidoId);
+        } catch (BusinessException be) {
+            throw new RemoteBusinessException(be.getMessage());
+        }
+    }
+
+    @Override
+    public void rechazarPedido(Long pedidoId, String mensaje) throws RemoteException {
+        try {
+            controller.rechazarPedido(pedidoId, mensaje);
         } catch (BusinessException be) {
             throw new RemoteBusinessException(be.getMessage());
         }

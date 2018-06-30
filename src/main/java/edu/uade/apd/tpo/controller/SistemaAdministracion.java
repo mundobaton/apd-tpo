@@ -54,14 +54,15 @@ public class SistemaAdministracion {
         logger.info("Usuario '" + legajo + "' creado exitosamente");
     }
 
-    public void crearPedido(String nombreUsuario, String calle, int numero, String localidad, String provincia, String codPostal) throws BusinessException {
-        Cliente cli = this.buscarCliente(nombreUsuario);
+    public Long crearPedido(String email, String calle, int numero, String localidad, String provincia, String codPostal) throws BusinessException {
+        Cliente cli = this.buscarCliente(email);
         if (cli == null) {
-            throw new BusinessException("El cliente '" + nombreUsuario + "' no existe");
+            throw new BusinessException("El cliente '" + email + "' no existe");
         }
         Pedido pedido = new Pedido(calle, numero, localidad, provincia, codPostal, cli);
         pedido = pedido.guardar();
         logger.info("Se ha generado el pedido '" + pedido.getId() + "' exitosamente");
+        return pedido.getId();
     }
 
     public void agregarItemPedido(Long pedidoId, Long articuloId, int cantidad) throws BusinessException {
@@ -125,13 +126,32 @@ public class SistemaAdministracion {
         return pedidoDao.findById(pedidoId);
     }
 
-    public Cliente login(String email, String password) throws BusinessException {
+    public Cliente loginCliente(String email, String password) throws BusinessException {
         Cliente cliente = this.buscarCliente(email);
         if (cliente == null) {
             throw new BusinessException("La dirección de email '" + email + "' o contraseña es incorrecta");
         }
         if (!password.equals(cliente.getPassword())) {
             throw new BusinessException("La dirección de email '" + email + "' o contraseña es incorrecta");
+        }
+        return cliente;
+    }
+
+    public Usuario loginUsuario(String legajo, String password) throws BusinessException {
+        Usuario usuario = this.buscarUsuario(legajo);
+        if (usuario == null) {
+            throw new BusinessException("El usuario '" + legajo + "' o contraseña es incorrecta");
+        }
+        if (!password.equals(usuario.getPassword())) {
+            throw new BusinessException("El usuario '" + legajo + "' o contraseña es incorrecta");
+        }
+        return usuario;
+    }
+
+    public Cliente buscarClienteById(Long clienteId) throws BusinessException {
+        Cliente cliente = clienteDao.findById(clienteId);
+        if (cliente == null) {
+            throw new BusinessException("El cliente con id '" + clienteId + "' no existe");
         }
         return cliente;
     }

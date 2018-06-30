@@ -36,6 +36,20 @@ public class ClienteDao extends AbstractDao<ClienteEntity> {
         }
     }
 
+    public Cliente findById(Long clienteId) {
+        String query = "select c from ClienteEntity c where c.id = :clienteId";
+        try (Session session = getSession()) {
+            Query<ClienteEntity> q = session.createQuery(query);
+            q.setParameter("clienteId", clienteId);
+
+            List<ClienteEntity> result = q.getResultList();
+            if (result != null && !result.isEmpty()) {
+                return mapper.map(result.get(0), Cliente.class);
+            }
+            return null;
+        }
+    }
+
     public void save(Cliente cliente) {
         ClienteEntity entity = mapper.map(cliente, ClienteEntity.class);
         super.save(entity);
