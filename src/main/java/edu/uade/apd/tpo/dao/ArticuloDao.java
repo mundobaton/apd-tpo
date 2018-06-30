@@ -40,7 +40,7 @@ public class ArticuloDao extends AbstractDao<ArticuloEntity> {
     }
 
     public List<Articulo> findAll() {
-        String query = "select a from ArticuloEntity";
+        String query = "select a from ArticuloEntity a";
         try (Session session = getSession()) {
             Query<ArticuloEntity> q = session.createQuery(query);
             List<ArticuloEntity> result = q.getResultList();
