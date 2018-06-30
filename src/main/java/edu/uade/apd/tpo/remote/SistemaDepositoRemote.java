@@ -2,10 +2,8 @@ package edu.uade.apd.tpo.remote;
 
 import edu.uade.apd.tpo.controller.SistemaDeposito;
 import edu.uade.apd.tpo.model.Articulo;
-import edu.uade.apd.tpo.repository.SistemaAdministracionRepository;
 import edu.uade.apd.tpo.repository.SistemaDepositoRepository;
 import edu.uade.apd.tpo.repository.dto.ArticuloDTO;
-import edu.uade.apd.tpo.repository.exception.RemoteBusinessException;
 import org.modelmapper.ModelMapper;
 
 import java.rmi.RemoteException;
@@ -36,6 +34,15 @@ public class SistemaDepositoRemote extends UnicastRemoteObject implements Sistem
         List<Articulo> articulos = controller.getArticulos();
         if (articulos != null && !articulos.isEmpty()) {
             return articulos.parallelStream().map(a -> mapper.map(a, ArticuloDTO.class)).collect(Collectors.toList());
+        }
+        return null;
+    }
+
+    @Override
+    public ArticuloDTO findArticuloById(Long articuloId) throws RemoteException {
+        Articulo articulo = controller.buscarArticulo(articuloId);
+        if (articulo != null) {
+            return mapper.map(articulo, ArticuloDTO.class);
         }
         return null;
     }
