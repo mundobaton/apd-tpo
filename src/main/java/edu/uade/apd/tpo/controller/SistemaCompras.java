@@ -46,12 +46,22 @@ public class SistemaCompras {
         logger.info("Se ha procesado la orden de compra '" + oc.getId() + "' exitosamente");
     }
 
+    public void procesarOrdenesCompra() throws BusinessException {
+        for (OrdenCompra oc : buscarOrdenesCompraPendientes()) {
+            oc.procesar();
+        }
+    }
+
     private OrdenCompra buscarOrdenCompra(Long ordenCompraId) {
         return ordenCompraDao.findById(ordenCompraId);
     }
 
     public List<OrdenCompra> obtenerOrdenesCompraPendientesPorArticulo(Long articuloId) {
         return ordenCompraDao.buscarPendientesPorArticulo(articuloId);
+    }
+
+    private List<OrdenCompra> buscarOrdenesCompraPendientes() {
+        return ordenCompraDao.findByEstado('P');
     }
 
 }
