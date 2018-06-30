@@ -34,7 +34,7 @@ public class InitDatabase {
         initUbicaciones();
         initArticulos();
         initCliente();
-        doFullTest();
+        //doFullTest();
     }
 
 
