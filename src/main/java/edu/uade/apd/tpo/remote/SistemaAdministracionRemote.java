@@ -81,4 +81,58 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
             throw new RemoteBusinessException(be.getMessage());
         }
     }
+
+    @Override
+    public Long crearPedido(String email, String calle, int numero, String localidad, String provincia, String codPostal) throws RemoteException {
+        try {
+            return controller.crearPedido(email, calle, numero, localidad, provincia, codPostal);
+        } catch (BusinessException be) {
+            throw new RemoteBusinessException(be.getMessage());
+        }
+    }
+
+    @Override
+    public void agregarItemPedido(Long pedidoId, Long articuloId, int cantidad) throws RemoteException {
+        try {
+            controller.agregarItemPedido(pedidoId, articuloId, cantidad);
+        } catch (BusinessException be) {
+            throw new RemoteBusinessException(be.getMessage());
+        }
+    }
+
+    @Override
+    public void finalizarCargaItems(Long pedidoId) throws RemoteException {
+        try {
+            controller.finalizarCargaItems(pedidoId);
+        } catch (BusinessException be) {
+            throw new RemoteBusinessException(be.getMessage());
+        }
+    }
+
+    @Override
+    public void aprobarPedido(Long pedidoId, String mensaje) throws RemoteException {
+        try {
+            controller.aprobarPedido(pedidoId, mensaje);
+        } catch (BusinessException be) {
+            throw new RemoteBusinessException(be.getMessage());
+        }
+    }
+
+    @Override
+    public void aprobarPedido(Long pedidoId) throws RemoteException {
+        try {
+            controller.aprobarPedido(pedidoId);
+        } catch (BusinessException be) {
+            throw new RemoteBusinessException(be.getMessage());
+        }
+    }
+
+    @Override
+    public void rechazarPedido(Long pedidoId, String mensaje) throws RemoteException {
+        try {
+            controller.rechazarPedido(pedidoId, mensaje);
+        } catch (BusinessException be) {
+            throw new RemoteBusinessException(be.getMessage());
+        }
+    }
 }

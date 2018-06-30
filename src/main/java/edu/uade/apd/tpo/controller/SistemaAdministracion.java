@@ -54,14 +54,15 @@ public class SistemaAdministracion {
         logger.info("Usuario '" + legajo + "' creado exitosamente");
     }
 
-    public void crearPedido(String nombreUsuario, String calle, int numero, String localidad, String provincia, String codPostal) throws BusinessException {
-        Cliente cli = this.buscarCliente(nombreUsuario);
+    public Long crearPedido(String email, String calle, int numero, String localidad, String provincia, String codPostal) throws BusinessException {
+        Cliente cli = this.buscarCliente(email);
         if (cli == null) {
-            throw new BusinessException("El cliente '" + nombreUsuario + "' no existe");
+            throw new BusinessException("El cliente '" + email + "' no existe");
         }
         Pedido pedido = new Pedido(calle, numero, localidad, provincia, codPostal, cli);
         pedido = pedido.guardar();
         logger.info("Se ha generado el pedido '" + pedido.getId() + "' exitosamente");
+        return pedido.getId();
     }
 
     public void agregarItemPedido(Long pedidoId, Long articuloId, int cantidad) throws BusinessException {
