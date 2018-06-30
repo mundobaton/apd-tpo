@@ -125,7 +125,7 @@ public class SistemaAdministracion {
         return pedidoDao.findById(pedidoId);
     }
 
-    public Cliente login(String email, String password) throws BusinessException {
+    public Cliente loginCliente(String email, String password) throws BusinessException {
         Cliente cliente = this.buscarCliente(email);
         if (cliente == null) {
             throw new BusinessException("La dirección de email '" + email + "' o contraseña es incorrecta");
@@ -134,6 +134,17 @@ public class SistemaAdministracion {
             throw new BusinessException("La dirección de email '" + email + "' o contraseña es incorrecta");
         }
         return cliente;
+    }
+
+    public Usuario loginUsuario(String legajo, String password) throws BusinessException {
+        Usuario usuario = this.buscarUsuario(legajo);
+        if (usuario == null) {
+            throw new BusinessException("El usuario '" + legajo + "' o contraseña es incorrecta");
+        }
+        if (!password.equals(usuario.getPassword())) {
+            throw new BusinessException("El usuario '" + legajo + "' o contraseña es incorrecta");
+        }
+        return usuario;
     }
 
 }
