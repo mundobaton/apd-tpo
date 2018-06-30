@@ -32,7 +32,7 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
     }
 
     @Override
-    public void crearCliente(String nombreUsuario, String password, String calle, int numero, String localidad, String provincia, String codPostal, float saldo, float credito) throws RemoteBusinessException {
+    public void crearCliente(String nombreUsuario, String password, String calle, int numero, String localidad, String provincia, String codPostal, float saldo, float credito) throws RemoteException {
         try {
             controller.crearCliente(nombreUsuario, password, calle, numero, localidad, provincia, codPostal, saldo, credito);
         } catch (BusinessException be) {
@@ -41,7 +41,7 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
     }
 
     @Override
-    public void crearUsuario(String legajo, String password, RolDTO rol) throws RemoteBusinessException {
+    public void crearUsuario(String legajo, String password, RolDTO rol) throws RemoteException {
         Rol r = mapper.map(rol, Rol.class);
         try {
             controller.crearUsuario(legajo, password, r);
@@ -51,7 +51,7 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
     }
 
     @Override
-    public ClienteDTO login(String email, String password) throws RemoteBusinessException {
+    public ClienteDTO login(String email, String password) throws RemoteException {
         try {
             Cliente cliente = controller.login(email, password);
             return mapper.map(cliente, ClienteDTO.class);

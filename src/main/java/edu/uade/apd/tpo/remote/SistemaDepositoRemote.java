@@ -32,7 +32,7 @@ public class SistemaDepositoRemote extends UnicastRemoteObject implements Sistem
     }
 
     @Override
-    public List<ArticuloDTO> getArticulos() throws RemoteBusinessException {
+    public List<ArticuloDTO> getArticulos() throws RemoteException {
         List<Articulo> articulos = controller.getArticulos();
         if (articulos != null && !articulos.isEmpty()) {
             return articulos.parallelStream().map(a -> mapper.map(a, ArticuloDTO.class)).collect(Collectors.toList());
