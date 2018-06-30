@@ -7,3 +7,5 @@
 .settings/org.eclipse.buildship.core.prefs
 .project
 .classpath
+/.gradle/
+/build/
