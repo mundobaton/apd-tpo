@@ -22,11 +22,11 @@ public class ClienteDao extends AbstractDao<ClienteEntity> {
         return instance;
     }
 
-    public Cliente findByNombreUsuario(String nombreUsuario) {
-        String query = "select c from ClienteEntity c where c.nombreUsuario = :nombreUsuario";
+    public Cliente findByEmail(String email) {
+        String query = "select c from ClienteEntity c where c.email = :email";
         try (Session session = getSession()) {
             Query<ClienteEntity> q = session.createQuery(query);
-            q.setParameter("nombreUsuario", nombreUsuario);
+            q.setParameter("email", email);
 
             List<ClienteEntity> result = q.getResultList();
             if (result != null && !result.isEmpty()) {

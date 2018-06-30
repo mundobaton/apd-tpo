@@ -57,7 +57,7 @@ public class SistemaAdministracionTest {
 
     @Test
     public void testBuscarCliente() {
-        Cliente cliente = ClienteDao.getInstance().findByNombreUsuario("baton");
+        Cliente cliente = ClienteDao.getInstance().findByEmail("baton");
         Assert.assertNotNull(cliente);
     }
 

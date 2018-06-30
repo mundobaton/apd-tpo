@@ -8,7 +8,7 @@ import java.util.List;
 public class Cliente {
 
     private Long id;
-    private String nombreUsuario;
+    private String email;
     private String password;
     private CuentaCorriente cuentaCorriente;
     private Domicilio domicilio;
@@ -18,8 +18,8 @@ public class Cliente {
 
     }
 
-    public Cliente(String nombreUsuario, String password, String calle, int numero, String localidad, String provincia, String codPostal, float saldo, float credito) {
-        this.nombreUsuario = nombreUsuario;
+    public Cliente(String email, String password, String calle, int numero, String localidad, String provincia, String codPostal, float saldo, float credito) {
+        this.email = email;
         this.password = password;
         this.domicilio = new Domicilio(calle, numero, localidad, provincia, codPostal);
         this.cuentaCorriente = new CuentaCorriente(saldo, credito);
@@ -37,12 +37,12 @@ public class Cliente {
         this.id = id;
     }
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public String getEmail() {
+        return email;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

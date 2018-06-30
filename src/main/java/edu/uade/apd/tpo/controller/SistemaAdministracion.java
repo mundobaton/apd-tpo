@@ -113,8 +113,8 @@ public class SistemaAdministracion {
         pedido.rechazar();
     }
 
-    private Cliente buscarCliente(String nombreUsuario) {
-        return clienteDao.findByNombreUsuario(nombreUsuario);
+    private Cliente buscarCliente(String email) {
+        return clienteDao.findByEmail(email);
     }
 
     private Usuario buscarUsuario(String legajo) {
@@ -124,4 +124,16 @@ public class SistemaAdministracion {
     public Pedido buscarPedido(Long pedidoId) {
         return pedidoDao.findById(pedidoId);
     }
+
+    public Cliente login(String email, String password) throws BusinessException {
+        Cliente cliente = this.buscarCliente(email);
+        if (cliente == null) {
+            throw new BusinessException("La dirección de email '" + email + "' o contraseña es incorrecta");
+        }
+        if (!password.equals(cliente.getPassword())) {
+            throw new BusinessException("La dirección de email '" + email + "' o contraseña es incorrecta");
+        }
+        return cliente;
+    }
+
 }

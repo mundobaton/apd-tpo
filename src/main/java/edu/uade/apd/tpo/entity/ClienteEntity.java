@@ -21,8 +21,8 @@ public class ClienteEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cliente_id")
     private Long id;
-    @Column(name = "nombre_usuario")
-    private String nombreUsuario;
+    @Column(name = "email")
+    private String email;
     @Column(name = "password")
     private String password;
     @OneToOne(cascade = CascadeType.ALL)
@@ -42,12 +42,12 @@ public class ClienteEntity implements Serializable {
         this.id = id;
     }
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public String getEmail() {
+        return email;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
