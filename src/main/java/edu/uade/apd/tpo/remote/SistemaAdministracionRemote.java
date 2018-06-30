@@ -71,4 +71,14 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
             throw new RemoteBusinessException(be.getMessage());
         }
     }
+
+    @Override
+    public ClienteDTO findClienteById(Long clienteId) throws RemoteException {
+        try {
+            Cliente cliente = controller.buscarClienteById(clienteId);
+            return mapper.map(cliente, ClienteDTO.class);
+        } catch (BusinessException be) {
+            throw new RemoteBusinessException(be.getMessage());
+        }
+    }
 }

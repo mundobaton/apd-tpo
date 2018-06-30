@@ -147,4 +147,12 @@ public class SistemaAdministracion {
         return usuario;
     }
 
+    public Cliente buscarClienteById(Long clienteId) throws BusinessException {
+        Cliente cliente = clienteDao.findById(clienteId);
+        if (cliente == null) {
+            throw new BusinessException("El cliente con id '" + clienteId + "' no existe");
+        }
+        return cliente;
+    }
+
 }
