@@ -85,4 +85,8 @@ public class SistemaDeposito {
 
         lote.vaciar();
     }
+
+    public List<Articulo> getArticulos() {
+        return articuloDao.findAll();
+    }
 }

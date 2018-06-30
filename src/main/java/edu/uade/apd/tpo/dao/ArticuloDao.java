@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ArticuloDao extends AbstractDao<ArticuloEntity> {
 
@@ -33,6 +34,18 @@ public class ArticuloDao extends AbstractDao<ArticuloEntity> {
             List<ArticuloEntity> result = q.getResultList();
             if (result != null && !result.isEmpty()) {
                 return mapper.map(result.get(0), Articulo.class);
+            }
+            return null;
+        }
+    }
+
+    public List<Articulo> findAll() {
+        String query = "select a from ArticuloEntity";
+        try (Session session = getSession()) {
+            Query<ArticuloEntity> q = session.createQuery(query);
+            List<ArticuloEntity> result = q.getResultList();
+            if (result != null && !result.isEmpty()) {
+                return result.parallelStream().map(a -> mapper.map(a, Articulo.class)).collect(Collectors.toList());
             }
             return null;
         }
