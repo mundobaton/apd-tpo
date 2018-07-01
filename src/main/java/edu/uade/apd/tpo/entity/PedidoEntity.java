@@ -43,6 +43,8 @@ public class PedidoEntity implements Serializable {
     private Date fechaPedido;
     @Column(name = "fecha_despacho")
     private Date fechaDespacho;
+    @Column(name = "precio_bruto")
+    private Float precioBruto;
 
     public Long getId() {
         return id;
@@ -98,5 +100,13 @@ public class PedidoEntity implements Serializable {
 
     public void setFechaDespacho(Date fechaDespacho) {
         this.fechaDespacho = fechaDespacho;
+    }
+
+    public Float getPrecioBruto() {
+        return precioBruto;
+    }
+
+    public void setPrecioBruto(Float precioBruto) {
+        this.precioBruto = precioBruto;
     }
 }

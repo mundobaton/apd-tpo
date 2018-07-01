@@ -20,6 +20,7 @@ public class Pedido {
     private Date fechaPedido;
     private Date fechaDespacho;
     private EstadoPedido estado;
+    private Float precioBruto;
 
     public Pedido(String calle, int numero, String localidad, String provincia, String codPostal, Cliente cliente) {
         this.domicilio = new Domicilio(calle, numero, localidad, provincia, codPostal);
@@ -40,7 +41,7 @@ public class Pedido {
         guardar();
     }
 
-    public float getPrecioBruto() {
+    public float calcularPrecioBruto() {
         float precio = 0;
         if (items != null) {
             for (ItemPedido ip : items) {
@@ -88,9 +89,10 @@ public class Pedido {
         if (this.estado != EstadoPedido.GENERADO) {
             throw new BusinessException("El pedido debe encontrarse en estado GENERADO, actual '" + estado.toString() + "'");
         }
+        this.precioBruto = calcularPrecioBruto();
 
         //Validar cuenta corriente del cliente
-        this.estado = this.cliente.getCuentaCorriente().tieneSaldoDisponible(getPrecioBruto()) ? EstadoPedido.PREAPROBADO : EstadoPedido.SALDO_INSUFICIENTE;
+        this.estado = this.cliente.getCuentaCorriente().tieneSaldoDisponible(precioBruto) ? EstadoPedido.PREAPROBADO : EstadoPedido.SALDO_INSUFICIENTE;
         guardar();
     }
 
@@ -198,5 +200,13 @@ public class Pedido {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DAY_OF_MONTH, 7);
         return cal.getTime();
+    }
+
+    public Float getPrecioBruto() {
+        return precioBruto;
+    }
+
+    public void setPrecioBruto(Float precioBruto) {
+        this.precioBruto = precioBruto;
     }
 }
