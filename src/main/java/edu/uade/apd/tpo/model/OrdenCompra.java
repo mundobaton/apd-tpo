@@ -1,6 +1,7 @@
 package edu.uade.apd.tpo.model;
 
 import edu.uade.apd.tpo.controller.SistemaAdministracion;
+import edu.uade.apd.tpo.controller.SistemaCompras;
 import edu.uade.apd.tpo.controller.SistemaDeposito;
 import edu.uade.apd.tpo.dao.OrdenCompraDao;
 import edu.uade.apd.tpo.exception.BusinessException;
@@ -14,12 +15,14 @@ public class OrdenCompra {
     private Pedido pedido;
     private char estado;
     private Date fechaCreacion;
+    private String proveedor;
 
     public OrdenCompra(ItemPedido item, Pedido pedido) {
         this.item = item;
         this.pedido = pedido;
         this.estado = 'P';
         this.fechaCreacion = new Date();
+        this.proveedor = SistemaCompras.getInstance().getProveedor();
     }
 
     public OrdenCompra() {
@@ -79,5 +82,13 @@ public class OrdenCompra {
 
     public void setFechaCreacion(Date fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
+    }
+
+    public String getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(String proveedor) {
+        this.proveedor = proveedor;
     }
 }

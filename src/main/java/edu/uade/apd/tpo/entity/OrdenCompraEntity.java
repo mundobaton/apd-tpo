@@ -33,6 +33,8 @@ public class OrdenCompraEntity implements Serializable {
     private char estado;
     @Column(name = "fecha_creacion")
     private Date fechaCreacion;
+    @Column(name = "proveedor")
+    private String proveedor;
 
     public Long getId() {
         return id;
@@ -72,5 +74,13 @@ public class OrdenCompraEntity implements Serializable {
 
     public void setFechaCreacion(Date fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
+    }
+
+    public String getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(String proveedor) {
+        this.proveedor = proveedor;
     }
 }

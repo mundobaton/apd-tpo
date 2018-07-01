@@ -10,12 +10,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Random;
 
 public class SistemaCompras {
 
     private static SistemaCompras instance;
     private OrdenCompraDao ordenCompraDao;
     private static final Logger logger = LoggerFactory.getLogger(SistemaCompras.class);
+    private static final String[] PROVEEDORES = {"El Nacional S.A", "Gomez Inc.", "Perez y flia."};
 
     private SistemaCompras() {
         this.ordenCompraDao = OrdenCompraDao.getInstance();
@@ -47,12 +49,12 @@ public class SistemaCompras {
     }
 
     public void procesarOrdenesCompra() throws BusinessException {
-    	List<OrdenCompra> ocs = buscarOrdenesCompraPendientes();
-    	if(ocs != null && !ocs.isEmpty()) {
-    		for (OrdenCompra oc : ocs) {
+        List<OrdenCompra> ocs = buscarOrdenesCompraPendientes();
+        if (ocs != null && !ocs.isEmpty()) {
+            for (OrdenCompra oc : ocs) {
                 oc.procesar();
             }
-    	}
+        }
     }
 
     public OrdenCompra buscarOrdenCompra(Long ordenCompraId) {
@@ -69,6 +71,11 @@ public class SistemaCompras {
 
     public List<OrdenCompra> obtenerOrdenesCompra() {
         return ordenCompraDao.findAll();
+    }
+
+    public String getProveedor() {
+        Random random = new Random();
+        return PROVEEDORES[random.nextInt(3)];
     }
 
 }
