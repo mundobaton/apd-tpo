@@ -166,5 +166,13 @@ public class SistemaAdministracion {
     public List<Pedido> findPedidosByEstado(EstadoPedido ep) {
         return pedidoDao.findByEstado(ep);
     }
+    
+    public Pedido findPedidoById(Long pedidoId) throws BusinessException{
+        Pedido pedido = pedidoDao.findById(pedidoId);
+        if (pedido == null) {
+            throw new BusinessException("El pedido con id '" + pedidoId + "' no existe");
+        }
+        return pedido;
+    }
 
 }

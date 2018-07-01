@@ -3,10 +3,12 @@ package edu.uade.apd.tpo.remote;
 import edu.uade.apd.tpo.controller.SistemaAdministracion;
 import edu.uade.apd.tpo.exception.BusinessException;
 import edu.uade.apd.tpo.model.Cliente;
+import edu.uade.apd.tpo.model.Pedido;
 import edu.uade.apd.tpo.model.Rol;
 import edu.uade.apd.tpo.model.Usuario;
 import edu.uade.apd.tpo.repository.SistemaAdministracionRepository;
 import edu.uade.apd.tpo.repository.dto.ClienteDTO;
+import edu.uade.apd.tpo.repository.dto.PedidoDTO;
 import edu.uade.apd.tpo.repository.dto.RolDTO;
 import edu.uade.apd.tpo.repository.dto.UsuarioDTO;
 import edu.uade.apd.tpo.repository.exception.RemoteBusinessException;
@@ -135,4 +137,14 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
             throw new RemoteBusinessException(be.getMessage());
         }
     }
+
+	@Override
+	public PedidoDTO findPedidoById(Long pedidoId) throws RemoteException {
+		try {
+		 Pedido pedido = controller.findPedidoById(pedidoId);
+		 return mapper.map(pedido, PedidoDTO.class);
+		}catch(BusinessException be) {
+			throw new RemoteBusinessException(be.getMessage());
+		}
+	}
 }
