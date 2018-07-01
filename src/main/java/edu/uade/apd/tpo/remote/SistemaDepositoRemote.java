@@ -55,7 +55,7 @@ public class SistemaDepositoRemote extends UnicastRemoteObject implements Sistem
     @Override
     public List<ReposicionDTO> getReposiciones() throws RemoteException {
         List<Reposicion> reposiciones = controller.obtenerReposiciones();
-        if (reposiciones != null && reposiciones.isEmpty()) {
+        if (reposiciones != null && !reposiciones.isEmpty()) {
             List<ReposicionDTO> result = new ArrayList<>();
             for (Reposicion reposicion : reposiciones) {
                 result.add(mapper.map(reposicion, ReposicionDTO.class));
