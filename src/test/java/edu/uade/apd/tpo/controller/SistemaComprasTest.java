@@ -15,7 +15,7 @@ public class SistemaComprasTest {
 
     @Test
     public void testProcesarOC() throws BusinessException {
-        sistema.procesarOrdenCompra(2L);
+        sistema.procesarOrdenCompra(1L);
     }
 
 }

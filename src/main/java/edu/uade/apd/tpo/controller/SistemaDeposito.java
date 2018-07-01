@@ -1,11 +1,13 @@
 package edu.uade.apd.tpo.controller;
 
 import edu.uade.apd.tpo.dao.ArticuloDao;
+import edu.uade.apd.tpo.dao.ReposicionDao;
 import edu.uade.apd.tpo.dao.UbicacionDao;
 import edu.uade.apd.tpo.exception.BusinessException;
 import edu.uade.apd.tpo.model.Articulo;
 import edu.uade.apd.tpo.model.ItemLote;
 import edu.uade.apd.tpo.model.ItemPedido;
+import edu.uade.apd.tpo.model.Reposicion;
 import edu.uade.apd.tpo.model.Ubicacion;
 import edu.uade.apd.tpo.util.RandomString;
 
@@ -19,10 +21,12 @@ public class SistemaDeposito {
     private static SistemaDeposito instance;
     private ArticuloDao articuloDao;
     private UbicacionDao ubicacionDao;
+    private ReposicionDao reposicionDao;
 
     private SistemaDeposito() {
         this.articuloDao = ArticuloDao.getInstance();
         this.ubicacionDao = UbicacionDao.getInstance();
+        this.reposicionDao = ReposicionDao.getInstance();
     }
 
     public static SistemaDeposito getInstance() {
@@ -40,10 +44,11 @@ public class SistemaDeposito {
     /**
      * Obtiene un lote de articulos segun la cantidad necesaria de compra y los almacena en el deposito
      *
-     * @param item
+     * @param reposicion
      * @throws BusinessException
      */
-    public void almacenar(ItemPedido item) throws BusinessException {
+    public void almacenar(Reposicion reposicion) throws BusinessException {
+        ItemPedido item = reposicion.getItemPedido();
         ItemLote itemLote = obtenerLote();
         item.agregarLote(itemLote);
         List<Ubicacion> ubicacionesDisponibles = this.buscarUbicacionesDisponibles();
@@ -51,7 +56,7 @@ public class SistemaDeposito {
             throw new BusinessException("No existen ubicaciones disponibles en el deposito");
         }
         Articulo articulo = item.getArticulo();
-        int itemsPendientes = articulo.getCantCompra();
+        int itemsPendientes = reposicion.getCantidad();
         Iterator<Ubicacion> it = ubicacionesDisponibles.iterator();
         while (itemsPendientes > 0 && it.hasNext()) {
             Ubicacion ubicacion = it.next();
@@ -82,11 +87,29 @@ public class SistemaDeposito {
             ubicacion.liberar();
             ubicacion.guardar();
         }
-
         lote.vaciar();
     }
 
     public List<Articulo> getArticulos() {
         return articuloDao.findAll();
     }
+
+    public List<Reposicion> obtenerReposicionesPendientes() {
+        return reposicionDao.obtenerReposicionesPorEstado('P');
+    }
+
+    public void reponer(Long reposicionId, int cant) throws BusinessException {
+        Reposicion reposicion = buscarReposicion(reposicionId);
+        if (reposicion == null) {
+            throw new BusinessException("La reposicion con id '"+reposicionId+"' no existe");
+        }
+        reposicion.procesar(cant);
+    }
+
+    private Reposicion buscarReposicion(Long reposicionId) {
+        return reposicionDao.findById(reposicionId);
+    }
+
+
+
 }

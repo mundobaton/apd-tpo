@@ -2,6 +2,7 @@ package edu.uade.apd.tpo.boot;
 
 import edu.uade.apd.tpo.controller.SistemaAdministracion;
 import edu.uade.apd.tpo.controller.SistemaCompras;
+import edu.uade.apd.tpo.controller.SistemaDeposito;
 import edu.uade.apd.tpo.controller.SistemaDespacho;
 import edu.uade.apd.tpo.controller.SistemaFacturacion;
 import edu.uade.apd.tpo.dao.AbstractDao;
@@ -34,7 +35,7 @@ public class InitDatabase {
         initUbicaciones();
         initArticulos();
         initCliente();
-        //doFullTest();
+        doFullTest();
     }
 
 
@@ -106,7 +107,7 @@ public class InitDatabase {
 
     }
     private void initCliente() throws BusinessException {
-        SistemaAdministracion.getInstance().crearCliente("baton", "12345", "Fake st", 123, "Cap.Fed", "Buenos Aires", "1406", 500f, 300f);
+        SistemaAdministracion.getInstance().crearCliente("mundobaton@gmail.com", "12345", "Fake st", 123, "Cap.Fed", "Buenos Aires", "1406", 500f, 300f);
     }
 
     private void doFullTest() throws BusinessException, InterruptedException {
@@ -117,6 +118,8 @@ public class InitDatabase {
         SistemaAdministracion.getInstance().aprobarPedido(1L, "un mensaje peligroso");
         SistemaCompras.getInstance().procesarOrdenCompra(1L);
         SistemaCompras.getInstance().procesarOrdenCompra(2L);
+        SistemaDeposito.getInstance().reponer(1L, 50);
+        SistemaDeposito.getInstance().reponer(2L, 25);
         SistemaDespacho.getInstance().despacharPedido(1L);
         SistemaFacturacion.getInstance().facturar(1L);
         SistemaFacturacion.getInstance().pagarFactura(1L, 1000f);
