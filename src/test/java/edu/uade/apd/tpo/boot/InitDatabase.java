@@ -110,7 +110,7 @@ public class InitDatabase {
     }
 
     private void doFullTest() throws BusinessException, InterruptedException {
-        SistemaAdministracion.getInstance().crearPedido("baton", "Otra direccion", 111, "Cap.Fed", "Buenos Aires", "1406");
+        SistemaAdministracion.getInstance().crearPedido(1L, "Otra direccion", 111, "Cap.Fed", "Buenos Aires", "1406");
         SistemaAdministracion.getInstance().agregarItemPedido(1L, 1L, 10);
         SistemaAdministracion.getInstance().agregarItemPedido(1L, 2L, 15);
         SistemaAdministracion.getInstance().finalizarCargaItems(1L);

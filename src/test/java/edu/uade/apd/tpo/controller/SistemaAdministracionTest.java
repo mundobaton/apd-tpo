@@ -31,7 +31,7 @@ public class SistemaAdministracionTest {
 
     @Test
     public void testCrearPedido() throws BusinessException {
-        sistema.crearPedido("baton", "Otra direccion", 111, "Cap.Fed", "Buenos Aires", "1406");
+        sistema.crearPedido(1L, "Otra direccion", 111, "Cap.Fed", "Buenos Aires", "1406");
     }
 
     @Test
