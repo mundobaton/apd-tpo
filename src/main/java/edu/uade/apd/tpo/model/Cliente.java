@@ -33,6 +33,10 @@ public class Cliente {
         cuentaCorriente.generarFactura(pedido);
     }
 
+    public void acreditarImporte(Float importe) {
+        cuentaCorriente.setSaldo(cuentaCorriente.getSaldo() + importe);
+    }
+
     public Long getId() {
         return id;
     }

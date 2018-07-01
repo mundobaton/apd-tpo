@@ -47,7 +47,7 @@ public class PedidoDao extends AbstractDao<PedidoEntity> {
     }
 
     public List<Pedido> findByEstado(EstadoPedido ep) {
-        String query = "select p from PedidoEntity p where p.estado = :ep";
+        String query = "select p from PedidoEntity p where p.estado = :ep order";
         try (Session session = getSession()) {
             Query<PedidoEntity> q = session.createQuery(query);
             q.setParameter("ep", ep);

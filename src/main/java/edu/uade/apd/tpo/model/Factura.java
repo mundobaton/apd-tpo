@@ -3,6 +3,8 @@ package edu.uade.apd.tpo.model;
 import edu.uade.apd.tpo.dao.FacturaDao;
 import edu.uade.apd.tpo.exception.BusinessException;
 
+import java.util.Date;
+
 public class Factura {
 
     private static final float IMPUESTOS = 0.21f;
@@ -12,6 +14,7 @@ public class Factura {
     private Pedido pedido;
     private Float total;
     private char estado;
+    private Date fecha;
 
     public Factura() {
 
@@ -22,9 +25,10 @@ public class Factura {
         this.tipo = calcularTipoFactura();
         this.total = calcularTotal();
         this.estado = 'P';
+        this.fecha = new Date();
     }
 
-    public void pagar(Float importe) throws BusinessException {
+    public void pagar() throws BusinessException {
         if (estado != 'P') {
             throw new BusinessException("La factura debe encontrarse en estado pendiente, actual: '" + Character.toString(estado) + "'");
         }
@@ -32,11 +36,11 @@ public class Factura {
             throw new BusinessException("El pedido debe estar en estado FACTURADO, actual: '" + pedido.getEstado() + "'");
         }
         CuentaCorriente cuentaCorriente = pedido.getCliente().getCuentaCorriente();
-        float saldoRestante = cuentaCorriente.getSaldo() + importe + cuentaCorriente.getCredito() - total;
+        float saldoRestante = cuentaCorriente.getSaldo() + cuentaCorriente.getCredito() - total;
         if (saldoRestante < 0) {
             throw new BusinessException("Saldo insuficiente para realizar pago");
         }
-        cuentaCorriente.setSaldo(cuentaCorriente.getSaldo() + importe - total);
+        cuentaCorriente.setSaldo(cuentaCorriente.getSaldo() - total);
         this.estado = 'C';
         pedido.guardar();
     }
@@ -91,5 +95,13 @@ public class Factura {
 
     public void setEstado(char estado) {
         this.estado = estado;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 }

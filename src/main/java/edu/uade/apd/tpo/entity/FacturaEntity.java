@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -30,6 +31,8 @@ public class FacturaEntity implements Serializable {
     private Float total;
     @Column(name = "estado")
     private char estado;
+    @Column(name = "fecha")
+    private Date fecha;
 
     public Long getId() {
         return id;
@@ -69,5 +72,13 @@ public class FacturaEntity implements Serializable {
 
     public void setEstado(char estado) {
         this.estado = estado;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 }

@@ -7,6 +7,7 @@ import edu.uade.apd.tpo.model.Pedido;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FacturaDao extends AbstractDao<FacturaEntity> {
@@ -38,6 +39,23 @@ public class FacturaDao extends AbstractDao<FacturaEntity> {
             List<FacturaEntity> result = q.getResultList();
             if (result != null && !result.isEmpty()) {
                 return mapper.map(result.get(0), Factura.class);
+            }
+            return null;
+        }
+    }
+
+    public List<Factura> findByEstado(char estado) {
+        String query = "select f from FacturaEntity f where f.estado = :estado order by f.fecha asc";
+        try(Session session = getSession()) {
+            Query<FacturaEntity> q = session.createQuery(query);
+
+            List<FacturaEntity> result = q.getResultList();
+            if (result != null && !result.isEmpty()) {
+                List<Factura> facturas = new ArrayList<>();
+                for (FacturaEntity fe : result) {
+                    facturas.add(mapper.map(fe, Factura.class));
+                }
+                return facturas;
             }
             return null;
         }
