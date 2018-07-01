@@ -64,4 +64,8 @@ public class SistemaCompras {
         return ordenCompraDao.findByEstado('P');
     }
 
+    public List<OrdenCompra> obtenerOrdenesCompra() {
+        return ordenCompraDao.findAll();
+    }
+
 }

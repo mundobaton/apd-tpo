@@ -64,6 +64,23 @@ public class OrdenCompraDao extends AbstractDao<OrdenCompraEntity> {
         }
     }
 
+    public List<OrdenCompra> findAll() {
+        String query = "select o from OrdenCompraEntity o";
+        try (Session session = getSession()) {
+            Query<OrdenCompraEntity> q = session.createQuery(query);
+
+            List<OrdenCompraEntity> result = q.getResultList();
+            if (result != null && !result.isEmpty()) {
+                List<OrdenCompra> ordenes = new ArrayList<>();
+                for(OrdenCompraEntity entity : result) {
+                    ordenes.add(mapper.map(entity, OrdenCompra.class));
+                }
+                return ordenes;
+            }
+            return null;
+        }
+    }
+
     public List<OrdenCompra> buscarPendientesPorArticulo(Long articuloId) {
         String query = "select o from OrdenCompraEntity o inner join o.item as ip inner join ip.articulo as art where art.id = :articuloId and o.estado = 'P'";
         try (Session session = getSession()) {

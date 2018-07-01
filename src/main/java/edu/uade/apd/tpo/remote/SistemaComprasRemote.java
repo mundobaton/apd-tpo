@@ -3,11 +3,14 @@ package edu.uade.apd.tpo.remote;
 import edu.uade.apd.tpo.controller.SistemaCompras;
 import edu.uade.apd.tpo.exception.BusinessException;
 import edu.uade.apd.tpo.repository.SistemaComprasRepository;
+import edu.uade.apd.tpo.repository.dto.OrdenCompraDTO;
 import edu.uade.apd.tpo.repository.exception.RemoteBusinessException;
 import org.modelmapper.ModelMapper;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class SistemaComprasRemote extends UnicastRemoteObject implements SistemaComprasRepository {
 
@@ -43,5 +46,10 @@ public class SistemaComprasRemote extends UnicastRemoteObject implements Sistema
         } catch (BusinessException be) {
             throw new RemoteBusinessException(be.getMessage());
         }
+    }
+
+    @Override
+    public List<OrdenCompraDTO> getOrdenesCompra() throws RemoteException {
+        return controller.obtenerOrdenesCompra().parallelStream().map(o -> mapper.map(o, OrdenCompraDTO.class)).collect(Collectors.toList());
     }
 }
