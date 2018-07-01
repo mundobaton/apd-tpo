@@ -7,6 +7,7 @@ import edu.uade.apd.tpo.model.Pedido;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,7 +46,11 @@ public class ArticuloDao extends AbstractDao<ArticuloEntity> {
             Query<ArticuloEntity> q = session.createQuery(query);
             List<ArticuloEntity> result = q.getResultList();
             if (result != null && !result.isEmpty()) {
-                return result.parallelStream().map(a -> mapper.map(a, Articulo.class)).collect(Collectors.toList());
+            	List<Articulo> articulos = new ArrayList<Articulo>();
+            	for(ArticuloEntity entity : result) {
+            		articulos.add(mapper.map(entity, Articulo.class));
+            	}
+            	return articulos;
             }
             return null;
         }
