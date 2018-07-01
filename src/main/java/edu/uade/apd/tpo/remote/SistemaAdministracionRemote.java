@@ -34,9 +34,9 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
     }
 
     @Override
-    public void crearCliente(String nombreUsuario, String password, String calle, int numero, String localidad, String provincia, String codPostal, float saldo, float credito) throws RemoteException {
+    public void crearCliente(String email, String nombre, Long cuit, String password, String calle, int numero, String localidad, String provincia, String codPostal, float saldo, float credito) throws RemoteException {
         try {
-            controller.crearCliente(nombreUsuario, password, calle, numero, localidad, provincia, codPostal, saldo, credito);
+            controller.crearCliente(email, nombre, cuit, password, calle, numero, localidad, provincia, codPostal, saldo, credito);
         } catch (BusinessException be) {
             throw new RemoteBusinessException(be.getMessage());
         }

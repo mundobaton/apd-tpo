@@ -34,14 +34,14 @@ public class SistemaAdministracion {
         return instance;
     }
 
-    public void crearCliente(String nombreUsuario, String password, String calle, int numero, String localidad, String provincia, String codPostal, float saldo, float credito) throws BusinessException {
-        Cliente cli = this.buscarCliente(nombreUsuario);
+    public void crearCliente(String email, String nombre, Long cuit, String password, String calle, int numero, String localidad, String provincia, String codPostal, float saldo, float credito) throws BusinessException {
+        Cliente cli = this.buscarCliente(email);
         if (cli != null) {
-            throw new BusinessException("El cliente '" + nombreUsuario + "' ya existe");
+            throw new BusinessException("El cliente con email:'" + email + "' ya existe");
         }
-        cli = new Cliente(nombreUsuario, password, calle, numero, localidad, provincia, codPostal, saldo, credito);
+        cli = new Cliente(email, nombre, cuit, password, calle, numero, localidad, provincia, codPostal, saldo, credito);
         cli.guardar();
-        logger.info("Cliente '" + nombreUsuario + "' creado exitosamente");
+        logger.info("Cliente '" + email + "' creado exitosamente");
     }
 
     public void crearUsuario(String legajo, String password, Rol rol) throws BusinessException {

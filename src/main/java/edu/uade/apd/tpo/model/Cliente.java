@@ -8,6 +8,8 @@ import java.util.List;
 public class Cliente {
 
     private Long id;
+    private String nombre;
+    private Long cuit;
     private String email;
     private String password;
     private CuentaCorriente cuentaCorriente;
@@ -18,8 +20,10 @@ public class Cliente {
 
     }
 
-    public Cliente(String email, String password, String calle, int numero, String localidad, String provincia, String codPostal, float saldo, float credito) {
+    public Cliente(String email, String nombre, Long cuit, String password, String calle, int numero, String localidad, String provincia, String codPostal, float saldo, float credito) {
         this.email = email;
+        this.nombre = nombre;
+        this.cuit = cuit;
         this.password = password;
         this.domicilio = new Domicilio(calle, numero, localidad, provincia, codPostal);
         this.cuentaCorriente = new CuentaCorriente(saldo, credito);
@@ -79,5 +83,21 @@ public class Cliente {
 
     public void guardar() {
         ClienteDao.getInstance().save(this);
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Long getCuit() {
+        return cuit;
+    }
+
+    public void setCuit(Long cuit) {
+        this.cuit = cuit;
     }
 }

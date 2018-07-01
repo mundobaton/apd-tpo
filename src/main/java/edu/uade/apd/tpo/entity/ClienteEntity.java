@@ -33,6 +33,10 @@ public class ClienteEntity implements Serializable {
     private DomicilioEntity domicilio;
     @OneToMany(mappedBy = "cliente")
     private List<PedidoEntity> pedidos;
+    @Column(name = "nombre")
+    private String nombre;
+    @Column(name = "cuit")
+    private Long cuit;
 
     public Long getId() {
         return id;
@@ -80,5 +84,21 @@ public class ClienteEntity implements Serializable {
 
     public void setPedidos(List<PedidoEntity> pedidos) {
         this.pedidos = pedidos;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Long getCuit() {
+        return cuit;
+    }
+
+    public void setCuit(Long cuit) {
+        this.cuit = cuit;
     }
 }
