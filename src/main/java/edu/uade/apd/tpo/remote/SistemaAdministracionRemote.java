@@ -83,9 +83,9 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
     }
 
     @Override
-    public Long crearPedido(String email, String calle, int numero, String localidad, String provincia, String codPostal) throws RemoteException {
+    public Long crearPedido(Long clienteId, String calle, int numero, String localidad, String provincia, String codPostal) throws RemoteException {
         try {
-            return controller.crearPedido(email, calle, numero, localidad, provincia, codPostal);
+            return controller.crearPedido(clienteId, calle, numero, localidad, provincia, codPostal);
         } catch (BusinessException be) {
             throw new RemoteBusinessException(be.getMessage());
         }

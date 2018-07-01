@@ -54,10 +54,10 @@ public class SistemaAdministracion {
         logger.info("Usuario '" + legajo + "' creado exitosamente");
     }
 
-    public Long crearPedido(String email, String calle, int numero, String localidad, String provincia, String codPostal) throws BusinessException {
-        Cliente cli = this.buscarCliente(email);
+    public Long crearPedido(Long clienteId, String calle, int numero, String localidad, String provincia, String codPostal) throws BusinessException {
+        Cliente cli = this.buscarCliente(clienteId);
         if (cli == null) {
-            throw new BusinessException("El cliente '" + email + "' no existe");
+            throw new BusinessException("El cliente '" + clienteId + "' no existe");
         }
         Pedido pedido = new Pedido(calle, numero, localidad, provincia, codPostal, cli);
         pedido = pedido.guardar();
@@ -149,11 +149,15 @@ public class SistemaAdministracion {
     }
 
     public Cliente buscarClienteById(Long clienteId) throws BusinessException {
-        Cliente cliente = clienteDao.findById(clienteId);
+        Cliente cliente = buscarCliente(clienteId);
         if (cliente == null) {
             throw new BusinessException("El cliente con id '" + clienteId + "' no existe");
         }
         return cliente;
+    }
+
+    private Cliente buscarCliente(Long clienteId) {
+        return clienteDao.findById(clienteId);
     }
 
 }
