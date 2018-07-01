@@ -67,5 +67,10 @@ public class SistemaAdministracionTest {
         Assert.assertNotNull(pedido);
     }
 
+    @Test
+    public void testReponer() throws BusinessException {
+        SistemaDeposito.getInstance().reponer(1L, 50);
+    }
+
 
 }

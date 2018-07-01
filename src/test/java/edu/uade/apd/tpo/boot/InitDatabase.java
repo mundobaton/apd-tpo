@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class InitDatabase {
 
     //private final static char[] CALLES = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
-    private final static char[] CALLES = {'A', 'B'};
+    private final static char[] CALLES = {'A'};
     private final static int BLOQUES = 5;
     private final static int ESTANTES = 5;
     private final static int ESTANTERIAS = 6;
@@ -41,6 +41,7 @@ public class InitDatabase {
     }
 
 
+    @Test
     public void initUbicaciones() {
         for (char calle : CALLES) {
             for (int bloque = 0; bloque < BLOQUES; bloque++) {

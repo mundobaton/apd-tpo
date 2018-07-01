@@ -71,6 +71,7 @@ public class Reposicion {
         if (this.estado != 'P') {
             throw new BusinessException("La reposicion debe estar en estado 'P', actual: " + Character.toString(estado));
         }
+        this.estado = 'C';
         this.cantidad = cantidad;
         SistemaDeposito.getInstance().almacenar(this);
         pedido.guardar();
