@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,7 +52,15 @@ public class SistemaComprasRemote extends UnicastRemoteObject implements Sistema
 
     @Override
     public List<OrdenCompraDTO> getOrdenesCompra() throws RemoteException {
-        return controller.obtenerOrdenesCompra().parallelStream().map(o -> mapper.map(o, OrdenCompraDTO.class)).collect(Collectors.toList());
+        List<OrdenCompra> ocs =  controller.obtenerOrdenesCompra();
+        if(ocs!=null) {
+        	List<OrdenCompraDTO> ocdto = new ArrayList<>();
+        	for(OrdenCompra oc : ocs) {
+        		ocdto.add(mapper.map(oc, OrdenCompraDTO.class));
+        	}
+        	return ocdto;
+        }
+        return null;
     }
 
     @Override
