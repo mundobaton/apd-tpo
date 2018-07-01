@@ -94,8 +94,8 @@ public class SistemaDeposito {
         return articuloDao.findAll();
     }
 
-    public List<Reposicion> obtenerReposicionesPendientes() {
-        return reposicionDao.obtenerReposicionesPorEstado('P');
+    public List<Reposicion> obtenerReposiciones() {
+        return reposicionDao.findAll();
     }
 
     public void reponer(Long reposicionId, int cant) throws BusinessException {

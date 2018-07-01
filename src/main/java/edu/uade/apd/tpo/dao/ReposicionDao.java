@@ -28,6 +28,22 @@ public class ReposicionDao extends AbstractDao<ReposicionEntity> {
         save(entity);
     }
 
+    public List<Reposicion> findAll() {
+        String query = "select r from ReposicionEntity r";
+        try (Session session = getSession()) {
+            Query<ReposicionEntity> q = session.createQuery(query);
+            List<ReposicionEntity> result = q.getResultList();
+            if (result != null && !result.isEmpty()) {
+                List<Reposicion> reposiciones = new ArrayList<>();
+                for (ReposicionEntity re : result) {
+                    reposiciones.add(mapper.map(re, Reposicion.class));
+                }
+                return reposiciones;
+            }
+            return null;
+        }
+    }
+
     public List<Reposicion> obtenerReposicionesPorEstado(char estado) {
         String query = "select r from ReposicionEntity r where r.estado = :estado";
         try (Session session = getSession()) {
