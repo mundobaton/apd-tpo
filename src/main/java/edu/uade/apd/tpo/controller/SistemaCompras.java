@@ -52,7 +52,7 @@ public class SistemaCompras {
         }
     }
 
-    private OrdenCompra buscarOrdenCompra(Long ordenCompraId) {
+    public OrdenCompra buscarOrdenCompra(Long ordenCompraId) {
         return ordenCompraDao.findById(ordenCompraId);
     }
 

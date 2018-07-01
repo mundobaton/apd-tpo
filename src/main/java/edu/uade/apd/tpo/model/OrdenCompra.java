@@ -31,8 +31,10 @@ public class OrdenCompra {
             throw new BusinessException("La orden de compra debe estar en estado PENDIENTE(P)");
         }
         SistemaDeposito.getInstance().almacenar(item);
+
         this.estado = 'C';
         OrdenCompra oc = guardar();
+        oc.getPedido().guardar();
         oc.getPedido().procesar();
     }
 
