@@ -12,6 +12,7 @@ import edu.uade.apd.tpo.dao.UbicacionDao;
 import edu.uade.apd.tpo.entity.ArticuloEntity;
 import edu.uade.apd.tpo.entity.UbicacionEntity;
 import edu.uade.apd.tpo.exception.BusinessException;
+import edu.uade.apd.tpo.model.Rol;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -32,10 +33,11 @@ public class InitDatabase {
 
     @Test
     public void initAll() throws BusinessException, InterruptedException {
-        initUbicaciones();
+        //initUbicaciones();
         initArticulos();
         initCliente();
-        doFullTest();
+        initUsuario();
+        //doFullTest();
     }
 
 
@@ -107,8 +109,14 @@ public class InitDatabase {
 
     }
     private void initCliente() throws BusinessException {
-        SistemaAdministracion.getInstance().crearCliente("mundobaton@gmail.com", "12345", "Fake st", 123, "Cap.Fed", "Buenos Aires", "1406", 500f, 300f);
+        SistemaAdministracion.getInstance().crearCliente("mundobaton@gmail.com", "Agustin", 12345678L, "12345", "Fake st", 123, "Cap.Fed", "Buenos Aires", "1406", 500f, 300f);
     }
+
+    public void initUsuario() throws BusinessException {
+        SistemaAdministracion.getInstance().crearUsuario("A12345", "qwerty", Rol.ADMINISTRACION);
+    }
+
+
 
     private void doFullTest() throws BusinessException, InterruptedException {
         SistemaAdministracion.getInstance().crearPedido(1L, "Otra direccion", 111, "Cap.Fed", "Buenos Aires", "1406");
