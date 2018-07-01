@@ -21,7 +21,7 @@ public class SistemaAdministracionTest {
 
     @Test
     public void testCrearCliente() throws BusinessException {
-        sistema.crearCliente("baton", "12345", "Fake st", 123, "Cap.Fed", "Buenos Aires", "1406", 500f, 300f);
+        sistema.crearCliente("mundobaton@gmail.com", "Agustin", 12345L, "12345", "Fake st", 123, "Cap.Fed", "Buenos Aires", "1406", 500f, 300f);
     }
 
     @Test
