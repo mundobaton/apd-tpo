@@ -1,15 +1,12 @@
 package edu.uade.apd.tpo.dao;
 
 import edu.uade.apd.tpo.entity.ArticuloEntity;
-import edu.uade.apd.tpo.entity.PedidoEntity;
 import edu.uade.apd.tpo.model.Articulo;
-import edu.uade.apd.tpo.model.Pedido;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ArticuloDao extends AbstractDao<ArticuloEntity> {
 

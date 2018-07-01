@@ -7,6 +7,7 @@ import edu.uade.apd.tpo.model.Pedido;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,7 +54,11 @@ public class OrdenCompraDao extends AbstractDao<OrdenCompraEntity> {
 
             List<OrdenCompraEntity> result = q.getResultList();
             if (result != null && !result.isEmpty()) {
-                return result.parallelStream().map(o -> mapper.map(o, OrdenCompra.class)).collect(Collectors.toList());
+                List<OrdenCompra> ordenes = new ArrayList<>();
+                for(OrdenCompraEntity entity : result) {
+                    ordenes.add(mapper.map(entity, OrdenCompra.class));
+                }
+                return ordenes;
             }
             return null;
         }
@@ -66,7 +71,11 @@ public class OrdenCompraDao extends AbstractDao<OrdenCompraEntity> {
             q.setParameter("articuloId", articuloId);
             List<OrdenCompraEntity> result = q.getResultList();
             if (result != null && !result.isEmpty()) {
-                return result.parallelStream().map(o -> mapper.map(o, OrdenCompra.class)).collect(Collectors.toList());
+                List<OrdenCompra> ordenes = new ArrayList<>();
+                for(OrdenCompraEntity entity : result) {
+                    ordenes.add(mapper.map(entity, OrdenCompra.class));
+                }
+                return ordenes;
             }
             return null;
         }
@@ -80,7 +89,11 @@ public class OrdenCompraDao extends AbstractDao<OrdenCompraEntity> {
             q.setParameter("pedidoId", pedidoId);
             List<OrdenCompraEntity> result = q.getResultList();
             if (result != null && !result.isEmpty()) {
-                return result.parallelStream().map(o -> mapper.map(o, OrdenCompra.class)).collect(Collectors.toList());
+                List<OrdenCompra> ordenes = new ArrayList<>();
+                for(OrdenCompraEntity entity : result) {
+                    ordenes.add(mapper.map(entity, OrdenCompra.class));
+                }
+                return ordenes;
             }
             return null;
         }

@@ -1,12 +1,15 @@
 package edu.uade.apd.tpo.dao;
 
+import edu.uade.apd.tpo.entity.OrdenCompraEntity;
 import edu.uade.apd.tpo.entity.PedidoEntity;
 import edu.uade.apd.tpo.entity.UbicacionEntity;
+import edu.uade.apd.tpo.model.OrdenCompra;
 import edu.uade.apd.tpo.model.Pedido;
 import edu.uade.apd.tpo.model.Ubicacion;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,7 +36,11 @@ public class UbicacionDao extends AbstractDao<UbicacionEntity> {
 
             List<UbicacionEntity> result = q.getResultList();
             if (result != null && !result.isEmpty()) {
-                return result.parallelStream().map(u -> mapper.map(u, Ubicacion.class)).collect(Collectors.toList());
+                List<Ubicacion> ubicaciones = new ArrayList<>();
+                for(UbicacionEntity entity : result) {
+                    ubicaciones.add(mapper.map(entity, Ubicacion.class));
+                }
+                return ubicaciones;
             }
             return null;
         }
