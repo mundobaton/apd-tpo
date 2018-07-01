@@ -1,7 +1,10 @@
 package edu.uade.apd.tpo.controller;
 
 import edu.uade.apd.tpo.exception.BusinessException;
+import edu.uade.apd.tpo.model.EstadoPedido;
 import edu.uade.apd.tpo.model.Pedido;
+
+import java.util.List;
 
 public class SistemaDespacho {
 
@@ -23,4 +26,7 @@ public class SistemaDespacho {
         pedido.despachar();
     }
 
+    public List<Pedido> obtenerPedidosCompletos() {
+        return SistemaAdministracion.getInstance().findPedidosByEstado(EstadoPedido.COMPLETO);
+    }
 }

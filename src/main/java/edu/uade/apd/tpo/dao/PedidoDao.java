@@ -3,10 +3,12 @@ package edu.uade.apd.tpo.dao;
 import edu.uade.apd.tpo.entity.ClienteEntity;
 import edu.uade.apd.tpo.entity.PedidoEntity;
 import edu.uade.apd.tpo.model.Cliente;
+import edu.uade.apd.tpo.model.EstadoPedido;
 import edu.uade.apd.tpo.model.Pedido;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PedidoDao extends AbstractDao<PedidoEntity> {
@@ -39,6 +41,24 @@ public class PedidoDao extends AbstractDao<PedidoEntity> {
             List<PedidoEntity> result = q.getResultList();
             if (result != null && !result.isEmpty()) {
                 return mapper.map(result.get(0), Pedido.class);
+            }
+            return null;
+        }
+    }
+
+    public List<Pedido> findByEstado(EstadoPedido ep) {
+        String query = "select p from PedidoEntity p where p.estado = :ep";
+        try (Session session = getSession()) {
+            Query<PedidoEntity> q = session.createQuery(query);
+            q.setParameter("ep", ep);
+
+            List<PedidoEntity> result = q.getResultList();
+            if (result != null && !result.isEmpty()) {
+                List<Pedido> pedidos = new ArrayList<>();
+                for (PedidoEntity pe : result) {
+                    pedidos.add(mapper.map(pe, Pedido.class));
+                }
+                return pedidos;
             }
             return null;
         }

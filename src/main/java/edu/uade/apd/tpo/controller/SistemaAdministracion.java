@@ -6,11 +6,14 @@ import edu.uade.apd.tpo.dao.UsuarioDao;
 import edu.uade.apd.tpo.exception.BusinessException;
 import edu.uade.apd.tpo.model.Articulo;
 import edu.uade.apd.tpo.model.Cliente;
+import edu.uade.apd.tpo.model.EstadoPedido;
 import edu.uade.apd.tpo.model.Pedido;
 import edu.uade.apd.tpo.model.Rol;
 import edu.uade.apd.tpo.model.Usuario;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class SistemaAdministracion {
 
@@ -158,6 +161,10 @@ public class SistemaAdministracion {
 
     private Cliente buscarCliente(Long clienteId) {
         return clienteDao.findById(clienteId);
+    }
+
+    public List<Pedido> findPedidosByEstado(EstadoPedido ep) {
+        return pedidoDao.findByEstado(ep);
     }
 
 }

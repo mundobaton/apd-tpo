@@ -47,9 +47,12 @@ public class SistemaCompras {
     }
 
     public void procesarOrdenesCompra() throws BusinessException {
-        for (OrdenCompra oc : buscarOrdenesCompraPendientes()) {
-            oc.procesar();
-        }
+    	List<OrdenCompra> ocs = buscarOrdenesCompraPendientes();
+    	if(ocs != null && !ocs.isEmpty()) {
+    		for (OrdenCompra oc : ocs) {
+                oc.procesar();
+            }
+    	}
     }
 
     public OrdenCompra buscarOrdenCompra(Long ordenCompraId) {
