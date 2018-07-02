@@ -38,6 +38,8 @@ public class Pedido {
             throw new BusinessException("El pedido no se encuentra en estado A FACTURAR, estado actual: '" + estado + "'");
         }
         cliente.facturar(this);
+        cliente.guardar();
+
         estado = EstadoPedido.FACTURADO;
         guardar();
     }
