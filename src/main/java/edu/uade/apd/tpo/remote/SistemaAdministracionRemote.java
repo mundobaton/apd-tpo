@@ -155,15 +155,16 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
 
 	@Override
 	public List<ClienteDTO> getClientes() throws RemoteException {
-	   List<Cliente> clientes = controller.getClientes();
-	   if(clientes != null && !clientes.isEmpty()) {
-		   List<ClienteDTO> array = new ArrayList<>();
-		   for (Cliente c : clientes) {
-			   array.add(mapper.map(c, ClienteDTO.class));
-		   }
-		   return array; 
-     	}
-	 return null;
+		List<Cliente> clientes = controller.getClientes();
+		if (clientes != null && !clientes.isEmpty()) {
+			List<ClienteDTO> array = new ArrayList<>();
+			for (Cliente c : clientes) {
+				array.add(mapper.map(c, ClienteDTO.class));
+			}
+			return array;
+		}
+		return null;
+	}
 
 	
 	@Override
