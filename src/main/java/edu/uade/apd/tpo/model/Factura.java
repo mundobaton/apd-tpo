@@ -43,7 +43,7 @@ public class Factura {
         cuentaCorriente.setSaldo(cuentaCorriente.getSaldo() - total);
         pedido.getCliente().guardar();
         this.estado = 'C';
-        pedido.guardar();
+        guardar();
     }
 
     public char getTipo() {
