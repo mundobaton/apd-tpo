@@ -94,9 +94,9 @@ public class InitDatabase {
 
         ArticuloDao.getInstance().save(articulo);
 
-        //QUESO RAYADO
+        //QUESO RALLADO
         articulo = new ArticuloEntity();
-        articulo.setNombre("Queso Rayado");
+        articulo.setNombre("Queso Rallado");
         articulo.setCodigoBarras("123134414");
         articulo.setPresentacion("Bolsa");
         articulo.setTamano("chico");
@@ -110,7 +110,7 @@ public class InitDatabase {
 
     }
     private void initCliente() throws BusinessException {
-        SistemaAdministracion.getInstance().crearCliente("mundobaton@gmail.com", "Agustin", 12345678L, "12345", "Fake st", 123, "Cap.Fed", "Buenos Aires", "1406", 500f, 300f);
+        SistemaAdministracion.getInstance().crearCliente("mundobaton@gmail.com", "Agustin", 12345678L, "12345", "Fake st", "123", "Cap.Fed", "Buenos Aires", "1406", 500f, 300f);
     }
 
     public void initUsuario() throws BusinessException {
@@ -120,7 +120,7 @@ public class InitDatabase {
 
     @Test
     public void doFullTest() throws BusinessException, InterruptedException {
-        SistemaAdministracion.getInstance().crearPedido(1L, "Otra direccion", 111, "Cap.Fed", "Buenos Aires", "1406");
+        SistemaAdministracion.getInstance().crearPedido(1L, "Otra direccion", "111", "Cap.Fed", "Buenos Aires", "1406");
         SistemaAdministracion.getInstance().agregarItemPedido(5L, 1L, 10);
         SistemaAdministracion.getInstance().agregarItemPedido(5L, 2L, 15);
         SistemaAdministracion.getInstance().finalizarCargaItems(5L);

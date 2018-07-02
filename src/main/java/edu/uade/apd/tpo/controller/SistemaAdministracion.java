@@ -38,7 +38,7 @@ public class SistemaAdministracion {
 		return instance;
 	}
 
-	public void crearCliente(String email, String nombre, Long cuit, String password, String calle, int numero,
+	public void crearCliente(String email, String nombre, Long cuit, String password, String calle, String numero,
 			String localidad, String provincia, String codPostal, float saldo, float credito) throws BusinessException {
 		Cliente cli = this.buscarCliente(email);
 		if (cli != null) {
@@ -60,7 +60,7 @@ public class SistemaAdministracion {
 		logger.info("Usuario '" + legajo + "' creado exitosamente");
 	}
 
-	public Long crearPedido(Long clienteId, String calle, int numero, String localidad, String provincia,
+	public Long crearPedido(Long clienteId, String calle, String numero, String localidad, String provincia,
 			String codPostal) throws BusinessException {
 		Cliente cli = this.buscarCliente(clienteId);
 		if (cli == null) {

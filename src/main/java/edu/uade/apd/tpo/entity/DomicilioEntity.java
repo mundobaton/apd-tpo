@@ -19,7 +19,7 @@ public class DomicilioEntity implements Serializable {
     @Column(name = "calle")
     private String calle;
     @Column(name = "numero")
-    private int numero;
+    private String numero;
     @Column(name = "localidad")
     private String localidad;
     @Column(name = "provincia")
@@ -43,11 +43,11 @@ public class DomicilioEntity implements Serializable {
         this.calle = calle;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 

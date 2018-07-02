@@ -23,7 +23,7 @@ public class Pedido {
     private Float precioBruto;
     private String transportista;
 
-    public Pedido(String calle, int numero, String localidad, String provincia, String codPostal, Cliente cliente) {
+    public Pedido(String calle, String numero, String localidad, String provincia, String codPostal, Cliente cliente) {
         this.domicilio = new Domicilio(calle, numero, localidad, provincia, codPostal);
         this.cliente = cliente;
         this.estado = EstadoPedido.GENERADO;

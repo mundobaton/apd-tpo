@@ -40,7 +40,7 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
     }
 
     @Override
-    public void crearCliente(String email, String nombre, Long cuit, String password, String calle, int numero, String localidad, String provincia, String codPostal, float saldo, float credito) throws RemoteException {
+    public void crearCliente(String email, String nombre, Long cuit, String password, String calle, String numero, String localidad, String provincia, String codPostal, float saldo, float credito) throws RemoteException {
         try {
             controller.crearCliente(email, nombre, cuit, password, calle, numero, localidad, provincia, codPostal, saldo, credito);
         } catch (BusinessException be) {
@@ -89,7 +89,7 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
     }
 
     @Override
-    public Long crearPedido(Long clienteId, String calle, int numero, String localidad, String provincia, String codPostal) throws RemoteException {
+    public Long crearPedido(Long clienteId, String calle, String numero, String localidad, String provincia, String codPostal) throws RemoteException {
         try {
             return controller.crearPedido(clienteId, calle, numero, localidad, provincia, codPostal);
         } catch (BusinessException be) {

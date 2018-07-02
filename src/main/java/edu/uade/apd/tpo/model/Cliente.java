@@ -22,7 +22,7 @@ public class Cliente {
 
     }
 
-    public Cliente(String email, String nombre, Long cuit, String password, String calle, int numero, String localidad, String provincia, String codPostal, float saldo, float credito) {
+    public Cliente(String email, String nombre, Long cuit, String password, String calle, String numero, String localidad, String provincia, String codPostal, float saldo, float credito) {
         this.email = email;
         this.nombre = nombre;
         this.cuit = cuit;

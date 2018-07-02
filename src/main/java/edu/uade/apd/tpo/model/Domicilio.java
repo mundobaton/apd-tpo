@@ -4,7 +4,7 @@ public class Domicilio {
 
     private Long id;
     private String calle;
-    private int numero;
+    private String numero;
     private String localidad;
     private String provincia;
     private String codigoPostal;
@@ -13,7 +13,7 @@ public class Domicilio {
 
     }
 
-    public Domicilio(String calle, int numero, String localidad, String provincia, String codigoPostal) {
+    public Domicilio(String calle, String numero, String localidad, String provincia, String codigoPostal) {
         this.calle = calle;
         this.numero = numero;
         this.localidad = localidad;
@@ -37,11 +37,11 @@ public class Domicilio {
         this.calle = calle;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
