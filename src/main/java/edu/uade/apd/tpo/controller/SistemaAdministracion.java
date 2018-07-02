@@ -181,5 +181,8 @@ public class SistemaAdministracion {
         Random random = new Random();
         return CONDICIONES_IVA[random.nextInt(3)];
     }
-
+    
+    public List<Pedido> obtenerPedidosPendientes() {
+        return pedidoDao.findPendientesAprobar();
+    }
 }
