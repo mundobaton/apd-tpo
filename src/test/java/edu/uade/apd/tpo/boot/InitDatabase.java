@@ -127,8 +127,6 @@ public class InitDatabase {
         SistemaAdministracion.getInstance().aprobarPedido(5L, "un mensaje peligroso");
         SistemaCompras.getInstance().procesarOrdenCompra(10L);
         SistemaCompras.getInstance().procesarOrdenCompra(11L);
-        SistemaDeposito.getInstance().reponer(10L, 50);
-        SistemaDeposito.getInstance().reponer(11L, 25);
         SistemaDespacho.getInstance().despacharPedido(5L);
         SistemaFacturacion.getInstance().facturar(5L);
         SistemaFacturacion.getInstance().pagarFactura(5L, 1000f, 1L);

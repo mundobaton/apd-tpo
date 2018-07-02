@@ -7,6 +7,8 @@ import edu.uade.apd.tpo.dao.OrdenCompraDao;
 import edu.uade.apd.tpo.exception.BusinessException;
 
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 public class OrdenCompra {
 
@@ -16,7 +18,6 @@ public class OrdenCompra {
     private char estado;
     private Date fechaCreacion;
     private String proveedor;
-    private Reposicion reposicion;
 
     public OrdenCompra(ItemPedido item, Pedido pedido) {
         this.item = item;
@@ -34,10 +35,19 @@ public class OrdenCompra {
         if (estado != 'P') {
             throw new BusinessException("La orden de compra debe estar en estado PENDIENTE(P)");
         }
-        this.reposicion = new Reposicion(this);
+        SistemaDeposito.getInstance().almacenar(item);
         this.estado = 'C';
 
+        for (Iterator<ItemPedido> it = pedido.getItems().iterator(); it.hasNext();) {
+            ItemPedido ip = it.next();
+            if (ip.getId().longValue() == item.getId().longValue()) {
+                it.remove();
+            }
+        }
+        pedido.getItems().add(item);
+        pedido.guardar();
         guardar();
+        pedido.procesar();
     }
 
     public Long getId() {
@@ -92,11 +102,4 @@ public class OrdenCompra {
         this.proveedor = proveedor;
     }
 
-    public Reposicion getReposicion() {
-        return reposicion;
-    }
-
-    public void setReposicion(Reposicion reposicion) {
-        this.reposicion = reposicion;
-    }
 }

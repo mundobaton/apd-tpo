@@ -11,7 +11,6 @@ import edu.uade.apd.tpo.entity.NotaEntity;
 import edu.uade.apd.tpo.entity.OrdenCompraEntity;
 import edu.uade.apd.tpo.entity.PedidoEntity;
 import edu.uade.apd.tpo.entity.RemitoEntity;
-import edu.uade.apd.tpo.entity.ReposicionEntity;
 import edu.uade.apd.tpo.entity.UbicacionEntity;
 import edu.uade.apd.tpo.entity.UsuarioEntity;
 import org.hibernate.SessionFactory;
@@ -37,7 +36,6 @@ public class SessionManager {
             configuration.addAnnotatedClass(OrdenCompraEntity.class);
             configuration.addAnnotatedClass(PedidoEntity.class);
             configuration.addAnnotatedClass(RemitoEntity.class);
-            configuration.addAnnotatedClass(ReposicionEntity.class);
             configuration.addAnnotatedClass(UbicacionEntity.class);
             configuration.addAnnotatedClass(UsuarioEntity.class);
             StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());

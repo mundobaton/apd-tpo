@@ -36,8 +36,8 @@ public class SistemaAdministracionTest {
 
     @Test
     public void testAgregarItemPedido() throws BusinessException {
-        sistema.agregarItemPedido(1L, 1L, 10);
-        sistema.agregarItemPedido(1L, 2L, 15);
+        sistema.agregarItemPedido(1L, 1L, 30);
+        sistema.agregarItemPedido(1L, 2L, 45);
     }
 
     @Test
@@ -66,11 +66,4 @@ public class SistemaAdministracionTest {
         Pedido pedido = PedidoDao.getInstance().findById(2L);
         Assert.assertNotNull(pedido);
     }
-
-    @Test
-    public void testReponer() throws BusinessException {
-        SistemaDeposito.getInstance().reponer(1L, 50);
-    }
-
-
 }

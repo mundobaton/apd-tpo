@@ -35,9 +35,6 @@ public class OrdenCompraEntity implements Serializable {
     private Date fechaCreacion;
     @Column(name = "proveedor")
     private String proveedor;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "reposicion_id")
-    private ReposicionEntity reposicion;
 
     public Long getId() {
         return id;
@@ -87,11 +84,4 @@ public class OrdenCompraEntity implements Serializable {
         this.proveedor = proveedor;
     }
 
-    public ReposicionEntity getReposicion() {
-        return reposicion;
-    }
-
-    public void setReposicion(ReposicionEntity reposicion) {
-        this.reposicion = reposicion;
-    }
 }

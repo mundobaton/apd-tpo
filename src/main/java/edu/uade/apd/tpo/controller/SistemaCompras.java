@@ -31,7 +31,7 @@ public class SistemaCompras {
     }
 
     public void generarOrdenCompra(ItemPedido ip, Pedido pedido) {
-        List<OrdenCompra> ocs = OrdenCompraDao.getInstance().buscarPorItemPedido(ip.getId(), pedido.getId());
+        List<OrdenCompra> ocs = OrdenCompraDao.getInstance().buscarPorItemPedido(ip.getId(), pedido.getId(), 'P');
         if (ocs == null || ocs.isEmpty()) {
             OrdenCompra oc = new OrdenCompra(ip, pedido);
             oc = oc.guardar();

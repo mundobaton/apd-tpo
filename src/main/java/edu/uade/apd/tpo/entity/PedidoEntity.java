@@ -36,7 +36,7 @@ public class PedidoEntity implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "pedido_id")
     private List<ItemPedidoEntity> items;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="cliente_id")
     private ClienteEntity cliente;
     @Column(name = "fecha_pedido")
