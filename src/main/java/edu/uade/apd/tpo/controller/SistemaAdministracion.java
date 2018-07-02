@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Random;
 
 public class SistemaAdministracion {
 
@@ -22,6 +23,7 @@ public class SistemaAdministracion {
     private UsuarioDao usuarioDao;
     private PedidoDao pedidoDao;
     private static final Logger logger = LoggerFactory.getLogger(SistemaAdministracion.class);
+    private static final String[] CONDICIONES_IVA = {"Resp. Inscripto", "Exento", "Consumidor Final"};
 
 
     private SistemaAdministracion() {
@@ -173,6 +175,11 @@ public class SistemaAdministracion {
             throw new BusinessException("El pedido con id '" + pedidoId + "' no existe");
         }
         return pedido;
+    }
+
+    public String getCondicionIva() {
+        Random random = new Random();
+        return CONDICIONES_IVA[random.nextInt(3)];
     }
 
 }

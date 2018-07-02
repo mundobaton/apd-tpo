@@ -37,6 +37,8 @@ public class ClienteEntity implements Serializable {
     private String nombre;
     @Column(name = "cuit")
     private Long cuit;
+    @Column(name = "condicion_iva")
+    private String condicionIva;
 
     public Long getId() {
         return id;
@@ -100,5 +102,13 @@ public class ClienteEntity implements Serializable {
 
     public void setCuit(Long cuit) {
         this.cuit = cuit;
+    }
+
+    public String getCondicionIva() {
+        return condicionIva;
+    }
+
+    public void setCondicionIva(String condicionIva) {
+        this.condicionIva = condicionIva;
     }
 }
