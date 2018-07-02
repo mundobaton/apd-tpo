@@ -47,7 +47,7 @@ public class SistemaAdministracionTest {
 
     @Test
     public void aprobarPedidoSinMensaje() throws BusinessException {
-        sistema.aprobarPedido(3L);
+        sistema.aprobarPedido(1L);
     }
 
     @Test
