@@ -1,5 +1,6 @@
 package edu.uade.apd.tpo.model;
 
+import edu.uade.apd.tpo.controller.SistemaAdministracion;
 import edu.uade.apd.tpo.dao.ClienteDao;
 import edu.uade.apd.tpo.exception.BusinessException;
 
@@ -15,6 +16,7 @@ public class Cliente {
     private CuentaCorriente cuentaCorriente;
     private Domicilio domicilio;
     private List<Pedido> pedidos;
+    private String condicionIva;
 
     public Cliente() {
 
@@ -27,6 +29,7 @@ public class Cliente {
         this.password = password;
         this.domicilio = new Domicilio(calle, numero, localidad, provincia, codPostal);
         this.cuentaCorriente = new CuentaCorriente(saldo, credito);
+        this.condicionIva = SistemaAdministracion.getInstance().getCondicionIva();
     }
 
     public void facturar(Pedido pedido) throws BusinessException {
@@ -103,5 +106,13 @@ public class Cliente {
 
     public void setCuit(Long cuit) {
         this.cuit = cuit;
+    }
+
+    public String getCondicionIva() {
+        return condicionIva;
+    }
+
+    public void setCondicionIva(String condicionIva) {
+        this.condicionIva = condicionIva;
     }
 }

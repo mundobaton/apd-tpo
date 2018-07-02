@@ -4,6 +4,7 @@ import edu.uade.apd.tpo.controller.SistemaAdministracion;
 import edu.uade.apd.tpo.entity.ClienteEntity;
 import edu.uade.apd.tpo.exception.BusinessException;
 import edu.uade.apd.tpo.model.Cliente;
+import edu.uade.apd.tpo.model.EstadoPedido;
 import edu.uade.apd.tpo.model.Pedido;
 import edu.uade.apd.tpo.model.Rol;
 import edu.uade.apd.tpo.model.Usuario;
@@ -151,6 +152,7 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
 		}
 	}
 
+
 	@Override
 	public List<ClienteDTO> getClientes() throws RemoteException {
 	   List<Cliente> clientes = controller.getClientes();
@@ -162,6 +164,20 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
 		   return array; 
      	}
 	 return null;
+
+	
+	@Override
+	public List<PedidoDTO> obtenerPedidosPendientes() throws RemoteException{
+		List<Pedido> pedidos = controller.obtenerPedidosPendientes();
+        if (pedidos != null && !pedidos.isEmpty()) {
+            List<PedidoDTO> result = new ArrayList<>();
+            for (Pedido p : pedidos) {
+                result.add(mapper.map(p, PedidoDTO.class));
+            }
+            return result;
+        }
+        return null;
+	
 }
 	
 }

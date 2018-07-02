@@ -64,4 +64,22 @@ public class PedidoDao extends AbstractDao<PedidoEntity> {
         }
     }
 
+    public List<Pedido> findPendientesAprobar() {
+        EstadoPedido[] estados = {EstadoPedido.SALDO_INSUFICIENTE, EstadoPedido.PREAPROBADO};
+        String query = "select p from PedidoEntity p where p.estado in (:estados)";
+        try (Session session = getSession()) {
+            Query<PedidoEntity> q = session.createQuery(query);
+            q.setParameterList("estados", estados);
+            List<PedidoEntity> result = q.getResultList();
+            if (result != null && !result.isEmpty()) {
+                List<Pedido> pedidos = new ArrayList<>();
+                for (PedidoEntity p : result) {
+                    pedidos.add(mapper.map(p, Pedido.class));
+                }
+                return pedidos;
+            }
+            return null;
+        }
+    }
+
 }
