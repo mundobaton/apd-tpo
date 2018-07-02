@@ -85,4 +85,13 @@ public class SistemaFacturacionRemote extends UnicastRemoteObject implements Sis
         }
         return null;
     }
+
+    @Override
+    public FacturaDTO obtenerFacturaPorId(Long facturaId) throws RemoteException {
+        Factura factura = controller.obtenerFactura(facturaId);
+        if (factura != null) {
+            return mapper.map(factura, FacturaDTO.class);
+        }
+        return null;
+    }
 }

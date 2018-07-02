@@ -47,7 +47,7 @@ public class SistemaFacturacion {
         factura.pagar();
     }
 
-    private Factura obtenerFactura(Long facturaId) {
+    public Factura obtenerFactura(Long facturaId) {
         return facturaDao.findById(facturaId);
     }
 
