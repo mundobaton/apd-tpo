@@ -2,8 +2,10 @@ package edu.uade.apd.tpo.remote;
 
 import edu.uade.apd.tpo.controller.SistemaFacturacion;
 import edu.uade.apd.tpo.exception.BusinessException;
+import edu.uade.apd.tpo.model.Factura;
 import edu.uade.apd.tpo.model.Pedido;
 import edu.uade.apd.tpo.repository.SistemaFacturacionRepository;
+import edu.uade.apd.tpo.repository.dto.FacturaDTO;
 import edu.uade.apd.tpo.repository.dto.PedidoDTO;
 import edu.uade.apd.tpo.repository.exception.RemoteBusinessException;
 import org.modelmapper.ModelMapper;
@@ -69,5 +71,18 @@ public class SistemaFacturacionRemote extends UnicastRemoteObject implements Sis
         } catch (BusinessException be) {
             throw new RemoteBusinessException(be.getMessage());
         }
+    }
+
+    @Override
+    public List<FacturaDTO> obtenerFacturas() throws RemoteException {
+        List<Factura> facturas = controller.obtenerFacturas();
+        if (facturas != null && !facturas.isEmpty()) {
+            List<FacturaDTO> result = new ArrayList<>();
+            for (Factura f : facturas) {
+                result.add(mapper.map(f, FacturaDTO.class));
+            }
+            return result;
+        }
+        return null;
     }
 }

@@ -46,7 +46,7 @@ public class FacturaDao extends AbstractDao<FacturaEntity> {
 
     public List<Factura> findByEstado(char estado) {
         String query = "select f from FacturaEntity f where f.estado = :estado order by f.fecha asc";
-        try(Session session = getSession()) {
+        try (Session session = getSession()) {
             Query<FacturaEntity> q = session.createQuery(query);
 
             List<FacturaEntity> result = q.getResultList();
@@ -54,6 +54,22 @@ public class FacturaDao extends AbstractDao<FacturaEntity> {
                 List<Factura> facturas = new ArrayList<>();
                 for (FacturaEntity fe : result) {
                     facturas.add(mapper.map(fe, Factura.class));
+                }
+                return facturas;
+            }
+            return null;
+        }
+    }
+
+    public List<Factura> findAll() {
+        String query = "select f from FacturaEntity f";
+        try (Session session = getSession()) {
+            Query<FacturaEntity> q = session.createQuery(query);
+            List<FacturaEntity> result = q.getResultList();
+            if (result != null && !result.isEmpty()) {
+                List<Factura> facturas = new ArrayList<>();
+                for (FacturaEntity f : result) {
+                    facturas.add(mapper.map(f, Factura.class));
                 }
                 return facturas;
             }

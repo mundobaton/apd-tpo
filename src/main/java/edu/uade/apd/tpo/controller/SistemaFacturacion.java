@@ -72,4 +72,8 @@ public class SistemaFacturacion {
             }
         }
     }
+
+    public List<Factura> obtenerFacturas() {
+        return facturaDao.findAll();
+    }
 }
