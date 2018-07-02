@@ -74,8 +74,8 @@ public class Reposicion {
         this.estado = 'C';
         this.cantidad = cantidad;
         SistemaDeposito.getInstance().almacenar(this);
-        pedido.guardar();
-        pedido.procesar();
         guardar();
+        //pedido.guardar();
+        pedido.procesar();
     }
 }
