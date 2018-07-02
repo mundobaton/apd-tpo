@@ -21,6 +21,7 @@ public class Pedido {
     private Date fechaDespacho;
     private EstadoPedido estado;
     private Float precioBruto;
+    private String transportista;
 
     public Pedido(String calle, int numero, String localidad, String provincia, String codPostal, Cliente cliente) {
         this.domicilio = new Domicilio(calle, numero, localidad, provincia, codPostal);
@@ -133,6 +134,7 @@ public class Pedido {
         }
         estado = EstadoPedido.A_FACTURAR;
         fechaDespacho = calcularFechaDespacho();
+        transportista = SistemaDespacho.getInstance().getTransportista();
         guardar();
     }
 
@@ -208,5 +210,13 @@ public class Pedido {
 
     public void setPrecioBruto(Float precioBruto) {
         this.precioBruto = precioBruto;
+    }
+
+    public String getTransportista() {
+        return transportista;
+    }
+
+    public void setTransportista(String transportista) {
+        this.transportista = transportista;
     }
 }

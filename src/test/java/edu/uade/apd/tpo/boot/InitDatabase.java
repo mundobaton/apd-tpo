@@ -33,7 +33,7 @@ public class InitDatabase {
 
     @Test
     public void initAll() throws BusinessException, InterruptedException {
-        //initUbicaciones();
+        initUbicaciones();
         initArticulos();
         initCliente();
         initUsuario();
@@ -131,7 +131,7 @@ public class InitDatabase {
         SistemaDeposito.getInstance().reponer(2L, 25);
         SistemaDespacho.getInstance().despacharPedido(1L);
         SistemaFacturacion.getInstance().facturar(1L);
-        SistemaFacturacion.getInstance().pagarFactura(1L, 1000f);
+        SistemaFacturacion.getInstance().pagarFactura(1L, 1000f, 1L);
     }
 
 
