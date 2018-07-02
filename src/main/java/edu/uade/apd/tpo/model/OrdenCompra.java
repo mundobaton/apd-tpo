@@ -16,6 +16,7 @@ public class OrdenCompra {
     private char estado;
     private Date fechaCreacion;
     private String proveedor;
+    private Reposicion reposicion;
 
     public OrdenCompra(ItemPedido item, Pedido pedido) {
         this.item = item;
@@ -33,10 +34,9 @@ public class OrdenCompra {
         if (estado != 'P') {
             throw new BusinessException("La orden de compra debe estar en estado PENDIENTE(P)");
         }
-        Reposicion reposicion = new Reposicion(item, pedido);
-        reposicion.guardar();
-
+        this.reposicion = new Reposicion(this);
         this.estado = 'C';
+
         guardar();
     }
 
@@ -90,5 +90,13 @@ public class OrdenCompra {
 
     public void setProveedor(String proveedor) {
         this.proveedor = proveedor;
+    }
+
+    public Reposicion getReposicion() {
+        return reposicion;
+    }
+
+    public void setReposicion(Reposicion reposicion) {
+        this.reposicion = reposicion;
     }
 }

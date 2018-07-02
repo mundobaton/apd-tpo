@@ -7,15 +7,13 @@ import edu.uade.apd.tpo.exception.BusinessException;
 public class Reposicion {
 
     private Long id;
-    private ItemPedido itemPedido;
-    private Pedido pedido;
+    private OrdenCompra ordenCompra;
     private int cantidad;
     private char estado;
 
-    public Reposicion(ItemPedido itemPedido, Pedido pedido) {
-        this.itemPedido = itemPedido;
-        this.pedido = pedido;
-        cantidad = itemPedido.getArticulo().getCantCompra();
+    public Reposicion(OrdenCompra ordenCompra) {
+        this.ordenCompra = ordenCompra;
+        cantidad = ordenCompra.getItem().getArticulo().getCantCompra();
         this.estado = 'P';
     }
 
@@ -29,14 +27,6 @@ public class Reposicion {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public ItemPedido getItemPedido() {
-        return itemPedido;
-    }
-
-    public void setItemPedido(ItemPedido itemPedido) {
-        this.itemPedido = itemPedido;
     }
 
     public int getCantidad() {
@@ -59,12 +49,12 @@ public class Reposicion {
         ReposicionDao.getInstance().save(this);
     }
 
-    public Pedido getPedido() {
-        return pedido;
+    public OrdenCompra getOrdenCompra() {
+        return ordenCompra;
     }
 
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
+    public void setOrdenCompra(OrdenCompra ordenCompra) {
+        this.ordenCompra = ordenCompra;
     }
 
     public void procesar(int cantidad) throws BusinessException {
@@ -75,7 +65,6 @@ public class Reposicion {
         this.cantidad = cantidad;
         SistemaDeposito.getInstance().almacenar(this);
         guardar();
-        //pedido.guardar();
-        pedido.procesar();
+        ordenCompra.getPedido().procesar();
     }
 }

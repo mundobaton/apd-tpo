@@ -20,11 +20,8 @@ public class ReposicionEntity implements Serializable {
     @Column(name = "reposicion_id")
     private Long id;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "item_pedido_id")
-    private ItemPedidoEntity itemPedido;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "pedido_id")
-    private PedidoEntity pedido;
+    @JoinColumn(name = "orden_compra_id")
+    private OrdenCompraEntity ordenCompra;
     @Column(name = "cantidad")
     private int cantidad;
     @Column(name = "estado")
@@ -36,14 +33,6 @@ public class ReposicionEntity implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public ItemPedidoEntity getItemPedido() {
-        return itemPedido;
-    }
-
-    public void setItemPedido(ItemPedidoEntity itemPedido) {
-        this.itemPedido = itemPedido;
     }
 
     public int getCantidad() {
@@ -62,11 +51,11 @@ public class ReposicionEntity implements Serializable {
         this.estado = estado;
     }
 
-    public PedidoEntity getPedido() {
-        return pedido;
+    public OrdenCompraEntity getOrdenCompra() {
+        return ordenCompra;
     }
 
-    public void setPedido(PedidoEntity pedido) {
-        this.pedido = pedido;
+    public void setOrdenCompra(OrdenCompraEntity ordenCompra) {
+        this.ordenCompra = ordenCompra;
     }
 }

@@ -48,7 +48,7 @@ public class SistemaDeposito {
      * @throws BusinessException
      */
     public void almacenar(Reposicion reposicion) throws BusinessException {
-        ItemPedido item = reposicion.getItemPedido();
+        ItemPedido item = reposicion.getOrdenCompra().getItem();
         ItemLote itemLote = obtenerLote();
         item.agregarLote(itemLote);
         List<Ubicacion> ubicacionesDisponibles = this.buscarUbicacionesDisponibles();
