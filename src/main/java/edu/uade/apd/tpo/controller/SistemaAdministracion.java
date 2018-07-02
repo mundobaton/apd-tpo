@@ -163,6 +163,14 @@ public class SistemaAdministracion {
 		return cliente;
 	}
 
+	public Cliente buscarClienteByEmail(String email) throws BusinessException {
+		Cliente cliente = buscarCliente(email);
+		if (cliente == null) {
+			throw new BusinessException("El cliente con email '" + email + "' no existe");
+		}
+		return cliente;
+	}
+
 	private Cliente buscarCliente(Long clienteId) {
 		return clienteDao.findById(clienteId);
 	}

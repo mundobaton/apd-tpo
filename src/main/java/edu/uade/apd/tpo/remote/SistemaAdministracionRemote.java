@@ -180,6 +180,16 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
         return null;
 	
 }
+
+	@Override
+	public ClienteDTO findClienteByEmail(String email) throws RemoteException {
+        try {
+            Cliente cliente = controller.buscarClienteByEmail(email);
+            return mapper.map(cliente, ClienteDTO.class);
+        } catch (BusinessException be) {
+            throw new RemoteBusinessException(be.getMessage());
+        }
+	}
 	
 }
 
