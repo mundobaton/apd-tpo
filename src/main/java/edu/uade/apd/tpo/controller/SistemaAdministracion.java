@@ -108,6 +108,7 @@ public class SistemaAdministracion {
 		}
 		Cliente cliente = pedido.getCliente();
 		cliente.getCuentaCorriente().agregarNota(mensaje, pedido);
+		cliente.guardar();
 		pedido.aprobar();
 	}
 
@@ -118,6 +119,7 @@ public class SistemaAdministracion {
 		}
 		Cliente cliente = pedido.getCliente();
 		cliente.getCuentaCorriente().agregarNota(mensaje, pedido);
+		cliente.guardar();
 		pedido.rechazar();
 	}
 
