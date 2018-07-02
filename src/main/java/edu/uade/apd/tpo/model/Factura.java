@@ -41,6 +41,7 @@ public class Factura {
             throw new BusinessException("Saldo insuficiente para realizar pago");
         }
         cuentaCorriente.setSaldo(cuentaCorriente.getSaldo() - total);
+        pedido.getCliente().guardar();
         this.estado = 'C';
         pedido.guardar();
     }

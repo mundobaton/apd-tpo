@@ -21,10 +21,14 @@ public class InitDatabase {
 
     //private final static char[] CALLES = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
     private final static char[] CALLES = {'A'};
-    private final static int BLOQUES = 5;
-    private final static int ESTANTES = 5;
-    private final static int ESTANTERIAS = 6;
-    private final static int POSICIONES = 21;
+    //private final static int BLOQUES = 5;
+    private final static int BLOQUES = 2;
+    //private final static int ESTANTES = 5;
+    private final static int ESTANTES = 2;
+    //private final static int ESTANTERIAS = 6;
+    private final static int ESTANTERIAS = 2;
+    //private final static int POSICIONES = 21;
+    private final static int POSICIONES = 5;
 
     @Test
     public void initTables() {
