@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.modelmapper.ModelMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteDao extends AbstractDao<ClienteEntity> {
@@ -54,4 +55,21 @@ public class ClienteDao extends AbstractDao<ClienteEntity> {
         ClienteEntity entity = mapper.map(cliente, ClienteEntity.class);
         super.save(entity);
     }
-}
+
+    public List<Cliente> findAll(){
+	      String query = "select c from ClienteEntity c";
+	        try (Session session = getSession()) {
+	            Query<ClienteEntity> q = session.createQuery(query);
+	            List<ClienteEntity> result = q.getResultList();
+	            if(result != null && !result.isEmpty()) {
+	            	List<Cliente> clientes = new ArrayList();
+	            	for(ClienteEntity c : result) {
+	            		clientes.add(mapper.map(c, Cliente.class));
+	            	}
+	            	return clientes;
+	            }
+	            return null;
+	        }
+	   
+ }
+   }

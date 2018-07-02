@@ -175,4 +175,8 @@ public class SistemaAdministracion {
         return pedido;
     }
 
+    
+    public List<Cliente> getClientes() {
+        return clienteDao.findAll();
+    }
 }

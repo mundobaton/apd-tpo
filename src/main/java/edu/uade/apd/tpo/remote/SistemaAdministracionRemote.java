@@ -1,6 +1,7 @@
 package edu.uade.apd.tpo.remote;
 
 import edu.uade.apd.tpo.controller.SistemaAdministracion;
+import edu.uade.apd.tpo.entity.ClienteEntity;
 import edu.uade.apd.tpo.exception.BusinessException;
 import edu.uade.apd.tpo.model.Cliente;
 import edu.uade.apd.tpo.model.Pedido;
@@ -16,6 +17,8 @@ import org.modelmapper.ModelMapper;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SistemaAdministracionRemote extends UnicastRemoteObject implements SistemaAdministracionRepository {
 
@@ -147,4 +150,24 @@ public class SistemaAdministracionRemote extends UnicastRemoteObject implements 
 			throw new RemoteBusinessException(be.getMessage());
 		}
 	}
+
+	@Override
+	public List<ClienteDTO> getClientes() throws RemoteException {
+	   List<Cliente> clientes = controller.getClientes();
+	   if(clientes != null && !clientes.isEmpty()) {
+		   List<ClienteDTO> array = new ArrayList<>();
+		   for (Cliente c : clientes) {
+			   array.add(mapper.map(c, ClienteDTO.class));
+		   }
+		   return array; 
+     	}
+	 return null;
 }
+	
+}
+
+
+		
+
+
+
