@@ -66,6 +66,7 @@ public class SistemaDeposito {
         }
         articulo.setStock(articulo.getStock() + articulo.getCantCompra());
         articulo.agregarItem(itemLote);
+        articulo.guardar();
     }
 
     //Helper para generar lotes

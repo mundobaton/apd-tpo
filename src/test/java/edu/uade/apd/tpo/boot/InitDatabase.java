@@ -118,20 +118,20 @@ public class InitDatabase {
     }
 
 
-
-    private void doFullTest() throws BusinessException, InterruptedException {
-        SistemaAdministracion.getInstance().crearPedido(1L, "Otra direccion", 111, "Cap.Fed", "Buenos Aires", "1406");
-        SistemaAdministracion.getInstance().agregarItemPedido(1L, 1L, 10);
-        SistemaAdministracion.getInstance().agregarItemPedido(1L, 2L, 15);
-        SistemaAdministracion.getInstance().finalizarCargaItems(1L);
-        SistemaAdministracion.getInstance().aprobarPedido(1L, "un mensaje peligroso");
-        SistemaCompras.getInstance().procesarOrdenCompra(1L);
-        SistemaCompras.getInstance().procesarOrdenCompra(2L);
-        SistemaDeposito.getInstance().reponer(1L, 50);
-        SistemaDeposito.getInstance().reponer(2L, 25);
-        SistemaDespacho.getInstance().despacharPedido(1L);
-        SistemaFacturacion.getInstance().facturar(1L);
-        SistemaFacturacion.getInstance().pagarFactura(1L, 1000f, 1L);
+    @Test
+    public void doFullTest() throws BusinessException, InterruptedException {
+        //SistemaAdministracion.getInstance().crearPedido(1L, "Otra direccion", 111, "Cap.Fed", "Buenos Aires", "1406");
+        SistemaAdministracion.getInstance().agregarItemPedido(5L, 1L, 10);
+        SistemaAdministracion.getInstance().agregarItemPedido(5L, 2L, 15);
+        SistemaAdministracion.getInstance().finalizarCargaItems(5L);
+        SistemaAdministracion.getInstance().aprobarPedido(5L, "un mensaje peligroso");
+        SistemaCompras.getInstance().procesarOrdenCompra(10L);
+        SistemaCompras.getInstance().procesarOrdenCompra(11L);
+        SistemaDeposito.getInstance().reponer(10L, 50);
+        SistemaDeposito.getInstance().reponer(11L, 25);
+        SistemaDespacho.getInstance().despacharPedido(5L);
+        SistemaFacturacion.getInstance().facturar(5L);
+        SistemaFacturacion.getInstance().pagarFactura(5L, 1000f, 1L);
     }
 
 
